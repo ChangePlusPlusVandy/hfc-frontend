@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import "./Form.css";
 
+const NUM_PAGES = 5;
+
 const Form = () => {
     const [pageNum, setpageNum] = useState(0);
 
@@ -14,13 +16,18 @@ const Form = () => {
     };
 
     return (
-        <div className="form">
+        <div className="form-container">
             <h1>Form</h1>
-            
-            <button onClick={handlePageDecrement}>Previous</button>
-
-            <span>{pageNum}</span>
-            <button onClick={handlePageIncrement}>Next</button>
+            <h4>Page Number: {pageNum}</h4>
+            <div>PAGE CONTENT</div>
+            <div className="button-container">
+                { pageNum > 0 && 
+                    <button onClick={handlePageDecrement}>Previous</button>
+                }
+                { pageNum < NUM_PAGES - 1 &&
+                    <button onClick={handlePageIncrement}>Next</button>
+                }
+            </div>
         </div>
     );
 };
