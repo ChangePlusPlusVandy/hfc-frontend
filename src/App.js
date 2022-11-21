@@ -5,12 +5,8 @@ import React from "react";
 import "./App.css";
 
 // The main React App component
-const App = () =>{
-    return (
-        <h1>
-            boo! 👻
-        </h1>
-    );
+const App = () => {
+    return <h1>boo! 👻</h1>;
 };
 
 export default App;
