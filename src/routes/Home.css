@@ -1,0 +1,9 @@
+a {
+    padding-inline: 1rem;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
