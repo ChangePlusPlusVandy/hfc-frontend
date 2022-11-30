@@ -35,7 +35,7 @@ module.exports = {
         /** "port"
          * port of dev server
          */
-        port: "8080",
+        port: 8080,
         /** "static"
          * This property tells Webpack what static file it should serve
          */
@@ -54,6 +54,7 @@ module.exports = {
          * disable live reload on the browser. "hot" must be set to false for this to work
          */
         liveReload: true,
+        historyApiFallback: true,
     },
     resolve: {
         /** "extensions"
