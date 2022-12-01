@@ -7,13 +7,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 // React Components
-import Home from "./src/routes/Home";
+import Home from "./src/routes/home/Home";
 
 // Router from React Router
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />,
+    },
+    {
+        path: "/users",
+        element: <div>INSERT USERS COMPONENT HERE</div>,
     },
     {
         path: "/beneficiaries",
