@@ -8,6 +8,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import Beneficiary from "./src/routes/beneficiary/Beneficiary";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <div>INSERT BENEFICIARIES COMPONENT HERE</div>,
+        element: <Beneficiary/>,
     },
     {
         path: "/programs",
