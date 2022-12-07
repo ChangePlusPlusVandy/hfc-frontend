@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import {Referrals} from "./Referrals.js"
+import {referrals} from "./Referrals.js"
 import "./Form.css";
 
 
@@ -22,7 +22,7 @@ const Page3 = () =>{
                         Referred by Partner Organization
                         <br />
                         <Select
-                            options={Referrals}
+                            options={referrals}
                             placeholder="Select Referrals"
                             value={selectedReferrals}
                             onChange={handleReferralSelect}

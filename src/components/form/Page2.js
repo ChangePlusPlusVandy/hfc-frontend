@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select"; // For Dropdown Menu Functionality 
-import {Reasons} from "./Reasons.js"  // Render an exported array, not fetching from any endpoint 
+import {reasons} from "./Reasons.js"  // Render an exported array, not fetching from any endpoint 
 import "./Form.css";
 
 const Page2 = () =>{
@@ -27,8 +27,8 @@ const Page2 = () =>{
     }, []);
 
 
-    const Registrations = [];
-    programs.forEach(program=> Registrations.push({value: program.name, label: program.name})
+    const programOptions = [];
+    programs.forEach(program=> programOptions.push({value: program.name, label: program.name})
     );
 
 
@@ -54,7 +54,7 @@ const Page2 = () =>{
                         Reason for visit
                         <br />
                         <Select
-                            options={Reasons}
+                            options={reasons}
                             placeholder="Select reasons"
                             value={selectedReasons}
                             onChange={handleReasonSelect}
@@ -70,7 +70,7 @@ const Page2 = () =>{
                         Registrations
                         <br />
                         <Select
-                            options={Registrations}
+                            options={programOptions}
                             placeholder="Select registrations"
                             value={selectedPrograms}
                             onChange={handleProgramSelect}
