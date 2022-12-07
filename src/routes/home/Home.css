@@ -7,3 +7,17 @@ a {
     flex-direction: column;
     align-items: center;
 }
+
+.home .button {
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    text-decoration: none;
+    color: white;
+}
+
+.home .button:hover {
+    background-color: white;
+    color: black;
+}
