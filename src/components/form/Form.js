@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Form.css";
 import Page2 from "./Page2"; 
 import Page3 from "./Page3";
@@ -16,6 +16,29 @@ const Form = () => {
         setpageNum((prev) => prev + 1);
     };
 
+
+        // Displays what Reasons were selected
+        const [selectedReasons, setSelectedReasons] = useState();
+  
+    
+        // Displays what Programs were selected 
+        const [selectedPrograms, setSelectedPrograms] = useState(); 
+     
+    
+        // Save and render programs collection data as state 
+        const [programs, setPrograms] = useState([{}]);
+        useEffect(() => {
+            const endpoint = "http://localhost:3000/programs"; // edit to programs 
+            fetch(endpoint)
+                .then((res)=>res.json())
+                .then((data)=> setPrograms(data));
+        }, []);
+    
+        // Display what Referal Orgs were Selected 
+        const [selectedReferrals, setSelectedReferrals] = useState(); 
+        
+
+
     return (
         <div className="form-container">
             <h1>Form</h1>
@@ -30,12 +53,19 @@ const Form = () => {
                 }
 
                 <div>
-                    <Page2 />
+                    <Page2 
+                        formSelectedReasons={selectedReasons} setFormSelectedReasons={setSelectedReasons}
+                        formSelectedPrograms={selectedPrograms} setFormSelectedPrograms={setSelectedPrograms}
+                        formPrograms={programs} setFormPrograms = {setPrograms}
+                    />
                 </div>
 
-                {/* <div>
-                    <Page3 />
-                </div> */}
+                <div>
+                    <Page3 
+                        formSelectedReferrals={selectedReferrals}
+                        setFormSelectedReferrals={setSelectedReferrals}
+                    />
+                </div>
             </div>
         </div>
     );

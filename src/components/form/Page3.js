@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { } from "react";
 import Select from "react-select";
 import {referrals} from "./Referrals.js"
 import "./Form.css";
 
 
-const Page3 = () =>{
+const Page3 = ({formSelectedReferrals, setFormSelectedReferrals}) =>{
 
-    // Display what Referal Orgs were Selected 
-    const [selectedReferrals, setSelectedReferrals] = useState(); 
+
     const handleReferralSelect = (data) =>{
-        setSelectedReferrals(data); 
+        setFormSelectedReferrals(data); 
     }
 
 
@@ -24,7 +23,7 @@ const Page3 = () =>{
                         <Select
                             options={referrals}
                             placeholder="Select Referrals"
-                            value={selectedReferrals}
+                            value={formSelectedReferrals}
                             onChange={handleReferralSelect}
                             isSearchable={true}
                             isMulti

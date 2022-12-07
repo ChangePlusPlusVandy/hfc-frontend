@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { } from "react";
 import Select from "react-select"; // For Dropdown Menu Functionality 
 import {reasons} from "./Reasons.js"  // Render an exported array, not fetching from any endpoint 
 import "./Form.css";
 
-const Page2 = () =>{
-
-    // Displays what Reasons were selected
-    const [selectedReasons, setSelectedReasons] = useState();
-    const handleReasonSelect = (data) =>{
-        setSelectedReasons(data);
-    };
-
-    // Displays what Programs were selected 
-    const [selectedPrograms, setSelectedPrograms] = useState(); 
-    const handleProgramSelect = (data) =>{
-        setSelectedPrograms(data); 
-    }
-
-    // Save and render programs collection data as state 
-    const [programs, setPrograms] = useState([{}]);
-    useEffect(() => {
-        const endpoint = "http://localhost:3000/programs"; // edit to programs 
-        fetch(endpoint)
-            .then((res)=>res.json())
-            .then((data)=> setPrograms(data));
-    }, []);
-
-
-    const programOptions = [];
-    programs.forEach(program=> programOptions.push({value: program.name, label: program.name})
-    );
+const Page2 = ({formSelectedPrograms, formSelectedReasons, setFormSelectedPrograms, setFormSelectedReasons, formPrograms, setFormPrograms}) =>{
 
 
     // TODO consider adding an option where you can create new options when typing out Reasons isntead of relying on hard-coded ones 
+
+    const programOptions = [];
+        formPrograms.forEach(program=> programOptions.push({value: program.name, label: program.name})
+        );
+
+    const handleReasonSelect = (data) =>{
+        setFormSelectedReasons(data);
+    };
+
+    const handleProgramSelect = (data) =>{
+        setFormSelectedPrograms(data); 
+    };
 
     return (
         <div className="Page2">
@@ -56,7 +42,7 @@ const Page2 = () =>{
                         <Select
                             options={reasons}
                             placeholder="Select reasons"
-                            value={selectedReasons}
+                            value={formSelectedReasons}
                             onChange={handleReasonSelect}
                             isSearchable={true}
                             isMulti
@@ -72,7 +58,7 @@ const Page2 = () =>{
                         <Select
                             options={programOptions}
                             placeholder="Select registrations"
-                            value={selectedPrograms}
+                            value={formSelectedPrograms}
                             onChange={handleProgramSelect}
                             isSearchable={true}
                             isMulti
