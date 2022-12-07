@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./Form.css";
 
 import ProgressBar from "./ProgressBar";
+import Page1 from "./Page1";
 import Page0 from "./Page0";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
@@ -10,7 +11,7 @@ import Page3 from "./Page3";
 const NUM_PAGES = 5;
 
 const Form = () => {
-    const [pageNum, setpageNum] = useState(0); // this is our state
+    const [pageNum, setpageNum] = useState(0);
 
     // Form Data (Page 0)
     const [firstName, setFirstName] = useState("");
@@ -28,6 +29,10 @@ const Form = () => {
     const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
     const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
     const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
+
+    const [languages, setLanguages] = useState();
+    const [nationalities, setNationalites] = useState();
+    const [education, setEducation] = useState();
 
     const handlePageDecrement = () => {
         setpageNum((prev) => prev - 1);
@@ -84,6 +89,14 @@ const Form = () => {
                 setFormAge={setAge}
                 formBirthDate={birthDate}
                 setFormBirthDate={setBirthDate}
+            />
+            <Page1
+                formLanguages={languages}
+                setFormLanguages={setLanguages}
+                formNationalities={nationalities}
+                setFormNationalities={setNationalites}
+                formEducation={education}
+                setFormEducation={setEducation}
             />
             <Page2
                 formSelectedReasons={selectedReasons}
