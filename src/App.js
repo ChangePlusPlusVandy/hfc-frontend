@@ -2,14 +2,17 @@
 import React from "react";
 
 // Styles
-import "./App.css";
+import "../index.css";
+
+// Components
+import Form from "./components/form/Form";
 
 // Components
 import Form from "./components/form/Form";
 
 // The main React App component
 const App = () => {
-        return <Form/>
+    return <Form />;
 };
 
 export default App;

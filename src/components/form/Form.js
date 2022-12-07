@@ -4,11 +4,9 @@ import "./Form.css";
 import Page0 from './Page0';
 import ProgressBar from "./ProgressBar";
 
-
 const NUM_PAGES = 5;
 
 const Form = () => {
-    
     const [pageNum, setpageNum] = useState(0);
 
     const [firstName, setFirstName] = useState('');
@@ -21,8 +19,6 @@ const Form = () => {
     const [zipcode, setZipcode] = useState('');
     const [age, setAge] = useState('');
     const [birthDate, setBirthDate] = useState(new Date());
-
-
     const handlePageDecrement = () => {
         setpageNum((prev) => prev - 1);
     };
@@ -30,7 +26,6 @@ const Form = () => {
     const handlePageIncrement = () => {
         setpageNum((prev) => prev + 1);
     };
-
 
     return (
         <div className="form-container">
@@ -48,7 +43,6 @@ const Form = () => {
                     <button onClick={handlePageIncrement}>Next</button>
                 }
             </div>
-
             <div>
                 {(() => {
                     if (pageNum === 0) {
@@ -67,7 +61,6 @@ const Form = () => {
                     } 
                 })()}
             </div>
-        
         </div>
     );
 };
