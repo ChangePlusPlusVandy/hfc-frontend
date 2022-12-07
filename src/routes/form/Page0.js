@@ -1,49 +1,66 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./Page0.css";
 
-const Page0 = ({formFirstName, setFormFirstName, formLastName, setFormLastName, 
-    formPhoneNumber, setFormPhoneNumber, formEmail, setFormEmail, formAddress, setFormAddress,
-    formCity, setFormCity, formState, setFormState, formZipcode, setFormZipcode, 
-    formAge, setFormAge, formBirthDate, setFormBirthDate}) => {
-
+const Page0 = ({
+    formFirstName,
+    setFormFirstName,
+    formLastName,
+    setFormLastName,
+    formPhoneNumber,
+    setFormPhoneNumber,
+    formEmail,
+    setFormEmail,
+    formAddress,
+    setFormAddress,
+    formCity,
+    setFormCity,
+    formState,
+    setFormState,
+    formZipcode,
+    setFormZipcode,
+    formAge,
+    setFormAge,
+    formBirthDate,
+    setFormBirthDate,
+}) => {
     const handleChangeFirstName = (event) => {
-        setFormFirstName(event.target.value); 
-    }
+        setFormFirstName(event.target.value);
+    };
 
     const handleChangeLastName = (event) => {
         setFormLastName(event.target.value);
-    }
+    };
 
     const handleChangePhoneNumber = (event) => {
         setFormPhoneNumber(event.target.value);
-    }
+    };
 
     const handleChangeEmail = (event) => {
         setFormEmail(event.target.value);
-    }
+    };
 
     const handleChangeAddress = (event) => {
         setFormAddress(event.target.value);
-    }
+    };
 
-    const handleChangeCity= (event) => {
+    const handleChangeCity = (event) => {
         setFormCity(event.target.value);
-    }
+    };
 
     const handleChangeState = (event) => {
         setFormState(event.target.value);
-    }
+    };
 
     const handleChangeZipcode = (event) => {
         setFormZipcode(event.target.value);
-    }
+    };
 
-    // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date 
+    // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date
     const handleChangeBirthDate = (event) => {
         setFormBirthDate(new Date(event.target.value));
-    }
-    
+    };
+
     /*
     must write a function that calulates age from birthdate but it is not working
 
@@ -61,43 +78,84 @@ const Page0 = ({formFirstName, setFormFirstName, formLastName, setFormLastName,
         setFormAge(yearDiff);
     }
     */
-    
+
     return (
         <div className="form-container">
-            
-            
             <h3> Basic Info: Fill In</h3>
             <p> Please Upload a Profile Photo of the User </p>
-            <input type="image" id="profile-photo"/>
+            <input type="image" id="profile-photo" />
             <br></br>
 
             <br></br>
             <p> Basic Information </p>
-            <input type="text" id="first-name" onChange = {handleChangeFirstName} placeholder="First Name"/>
-            <input type="text" id="last-name" onChange = {handleChangeLastName} placeholder="Last Name"/>
+            <input
+                type="text"
+                id="first-name"
+                onChange={handleChangeFirstName}
+                placeholder="First Name"
+            />
+            <input
+                type="text"
+                id="last-name"
+                onChange={handleChangeLastName}
+                placeholder="Last Name"
+            />
             <br></br>
-            <input type="date" id="birthdate" onChange = {handleChangeBirthDate} />
+            <input
+                type="date"
+                id="birthdate"
+                onChange={handleChangeBirthDate}
+            />
             <p> Age: {formAge} </p>
             <br></br>
 
             <p>Contact Information</p>
-            <input type="number" onChange = {handleChangePhoneNumber} id="phone-number" placeholder="Phone Number (XXXXXXXXX)"/>
-            <input type="email" onChange = {handleChangeEmail} id="email-address" placeholder="Email Address"/>
+            <input
+                type="number"
+                onChange={handleChangePhoneNumber}
+                id="phone-number"
+                placeholder="Phone Number (XXXXXXXXX)"
+            />
+            <input
+                type="email"
+                onChange={handleChangeEmail}
+                id="email-address"
+                placeholder="Email Address"
+            />
             <br></br>
 
             <br></br>
             <p>Address</p>
-            <input type="text" onChange = {handleChangeAddress} id="address" placeholder="Street Address"/>
+            <input
+                type="text"
+                onChange={handleChangeAddress}
+                id="address"
+                placeholder="Street Address"
+            />
             <br></br>
-            <input type="text" onChange = {handleChangeCity} id="city" placeholder="City"/>
-            <input type="text" onChange = {handleChangeState} id="state" placeholder="State"/>
+            <input
+                type="text"
+                onChange={handleChangeCity}
+                id="city"
+                placeholder="City"
+            />
+            <input
+                type="text"
+                onChange={handleChangeState}
+                id="state"
+                placeholder="State"
+            />
             <br></br>
-            <input type="number" onChange = {handleChangeZipcode} id="zip-code" placeholder="Zip Code"/>
+            <input
+                type="number"
+                onChange={handleChangeZipcode}
+                id="zip-code"
+                placeholder="Zip Code"
+            />
 
             <br></br>
             <br></br>
             <button> Arrow To Next Page </button>
-
         </div>
     );
 };
