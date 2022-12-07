@@ -15,6 +15,7 @@ const Home = () => {
                 <Link className="button" to="/programs">Programs</Link>
                 <Link className="button" to="/workshops">Workshops</Link>
                 <Link className="button" to="/assessment">Assessment</Link>
+                <Link className="button" to="/form">Form</Link>
             </div>
         </div>
     );

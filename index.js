@@ -8,6 +8,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import Form from "./src/routes/form/Form";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     {
         path: "/assessment",
         element: <div>INSERT ASSESSMENT COMPONENT HERE</div>,
+    },
+    {
+        path: "/form",
+        element: <Form />,
     },
 ]);
 
