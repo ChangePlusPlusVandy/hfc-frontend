@@ -1,36 +1,46 @@
-import React, { } from "react";
-import Select from "react-select"; // For Dropdown Menu Functionality 
-import {reasons} from "./Reasons.js"  // Render an exported array, not fetching from any endpoint 
+import React from "react";
+import Select from "react-select"; // For Dropdown Menu Functionality
+
 import "./Form.css";
 
-const Page2 = ({formSelectedPrograms, formSelectedReasons, setFormSelectedPrograms, setFormSelectedReasons, formPrograms, setFormPrograms}) =>{
+// Render an exported array, not fetching from any endpoint
+const reasons = [
+    { value: "reason1", label: "Reason 1" },
+    { value: "reason2", label: "Reason 2" },
+    { value: "reason3", label: "Reason 3" },
+];
 
-
-    // TODO consider adding an option where you can create new options when typing out Reasons isntead of relying on hard-coded ones 
+const Page2 = ({
+    formSelectedPrograms,
+    formSelectedReasons,
+    setFormSelectedPrograms,
+    setFormSelectedReasons,
+    formPrograms,
+    setFormPrograms,
+}) => {
+    // TODO consider adding an option where you can create new options when typing out Reasons isntead of relying on hard-coded ones
 
     const programOptions = [];
-        formPrograms.forEach(program=> programOptions.push({value: program.name, label: program.name})
-        );
+    formPrograms.forEach((program) =>
+        programOptions.push({ value: program.name, label: program.name })
+    );
 
-    const handleReasonSelect = (data) =>{
+    const handleReasonSelect = (data) => {
         setFormSelectedReasons(data);
     };
 
-    const handleProgramSelect = (data) =>{
-        setFormSelectedPrograms(data); 
+    const handleProgramSelect = (data) => {
+        setFormSelectedPrograms(data);
     };
 
     return (
         <div className="Page2">
-        <h1> Basic info: Check and Fill</h1>
-            <form> 
+            <h1> Basic info: Check and Fill</h1>
+            <form>
                 <label>
                     First date of visit
                     <br />
-                    <input
-                        name="joinDate"
-                        type="date"
-                    />
+                    <input name="joinDate" type="date" />
                 </label>
 
                 <br />
@@ -50,7 +60,6 @@ const Page2 = ({formSelectedPrograms, formSelectedReasons, setFormSelectedProgra
                     </label>
                 </div>
 
-
                 <div className="dropdown-container">
                     <label>
                         Registrations
@@ -62,21 +71,18 @@ const Page2 = ({formSelectedPrograms, formSelectedReasons, setFormSelectedProgra
                             onChange={handleProgramSelect}
                             isSearchable={true}
                             isMulti
-                        />   
+                        />
                     </label>
                 </div>
 
                 <label>
-                        Other interests or needs 
-                        <br />
-                        <textarea rows="5" cols="80"></textarea>
+                    Other interests or needs
+                    <br />
+                    <textarea rows="5" cols="80"></textarea>
                 </label>
-
             </form>
-        
         </div>
     );
 };
 
 export default Page2;
-

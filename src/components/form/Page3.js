@@ -1,20 +1,22 @@
-import React, { } from "react";
+import React from "react";
 import Select from "react-select";
-import {referrals} from "./Referrals.js"
+
 import "./Form.css";
 
+const referrals = [
+    { value: "reason1", label: "Reason 1" },
+    { value: "reason2", label: "Reason 2" },
+    { value: "reason3", label: "Reason 3" },
+];
 
-const Page3 = ({formSelectedReferrals, setFormSelectedReferrals}) =>{
+const Page3 = ({ formSelectedReferrals, setFormSelectedReferrals }) => {
+    const handleReferralSelect = (data) => {
+        setFormSelectedReferrals(data);
+    };
 
-
-    const handleReferralSelect = (data) =>{
-        setFormSelectedReferrals(data); 
-    }
-
-
-    return(
+    return (
         <div className="Page3">
-        <h1> Basic info: Other </h1>
+            <h1> Basic info: Other </h1>
             <form>
                 <div className="dropdown-container">
                     <label>
@@ -28,7 +30,7 @@ const Page3 = ({formSelectedReferrals, setFormSelectedReferrals}) =>{
                             isSearchable={true}
                             isMulti
                         />
-                     </label>
+                    </label>
                 </div>
                 <br />
                 <label>
@@ -38,15 +40,13 @@ const Page3 = ({formSelectedReferrals, setFormSelectedReferrals}) =>{
                 </label>
                 <br />
                 <label>
-                    Staff notes 
+                    Staff notes
                     <br />
                     <textarea rows="5" cols="80"></textarea>
                 </label>
-
             </form>
-        
         </div>
-    ); 
-}; 
+    );
+};
 
-export default Page3; 
+export default Page3;
