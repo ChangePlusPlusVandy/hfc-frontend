@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./Form.css";
+import Page1 from "./Page1"
 
 const NUM_PAGES = 5;
 
@@ -20,6 +21,7 @@ const Form = () => {
             <h1>Form</h1>
             <h4>Page Number: {pageNum}</h4>
             <div>PAGE CONTENT</div>
+            <Page1/>
             <div className="button-container">
                 { pageNum > 0 && 
                     <button onClick={handlePageDecrement}>Previous</button>
