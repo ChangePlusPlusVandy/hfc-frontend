@@ -41,7 +41,7 @@ const Form = () => {
                         formNationalities={nationalities} setFormNationalities={setNationalites}
                         formEducation={education} setFormEducation={setEducation}
                         />
-                    }})()}
+                    }})}
             </div>
         </div>
     );

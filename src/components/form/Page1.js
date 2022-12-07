@@ -57,7 +57,7 @@ const Page1 = ({formLanguages, setFormLanguages,
                     value={formEducation}
                     onChange={handleEducationSelect}
                     name="education"
-                    className="creatable-multi-select"
+                    className="single-select"
                     classNamePrefix="select"
                     />
                 </label>
