@@ -7,9 +7,10 @@ import "../index.css";
 // Components
 import Form from "./components/form/Form";
 
+
 // The main React App component
 const App = () => {
-    return <Form />;
+    return <Form />; // change to form
 };
 
 export default App;
