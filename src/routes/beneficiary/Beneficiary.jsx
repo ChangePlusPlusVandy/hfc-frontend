@@ -6,33 +6,34 @@ import './Beneficiary.css';
 const Beneficiary = () => {
 
     const [beneficiary, setBeneficiary] = useState([]);
+
+    const deleteBeneficiary = async (item) => {
+      
+    } 
+
     useEffect(() => {
       const getBeneficiaries = async () => {
         try {
           let data = await fetch('http://localhost:3000/beneficiary');
           data = await data.json();
-          setBeneficiary([data]);
+          setBeneficiary(data);
           console.log(data);
           console.log(beneficiary);
-          return [data];
         } catch (error) {
           console.error(error);
         }
-       
-
-
       }
       // eventualy we should only call this if user has correct auth/permissions
       getBeneficiaries();
-      
-      
     },[])
 
   return (
+
     <div>
-        {beneficiary.map((item) => {
-            <h1>Beneficiary: {item._id}</h1>
-        })}
+        <h1>Click a benefiicary to delete it from the database!</h1>
+        {beneficiary.map((item,i) => (
+            <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>Beneficiary: {item._id}</h2>
+        ))}
     </div>
   )
 }
