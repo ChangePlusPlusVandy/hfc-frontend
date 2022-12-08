@@ -3,12 +3,12 @@ import './Programs.css';
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
     const [newProgram, setNewProgram] = useState({
-        title: "aa",
+        title: "",
         hosts: "",
         description: ""
     });
 
-    useEffect(async => {
+    useEffect(() => {
         getPrograms();
     }, [])
 
@@ -42,7 +42,6 @@ const Programs = () => {
         } catch (err) {
             console.log(err);
         }
-
         getPrograms();
     }
 
