@@ -1,0 +1,12 @@
+.programsListContainer {
+    display: flex;
+}
+
+.programCard {
+    width: 100%;
+    margin: 10px;
+}
+
+.programCard>h5 {
+    margin: 3px;
+}

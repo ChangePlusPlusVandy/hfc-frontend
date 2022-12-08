@@ -8,6 +8,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import Programs from "./src/routes/Programs/Programs";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/programs",
-        element: <div>INSERT PROGRAMS COMPONENT HERE</div>,
+        element: <Programs />,
     },
     {
         path: "/workshops",
