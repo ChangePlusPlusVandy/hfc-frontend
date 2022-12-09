@@ -1,8 +1,6 @@
 name: Format code with Prettier
 on:
     push:
-        branches:
-            - main
     pull_request:
         branches:
             - main
@@ -16,3 +14,6 @@ jobs:
               run: npm ci
             - name: Run formatter
               run: npm run format
+            - uses: stefanzweifel/git-auto-commit-action@v4.16.0
+              with:
+                commit_message: Apply Prettier formatting
