@@ -6,9 +6,14 @@ import './Beneficiaries.css';
 const Beneficiaries = () => {
 
     const [beneficiary, setBeneficiary] = useState([]);
+    const [delquery, setDelquery] = useState('');
 
-    const deleteBeneficiary = async (item) => {
-      
+    const deleteBeneficiary = async () => {
+      try {
+        await fetch(`http://localhost:3000/beneficiary/?beneficiaryID=${delquery}`,{method: 'DELETE'});
+      } catch (error) {
+        console.error(error);
+      }
     } 
 
     useEffect(() => {
@@ -30,9 +35,13 @@ const Beneficiaries = () => {
   return (
 
     <div>
-        <h1>Click a benefiicary to delete it from the database!</h1>
+        <form onSubmit={() => deleteBeneficiary()}>
+          <input onChange={e => setDelquery(e.target.value)} value={delquery} className='del-form' type='text' placeholder='Enter ID to delete'/>
+          <input type='submit' value='Delete'/>
+        </form>
+        <h1>Beneficiaries Below: </h1>
         {beneficiary.map((item,i) => (
-            <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>Beneficiary: {item._id}</h2>
+            <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>Beneficiary: {item.id}</h2>
         ))}
     </div>
   )
