@@ -8,7 +8,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import Beneficiary from "./src/routes/beneficiary/Beneficiary";
+import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <Beneficiary/>,
+        element: <Beneficiaries/>,
     },
     {
         path: "/programs",

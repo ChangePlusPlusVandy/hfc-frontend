@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from 'react'
 
 
-import './Beneficiary.css';
+import './Beneficiaries.css';
 
-const Beneficiary = () => {
+const Beneficiaries = () => {
 
     const [beneficiary, setBeneficiary] = useState([]);
 
@@ -38,4 +38,4 @@ const Beneficiary = () => {
   )
 }
 
-export default Beneficiary
+export default Beneficiaries
