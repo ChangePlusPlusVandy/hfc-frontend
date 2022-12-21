@@ -95,21 +95,21 @@ const Page0 = ({
                 id="first-name"
                 onChange={handleChangeFirstName}
                 placeholder="First Name"
-                value = {formFirstName}
+                value={formFirstName}
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
                 placeholder="Last Name"
-                value = {formLastName}
+                value={formLastName}
             />
             <br></br>
             <input
                 type="date"
                 id="birthdate"
                 onChange={handleChangeBirthDate}
-                value = {formBirthDate}
+                value={formBirthDate}
             />
             <p> Age: {formAge} </p>
             <br></br>
@@ -120,14 +120,14 @@ const Page0 = ({
                 onChange={handleChangePhoneNumber}
                 id="phone-number"
                 placeholder="Phone Number (XXXXXXXXX)"
-                value = {formPhoneNumber}
+                value={formPhoneNumber}
             />
             <input
                 type="email"
                 onChange={handleChangeEmail}
                 id="email-address"
                 placeholder="Email Address"
-                value = {formEmail}
+                value={formEmail}
             />
             <br></br>
 
@@ -138,7 +138,7 @@ const Page0 = ({
                 onChange={handleChangeAddress}
                 id="address"
                 placeholder="Street Address"
-                value = {formAddress}
+                value={formAddress}
             />
             <br></br>
             <input
@@ -146,14 +146,14 @@ const Page0 = ({
                 onChange={handleChangeCity}
                 id="city"
                 placeholder="City"
-                value = {formCity}
+                value={formCity}
             />
             <input
                 type="text"
                 onChange={handleChangeState}
                 id="state"
                 placeholder="State"
-                value = {formState}
+                value={formState}
             />
             <br></br>
             <input
@@ -161,9 +161,8 @@ const Page0 = ({
                 onChange={handleChangeZipcode}
                 id="zip-code"
                 placeholder="Zip Code"
-                value = {formZipcode}
+                value={formZipcode}
             />
-
         </div>
     );
 };

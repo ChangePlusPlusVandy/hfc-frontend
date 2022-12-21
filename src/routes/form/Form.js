@@ -69,71 +69,80 @@ const Form = () => {
                 )}
             </div>
             <div>
-            
-            {(() => {
-            switch (pageNum) {
-                case 0:
-                    return <Page0
-                        formFirstName={firstName}
-                        setFormFirstName={setFirstName}
-                        formLastName={lastName}
-                        setFormLastName={setLastName}
-                        formPhoneNumber={phoneNumber}
-                        setFormPhoneNumber={setPhoneNumber}
-                        formEmail={email}
-                        setFormEmail={setEmail}
-                        formAddress={address}
-                        setFormAddress={setAddress}
-                        formCity={city}
-                        setFormCity={setCity}
-                        formState={state}
-                        setFormState={setState}
-                        formZipcode={zipcode}
-                        setFormZipcode={setZipcode}
-                        formAge={age}
-                        setFormAge={setAge}
-                        formBirthDate={birthDate}
-                        setFormBirthDate={setBirthDate}
-                    />
-                case 1:
-                    return <Page1
-                        formLanguages={languages}
-                        setFormLanguages={setLanguages}
-                        formNationalities={nationalities}
-                        setFormNationalities={setNationalites}
-                        formEducation={education}
-                        setFormEducation={setEducation}
-                    />
-                case 2:
-                    return <Page2
-                        formSelectedReasons={selectedReasons}
-                        setFormSelectedReasons={setSelectedReasons}
-                        formSelectedPrograms={selectedPrograms}
-                        setFormSelectedPrograms={setSelectedPrograms}
-                        formPrograms={programs}
-                        setFormPrograms={setPrograms}
-                    />
-                case 3:
-                    return <Page3
-                        formSelectedReferrals={selectedReferrals}
-                        setFormSelectedReferrals={setSelectedReferrals}
-                    />
+                {(() => {
+                    switch (pageNum) {
+                        case 0:
+                            return (
+                                <Page0
+                                    formFirstName={firstName}
+                                    setFormFirstName={setFirstName}
+                                    formLastName={lastName}
+                                    setFormLastName={setLastName}
+                                    formPhoneNumber={phoneNumber}
+                                    setFormPhoneNumber={setPhoneNumber}
+                                    formEmail={email}
+                                    setFormEmail={setEmail}
+                                    formAddress={address}
+                                    setFormAddress={setAddress}
+                                    formCity={city}
+                                    setFormCity={setCity}
+                                    formState={state}
+                                    setFormState={setState}
+                                    formZipcode={zipcode}
+                                    setFormZipcode={setZipcode}
+                                    formAge={age}
+                                    setFormAge={setAge}
+                                    formBirthDate={birthDate}
+                                    setFormBirthDate={setBirthDate}
+                                />
+                            );
+                        case 1:
+                            return (
+                                <Page1
+                                    formLanguages={languages}
+                                    setFormLanguages={setLanguages}
+                                    formNationalities={nationalities}
+                                    setFormNationalities={setNationalites}
+                                    formEducation={education}
+                                    setFormEducation={setEducation}
+                                />
+                            );
+                        case 2:
+                            return (
+                                <Page2
+                                    formSelectedReasons={selectedReasons}
+                                    setFormSelectedReasons={setSelectedReasons}
+                                    formSelectedPrograms={selectedPrograms}
+                                    setFormSelectedPrograms={
+                                        setSelectedPrograms
+                                    }
+                                    formPrograms={programs}
+                                    setFormPrograms={setPrograms}
+                                />
+                            );
+                        case 3:
+                            return (
+                                <Page3
+                                    formSelectedReferrals={selectedReferrals}
+                                    setFormSelectedReferrals={
+                                        setSelectedReferrals
+                                    }
+                                />
+                            );
 
-                {/* 
+                            {
+                                /* 
                 case 4: 
                     return <Page4/>
-                */}
-                default:
-                    return <Page0/> // this is a placeholder until Page4 is ready
-            }
-            })()}
-
+                */
+                            }
+                        default:
+                            return <Page0 />; // this is a placeholder until Page4 is ready
+                    }
+                })()}
             </div>
         </div>
-        
     );
 };
 
 export default Form;
-
-
