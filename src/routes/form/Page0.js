@@ -83,6 +83,8 @@ const Page0 = ({
         <div className="form-container">
             <h3> Basic Info: Fill In</h3>
             <p> Please Upload a Profile Photo of the User </p>
+
+            {/* must find out how to support this image type and how to best store it */}
             <input type="image" id="profile-photo" />
             <br></br>
 
@@ -93,18 +95,21 @@ const Page0 = ({
                 id="first-name"
                 onChange={handleChangeFirstName}
                 placeholder="First Name"
+                value = {formFirstName}
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
                 placeholder="Last Name"
+                value = {formLastName}
             />
             <br></br>
             <input
                 type="date"
                 id="birthdate"
                 onChange={handleChangeBirthDate}
+                value = {formBirthDate}
             />
             <p> Age: {formAge} </p>
             <br></br>
@@ -115,12 +120,14 @@ const Page0 = ({
                 onChange={handleChangePhoneNumber}
                 id="phone-number"
                 placeholder="Phone Number (XXXXXXXXX)"
+                value = {formPhoneNumber}
             />
             <input
                 type="email"
                 onChange={handleChangeEmail}
                 id="email-address"
                 placeholder="Email Address"
+                value = {formEmail}
             />
             <br></br>
 
@@ -131,6 +138,7 @@ const Page0 = ({
                 onChange={handleChangeAddress}
                 id="address"
                 placeholder="Street Address"
+                value = {formAddress}
             />
             <br></br>
             <input
@@ -138,12 +146,14 @@ const Page0 = ({
                 onChange={handleChangeCity}
                 id="city"
                 placeholder="City"
+                value = {formCity}
             />
             <input
                 type="text"
                 onChange={handleChangeState}
                 id="state"
                 placeholder="State"
+                value = {formState}
             />
             <br></br>
             <input
@@ -151,11 +161,9 @@ const Page0 = ({
                 onChange={handleChangeZipcode}
                 id="zip-code"
                 placeholder="Zip Code"
+                value = {formZipcode}
             />
 
-            <br></br>
-            <br></br>
-            <button> Arrow To Next Page </button>
         </div>
     );
 };
