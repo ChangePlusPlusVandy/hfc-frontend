@@ -16,6 +16,7 @@ const Form = () => {
     // Form Data (Page 0)
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [gender, setGender] = useState(); // new
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -25,10 +26,13 @@ const Form = () => {
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(new Date());
 
-    const [selectedReasons, setSelectedReasons] = useState(); // Displays what Reasons were selected
+    const [reason, setReason] = useState("");
     const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
     const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
     const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
+    const[needs, setNeeds] = useState();
+    const[interests, setInterests] = useState();
+    const[sponsorInfo, setSponsorInfo] = useState("");
 
     const [languages, setLanguages] = useState();
     const [nationalities, setNationalites] = useState();
@@ -42,11 +46,43 @@ const Form = () => {
         setpageNum((prev) => prev + 1);
     };
 
+    const handleSubmit = async (e) => {
+        const response = await fetch("http://localhost:3000/form", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                id:"111111", // TODO
+                bday: birthDate,
+                age: age,
+                gender: gender,
+                visitReason: reason,
+                joinDate: new Date(),
+                phone: phoneNumber,
+                email: email,
+                languages: languages,
+                nationality: nationalities,
+                eduLvl: education,
+                interests: interests,
+                needs: needs,
+                sponsorInfo: sponsorInfo,
+                referrals: selectedReferrals
+            }),
+        });
+
+        console.log(response.json());
+    }
+
     useEffect(() => {
         const endpoint = "http://localhost:3000/programs"; // edit to programs
         fetch(endpoint)
             .then((res) => res.json())
             .then((data) => setPrograms(data));
+
+        fetch("http://localhost:3000/beneficiary") // FIXME? not sure if allowed
+        .then((res) => res.json())
+        .then((data) => setBeneficiaries(data));
     }, []);
 
     return (
@@ -73,6 +109,8 @@ const Form = () => {
                 setFormFirstName={setFirstName}
                 formLastName={lastName}
                 setFormLastName={setLastName}
+                formSelectedGender={gender}
+                setFormSelectedGender={setGender}
                 formPhoneNumber={phoneNumber}
                 setFormPhoneNumber={setPhoneNumber}
                 formEmail={email}
@@ -99,18 +137,30 @@ const Form = () => {
                 setFormEducation={setEducation}
             />
             <Page2
-                formSelectedReasons={selectedReasons}
-                setFormSelectedReasons={setSelectedReasons}
+                formReason={reason}
+                setFormReason={setReason}
                 formSelectedPrograms={selectedPrograms}
                 setFormSelectedPrograms={setSelectedPrograms}
                 formPrograms={programs}
                 setFormPrograms={setPrograms}
+                formSelectedNeeds={needs}
+                setFormSelectedNeeds={setNeeds}
+                formSelectedInterests={interests}
+                setFormSelectedInterest={setInterests}
             />
             <Page3
                 formSelectedReferrals={selectedReferrals}
                 setFormSelectedReferrals={setSelectedReferrals}
-            />
+                formSponsorInfo={sponsorInfo}
+                setFormSponsorInfo={setSponsorInfo}
+            /> 
+            <br />
+            <div className="button-container">
+                <button onClick={handleSubmit}>Create Beneficiary</button>
+            </div> 
+            
         </div>
+        
     );
 };
 

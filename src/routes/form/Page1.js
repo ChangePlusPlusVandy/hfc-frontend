@@ -41,6 +41,7 @@ const Page1 = ({
                         classNamePrefix="select"
                     />
                 </label>
+                <br />
 
                 <label>
                     Nationality
@@ -54,6 +55,7 @@ const Page1 = ({
                         classNamePrefix="select"
                     />
                 </label>
+                <br />
 
                 <label>
                     Education Level

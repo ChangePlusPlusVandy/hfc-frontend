@@ -1,64 +1,64 @@
 import React from "react";
 import Select from "react-select"; // For Dropdown Menu Functionality
+import CreatableSelect from "react-select/creatable";
 
 import "./Form.css";
 
-// Render an exported array, not fetching from any endpoint
-const reasons = [
-    { value: "reason1", label: "Reason 1" },
-    { value: "reason2", label: "Reason 2" },
-    { value: "reason3", label: "Reason 3" },
-];
-
 const Page2 = ({
     formSelectedPrograms,
-    formSelectedReasons,
     setFormSelectedPrograms,
-    setFormSelectedReasons,
+    formReason,
+    setFormReason,
     formPrograms,
     setFormPrograms,
+    formSelectedNeeds,
+    setFormSelectedNeeds,
+    formSelectedInterests,
+    setFormSelectedInterest
 }) => {
-    // TODO consider adding an option where you can create new options when typing out Reasons isntead of relying on hard-coded ones
 
     const programOptions = [];
     formPrograms.forEach((program) =>
         programOptions.push({ value: program.name, label: program.name })
     );
 
-    const handleReasonSelect = (data) => {
-        setFormSelectedReasons(data);
+    const handleChangeReason = (event) => {
+        setFormReason(event.target.value);
     };
 
     const handleProgramSelect = (data) => {
         setFormSelectedPrograms(data);
     };
 
+    const handleNeedSelect = (data) => {
+        setFormSelectedNeeds(data);
+    };
+
+    const handleInterestSelect = (data) => {
+        setFormSelectedInterest(data);
+    };
+
     return (
         <div className="Page2">
-            <h1> Basic info: Check and Fill</h1>
+            <h3> Basic info: Check and Fill</h3>
             <form>
                 <label>
                     First date of visit
                     <br />
-                    <input name="joinDate" type="date" />
+                    <input // FIXME maybe? Not sure if we still need this since join date can be generated when submitting form, or maybe we need this if it's not their first visit?
+                    name="joinDate" type="date" 
+                    />
                 </label>
+                <br /><br />
 
-                <br />
-
-                <div className="dropdown-container">
-                    <label>
-                        Reason for visit
-                        <br />
-                        <Select
-                            options={reasons}
-                            placeholder="Select reasons"
-                            value={formSelectedReasons}
-                            onChange={handleReasonSelect}
-                            isSearchable={true}
-                            isMulti
-                        />
-                    </label>
-                </div>
+                <label>
+                    Reason for this visit
+                    <br />
+                    <textarea 
+                    rows="5" cols="80" 
+                    onChange={handleChangeReason}/>
+                </label>
+                <br /><br />
 
                 <div className="dropdown-container">
                     <label>
@@ -74,15 +74,47 @@ const Page2 = ({
                         />
                     </label>
                 </div>
+                <br />
 
                 <label>
-                    Other interests or needs
-                    <br />
-                    <textarea rows="5" cols="80"></textarea>
+                    Needs
+                    <CreatableSelect
+                        options={needOpts}
+                        value={formSelectedNeeds}
+                        onChange={handleNeedSelect}
+                        isMulti
+                        name="needs"
+                        className="creatable-multi-select"
+                        classNamePrefix="select"
+                    />
+                </label>
+                <br />
+
+                <label>
+                    Interests
+                    <CreatableSelect
+                        options={interestOpts}
+                        value={formSelectedInterests}
+                        onChange={handleInterestSelect}
+                        isMulti
+                        name="interests"
+                        className="creatable-multi-select"
+                        classNamePrefix="select"
+                    />
                 </label>
             </form>
         </div>
     );
 };
+
+const needOpts = [
+    { value: "need1", label: "need 1" },
+    { value: "need2", label: "need 2" },
+];
+
+const interestOpts = [
+    { value: "interest1", label: "interest 1" },
+    { value: "interest2", label: "interest 2" },
+];
 
 export default Page2;
