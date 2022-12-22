@@ -30,9 +30,9 @@ const Form = () => {
     const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
     const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
     const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
-    const[needs, setNeeds] = useState();
-    const[interests, setInterests] = useState();
-    const[sponsorInfo, setSponsorInfo] = useState("");
+    const [needs, setNeeds] = useState();
+    const [interests, setInterests] = useState();
+    const [sponsorInfo, setSponsorInfo] = useState("");
 
     const [languages, setLanguages] = useState();
     const [nationalities, setNationalites] = useState();
@@ -49,11 +49,11 @@ const Form = () => {
     const handleSubmit = async (e) => {
         const response = await fetch("http://localhost:3000/form", {
             method: "POST",
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
-                id:"111111", // TODO
+                id: "111111", // TODO
                 bday: birthDate,
                 age: age,
                 gender: gender,
@@ -67,12 +67,12 @@ const Form = () => {
                 interests: interests,
                 needs: needs,
                 sponsorInfo: sponsorInfo,
-                referrals: selectedReferrals
+                referrals: selectedReferrals,
             }),
         });
 
         console.log(response.json());
-    }
+    };
 
     useEffect(() => {
         const endpoint = "http://localhost:3000/programs"; // edit to programs
@@ -81,8 +81,8 @@ const Form = () => {
             .then((data) => setPrograms(data));
 
         fetch("http://localhost:3000/beneficiary") // FIXME? not sure if allowed
-        .then((res) => res.json())
-        .then((data) => setBeneficiaries(data));
+            .then((res) => res.json())
+            .then((data) => setBeneficiaries(data));
     }, []);
 
     return (
@@ -153,14 +153,12 @@ const Form = () => {
                 setFormSelectedReferrals={setSelectedReferrals}
                 formSponsorInfo={sponsorInfo}
                 setFormSponsorInfo={setSponsorInfo}
-            /> 
+            />
             <br />
             <div className="button-container">
                 <button onClick={handleSubmit}>Create Beneficiary</button>
-            </div> 
-            
+            </div>
         </div>
-        
     );
 };
 

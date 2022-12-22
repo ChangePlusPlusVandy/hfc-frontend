@@ -9,11 +9,11 @@ const referrals = [
     { value: "reason3", label: "Reason 3" },
 ];
 
-const Page3 = ({ 
-    formSelectedReferrals, 
+const Page3 = ({
+    formSelectedReferrals,
     setFormSelectedReferrals,
     formSponsorInfo,
-    setFormSponsorInfo
+    setFormSponsorInfo,
 }) => {
     const handleReferralSelect = (data) => {
         setFormSelectedReferrals(data);
@@ -45,16 +45,20 @@ const Page3 = ({
                 <label>
                     Sponsorship information
                     <br />
-                    <textarea 
-                    rows="5" cols="80" 
-                    onChange={handleChangeSponsorInfo}/>
+                    <textarea
+                        rows="5"
+                        cols="80"
+                        onChange={handleChangeSponsorInfo}
+                    />
                 </label>
                 <br />
                 <label>
                     Staff notes
                     <br />
                     <textarea // FIXME? not sure which field corresponds to this in backend
-                    rows="5" cols="80"></textarea>
+                        rows="5"
+                        cols="80"
+                    ></textarea>
                 </label>
             </form>
         </div>

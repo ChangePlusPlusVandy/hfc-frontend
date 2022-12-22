@@ -14,9 +14,8 @@ const Page2 = ({
     formSelectedNeeds,
     setFormSelectedNeeds,
     formSelectedInterests,
-    setFormSelectedInterest
+    setFormSelectedInterest,
 }) => {
-
     const programOptions = [];
     formPrograms.forEach((program) =>
         programOptions.push({ value: program.name, label: program.name })
@@ -46,19 +45,24 @@ const Page2 = ({
                     First date of visit
                     <br />
                     <input // FIXME maybe? Not sure if we still need this since join date can be generated when submitting form, or maybe we need this if it's not their first visit?
-                    name="joinDate" type="date" 
+                        name="joinDate"
+                        type="date"
                     />
                 </label>
-                <br /><br />
+                <br />
+                <br />
 
                 <label>
                     Reason for this visit
                     <br />
-                    <textarea 
-                    rows="5" cols="80" 
-                    onChange={handleChangeReason}/>
+                    <textarea
+                        rows="5"
+                        cols="80"
+                        onChange={handleChangeReason}
+                    />
                 </label>
-                <br /><br />
+                <br />
+                <br />
 
                 <div className="dropdown-container">
                     <label>

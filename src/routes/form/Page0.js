@@ -182,7 +182,7 @@ const Page0 = ({
 
 const genderOpts = [
     { value: "woman", label: "Woman" },
-    { value: "man", label: "Man" }
+    { value: "man", label: "Man" },
 ];
 
 export default Page0;
