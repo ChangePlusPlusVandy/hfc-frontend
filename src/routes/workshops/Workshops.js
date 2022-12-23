@@ -136,13 +136,13 @@ export const WorkshopsList = () => {
             });
     }, []);
 
-    return <ul>
-        {workshops.map((workshop) => (
-            <li key={workshop.id}>
-                {JSON.stringify(workshop)}
-            </li>
-        ))}
-    </ul>;
+    return (
+        <ul>
+            {workshops.map((workshop) => (
+                <li key={workshop.id}>{JSON.stringify(workshop)}</li>
+            ))}
+        </ul>
+    );
 };
 export const WorkshopDeleteForm = () => {
     let [id, setID] = useState();
