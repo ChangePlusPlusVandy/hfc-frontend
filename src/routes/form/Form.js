@@ -53,7 +53,7 @@ const Form = () => {
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
-                id:"111111234", // TODO
+                id: "111111234", // TODO
                 bday: birthDate,
                 age: age,
                 gender: gender,
@@ -81,8 +81,8 @@ const Form = () => {
         //     .then((data) => setPrograms(data));
 
         fetch("http://localhost:3000/beneficiaries")
-        .then((res) => res.json())
-        .then((data) => setBeneficiaries(data));
+            .then((res) => res.json())
+            .then((data) => setBeneficiaries(data));
     }, []);
 
     return (
