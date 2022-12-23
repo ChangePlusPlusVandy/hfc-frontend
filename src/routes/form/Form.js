@@ -30,9 +30,9 @@ const Form = () => {
     const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
     const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
     const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
-    const[needs, setNeeds] = useState();
-    const[interests, setInterests] = useState();
-    const[sponsorInfo, setSponsorInfo] = useState("");
+    const [needs, setNeeds] = useState();
+    const [interests, setInterests] = useState();
+    const [sponsorInfo, setSponsorInfo] = useState("");
 
     const [languages, setLanguages] = useState();
     const [nationalities, setNationalites] = useState();
@@ -49,7 +49,7 @@ const Form = () => {
     const handleSubmit = async () => {
         const response = await fetch("http://localhost:3000/beneficiaries", {
             method: "POST",
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
@@ -67,12 +67,12 @@ const Form = () => {
                 interests: interests,
                 needs: needs,
                 sponsorInfo: sponsorInfo,
-                referrals: selectedReferrals
+                referrals: selectedReferrals,
             }),
         });
 
         console.log(response.json());
-    }
+    };
 
     useEffect(() => {
         // const endpoint = "http://localhost:3000/programs"; // edit to programs
@@ -153,14 +153,12 @@ const Form = () => {
                 setFormSelectedReferrals={setSelectedReferrals}
                 formSponsorInfo={sponsorInfo}
                 setFormSponsorInfo={setSponsorInfo}
-            /> 
+            />
             <br />
             <div className="button-container">
                 <button onClick={handleSubmit}>Create Beneficiary</button>
-            </div> 
-            
+            </div>
         </div>
-        
     );
 };
 
