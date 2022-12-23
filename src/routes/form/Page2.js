@@ -1,10 +1,12 @@
 import React from "react";
-// import Select from "react-select"; // For Dropdown Menu Functionality
+// import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 import "./Form.css";
 
 const Page2 = ({
+    formJoinDate,
+    setFormJoinDate,
     // formSelectedPrograms,
     // setFormSelectedPrograms,
     formReason,
@@ -37,16 +39,20 @@ const Page2 = ({
         setFormSelectedInterest(data);
     };
 
+    const handleChangeJoinDate = (event) => {
+        setFormJoinDate(new Date(event.target.value));
+    };
+
     return (
         <div className="Page2">
             <h3> Basic info: Check and Fill</h3>
             <form>
                 <label>
-                    First date of visit
-                    <br />
-                    <input // FIXME maybe? Not sure if we still need this since join date can be generated when submitting form, or maybe we need this if it's not their first visit?
-                        name="joinDate"
+                    First date of visit *
+                    <input
                         type="date"
+                        id="joinDate"
+                        onChange={handleChangeJoinDate}
                     />
                 </label>
                 <br />

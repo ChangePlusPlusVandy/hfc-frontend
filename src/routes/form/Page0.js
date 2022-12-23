@@ -99,24 +99,23 @@ const Page0 = ({
                 type="text"
                 id="first-name"
                 onChange={handleChangeFirstName}
-                placeholder="First Name"
+                placeholder="First Name *"
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
-                placeholder="Last Name"
+                placeholder="Last Name *"
             />
             <br></br>
 
             <br></br>
             <label>
-                Gender
+                Gender *
                 <CreatableSelect
                     options={genderOpts}
                     value={formSelectedGender}
                     onChange={handleGenderSelect}
-                    defaultValue={genderOpts[0]}
                     name="gender"
                     className="creatable-single-select"
                     classNamePrefix="select"
@@ -124,7 +123,7 @@ const Page0 = ({
             </label>
             <br></br>
 
-            <p>Birth Date</p>
+            <p>Birth Date *</p>
             <input
                 type="date"
                 id="birthdate"
@@ -181,8 +180,8 @@ const Page0 = ({
 };
 
 const genderOpts = [
-    { value: "woman", label: "Woman" },
-    { value: "man", label: "Man" },
+    { value: "female", label: "Female" },
+    { value: "male", label: "Male" },
 ];
 
 export default Page0;

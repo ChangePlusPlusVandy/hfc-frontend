@@ -16,7 +16,7 @@ const Form = () => {
     // Form Data (Page 0)
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [gender, setGender] = useState(); // new
+    const [gender, setGender] = useState({ value: "female", label: "Female" });
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -26,11 +26,12 @@ const Form = () => {
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(new Date());
 
+    const [joinDate, setJoinDate] = useState(new Date());
     const [reason, setReason] = useState("");
-    const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
-    const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
-    const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
-    const [needs, setNeeds] = useState();
+    // const [selectedPrograms, setSelectedPrograms] = useState();
+    // const [programs, setPrograms] = useState([{}]);
+    const [selectedReferrals, setSelectedReferrals] = useState();
+    const [needs, setNeeds] = useState([]);
     const [interests, setInterests] = useState();
     const [sponsorInfo, setSponsorInfo] = useState("");
 
@@ -53,37 +54,33 @@ const Form = () => {
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
-                id: "111111234", // TODO
+                id: "2222345", // TODO
                 bday: birthDate,
-                age: age,
-                gender: gender,
+                age: 20,
+                gender: gender.value,
                 visitReason: reason,
-                joinDate: new Date(),
+                joinDate: joinDate,
                 phone: phoneNumber,
                 email: email,
-                languages: languages,
-                nationality: nationalities,
-                eduLvl: education,
-                interests: interests,
-                needs: needs,
+                languages: languages.map((option) => option.value),
+                nationality: nationalities.map((option) => option.value),
+                eduLvl: education.value,
+                interests: interests.map((option) => option.value),
+                needs: needs.map((option) => option.value),
                 sponsorInfo: sponsorInfo,
-                referrals: selectedReferrals,
+                referrals: selectedReferrals.map((option) => option.value),
             }),
         });
 
         console.log(response.json());
     };
 
-    useEffect(() => {
-        // const endpoint = "http://localhost:3000/programs"; // edit to programs
-        // fetch(endpoint)
-        //     .then((res) => res.json())
-        //     .then((data) => setPrograms(data));
-
-        fetch("http://localhost:3000/beneficiaries")
-            .then((res) => res.json())
-            .then((data) => setBeneficiaries(data));
-    }, []);
+    // useEffect(() => {
+    //     // const endpoint = "http://localhost:3000/programs"; // edit to programs
+    //     // fetch(endpoint)
+    //     //     .then((res) => res.json())
+    //     //     .then((data) => setPrograms(data));
+    // }, []);
 
     return (
         <div className="form-container">
@@ -137,6 +134,8 @@ const Form = () => {
                 setFormEducation={setEducation}
             />
             <Page2
+                formJoinDate={joinDate}
+                setFormJoinDate={setJoinDate}
                 formReason={reason}
                 setFormReason={setReason}
                 // formSelectedPrograms={selectedPrograms}
