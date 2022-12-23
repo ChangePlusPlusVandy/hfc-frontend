@@ -1,14 +1,10 @@
-a {
-    padding-inline: 1rem;
-}
-
-.home {
+.workshops-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.home .button {
+.workshops-container .button {
     border: 2px solid white;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
@@ -17,7 +13,7 @@ a {
     color: white;
 }
 
-.home .button:hover {
+.workshops-container .button:hover {
     background-color: white;
     color: black;
 }

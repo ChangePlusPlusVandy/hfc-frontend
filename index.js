@@ -3,11 +3,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
-    Workshop,
-    GetWorkshops,
-    WorkshopForm,
-    DeleteWorkshops,
-} from "./src/routes/Workshop/Workshop";
+    Workshops,
+    WorkshopsList,
+    WorkshopCreateForm,
+    WorkshopDeleteForm,
+} from "./src/routes/workshops/Workshops";
 // Styles
 import "./index.css";
 
@@ -36,10 +36,10 @@ const router = createBrowserRouter([
     {
         path: "/workshops",
         children: [
-            { path: "", element: <Workshop /> },
-            { path: "form", element: <WorkshopForm /> },
-            { path: "get", element: <GetWorkshops /> },
-            { path: "delete", element: <DeleteWorkshops /> },
+            { path: "", element: <Workshops /> },
+            { path: "create", element: <WorkshopCreateForm /> },
+            { path: "get", element: <WorkshopsList /> },
+            { path: "delete", element: <WorkshopDeleteForm /> },
         ],
     },
     {
