@@ -16,7 +16,6 @@ const Page2 = ({
     formSelectedInterests,
     setFormSelectedInterest,
 }) => {
-
     // const programOptions = [];
     // formPrograms.forEach((program) =>
     //     programOptions.push({ value: program.name, label: program.name })
