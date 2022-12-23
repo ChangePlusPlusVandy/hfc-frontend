@@ -46,14 +46,14 @@ const Form = () => {
         setpageNum((prev) => prev + 1);
     };
 
-    const handleSubmit = async (e) => {
-        const response = await fetch("http://localhost:3000/form", {
+    const handleSubmit = async () => {
+        const response = await fetch("http://localhost:3000/beneficiaries", {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
-                id:"111111", // TODO
+                id:"111111234", // TODO
                 bday: birthDate,
                 age: age,
                 gender: gender,
@@ -75,12 +75,12 @@ const Form = () => {
     }
 
     useEffect(() => {
-        const endpoint = "http://localhost:3000/programs"; // edit to programs
-        fetch(endpoint)
-            .then((res) => res.json())
-            .then((data) => setPrograms(data));
+        // const endpoint = "http://localhost:3000/programs"; // edit to programs
+        // fetch(endpoint)
+        //     .then((res) => res.json())
+        //     .then((data) => setPrograms(data));
 
-        fetch("http://localhost:3000/beneficiary") // FIXME? not sure if allowed
+        fetch("http://localhost:3000/beneficiaries")
         .then((res) => res.json())
         .then((data) => setBeneficiaries(data));
     }, []);
@@ -139,10 +139,10 @@ const Form = () => {
             <Page2
                 formReason={reason}
                 setFormReason={setReason}
-                formSelectedPrograms={selectedPrograms}
-                setFormSelectedPrograms={setSelectedPrograms}
-                formPrograms={programs}
-                setFormPrograms={setPrograms}
+                // formSelectedPrograms={selectedPrograms}
+                // setFormSelectedPrograms={setSelectedPrograms}
+                // formPrograms={programs}
+                // setFormPrograms={setPrograms}
                 formSelectedNeeds={needs}
                 setFormSelectedNeeds={setNeeds}
                 formSelectedInterests={interests}

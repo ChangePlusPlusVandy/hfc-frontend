@@ -1,34 +1,34 @@
 import React from "react";
-import Select from "react-select"; // For Dropdown Menu Functionality
+// import Select from "react-select"; // For Dropdown Menu Functionality
 import CreatableSelect from "react-select/creatable";
 
 import "./Form.css";
 
 const Page2 = ({
-    formSelectedPrograms,
-    setFormSelectedPrograms,
+    // formSelectedPrograms,
+    // setFormSelectedPrograms,
     formReason,
     setFormReason,
-    formPrograms,
-    setFormPrograms,
+    // formPrograms,
+    // setFormPrograms,
     formSelectedNeeds,
     setFormSelectedNeeds,
     formSelectedInterests,
     setFormSelectedInterest
 }) => {
 
-    const programOptions = [];
-    formPrograms.forEach((program) =>
-        programOptions.push({ value: program.name, label: program.name })
-    );
+    // const programOptions = [];
+    // formPrograms.forEach((program) =>
+    //     programOptions.push({ value: program.name, label: program.name })
+    // );
 
     const handleChangeReason = (event) => {
         setFormReason(event.target.value);
     };
 
-    const handleProgramSelect = (data) => {
-        setFormSelectedPrograms(data);
-    };
+    // const handleProgramSelect = (data) => {
+    //     setFormSelectedPrograms(data);
+    // };
 
     const handleNeedSelect = (data) => {
         setFormSelectedNeeds(data);
@@ -58,9 +58,9 @@ const Page2 = ({
                     rows="5" cols="80" 
                     onChange={handleChangeReason}/>
                 </label>
-                <br /><br />
+                <br />
 
-                <div className="dropdown-container">
+                {/* <div className="dropdown-container">
                     <label>
                         Registrations
                         <br />
@@ -73,7 +73,7 @@ const Page2 = ({
                             isMulti
                         />
                     </label>
-                </div>
+                </div> */}
                 <br />
 
                 <label>
