@@ -2,7 +2,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import {
+    Workshops,
+    WorkshopsList,
+    WorkshopCreateForm,
+    WorkshopDeleteForm,
+} from "./src/routes/workshops/Workshops";
 // Styles
 import "./index.css";
 
@@ -30,7 +35,12 @@ const router = createBrowserRouter([
     },
     {
         path: "/workshops",
-        element: <div>INSERT WORKSHOPS COMPONENT HERE</div>,
+        children: [
+            { path: "", element: <Workshops /> },
+            { path: "create", element: <WorkshopCreateForm /> },
+            { path: "get", element: <WorkshopsList /> },
+            { path: "delete", element: <WorkshopDeleteForm /> },
+        ],
     },
     {
         path: "/assessment",
