@@ -1,0 +1,19 @@
+.workshops-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.workshops-container .button {
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    text-decoration: none;
+    color: white;
+}
+
+.workshops-container .button:hover {
+    background-color: white;
+    color: black;
+}
