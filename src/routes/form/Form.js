@@ -13,7 +13,7 @@ const NUM_PAGES = 5;
 const Form = () => {
     const [pageNum, setpageNum] = useState(0);
 
-    // Form Data (Page 0)
+    // Page 0
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [gender, setGender] = useState({ value: "female", label: "Female" });
@@ -26,18 +26,20 @@ const Form = () => {
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(new Date());
 
+    // Page 1
     const [joinDate, setJoinDate] = useState(new Date());
     const [reason, setReason] = useState("");
-    // const [selectedPrograms, setSelectedPrograms] = useState();
-    // const [programs, setPrograms] = useState([{}]);
-    const [selectedReferrals, setSelectedReferrals] = useState();
     const [needs, setNeeds] = useState([]);
     const [interests, setInterests] = useState();
-    const [sponsorInfo, setSponsorInfo] = useState("");
 
+    // Page2
     const [languages, setLanguages] = useState();
     const [nationalities, setNationalites] = useState();
     const [education, setEducation] = useState();
+
+    // Page3
+    const [selectedReferrals, setSelectedReferrals] = useState();
+    const [sponsorInfo, setSponsorInfo] = useState("");
 
     const handlePageDecrement = () => {
         setpageNum((prev) => prev - 1);
@@ -74,13 +76,6 @@ const Form = () => {
 
         console.log(response.json());
     };
-
-    // useEffect(() => {
-    //     // const endpoint = "http://localhost:3000/programs"; // edit to programs
-    //     // fetch(endpoint)
-    //     //     .then((res) => res.json())
-    //     //     .then((data) => setPrograms(data));
-    // }, []);
 
     return (
         <div className="form-container">
@@ -138,10 +133,6 @@ const Form = () => {
                 setFormJoinDate={setJoinDate}
                 formReason={reason}
                 setFormReason={setReason}
-                // formSelectedPrograms={selectedPrograms}
-                // setFormSelectedPrograms={setSelectedPrograms}
-                // formPrograms={programs}
-                // setFormPrograms={setPrograms}
                 formSelectedNeeds={needs}
                 setFormSelectedNeeds={setNeeds}
                 formSelectedInterests={interests}
@@ -162,15 +153,3 @@ const Form = () => {
 };
 
 export default Form;
-
-/*
-else if (pageNum === 1) {
-    return <Page1/>
-} else if (pageNum === 2) {
-    return <Page2/>
-} else if (pageNum === 3) {
-    return <Page3/>
-} else if (pageNum === 4) {
-    return <Page4/>
-}
-*/

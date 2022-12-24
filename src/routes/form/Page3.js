@@ -55,7 +55,7 @@ const Page3 = ({
                 <label>
                     Staff notes
                     <br />
-                    <textarea // FIXME? not sure which field corresponds to this in backend
+                    <textarea // FIXME: not sure which field corresponds to this in backend
                         rows="5"
                         cols="80"
                     ></textarea>

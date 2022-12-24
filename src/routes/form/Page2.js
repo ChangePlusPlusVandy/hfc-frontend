@@ -4,32 +4,29 @@ import CreatableSelect from "react-select/creatable";
 
 import "./Form.css";
 
+const needOpts = [
+    { value: "need1", label: "need 1" },
+    { value: "need2", label: "need 2" },
+];
+
+const interestOpts = [
+    { value: "interest1", label: "interest 1" },
+    { value: "interest2", label: "interest 2" },
+];
+
 const Page2 = ({
     formJoinDate,
     setFormJoinDate,
-    // formSelectedPrograms,
-    // setFormSelectedPrograms,
     formReason,
     setFormReason,
-    // formPrograms,
-    // setFormPrograms,
     formSelectedNeeds,
     setFormSelectedNeeds,
     formSelectedInterests,
     setFormSelectedInterest,
 }) => {
-    // const programOptions = [];
-    // formPrograms.forEach((program) =>
-    //     programOptions.push({ value: program.name, label: program.name })
-    // );
-
     const handleChangeReason = (event) => {
         setFormReason(event.target.value);
     };
-
-    // const handleProgramSelect = (data) => {
-    //     setFormSelectedPrograms(data);
-    // };
 
     const handleNeedSelect = (data) => {
         setFormSelectedNeeds(data);
@@ -69,22 +66,6 @@ const Page2 = ({
                 </label>
                 <br />
 
-                {/* <div className="dropdown-container">
-                    <label>
-                        Registrations
-                        <br />
-                        <Select
-                            options={programOptions}
-                            placeholder="Select registrations"
-                            value={formSelectedPrograms}
-                            onChange={handleProgramSelect}
-                            isSearchable={true}
-                            isMulti
-                        />
-                    </label>
-                </div> */}
-                <br />
-
                 <label>
                     Needs
                     <CreatableSelect
@@ -115,15 +96,5 @@ const Page2 = ({
         </div>
     );
 };
-
-const needOpts = [
-    { value: "need1", label: "need 1" },
-    { value: "need2", label: "need 2" },
-];
-
-const interestOpts = [
-    { value: "interest1", label: "interest 1" },
-    { value: "interest2", label: "interest 2" },
-];
 
 export default Page2;
