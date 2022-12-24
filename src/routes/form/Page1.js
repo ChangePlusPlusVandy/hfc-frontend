@@ -41,6 +41,7 @@ const Page1 = ({
                         classNamePrefix="select"
                     />
                 </label>
+                <br />
 
                 <label>
                     Nationality
@@ -54,6 +55,7 @@ const Page1 = ({
                         classNamePrefix="select"
                     />
                 </label>
+                <br />
 
                 <label>
                     Education Level
@@ -86,7 +88,7 @@ const nationalityOpts = [
 
 const eduOpts = [
     { value: "elementary", label: "Elementary School" },
-    { value: "middle", label: "Midddle School" },
+    { value: "middle", label: "Middle School" },
     { value: "secondary", label: "Secondary School" },
     { value: "postSecondary", label: "Post Secondary" },
 ];

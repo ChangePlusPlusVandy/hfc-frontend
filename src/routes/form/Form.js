@@ -13,9 +13,10 @@ const NUM_PAGES = 5;
 const Form = () => {
     const [pageNum, setpageNum] = useState(0);
 
-    // Form Data (Page 0)
+    // Page 0
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [gender, setGender] = useState({ value: "female", label: "Female" });
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -25,14 +26,20 @@ const Form = () => {
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(new Date());
 
-    const [selectedReasons, setSelectedReasons] = useState(); // Displays what Reasons were selected
-    const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
-    const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
-    const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
+    // Page 1
+    const [joinDate, setJoinDate] = useState(new Date());
+    const [reason, setReason] = useState("");
+    const [needs, setNeeds] = useState([]);
+    const [interests, setInterests] = useState();
 
+    // Page2
     const [languages, setLanguages] = useState();
     const [nationalities, setNationalites] = useState();
     const [education, setEducation] = useState();
+
+    // Page3
+    const [selectedReferrals, setSelectedReferrals] = useState();
+    const [sponsorInfo, setSponsorInfo] = useState("");
 
     const handlePageDecrement = () => {
         setpageNum((prev) => prev - 1);
@@ -42,12 +49,33 @@ const Form = () => {
         setpageNum((prev) => prev + 1);
     };
 
-    useEffect(() => {
-        const endpoint = "http://localhost:3000/programs"; // edit to programs
-        fetch(endpoint)
-            .then((res) => res.json())
-            .then((data) => setPrograms(data));
-    }, []);
+    const handleSubmit = async () => {
+        const response = await fetch("http://localhost:3000/beneficiaries", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                id: "2222345", // TODO
+                bday: birthDate,
+                age: 20,
+                gender: gender.value,
+                visitReason: reason,
+                joinDate: joinDate,
+                phone: phoneNumber,
+                email: email,
+                languages: languages.map((option) => option.value),
+                nationality: nationalities.map((option) => option.value),
+                eduLvl: education.value,
+                interests: interests.map((option) => option.value),
+                needs: needs.map((option) => option.value),
+                sponsorInfo: sponsorInfo,
+                referrals: selectedReferrals.map((option) => option.value),
+            }),
+        });
+
+        console.log(response.json());
+    };
 
     return (
         <div className="form-container">
@@ -73,6 +101,8 @@ const Form = () => {
                 setFormFirstName={setFirstName}
                 formLastName={lastName}
                 setFormLastName={setLastName}
+                formSelectedGender={gender}
+                setFormSelectedGender={setGender}
                 formPhoneNumber={phoneNumber}
                 setFormPhoneNumber={setPhoneNumber}
                 formEmail={email}
@@ -99,31 +129,27 @@ const Form = () => {
                 setFormEducation={setEducation}
             />
             <Page2
-                formSelectedReasons={selectedReasons}
-                setFormSelectedReasons={setSelectedReasons}
-                formSelectedPrograms={selectedPrograms}
-                setFormSelectedPrograms={setSelectedPrograms}
-                formPrograms={programs}
-                setFormPrograms={setPrograms}
+                formJoinDate={joinDate}
+                setFormJoinDate={setJoinDate}
+                formReason={reason}
+                setFormReason={setReason}
+                formSelectedNeeds={needs}
+                setFormSelectedNeeds={setNeeds}
+                formSelectedInterests={interests}
+                setFormSelectedInterest={setInterests}
             />
             <Page3
                 formSelectedReferrals={selectedReferrals}
                 setFormSelectedReferrals={setSelectedReferrals}
+                formSponsorInfo={sponsorInfo}
+                setFormSponsorInfo={setSponsorInfo}
             />
+            <br />
+            <div className="button-container">
+                <button onClick={handleSubmit}>Create Beneficiary</button>
+            </div>
         </div>
     );
 };
 
 export default Form;
-
-/*
-else if (pageNum === 1) {
-    return <Page1/>
-} else if (pageNum === 2) {
-    return <Page2/>
-} else if (pageNum === 3) {
-    return <Page3/>
-} else if (pageNum === 4) {
-    return <Page4/>
-}
-*/
