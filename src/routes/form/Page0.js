@@ -2,6 +2,8 @@ import React from "react";
 
 import "./Page0.css";
 
+// TO FIX: current version says that the set functions are undefined therefore does not accurately update the values
+
 const Page0 = ({
     formFirstName,
     setFormFirstName,
@@ -24,8 +26,10 @@ const Page0 = ({
     formBirthDate,
     setFormBirthDate,
 }) => {
+
     const handleChangeFirstName = (event) => {
         setFormFirstName(event.target.value);
+        console.log(formFirstName);
     };
 
     const handleChangeLastName = (event) => {
@@ -56,30 +60,6 @@ const Page0 = ({
         setFormZipcode(event.target.value);
     };
 
-    /* 
-    // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date
-    const handleChangeBirthDate = (event) => {
-        setFormBirthDate(new Date(event.target.value));
-    };
-
-    
-    must write a function that calulates age from birthdate but it is not working
-
-    const handleChangeBirthDate = (event) => {
-        // does not work says birthDate is not defined
-        
-        setFormBirthDate(new Date(event.target.value));
-        console.log(formBirthDate);
-        const today = new Date();
-        let yearDiff = today.getFullYear() - birthDate.getFullYear();
-        const month = today.getMonth() - birthDate.getMonth();
-        if (month<0 || (month === 0 && today.getDate()<birthDate.getDate())){
-            yearDiff -= 1;
-        }
-        setFormAge(yearDiff);
-    }
-    */
-
     const handleChangeBirthDate = (event) => {
         const birthDate = new Date(event.target.value);
         const today = new Date();
@@ -99,7 +79,7 @@ const Page0 = ({
             <h3> Basic Info: Fill In</h3>
             <p> Please Upload a Profile Photo of the User </p>
 
-            {/* must find out how to support this image type and how to best store it */}
+            {/* TO DO: must find out how to support this image type and how to best store it */}
             <input type="image" id="profile-photo" />
             <br></br>
 
