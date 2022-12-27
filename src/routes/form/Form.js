@@ -11,6 +11,54 @@ import Page3 from "./Page3";
 const NUM_PAGES = 5;
 
 const Form = () => {
+
+    // change the last element from placeholder to Page4 when it exists
+    const PAGES = [
+        <Page0
+            formFirstName={firstName}
+            setFormFirstName={setFirstName}
+            formLastName={lastName}
+            setFormLastName={setLastName}
+            formPhoneNumber={phoneNumber}
+            setFormPhoneNumber={setPhoneNumber}
+            formEmail={email}
+            setFormEmail={setEmail}
+            formAddress={address}
+            setFormAddress={setAddress}
+            formCity={city}
+            setFormCity={setCity}
+            formState={state}
+            setFormState={setState}
+            formZipcode={zipcode}
+            setFormZipcode={setZipcode}
+            formAge={age}
+            setFormAge={setAge}
+            formBirthDate={birthDate}
+            setFormBirthDate={setBirthDate}
+        />, 
+        <Page1
+            formLanguages={languages}
+            setFormLanguages={setLanguages}
+            formNationalities={nationalities}
+            setFormNationalities={setNationalites}
+            formEducation={education}
+            setFormEducation={setEducation}
+        />, 
+        <Page2
+            formSelectedReasons={selectedReasons}
+            setFormSelectedReasons={setSelectedReasons}
+            formSelectedPrograms={selectedPrograms}
+            setFormSelectedPrograms={setSelectedPrograms}
+            formPrograms={programs}
+            setFormPrograms={setPrograms}
+        />, 
+        <Page3
+            formSelectedReferrals={selectedReferrals}
+            setFormSelectedReferrals={setSelectedReferrals}
+        />, 
+        <Page0/>
+    ];
+
     const [pageNum, setpageNum] = useState(0);
 
     // Form Data (Page 0)
@@ -69,6 +117,7 @@ const Form = () => {
                 )}
             </div>
             <div>
+<<<<<<< HEAD
                 {(() => {
                     switch (pageNum) {
                         case 0:
@@ -140,6 +189,10 @@ const Form = () => {
                             return <Page0 />; // this is a placeholder until Page4 is ready
                     }
                 })()}
+=======
+            {PAGES[pageNum]}
+            
+>>>>>>> 96a701c (Updated array traversal to show pages and implemented calculate age function with errors)
             </div>
         </div>
     );

@@ -56,12 +56,13 @@ const Page0 = ({
         setFormZipcode(event.target.value);
     };
 
+    /* 
     // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date
     const handleChangeBirthDate = (event) => {
         setFormBirthDate(new Date(event.target.value));
     };
 
-    /*
+    
     must write a function that calulates age from birthdate but it is not working
 
     const handleChangeBirthDate = (event) => {
@@ -78,6 +79,20 @@ const Page0 = ({
         setFormAge(yearDiff);
     }
     */
+
+    const handleChangeBirthDate = (event) => {
+        const birthDate = new Date(event.target.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const month = today.getMonth() - birthDate.getMonth();
+        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())){
+            age -= 1;
+        }
+        console.log(age);
+
+        setFormBirthDate(new Date(event.target.value));
+        setFormAge(age);
+    };
 
     return (
         <div className="form-container">
@@ -111,6 +126,7 @@ const Page0 = ({
                 onChange={handleChangeBirthDate}
                 value={formBirthDate}
             />
+            
             <p> Age: {formAge} </p>
             <br></br>
 
