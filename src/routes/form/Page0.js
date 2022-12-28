@@ -2,8 +2,6 @@ import React from "react";
 
 import "./Page0.css";
 
-// TO FIX: current version says that the set functions are undefined therefore does not accurately update the values
-
 const Page0 = ({
     formFirstName,
     setFormFirstName,
@@ -68,9 +66,7 @@ const Page0 = ({
         if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())){
             age -= 1;
         }
-        console.log(age);
-
-        setFormBirthDate(new Date(event.target.value));
+        setFormBirthDate(event.target.value); 
         setFormAge(age);
     };
 
