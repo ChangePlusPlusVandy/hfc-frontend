@@ -117,6 +117,23 @@ const Form = () => {
                     <button onClick={handlePageIncrement}>Next</button>
                 )}
             </div>
+            <div>
+                <h1>Review</h1>
+                {/* do we want it to say First Name: Isa Last Name: Dominguez or just Isa Dominguez*/}
+                <h5> {firstName} {lastName} </h5> 
+                <h5> Age: {age} </h5>
+                <h5> Gender: </h5> {/* TO DO: add gender when we have it*/}
+                <h5> Contact: {email} {phoneNumber} </h5>
+                <h5> Address: {address}, {city}, {state} {zipcode} </h5>
+                <h5> Languages: {languages} </h5>
+                <h5> Nationalities: {nationalities} </h5>
+                <h5> Education: {education} </h5>
+                <h5> Reasons For Visit: {selectedReasons} </h5>
+                <h5> Registrations: {selectedPrograms} </h5>
+                <h5> Interests: </h5> {/* TO DO: add interests when we have it*/}
+                <h5> Referrals: {selectedReferrals} </h5>
+
+            </div>
         
         </div>
     );
