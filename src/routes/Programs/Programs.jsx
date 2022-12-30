@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Programs.css';
+
+
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
+    const [sortBy, setSortBy] = useState("alphabetical");
     const [newProgram, setNewProgram] = useState({
         title: "",
         hosts: "",
@@ -12,15 +15,33 @@ const Programs = () => {
         getPrograms();
     }, [])
 
+    const sortPrograms = (arr) => {
+        if (sortBy.localeCompare("alphabetical") == 0) {
+            console.log("alp");
+            arr.sort((item1, item2) => {
+                return item1.title.localeCompare(item2.title);
+            });
+            //DATEADDED ISNT A FIELD STORED IN DB, SO FOR NOW SORTED BY DESC INSTEAD
+        } else if (sortBy.localeCompare("date") == 0) {
+            console.log("date");
+            arr.sort((item1, item2) => {
+                return item1.description.localeCompare(item2.description);
+            });
+        }
+        return arr;
+    }
+
     const getPrograms = async () => {
         try {
             let data = await fetch('http://localhost:3000/programs');
             data = await data.json();
-            setPrograms(data);
+            console.log(data);
+            setPrograms(sortPrograms(data));
         } catch (err) {
             console.log(err);
         }
     }
+
     const handleSubmit = async (e) => {
         const requestOptions = {
             method: 'POST',
@@ -30,6 +51,7 @@ const Programs = () => {
         await fetch('http://localhost:3000/programs', requestOptions);
         getPrograms();
     }
+
     const deleteProgram = async (e) => {
         console.log(e);
         try {
@@ -47,40 +69,53 @@ const Programs = () => {
 
 
 
+    const handleSortValChange = e => {
+        setSortBy(e.target.value);
+        sortPrograms(programs);
+    }
+
     //Updates newProgram info
     const handleTitleChange = e => {
-        setNewProgram(curr => ({
+        setNewProgram(() => ({
             ...newProgram,
             title: e.target.value
         }))
     }
     const handleHostChange = e => {
-        setNewProgram(curr => ({
+        setNewProgram(() => ({
             ...newProgram,
             hosts: e.target.value
         }))
     }
     const handleDescChange = e => {
-        setNewProgram(curr => ({
+        setNewProgram(() => ({
             ...newProgram,
             description: e.target.value
         }))
     }
 
     return (
-        <div>
+        <div className="programs">
             <h1>Programs:</h1>
             <h3>(Click on a program to delete it)</h3>
+            <div className="sortIndicator" onChange={e => handleSortValChange(e)}>
+                <h3>Sort By:</h3>
+                <input type="radio" value="date" name="sortVal" />Alphabetical
+                <input type="radio" value="alphabetical" name="sortVal" />Date
+            </div>
             <div className="programsListContainer">
                 {
                     programs.map((item, i) => (
                         <div className="programCard" onClick={() => deleteProgram(item.title)} key={i}>
-                            <h4>Title: {item.title}</h4>
-                            <h5>id: {item._id}</h5>
-                            <h5>Hosts: {item.hosts}</h5>
-                            <h5>Description: {item.description}</h5>
-                            <h5>Attendance: {item.attendance}</h5>
-                            <h5>Days Of Week: {item.daysOfWeek}</h5>
+                            <div>
+                                <h4># {i}</h4>
+                                <h4>Title: {item.title}</h4>
+                                <h5>id: {item._id}</h5>
+                                <h5>Hosts: {item.hosts}</h5>
+                                <h5>Description: {item.description}</h5>
+                                <h5>Attendance: {item.attendance}</h5>
+                                <h5>Days Of Week: {item.daysOfWeek}</h5>
+                            </div>
                         </div>
                     ))
                 }
