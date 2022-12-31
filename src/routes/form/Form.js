@@ -7,6 +7,7 @@ import Page1 from "./Page1";
 import Page0 from "./Page0";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
+import Page4 from "./Page4";
 
 const NUM_PAGES = 5;
 
@@ -78,7 +79,23 @@ const Form = () => {
             formSelectedReferrals={selectedReferrals}
             setFormSelectedReferrals={setSelectedReferrals}
         />, 
-        <Page0/>
+        <Page4
+            formFirstName={firstName}
+            formLastName={lastName}
+            formAge={age}
+            formEmail={email}
+            formPhoneNumber={phoneNumber}
+            formAddress={address}
+            formCity={city} 
+            formState={state}
+            formZipcode={zipcode}
+            formLanguages={languages}
+            formNationalities={nationalities}
+            formEducation={education}
+            formSelectedReasons={selectedReasons}
+            formSelectedPrograms={selectedPrograms}
+            formSelectedReferrals={selectedReferrals}
+        />
     ];
 
     const handlePageDecrement = () => {
@@ -117,21 +134,10 @@ const Form = () => {
                     <button onClick={handlePageIncrement}>Next</button>
                 )}
             </div>
-            <div>
-                <h1>Review</h1>
-                {/* do we want it to say First Name: Isa Last Name: Dominguez or just Isa Dominguez*/}
-                <h5> {firstName} {lastName} </h5> 
-                <h5> Age: {age} </h5>
-                <h5> Gender: </h5> {/* TO DO: add gender when we have it*/}
-                <h5> Contact: {email} {phoneNumber} </h5>
-                <h5> Address: {address}, {city}, {state} {zipcode} </h5>
-                <h5> Languages: {languages} </h5>
-                <h5> Nationalities: {nationalities} </h5>
-                <h5> Education: {education} </h5>
-                <h5> Reasons For Visit: {selectedReasons} </h5>
-                <h5> Registrations: {selectedPrograms} </h5>
-                <h5> Interests: </h5> {/* TO DO: add interests when we have it*/}
-                <h5> Referrals: {selectedReferrals} </h5>
+            <div className="submit-button">
+                {pageNum === 4 && (
+                    <h1>SUBMIT</h1>
+                )}
 
             </div>
         
