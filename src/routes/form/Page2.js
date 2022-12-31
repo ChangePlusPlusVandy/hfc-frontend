@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select"; // For Dropdown Menu Functionality
 
-import "./Form.css";
+import "./BeneficiaryRegistration.css";
 
 // Render an exported array, not fetching from any endpoint
 const reasons = [

@@ -8,7 +8,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import Form from "./src/routes/form/Form";
+import Form from "./src/routes/form/BeneficiaryRegistration";
 
 // Router from React Router
 const router = createBrowserRouter([

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "./Form.css";
+import "./BeneficiaryRegistration.css";
 
 import ProgressBar from "./ProgressBar";
 import Page1 from "./Page1";

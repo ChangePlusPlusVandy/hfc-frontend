@@ -1,4 +1,5 @@
 import React from "react";
+import "./BeneficiaryRegistration.css";
 
 //TO DO: add gender and interests
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Page0.css";
+import "./BeneficiaryRegistration.css";
 
 const Page0 = ({
     formFirstName,
