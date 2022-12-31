@@ -106,6 +106,34 @@ const Form = () => {
         setpageNum((prev) => prev + 1);
     };
 
+    const handleSubmit = async () => {
+        const response = await fetch("http://localhost:3000/beneficiaries", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                id: "2222345", // TODO
+                bday: birthDate,
+                age: 20,
+                gender: gender.value,
+                visitReason: reason,
+                joinDate: joinDate,
+                phone: phoneNumber,
+                email: email,
+                languages: languages.map((option) => option.value),
+                nationality: nationalities.map((option) => option.value),
+                eduLvl: education.value,
+                interests: interests.map((option) => option.value),
+                needs: needs.map((option) => option.value),
+                sponsorInfo: sponsorInfo,
+                referrals: selectedReferrals.map((option) => option.value),
+            }),
+        });
+
+        console.log(response.json());
+    };
+
     useEffect(() => {
         const endpoint = "http://localhost:3000/programs"; // edit to programs
         fetch(endpoint)
@@ -138,7 +166,6 @@ const Form = () => {
                 {pageNum === 4 && (
                     <button onClick={handleSubmit}>Create Beneficiary</button>
                 )}
-
             </div>
         
         </div>
