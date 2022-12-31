@@ -136,7 +136,7 @@ const Form = () => {
             </div>
             <div className="submit-button">
                 {pageNum === 4 && (
-                    <h1>SUBMIT</h1>
+                    <button onClick={handleSubmit}>Create Beneficiary</button>
                 )}
 
             </div>
