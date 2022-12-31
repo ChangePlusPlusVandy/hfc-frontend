@@ -12,7 +12,6 @@ import Page4 from "./Page4";
 const NUM_PAGES = 5;
 
 const Form = () => {
-
     const [pageNum, setpageNum] = useState(0);
 
     // Form Data (Page 0)
@@ -58,7 +57,7 @@ const Form = () => {
             setFormAge={setAge}
             formBirthDate={birthDate}
             setFormBirthDate={setBirthDate}
-        />, 
+        />,
         <Page1
             formLanguages={languages}
             setFormLanguages={setLanguages}
@@ -66,7 +65,7 @@ const Form = () => {
             setFormNationalities={setNationalites}
             formEducation={education}
             setFormEducation={setEducation}
-        />, 
+        />,
         <Page2
             formSelectedReasons={selectedReasons}
             setFormSelectedReasons={setSelectedReasons}
@@ -74,11 +73,11 @@ const Form = () => {
             setFormSelectedPrograms={setSelectedPrograms}
             formPrograms={programs}
             setFormPrograms={setPrograms}
-        />, 
+        />,
         <Page3
             formSelectedReferrals={selectedReferrals}
             setFormSelectedReferrals={setSelectedReferrals}
-        />, 
+        />,
         <Page4
             formFirstName={firstName}
             formLastName={lastName}
@@ -86,7 +85,7 @@ const Form = () => {
             formEmail={email}
             formPhoneNumber={phoneNumber}
             formAddress={address}
-            formCity={city} 
+            formCity={city}
             formState={state}
             formZipcode={zipcode}
             formLanguages={languages}
@@ -95,7 +94,7 @@ const Form = () => {
             formSelectedReasons={selectedReasons}
             formSelectedPrograms={selectedPrograms}
             formSelectedReferrals={selectedReferrals}
-        />
+        />,
     ];
 
     const handlePageDecrement = () => {
@@ -151,9 +150,7 @@ const Form = () => {
             </div>
             <h1>Form</h1>
             <h4>Page Number: {pageNum}</h4>
-            <div className="page-content">
-                {PAGES[pageNum]}  
-            </div>
+            <div className="page-content">{PAGES[pageNum]}</div>
             <div className="button-container">
                 {pageNum > 0 && (
                     <button onClick={handlePageDecrement}>Previous</button>
@@ -167,7 +164,6 @@ const Form = () => {
                     <button onClick={handleSubmit}>Create Beneficiary</button>
                 )}
             </div>
-        
         </div>
     );
 };

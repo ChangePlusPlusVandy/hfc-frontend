@@ -24,7 +24,6 @@ const Page0 = ({
     formBirthDate,
     setFormBirthDate,
 }) => {
-
     const handleChangeFirstName = (event) => {
         setFormFirstName(event.target.value);
         console.log(formFirstName);
@@ -63,10 +62,13 @@ const Page0 = ({
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
         const month = today.getMonth() - birthDate.getMonth();
-        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())){
+        if (
+            month < 0 ||
+            (month === 0 && today.getDate() < birthDate.getDate())
+        ) {
             age -= 1;
         }
-        setFormBirthDate(event.target.value); 
+        setFormBirthDate(event.target.value);
         setFormAge(age);
     };
 
@@ -102,7 +104,7 @@ const Page0 = ({
                 onChange={handleChangeBirthDate}
                 value={formBirthDate}
             />
-            
+
             <p> Age: {formAge} </p>
             <br></br>
 

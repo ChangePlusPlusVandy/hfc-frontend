@@ -7,27 +7,36 @@ const Page4 = ({
     formLastName,
     formAge,
     formEmail,
-    formPhoneNumber, 
-    formAddress, 
-    formCity, 
-    formState, 
-    formZipcode, 
+    formPhoneNumber,
+    formAddress,
+    formCity,
+    formState,
+    formZipcode,
     formLanguages,
     formNationalities,
     formEducation,
     formSelectedReasons,
     formSelectedPrograms,
-    formSelectedReferrals
+    formSelectedReferrals,
 }) => {
     return (
         <div>
             <h1>Review</h1>
             {/* do we want it to say First Name: Isa Last Name: Dominguez or just Isa Dominguez*/}
-            <h5> {formFirstName} {formLastName} </h5> 
+            <h5>
+                {" "}
+                {formFirstName} {formLastName}{" "}
+            </h5>
             <h5> Age: {formAge} </h5>
             <h5> Gender: </h5> {/* TO DO: add gender when we have it*/}
-            <h5> Contact: {formEmail} {formPhoneNumber} </h5>
-            <h5> Address: {formAddress}, {formCity}, {formState} {formZipcode} </h5>
+            <h5>
+                {" "}
+                Contact: {formEmail} {formPhoneNumber}{" "}
+            </h5>
+            <h5>
+                {" "}
+                Address: {formAddress}, {formCity}, {formState} {formZipcode}{" "}
+            </h5>
             <h5> Languages: {formLanguages} </h5>
             <h5> Nationalities: {formNationalities} </h5>
             <h5> Education: {formEducation} </h5>
