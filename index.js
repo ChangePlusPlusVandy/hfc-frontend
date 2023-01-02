@@ -13,6 +13,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 import Form from "./src/routes/form/Form";
 
 // Router from React Router
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <div>INSERT BENEFICIARIES COMPONENT HERE</div>,
+        element: <Beneficiaries />,
     },
     {
         path: "/programs",
