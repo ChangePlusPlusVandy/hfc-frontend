@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <Beneficiaries/>,
+        element: <Beneficiaries />,
     },
     {
         path: "/programs",
