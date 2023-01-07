@@ -5,6 +5,7 @@ import './Programs.css';
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
+    const [searchProgram, setSearchProgram] = useState("");
     const [newProgram, setNewProgram] = useState({
         title: "",
         hosts: "",
@@ -14,6 +15,10 @@ const Programs = () => {
     useEffect(() => {
         getPrograms();
     }, [])
+
+    const programsFiltered = programs.filter(item => {
+        return searchProgram !== "" ? item.title.includes(searchProgram) : item;
+    });
 
     const sortPrograms = (arr) => {
         if (sortBy.localeCompare("alphabetical") == 0) {
@@ -67,6 +72,10 @@ const Programs = () => {
         getPrograms();
     }
 
+    const handleSearchChange = e => {
+        setSearchProgram(e.target.value);
+        console.log(searchProgram);
+    }
 
 
     const handleSortValChange = e => {
@@ -98,14 +107,24 @@ const Programs = () => {
         <div className="programs">
             <h1>Programs:</h1>
             <h3>(Click on a program to delete it)</h3>
-            <div className="sortIndicator" onChange={e => handleSortValChange(e)}>
-                <h3>Sort By:</h3>
-                <input type="radio" value="date" name="sortVal" />Alphabetical
-                <input type="radio" value="alphabetical" name="sortVal" />Date
+            <div className="sortAndSearch">
+                <div className="sortIndicator" onChange={e => handleSortValChange(e)}>
+                    <h3>Sort By:</h3>
+                    <input type="radio" value="date" name="sortVal" />Alphabetical
+                    <input type="radio" value="alphabetical" name="sortVal" />Date
+                </div>
+                <div className="singleSearch">
+                    <input
+                        type="text"
+                        name="search-bar"
+                        placeholder="Search..."
+                        onChange={e => handleSearchChange(e)}
+                    />
+                </div>
             </div>
             <div className="programsListContainer">
                 {
-                    programs.map((item, i) => (
+                    programsFiltered.map((item, i) => (
                         <div className="programCard" onClick={() => deleteProgram(item.title)} key={i}>
                             <div>
                                 <h4># {i}</h4>
