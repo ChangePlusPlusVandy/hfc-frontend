@@ -1,6 +1,9 @@
 .programs {
-    margin: 20px;
+    padding: 30px;
+    width: 100rem;
 }
+
+
 
 .programsListContainer {
     border: 3px solid white;
@@ -14,6 +17,7 @@
     display: flex;
     width: auto;
     border: 1px solid white;
+    color: black;
     padding: 5px;
 }
 
