@@ -80,6 +80,7 @@ const Beneficiaries = () => {
 
     return (
         <div>
+            <input className='del-form' type='text' placeholder='Seach...'/>
             <form onSubmit={() => deleteBeneficiary()}>
                 <input
                     onChange={(e) => setDelquery(e.target.value)}
@@ -95,7 +96,7 @@ const Beneficiaries = () => {
             </button>
             <h1>Beneficiaries Below: </h1>
             {beneficiary.map((item, i) => (
-                <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>
+                <h2 key={i}>
                     Beneficiary: {item.id}, {item.firstName}
                 </h2>
             ))}
