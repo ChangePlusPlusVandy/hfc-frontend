@@ -4,10 +4,8 @@ import "./Beneficiaries.css";
 
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
-    const [archivedBeneficiaries,setArchivedBeneficiaries] = useState([]);
+    const [archivedBeneficiaries, setArchivedBeneficiaries] = useState([]);
     const [delquery, setDelquery] = useState("");
-
-    
 
     const deleteBeneficiary = async () => {
         try {
@@ -38,19 +36,18 @@ const Beneficiaries = () => {
             setBeneficiary(data);
             setArchivedBeneficiaries([]);
         } else {
-            let removedItems = []
-            let data = beneficiary.filter(b => {
+            let removedItems = [];
+            let data = beneficiary.filter((b) => {
                 if (b.archived) {
                     removedItems.push(b);
                     return false;
                 }
                 return true;
-            })
+            });
             setArchivedBeneficiaries(removedItems);
             setBeneficiary(data);
         }
-        
-    }
+    };
 
     useEffect(() => {
         const getBeneficiaries = async () => {
@@ -62,14 +59,14 @@ const Beneficiaries = () => {
                     let nameA = a.firstName.toUpperCase(); // ignore upper and lowercase
                     let nameB = b.firstName.toUpperCase(); // ignore upper and lowercase
                     if (nameA < nameB) {
-                      return -1;
+                        return -1;
                     }
                     if (nameA > nameB) {
-                      return 1;
+                        return 1;
                     }
                     // names must be equal
                     return 0;
-                  });
+                });
                 setBeneficiary(data);
                 console.log(data);
                 console.log(beneficiary);
@@ -93,7 +90,9 @@ const Beneficiaries = () => {
                 />
                 <input type="submit" value="Delete" />
             </form>
-            <button onClick={toggleArchived}>Toggle Archived Beneficiaries</button>
+            <button onClick={toggleArchived}>
+                Toggle Archived Beneficiaries
+            </button>
             <h1>Beneficiaries Below: </h1>
             {beneficiary.map((item, i) => (
                 <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>
