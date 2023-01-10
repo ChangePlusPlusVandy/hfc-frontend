@@ -22,6 +22,19 @@ const Beneficiaries = () => {
             try {
                 let data = await fetch("http://localhost:3000/beneficiary");
                 data = await data.json();
+                // sort alphabetically
+                data.sort((a, b) => {
+                    let nameA = a.firstName.toUpperCase(); // ignore upper and lowercase
+                    let nameB = b.firstName.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                    // names must be equal
+                    return 0;
+                  });
                 setBeneficiary(data);
                 console.log(data);
                 console.log(beneficiary);
@@ -48,7 +61,7 @@ const Beneficiaries = () => {
             <h1>Beneficiaries Below: </h1>
             {beneficiary.map((item, i) => (
                 <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>
-                    Beneficiary: {item.id}
+                    Beneficiary: {item.id}, {item.firstName}
                 </h2>
             ))}
         </div>
