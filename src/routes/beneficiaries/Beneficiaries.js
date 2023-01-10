@@ -20,7 +20,7 @@ const Beneficiaries = () => {
     useEffect(() => {
         const getBeneficiaries = async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiary");
+                let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
                 // sort alphabetically
                 data.sort((a, b) => {
