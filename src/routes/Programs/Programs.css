@@ -3,8 +3,6 @@
     width: 100rem;
 }
 
-
-
 .programsListContainer {
     border: 3px solid white;
     display: flex;
@@ -21,6 +19,6 @@
     padding: 5px;
 }
 
-.programCard>h5 {
+.programCard > h5 {
     margin: 3px;
 }
