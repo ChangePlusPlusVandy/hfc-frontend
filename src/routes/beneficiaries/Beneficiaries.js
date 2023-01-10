@@ -6,7 +6,7 @@ const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
     const [archivedBeneficiaries, setArchivedBeneficiaries] = useState([]);
     const [delquery, setDelquery] = useState("");
-    const [search,setSearch] = useState("");
+    const [search, setSearch] = useState("");
 
     const deleteBeneficiary = async () => {
         try {
@@ -81,7 +81,12 @@ const Beneficiaries = () => {
 
     return (
         <div>
-            <input onChange={(e) => setSearch(e.target.value)} className='del-form' type='text' placeholder='Seach...'/>
+            <input
+                onChange={(e) => setSearch(e.target.value)}
+                className="del-form"
+                type="text"
+                placeholder="Seach..."
+            />
             <form onSubmit={() => deleteBeneficiary()}>
                 <input
                     onChange={(e) => setDelquery(e.target.value)}
@@ -96,18 +101,23 @@ const Beneficiaries = () => {
                 Toggle Archived Beneficiaries
             </button>
             <h1>Beneficiaries Below: </h1>
-            {beneficiary.filter((value) => {
-                if (search == '') {
-                    return value;
-                } else if (value.firstName.toLowerCase().includes(search.toLowerCase())) {
-                    return value;
-                }
-
-            }).map((item, i) => (
-                <h2 key={i}>
-                    Beneficiary: {item.id}, {item.firstName}
-                </h2>
-            ))}
+            {beneficiary
+                .filter((value) => {
+                    if (search == "") {
+                        return value;
+                    } else if (
+                        value.firstName
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                    ) {
+                        return value;
+                    }
+                })
+                .map((item, i) => (
+                    <h2 key={i}>
+                        Beneficiary: {item.id}, {item.firstName}
+                    </h2>
+                ))}
         </div>
     );
 };
