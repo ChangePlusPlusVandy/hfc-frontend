@@ -4,7 +4,10 @@ import "./Beneficiaries.css";
 
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
+    const [archivedBeneficiaries,setArchivedBeneficiaries] = useState([]);
     const [delquery, setDelquery] = useState("");
+
+    
 
     const deleteBeneficiary = async () => {
         try {
@@ -16,6 +19,26 @@ const Beneficiaries = () => {
             console.error(error);
         }
     };
+
+    const toggleArchived = () => {
+        if (archivedBeneficiaries.length > 0) {
+            let data = [...beneficiary,...archivedBeneficiaries];
+            setBeneficiary(data);
+            setArchivedBeneficiaries([]);
+        } else {
+            let removedItems = []
+            let data = beneficiary.filter(b => {
+                if (b.archived) {
+                    removedItems.push(b);
+                    return false;
+                }
+                return true;
+            })
+            setArchivedBeneficiaries(removedItems);
+            setBeneficiary(data);
+        }
+        
+    }
 
     useEffect(() => {
         const getBeneficiaries = async () => {
@@ -58,6 +81,7 @@ const Beneficiaries = () => {
                 />
                 <input type="submit" value="Delete" />
             </form>
+            <button onClick={toggleArchived}>Toggle Archived Beneficiaries</button>
             <h1>Beneficiaries Below: </h1>
             {beneficiary.map((item, i) => (
                 <h2 onClick={(item) => deleteBeneficiary(item)} key={i}>
