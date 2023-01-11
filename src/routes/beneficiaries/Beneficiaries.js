@@ -1,12 +1,34 @@
 import React, { useEffect, useState } from "react";
+import SingleBenficiary from "./SingleBfc";
 
 import "./Beneficiaries.css";
 
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
-    const [archivedBeneficiaries, setArchivedBeneficiaries] = useState([]);
     const [delquery, setDelquery] = useState("");
     const [search,setSearch] = useState("");
+
+    function toggleBfcArchived(id) {
+        const updateBfc = beneficiary.map((item) => {
+            // if this bfc has the same ID as the edited
+            if (id == item.id) {
+                return { ...item, archived: !item.archived };
+            }
+            return item;
+        });
+        setBeneficiary(updateBfc);
+    }
+
+    function editBfc(id, newFirstName) {
+        const editedBfcList = beneficiary.map((item) => {
+            if (id === item.id) {
+                return { ...item, firstName: newFirstName };
+            }
+            return item;
+        });
+        setBeneficiary(editedBfcList);
+    }
+
 
     const deleteBeneficiary = async () => {
         try {
@@ -19,55 +41,11 @@ const Beneficiaries = () => {
         }
     };
 
-    const toggleArchived = () => {
-        if (archivedBeneficiaries.length > 0) {
-            let data = [...beneficiary, ...archivedBeneficiaries];
-            data.sort((a, b) => {
-                let nameA = a.firstName.toUpperCase(); // ignore upper and lowercase
-                let nameB = b.firstName.toUpperCase(); // ignore upper and lowercase
-                if (nameA < nameB) {
-                    return -1;
-                }
-                if (nameA > nameB) {
-                    return 1;
-                }
-                // names must be equal
-                return 0;
-            });
-            setBeneficiary(data);
-            setArchivedBeneficiaries([]);
-        } else {
-            let removedItems = [];
-            let data = beneficiary.filter((b) => {
-                if (b.archived) {
-                    removedItems.push(b);
-                    return false;
-                }
-                return true;
-            });
-            setArchivedBeneficiaries(removedItems);
-            setBeneficiary(data);
-        }
-    };
-
     useEffect(() => {
         const getBeneficiaries = async () => {
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
-                // sort alphabetically
-                data.sort((a, b) => {
-                    let nameA = a.firstName.toUpperCase(); // ignore upper and lowercase
-                    let nameB = b.firstName.toUpperCase(); // ignore upper and lowercase
-                    if (nameA < nameB) {
-                        return -1;
-                    }
-                    if (nameA > nameB) {
-                        return 1;
-                    }
-                    // names must be equal
-                    return 0;
-                });
                 setBeneficiary(data);
                 console.log(data);
                 console.log(beneficiary);
@@ -82,6 +60,7 @@ const Beneficiaries = () => {
     return (
         <div>
             <input onChange={(e) => setSearch(e.target.value)} className='del-form' type='text' placeholder='Seach...'/>
+            <div className="bfc stack-large"></div>
             <form onSubmit={() => deleteBeneficiary()}>
                 <input
                     onChange={(e) => setDelquery(e.target.value)}
@@ -92,22 +71,29 @@ const Beneficiaries = () => {
                 />
                 <input type="submit" value="Delete" />
             </form>
-            <button onClick={toggleArchived}>
-                Toggle Archived Beneficiaries
-            </button>
             <h1>Beneficiaries Below: </h1>
-            {beneficiary.filter((value) => {
+            <ul
+                role="list"
+                className="bfc-list stack"
+                aria-labelledby="list-heading"
+            >
+                {beneficiary.filter((value) => {
                 if (search == '') {
                     return value;
                 } else if (value.firstName.toLowerCase().includes(search.toLowerCase())) {
                     return value;
                 }
-
-            }).map((item, i) => (
-                <h2 key={i}>
-                    Beneficiary: {item.id}, {item.firstName}
-                </h2>
+            }).map((item) => (
+                <SingleBenficiary
+                    id={item.id}
+                    firstName={item.firstName}
+                    archived={item.archived}
+                    key={item.id}
+                    toggleBfcArchived={toggleBfcArchived}
+                    editBfc={editBfc}
+                />
             ))}
+            </ul>
         </div>
     );
 };
