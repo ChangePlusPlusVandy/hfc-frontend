@@ -6,22 +6,22 @@ import "./Beneficiaries.css";
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
     const [delquery, setDelquery] = useState("");
-    
-    function toggleBfcArchived(id){
+
+    function toggleBfcArchived(id) {
         const updateBfc = beneficiary.map((item) => {
             // if this bfc has the same ID as the edited
-            if (id == item.id){
-                return {...item, archived: !item.archived};
+            if (id == item.id) {
+                return { ...item, archived: !item.archived };
             }
             return item;
         });
         setBeneficiary(updateBfc);
     }
 
-    function editBfc(id, newFirstName){
+    function editBfc(id, newFirstName) {
         const editedBfcList = beneficiary.map((item) => {
-            if (id === item.id){
-                return {...item, firstName: newFirstName}
+            if (id === item.id) {
+                return { ...item, firstName: newFirstName };
             }
             return item;
         });
@@ -30,12 +30,12 @@ const Beneficiaries = () => {
 
     const bfcList = beneficiary.map((item) => (
         <SingleBenficiary
-          id={item.id}
-          firstName={item.firstName}
-          archived={item.archived}
-          key={item.id}
-          toggleBfcArchived={toggleBfcArchived}
-          editBfc={editBfc}
+            id={item.id}
+            firstName={item.firstName}
+            archived={item.archived}
+            key={item.id}
+            toggleBfcArchived={toggleBfcArchived}
+            editBfc={editBfc}
         />
     ));
 
@@ -68,9 +68,7 @@ const Beneficiaries = () => {
 
     return (
         <div>
-            <div className="bfc stack-large">
-
-            </div>
+            <div className="bfc stack-large"></div>
             <form onSubmit={() => deleteBeneficiary()}>
                 <input
                     onChange={(e) => setDelquery(e.target.value)}
@@ -83,9 +81,9 @@ const Beneficiaries = () => {
             </form>
             <h1>Beneficiaries Below: </h1>
             <ul
-              role="list"
-              className="bfc-list stack"
-              aria-labelledby="list-heading"
+                role="list"
+                className="bfc-list stack"
+                aria-labelledby="list-heading"
             >
                 {bfcList}
             </ul>
