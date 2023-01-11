@@ -59,12 +59,6 @@ const Beneficiaries = () => {
 
     return (
         <div>
-            <input
-                onChange={(e) => setSearch(e.target.value)}
-                className="del-form"
-                type="text"
-                placeholder="Seach..."
-            />
             <input onChange={(e) => setSearch(e.target.value)} className='del-form' type='text' placeholder='Seach...'/>
             <div className="bfc stack-large"></div>
             <form onSubmit={() => deleteBeneficiary()}>
