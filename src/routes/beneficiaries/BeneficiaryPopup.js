@@ -1,17 +1,14 @@
-import React from 'react'
-import './BeneficaryPopup.css';
+import React from "react";
+import "./BeneficaryPopup.css";
 
-const BeneficiaryPopup = ({show}) => {
+const BeneficiaryPopup = ({ show }) => {
+    if (!show) return null;
 
+    return (
+        <div className="overlay">
+            <div>BeneficiaryPopup</div>
+        </div>
+    );
+};
 
-  if (!show) return null;
-
-  return (
-    <div className='overlay'>
-        <div>BeneficiaryPopup</div>
-    </div>
-    
-  )
-}
-
-export default BeneficiaryPopup
+export default BeneficiaryPopup;
