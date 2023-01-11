@@ -6,7 +6,7 @@ import "./Beneficiaries.css";
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
     const [delquery, setDelquery] = useState("");
-    const [search,setSearch] = useState("");
+    const [search, setSearch] = useState("");
 
     function toggleBfcArchived(id) {
         const updateBfc = beneficiary.map((item) => {
@@ -28,7 +28,6 @@ const Beneficiaries = () => {
         });
         setBeneficiary(editedBfcList);
     }
-
 
     const deleteBeneficiary = async () => {
         try {
@@ -77,22 +76,28 @@ const Beneficiaries = () => {
                 className="bfc-list stack"
                 aria-labelledby="list-heading"
             >
-                {beneficiary.filter((value) => {
-                if (search == '') {
-                    return value;
-                } else if (value.firstName.toLowerCase().includes(search.toLowerCase())) {
-                    return value;
-                }
-            }).map((item) => (
-                <SingleBenficiary
-                    id={item.id}
-                    firstName={item.firstName}
-                    archived={item.archived}
-                    key={item.id}
-                    toggleBfcArchived={toggleBfcArchived}
-                    editBfc={editBfc}
-                />
-            ))}
+                {beneficiary
+                    .filter((value) => {
+                        if (search == "") {
+                            return value;
+                        } else if (
+                            value.firstName
+                                .toLowerCase()
+                                .includes(search.toLowerCase())
+                        ) {
+                            return value;
+                        }
+                    })
+                    .map((item) => (
+                        <SingleBenficiary
+                            id={item.id}
+                            firstName={item.firstName}
+                            archived={item.archived}
+                            key={item.id}
+                            toggleBfcArchived={toggleBfcArchived}
+                            editBfc={editBfc}
+                        />
+                    ))}
             </ul>
         </div>
     );
