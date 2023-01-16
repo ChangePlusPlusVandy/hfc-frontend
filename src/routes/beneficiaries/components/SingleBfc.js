@@ -138,8 +138,8 @@ const SingleBfc = (item) => {
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3>My Popup</h3>
                 <li className="todo">
-                {isEditing ? editingTemplate : viewTemplate}
-            </li>
+                    {isEditing ? editingTemplate : viewTemplate}
+                </li>
             </Popup>
         </div>
     );

@@ -44,15 +44,16 @@ const Beneficiaries = () => {
         fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
             method: "DELETE",
         }).then(async () => {
-        try {
-            let data = await fetch("http://localhost:3000/beneficiaries");
-            data = await data.json();
-            setBeneficiary(data);
-            console.log(data);
-            console.log(beneficiary);
-        } catch (error) {
-            console.error(error);
-        }})
+            try {
+                let data = await fetch("http://localhost:3000/beneficiaries");
+                data = await data.json();
+                setBeneficiary(data);
+                console.log(data);
+                console.log(beneficiary);
+            } catch (error) {
+                console.error(error);
+            }
+        });
     }
 
     function editBfc(
@@ -80,7 +81,6 @@ const Beneficiaries = () => {
         });
         setBeneficiary(editedBfcList);
     }
-
 
     useEffect(() => {
         const getBeneficiaries = async () => {
