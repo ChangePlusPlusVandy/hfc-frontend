@@ -1,4 +1,4 @@
-.popup{
+.popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.popup-inner{
+.popup-inner {
     position: relative;
     padding: 32px;
     width: 100%;
@@ -19,7 +19,7 @@
     background-color: gray;
 }
 
-.popup-inner.close-btn{
+.popup-inner.close-btn {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -32,4 +32,3 @@ h3 {
 label {
     color: yellow;
 }
-

@@ -7,7 +7,7 @@ import "./Beneficiaries.css";
 const FILTER_MAP = {
     All: () => true,
     Active: (item) => !item.archived,
-    Archived: (item) => item.archived
+    Archived: (item) => item.archived,
 };
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
@@ -15,7 +15,7 @@ const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
     const [delquery, setDelquery] = useState("");
     const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState('All');
+    const [filter, setFilter] = useState("All");
 
     function toggleBfcArchived(id) {
         const updateBfc = beneficiary.map((item) => {
@@ -30,34 +30,42 @@ const Beneficiaries = () => {
 
     const filterList = FILTER_NAMES.map((name) => (
         <FilterButton
-          key={name}
-          name={name}
-          isPressed={name === filter}
-          setFilter={setFilter}
+            key={name}
+            name={name}
+            isPressed={name === filter}
+            setFilter={setFilter}
         />
     ));
-    
-    function deleteBfc(id){
+
+    function deleteBfc(id) {
         const remainingBfc = beneficiary.filter((item) => id !== item.id);
         console.log(id);
         setBeneficiary(remainingBfc);
-        fetch(
-            `http://localhost:3000/beneficiary/?beneficiaryID=${id}`,
-            { method: "DELETE" }
-        );
+        fetch(`http://localhost:3000/beneficiary/?beneficiaryID=${id}`, {
+            method: "DELETE",
+        });
     }
 
-    function editBfc(id, newFirstName, newLastName, newGender, newPhone, 
-        newEmail, newBirthDate) {
+    function editBfc(
+        id,
+        newFirstName,
+        newLastName,
+        newGender,
+        newPhone,
+        newEmail,
+        newBirthDate
+    ) {
         const editedBfcList = beneficiary.map((item) => {
             if (id === item.id) {
-                return { ...item, 
-                    firstName: newFirstName, 
+                return {
+                    ...item,
+                    firstName: newFirstName,
                     lastName: newLastName,
                     gender: newGender,
                     phone: newPhone,
                     email: newEmail,
-                    bday: newBirthDate};
+                    bday: newBirthDate,
+                };
             }
             return item;
         });
@@ -99,9 +107,7 @@ const Beneficiaries = () => {
                 type="text"
                 placeholder="Search..."
             />
-            <div className="filters btn-group">
-                {filterList}
-            </div>
+            <div className="filters btn-group">{filterList}</div>
             <div className="bfc stack-large"></div>
             {/* <form onSubmit={() => deleteBeneficiary()}>
                 <input
