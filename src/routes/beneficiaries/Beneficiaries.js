@@ -83,32 +83,32 @@ const Beneficiaries = () => {
     //     }
     // };
     const sortByName = () => {
-        console.log('called this')
-        let data = [...beneficiary]
-        data.sort((a,b) => a.firstName.localeCompare(b.firstName));
-        setBeneficiary(data);   
-    }
+        console.log("called this");
+        let data = [...beneficiary];
+        data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        setBeneficiary(data);
+    };
 
     const sortByDate = () => {
-        console.log('called this')
-        let data = [...beneficiary]
-        data.sort(function(a, b) {
-            const dateA = new Date(a.joinDate)
+        console.log("called this");
+        let data = [...beneficiary];
+        data.sort(function (a, b) {
+            const dateA = new Date(a.joinDate);
             const dateB = new Date(b.joinDate);
             return dateB - dateA;
         });
-        console.log(data)
-        setBeneficiary(data);   
-    }
+        console.log(data);
+        setBeneficiary(data);
+    };
 
     useEffect(() => {
         const getBeneficiaries = async () => {
-            console.log('use effect called')
+            console.log("use effect called");
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
-                data.sort((a,b) => a.firstName.localeCompare(b.firstName));
-                console.log('data',data)
+                data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+                console.log("data", data);
                 setBeneficiary(data);
             } catch (error) {
                 console.error(error);
