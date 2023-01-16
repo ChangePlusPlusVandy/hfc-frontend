@@ -11,7 +11,7 @@ import Page4 from "./Page4";
 
 const NUM_PAGES = 5;
 
-const Form = () => {
+const BeneficiaryRegistration = () => {
     const [pageNum, setpageNum] = useState(0);
 
     // Form Data (Page 0)
@@ -168,4 +168,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default BeneficiaryRegistration;
