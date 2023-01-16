@@ -28,7 +28,10 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <Beneficiaries />,
+        children: [
+            { path: "", element: <Beneficiaries /> },
+            { path: "register", element: <BeneficiaryRegistration /> },
+        ],
     },
     {
         path: "/programs",
@@ -46,10 +49,6 @@ const router = createBrowserRouter([
     {
         path: "/assessment",
         element: <div>INSERT ASSESSMENT COMPONENT HERE</div>,
-    },
-    {
-        path: "/form",
-        element: <BeneficiaryRegistration />,
     },
 ]);
 
