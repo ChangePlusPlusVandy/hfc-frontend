@@ -16,27 +16,27 @@ const SingleBfc = (item) => {
     const [buttonPopup, setButtonPopup] = useState(false);
 
     const handleChangeFirstName = (event) => {
-        setFormFirstName(event.target.value);
+        setNewFirstName(event.target.value);
     };
 
     const handleChangeLastName = (event) => {
-        setFormLastName(event.target.value);
+        setNewLastName(event.target.value);
     };
 
     const handleGenderSelect = (data) => {
-        setFormSelectedGender(data);
+        setNewSelectedGender(data);
     };
 
     const handleChangePhoneNumber = (event) => {
-        setFormPhoneNumber(event.target.value);
+        setNewPhoneNumber(event.target.value);
     };
 
     const handleChangeEmail = (event) => {
-        setFormEmail(event.target.value);
+        setNewEmail(event.target.value);
     };
 
     const handleChangeBirthDate = (event) => {
-        setFormBirthDate(new Date(event.target.value));
+        setNewBirthDate(new Date(event.target.value));
     };
 
     function handleSubmit(e) {
@@ -66,6 +66,7 @@ const SingleBfc = (item) => {
                     type="text"
                     onChange={handleChangeFirstName}
                 />
+                <br></br>
                 <label className="bfc-label" htmlFor="lastName">
                     New last name for {item.lastName}
                 </label>
@@ -117,7 +118,7 @@ const SingleBfc = (item) => {
                 <button
                     type="button"
                     className="btn btn__danger"
-                    onClick={() => item.deleteBfc(item.id)}
+                    onClick={() => item.deleteBfc(item.mongoKey.toString())}
                 >
                     Delete{" "}
                 </button>
@@ -131,49 +132,14 @@ const SingleBfc = (item) => {
                 {isEditing ? editingTemplate : viewTemplate}
             </li>
             <main>
-                <button onClick={() => setButtonPopup(true)}> Edit </button>
+                <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                 <h3>My Popup</h3>
-                <form className="stack-small" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="bfc-label" htmlFor="firstName">
-                            New first name for {item.firstName}
-                        </label>
-                        <input
-                            id="firstName"
-                            className="bfc-text"
-                            type="text"
-                            onChange={handleChangeFirstName}
-                        />
-                        <label className="bfc-label" htmlFor="lastName">
-                            New last name for {item.lastName}
-                        </label>
-                        <input
-                            id="lastName"
-                            className="bfc-text"
-                            type="text"
-                            onChange={handleChangeLastName}
-                        />
-                    </div>
-                    <div className="btn-group">
-                        <button
-                            type="button"
-                            className="btn bfc-cancel"
-                            onClick={() => setEditing(false)}
-                        >
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            className="btn btn__primary bfc-edit"
-                        >
-                            Save
-                        </button>
-                    </div>
-                </form>
+                <li className="todo">
+                {isEditing ? editingTemplate : viewTemplate}
+            </li>
             </Popup>
         </div>
     );
