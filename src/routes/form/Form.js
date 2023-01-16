@@ -71,6 +71,7 @@ const Form = () => {
                 needs: needs.map((option) => option.value),
                 sponsorInfo: sponsorInfo,
                 referrals: selectedReferrals.map((option) => option.value),
+                archived: false,
             }),
         });
 
