@@ -9,14 +9,23 @@ const referrals = [
     { value: "reason3", label: "Reason 3" },
 ];
 
-const Page3 = ({ formSelectedReferrals, setFormSelectedReferrals }) => {
+const Page3 = ({
+    formSelectedReferrals,
+    setFormSelectedReferrals,
+    formSponsorInfo,
+    setFormSponsorInfo,
+}) => {
     const handleReferralSelect = (data) => {
         setFormSelectedReferrals(data);
     };
 
+    const handleChangeSponsorInfo = (event) => {
+        setFormSponsorInfo(event.target.value);
+    };
+
     return (
         <div className="Page3">
-            <h1> Basic info: Other </h1>
+            <h3> Basic info: Other </h3>
             <form>
                 <div className="dropdown-container">
                     <label>
@@ -36,13 +45,20 @@ const Page3 = ({ formSelectedReferrals, setFormSelectedReferrals }) => {
                 <label>
                     Sponsorship information
                     <br />
-                    <textarea rows="5" cols="80"></textarea>
+                    <textarea
+                        rows="5"
+                        cols="80"
+                        onChange={handleChangeSponsorInfo}
+                    />
                 </label>
                 <br />
                 <label>
                     Staff notes
                     <br />
-                    <textarea rows="5" cols="80"></textarea>
+                    <textarea // FIXME: not sure which field corresponds to this in backend
+                        rows="5"
+                        cols="80"
+                    ></textarea>
                 </label>
             </form>
         </div>

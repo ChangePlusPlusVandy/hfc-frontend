@@ -1,4 +1,5 @@
 import React from "react";
+import CreatableSelect from "react-select/creatable";
 
 import "./BeneficiaryRegistration.css";
 
@@ -7,6 +8,8 @@ const Page0 = ({
     setFormFirstName,
     formLastName,
     setFormLastName,
+    formSelectedGender,
+    setFormSelectedGender,
     formPhoneNumber,
     setFormPhoneNumber,
     formEmail,
@@ -31,6 +34,10 @@ const Page0 = ({
 
     const handleChangeLastName = (event) => {
         setFormLastName(event.target.value);
+    };
+
+    const handleGenderSelect = (data) => {
+        setFormSelectedGender(data);
     };
 
     const handleChangePhoneNumber = (event) => {
@@ -87,17 +94,33 @@ const Page0 = ({
                 type="text"
                 id="first-name"
                 onChange={handleChangeFirstName}
-                placeholder="First Name"
                 value={formFirstName}
+                placeholder="First Name *"
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
-                placeholder="Last Name"
                 value={formLastName}
+                placeholder="Last Name *"
             />
             <br></br>
+
+            <br></br>
+            <label>
+                Gender *
+                <CreatableSelect
+                    options={genderOpts}
+                    value={formSelectedGender}
+                    onChange={handleGenderSelect}
+                    name="gender"
+                    className="creatable-single-select"
+                    classNamePrefix="select"
+                />
+            </label>
+            <br></br>
+
+            <p>Birth Date *</p>
             <input
                 type="date"
                 id="birthdate"
@@ -160,5 +183,10 @@ const Page0 = ({
         </div>
     );
 };
+
+const genderOpts = [
+    { value: "female", label: "Female" },
+    { value: "male", label: "Male" },
+];
 
 export default Page0;
