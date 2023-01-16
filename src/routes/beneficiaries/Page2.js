@@ -2,7 +2,7 @@ import React from "react";
 // import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-import "./Form.css";
+import "./BeneficiaryRegistration.css";
 
 const needOpts = [
     { value: "need1", label: "need 1" },

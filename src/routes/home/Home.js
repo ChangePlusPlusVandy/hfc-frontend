@@ -25,8 +25,8 @@ const Home = () => {
                 <Link className="button" to="/assessment">
                     Assessment
                 </Link>
-                <Link className="button" to="/form">
-                    Form
+                <Link className="button" to="/beneficiaries/register">
+                    Beneficiary Registration
                 </Link>
             </div>
         </div>

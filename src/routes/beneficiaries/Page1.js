@@ -2,7 +2,7 @@ import React from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 
-import "./Page1.css";
+import "./BeneficiaryRegistration.css";
 
 const Page1 = ({
     formLanguages,

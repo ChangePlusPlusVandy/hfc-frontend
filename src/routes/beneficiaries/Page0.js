@@ -1,7 +1,7 @@
 import React from "react";
 import CreatableSelect from "react-select/creatable";
 
-import "./Page0.css";
+import "./BeneficiaryRegistration.css";
 
 const Page0 = ({
     formFirstName,
@@ -29,6 +29,7 @@ const Page0 = ({
 }) => {
     const handleChangeFirstName = (event) => {
         setFormFirstName(event.target.value);
+        console.log(formFirstName);
     };
 
     const handleChangeLastName = (event) => {
@@ -63,33 +64,27 @@ const Page0 = ({
         setFormZipcode(event.target.value);
     };
 
-    // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date
     const handleChangeBirthDate = (event) => {
-        setFormBirthDate(new Date(event.target.value));
-    };
-
-    /*
-    must write a function that calulates age from birthdate but it is not working
-
-    const handleChangeBirthDate = (event) => {
-        // does not work says birthDate is not defined
-        
-        setFormBirthDate(new Date(event.target.value));
-        console.log(formBirthDate);
+        const birthDate = new Date(event.target.value);
         const today = new Date();
-        let yearDiff = today.getFullYear() - birthDate.getFullYear();
+        let age = today.getFullYear() - birthDate.getFullYear();
         const month = today.getMonth() - birthDate.getMonth();
-        if (month<0 || (month === 0 && today.getDate()<birthDate.getDate())){
-            yearDiff -= 1;
+        if (
+            month < 0 ||
+            (month === 0 && today.getDate() < birthDate.getDate())
+        ) {
+            age -= 1;
         }
-        setFormAge(yearDiff);
-    }
-    */
+        setFormBirthDate(event.target.value);
+        setFormAge(age);
+    };
 
     return (
         <div className="form-container">
             <h3> Basic Info: Fill In</h3>
             <p> Please Upload a Profile Photo of the User </p>
+
+            {/* TO DO: must find out how to support this image type and how to best store it */}
             <input type="image" id="profile-photo" />
             <br></br>
 
@@ -99,12 +94,14 @@ const Page0 = ({
                 type="text"
                 id="first-name"
                 onChange={handleChangeFirstName}
+                value={formFirstName}
                 placeholder="First Name *"
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
+                value={formLastName}
                 placeholder="Last Name *"
             />
             <br></br>
@@ -128,7 +125,9 @@ const Page0 = ({
                 type="date"
                 id="birthdate"
                 onChange={handleChangeBirthDate}
+                value={formBirthDate}
             />
+
             <p> Age: {formAge} </p>
             <br></br>
 
@@ -138,12 +137,14 @@ const Page0 = ({
                 onChange={handleChangePhoneNumber}
                 id="phone-number"
                 placeholder="Phone Number (XXXXXXXXX)"
+                value={formPhoneNumber}
             />
             <input
                 type="email"
                 onChange={handleChangeEmail}
                 id="email-address"
                 placeholder="Email Address"
+                value={formEmail}
             />
             <br></br>
 
@@ -154,6 +155,7 @@ const Page0 = ({
                 onChange={handleChangeAddress}
                 id="address"
                 placeholder="Street Address"
+                value={formAddress}
             />
             <br></br>
             <input
@@ -161,12 +163,14 @@ const Page0 = ({
                 onChange={handleChangeCity}
                 id="city"
                 placeholder="City"
+                value={formCity}
             />
             <input
                 type="text"
                 onChange={handleChangeState}
                 id="state"
                 placeholder="State"
+                value={formState}
             />
             <br></br>
             <input
@@ -174,6 +178,7 @@ const Page0 = ({
                 onChange={handleChangeZipcode}
                 id="zip-code"
                 placeholder="Zip Code"
+                value={formZipcode}
             />
         </div>
     );

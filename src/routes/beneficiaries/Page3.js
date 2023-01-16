@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-import "./Form.css";
+import "./BeneficiaryRegistration.css";
 
 const referrals = [
     { value: "reason1", label: "Reason 1" },
