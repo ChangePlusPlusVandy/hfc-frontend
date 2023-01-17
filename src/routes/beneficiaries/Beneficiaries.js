@@ -93,21 +93,21 @@ const Beneficiaries = () => {
     //     }
     // };
     const sortByName = () => {
-        let data = [...beneficiary]
-        data.sort((a,b) => a.firstName.localeCompare(b.firstName));
-        setBeneficiary(data);   
-    }
+        let data = [...beneficiary];
+        data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        setBeneficiary(data);
+    };
 
     const sortByDate = () => {
-        let data = [...beneficiary]
-        data.sort(function(a, b) {
-            const dateA = new Date(a.joinDate)
+        let data = [...beneficiary];
+        data.sort(function (a, b) {
+            const dateA = new Date(a.joinDate);
             const dateB = new Date(b.joinDate);
             return dateB - dateA;
         });
-        console.log(data)
-        setBeneficiary(data);   
-    }
+        console.log(data);
+        setBeneficiary(data);
+    };
 
     useEffect(() => {
         const getBeneficiaries = async () => {
@@ -150,8 +150,12 @@ const Beneficiaries = () => {
                         } else if (
                             value.firstName
                                 .toLowerCase()
-                                .includes(search.toLowerCase()) || value.lastName.toLowerCase().includes(search.toLowerCase()) || value.id.toString().includes(search)
-                        ) { 
+                                .includes(search.toLowerCase()) ||
+                            value.lastName
+                                .toLowerCase()
+                                .includes(search.toLowerCase()) ||
+                            value.id.toString().includes(search)
+                        ) {
                             return value;
                         }
                     })
