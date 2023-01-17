@@ -83,14 +83,12 @@ const Beneficiaries = () => {
     //     }
     // };
     const sortByName = () => {
-        console.log('called this')
         let data = [...beneficiary]
         data.sort((a,b) => a.firstName.localeCompare(b.firstName));
         setBeneficiary(data);   
     }
 
     const sortByDate = () => {
-        console.log('called this')
         let data = [...beneficiary]
         data.sort(function(a, b) {
             const dateA = new Date(a.joinDate)
@@ -103,7 +101,6 @@ const Beneficiaries = () => {
 
     useEffect(() => {
         const getBeneficiaries = async () => {
-            console.log('use effect called')
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
@@ -154,13 +151,14 @@ const Beneficiaries = () => {
                         } else if (
                             value.firstName
                                 .toLowerCase()
-                                .includes(search.toLowerCase())
-                        ) {
+                                .includes(search.toLowerCase()) || value.lastName.toLowerCase().includes(search.toLowerCase()) || value.id.toString().includes(search)
+                        ) { 
                             return value;
                         }
                     })
                     .map((item) => (
                         <SingleBenficiary
+                            _id={item._id}
                             id={item.id}
                             firstName={item.firstName}
                             lastName={item.lastName}
