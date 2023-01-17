@@ -38,11 +38,21 @@ const Beneficiaries = () => {
     ));
 
     function deleteBfc(id) {
-        const remainingBfc = beneficiary.filter((item) => id !== item.id);
         console.log(id);
-        setBeneficiary(remainingBfc);
-        fetch(`http://localhost:3000/beneficiary/?beneficiaryID=${id}`, {
+        // const remainingBfc = beneficiary.filter((item) => id !== item.id);
+        // setBeneficiary(remainingBfc);
+        fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
             method: "DELETE",
+        }).then(async () => {
+            try {
+                let data = await fetch("http://localhost:3000/beneficiaries");
+                data = await data.json();
+                setBeneficiary(data);
+                console.log(data);
+                console.log(beneficiary);
+            } catch (error) {
+                console.error(error);
+            }
         });
     }
 
@@ -104,9 +114,9 @@ const Beneficiaries = () => {
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
-                data.sort((a,b) => a.firstName.localeCompare(b.firstName));
-                console.log('data',data)
                 setBeneficiary(data);
+                console.log(data);
+                console.log(beneficiary);
             } catch (error) {
                 console.error(error);
             }
@@ -123,20 +133,9 @@ const Beneficiaries = () => {
                 type="text"
                 placeholder="Search..."
             />
-            <button onClick={sortByDate}>Sort by Date</button>
-            <button onClick={sortByName}>Sort by First Name</button>
             <div className="filters btn-group">{filterList}</div>
             <div className="bfc stack-large"></div>
-            {/* <form onSubmit={() => deleteBeneficiary()}>
-                <input
-                    onChange={(e) => setDelquery(e.target.value)}
-                    value={delquery}
-                    className="del-form"
-                    type="text"
-                    placeholder="Enter ID to delete"
-                />
-                <input type="submit" value="Delete" />
-            </form> */}
+
             <h1>Beneficiaries Below: </h1>
             <ul
                 role="list"
@@ -164,6 +163,7 @@ const Beneficiaries = () => {
                             lastName={item.lastName}
                             archived={item.archived}
                             key={item.id}
+                            mongoKey={item._id}
                             toggleBfcArchived={toggleBfcArchived}
                             deleteBfc={deleteBfc}
                             editBfc={editBfc}
