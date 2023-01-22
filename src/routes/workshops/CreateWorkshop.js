@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { json, Link } from "react-router-dom";
-import Select from "react-select"
+import Select from "react-select";
 import "./Workshops.css";
 
 export const WorkshopCreateForm = () => {
@@ -9,19 +9,23 @@ export const WorkshopCreateForm = () => {
     const [title, setTitle] = useState("");
     const [numAttendees, setNumAttendees] = useState(0);
     const [date, setDate] = useState(new Date());
-    const [hosts, setHosts]=useState([])
-    const [hostOptions, setHostOptions] = useState([])
+    const [hosts, setHosts] = useState([]);
+    const [hostOptions, setHostOptions] = useState([]);
     useEffect(() => {
         fetch("http://localhost:3000/users/users")
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-                let tempOptions= data.filter(item=>item.firstName&&item.lastName).map(item=>{
-                    return {value: item._id, label: item.firstName+" "+item.lastName}
-                })
-                setHostOptions(tempOptions)
-                
-    });
+                console.log(data);
+                let tempOptions = data
+                    .filter((item) => item.firstName && item.lastName)
+                    .map((item) => {
+                        return {
+                            value: item._id,
+                            label: item.firstName + " " + item.lastName,
+                        };
+                    });
+                setHostOptions(tempOptions);
+            });
     }, []);
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -36,11 +40,10 @@ export const WorkshopCreateForm = () => {
     const handleNumAttendeesChange = (event) => {
         setNumAttendees(event.target.value);
     };
-    const handleHostsChange=(event)=>{
-
+    const handleHostsChange = (event) => {
         setHosts(event);
         console.log(hosts);
-        console.log(hostOptions)
+        console.log(hostOptions);
     };
 
     const createWorkshop = () => {
@@ -48,8 +51,8 @@ export const WorkshopCreateForm = () => {
 
         const newWorkshopData = {
             title,
-            hosts: hosts.map(item=>{
-                return item.value
+            hosts: hosts.map((item) => {
+                return item.value;
             }), // TODO:
             description,
             date,
@@ -58,7 +61,7 @@ export const WorkshopCreateForm = () => {
         };
         console.log("New workshop data:");
         console.log(newWorkshopData);
-        
+
         // Validate data
         if (title && description) {
             console.log("No missing fields...");
@@ -72,13 +75,12 @@ export const WorkshopCreateForm = () => {
                 fetch("http://localhost:3000/workshops", requestOptions)
                     .then((response) => response.json())
                     .then((data) => {
-                        if(data.title){
-                        console.log("Post successful! Response:");
-                        console.log(data);
-                        setMessage("Workshop created successfully!");
-                        }
-                        else{
-                            setMessage("Error: "+data)
+                        if (data.title) {
+                            console.log("Post successful! Response:");
+                            console.log(data);
+                            setMessage("Workshop created successfully!");
+                        } else {
+                            setMessage("Error: " + data);
                         }
                     });
             } catch (err) {
@@ -110,21 +112,20 @@ export const WorkshopCreateForm = () => {
             />
             <br />
             <div className="dropdown-container">
-                    <label>
-                        Hosts
-                        
-                        <br />
-                        <Select
-                            options={hostOptions}
-                            placeholder="Select Hosts"
-                            onChange={handleHostsChange}
-                            value={hosts}
-                            isSearchable={true}
-                            isMulti
-                        />
-                        {`${hosts}`}
-                        </label>
-                </div>
+                <label>
+                    Hosts
+                    <br />
+                    <Select
+                        options={hostOptions}
+                        placeholder="Select Hosts"
+                        onChange={handleHostsChange}
+                        value={hosts}
+                        isSearchable={true}
+                        isMulti
+                    />
+                    {`${hosts}`}
+                </label>
+            </div>
             <div>Workshop Date</div>
             <input type="date" id="Date" onChange={handleDateChange} />
             <br />

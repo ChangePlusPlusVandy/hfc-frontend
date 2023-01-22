@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { json, Link } from "react-router-dom";
-import Select from "react-select"
+import Select from "react-select";
 import "./Workshops.css";
 
 export const Workshops = () => {
