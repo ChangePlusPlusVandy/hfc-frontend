@@ -5,9 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
     Workshops,
     WorkshopsList,
-    WorkshopCreateForm,
     WorkshopDeleteForm,
 } from "./src/routes/workshops/Workshops";
+import { WorkshopCreateForm } from "./src/routes/workshops/CreateWorkshop";
 // Styles
 import "./index.css";
 
