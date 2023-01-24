@@ -7,8 +7,8 @@ const Page3 = ({
     setReferrals,
     sponsorInfo,
     setSponsorInfo,
-    staffNotes, 
-    setStaffNotes
+    staffNotes,
+    setStaffNotes,
 }) => {
     const handleReferralSelect = (event) => {
         setReferrals(event.target.value);
@@ -20,7 +20,7 @@ const Page3 = ({
 
     const handleChangeStaffNotes = (event) => {
         setStaffNotes(event.target.value);
-    }
+    };
 
     return (
         <div className="Page3">
@@ -35,7 +35,9 @@ const Page3 = ({
                             cols="80"
                             onChange={handleReferralSelect}
                             value={referrals}
-                        > </textarea>
+                        >
+                            {" "}
+                        </textarea>
                         {/* 
                         <Select
                             options={referrals}
@@ -46,7 +48,6 @@ const Page3 = ({
                             isMulti
                         />
                         */}
-
                     </label>
                 </div>
                 <br />
@@ -58,13 +59,13 @@ const Page3 = ({
                         cols="80"
                         onChange={handleChangeSponsorInfo}
                         value={sponsorInfo}
-                    /> 
+                    />
                 </label>
                 <br />
                 <label>
                     Staff notes
                     <br />
-                    <textarea 
+                    <textarea
                         rows="5"
                         cols="80"
                         onChange={handleChangeStaffNotes}
