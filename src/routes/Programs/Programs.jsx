@@ -11,7 +11,7 @@ const Programs = () => {
 
     const [newProgram, setNewProgram] = useState({
         title: "",
-        hosts: "",
+        //hosts: "",
         description: "",
         archived: false,
     });
@@ -66,7 +66,7 @@ const Programs = () => {
         getPrograms();
         setNewProgram({
             title: "",
-            hosts: "",
+            //hosts: "",
             description: "",
             archived: false,
         });
@@ -109,7 +109,7 @@ const Programs = () => {
     const handleHostChange = (e) => {
         setNewProgram(() => ({
             ...newProgram,
-            hosts: e.target.value,
+            //hosts: e.target.value,
         }));
     };
     const handleArchivedChange = (e) => {

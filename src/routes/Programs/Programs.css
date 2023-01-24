@@ -26,6 +26,61 @@ h4 {
     color: white;
 }
 
-.basic-multi-select {
+.react-select-container {
+    color: black;
+    margin: 25px 0px;
+}
+
+.react-select__menu-list {
+    color: black;
+    font-size: 20px;
+}
+
+.react-select__value-container {
+    font-size: 25px;
+}
+
+.singleProgramContainer {
+    border: 1px solid white;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.progNav {
+    width: 100%;
+    justify-content: right;
+}
+
+.programTabs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-panel {
+    width: 90%;
+    margin: auto;
+}
+
+.enrolledBenTitle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button {
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    padding: 5px 25px 5px 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal-body {
+    height: 100%;
+    align-items: center;
+    padding-top: 10px;
+    margin: auto;
     color: black;
 }
