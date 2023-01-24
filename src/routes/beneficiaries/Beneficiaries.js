@@ -13,20 +13,19 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 const Beneficiaries = () => {
     const [beneficiary, setBeneficiary] = useState([]);
-    const [delquery, setDelquery] = useState("");
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("All");
 
-    function toggleBfcArchived(id) {
-        const updateBfc = beneficiary.map((item) => {
-            // if this bfc has the same ID as the edited
-            if (id == item.id) {
-                return { ...item, archived: !item.archived };
-            }
-            return item;
-        });
-        setBeneficiary(updateBfc);
-    }
+    // function toggleBfcArchived(id) {
+    //     const updateBfc = beneficiary.map((item) => {
+    //         // if this bfc has the same ID as the edited
+    //         if (id == item.id) {
+    //             return { ...item, archived: !item.archived };
+    //         }
+    //         return item;
+    //     });
+    //     setBeneficiary(updateBfc);
+    // }
 
     const filterList = FILTER_NAMES.map((name) => (
         <FilterButton
@@ -37,10 +36,8 @@ const Beneficiaries = () => {
         />
     ));
 
-    function deleteBfc(id) {
+    const deleteBfc = (id) => {
         console.log(id);
-        // const remainingBfc = beneficiary.filter((item) => id !== item.id);
-        // setBeneficiary(remainingBfc);
         fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
             method: "DELETE",
         }).then(async () => {
@@ -48,7 +45,6 @@ const Beneficiaries = () => {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
                 setBeneficiary(data);
-                console.log(data);
                 console.log(beneficiary);
             } catch (error) {
                 console.error(error);
@@ -56,42 +52,6 @@ const Beneficiaries = () => {
         });
     }
 
-    function editBfc(
-        id,
-        newFirstName,
-        newLastName,
-        newGender,
-        newPhone,
-        newEmail,
-        newBirthDate
-    ) {
-        const editedBfcList = beneficiary.map((item) => {
-            if (id === item.id) {
-                return {
-                    ...item,
-                    firstName: newFirstName,
-                    lastName: newLastName,
-                    gender: newGender,
-                    phone: newPhone,
-                    email: newEmail,
-                    bday: newBirthDate,
-                };
-            }
-            return item;
-        });
-        setBeneficiary(editedBfcList);
-    }
-
-    // const deleteBeneficiary = async () => {
-    //     try {
-    //         await fetch(
-    //             `http://localhost:3000/beneficiary/?beneficiaryID=${delquery}`,
-    //             { method: "DELETE" }
-    //         );
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
     const sortByName = () => {
         let data = [...beneficiary];
         data.sort((a, b) => a.firstName.localeCompare(b.firstName));
@@ -161,16 +121,17 @@ const Beneficiaries = () => {
                     })
                     .map((item) => (
                         <SingleBenficiary
-                            _id={item._id}
                             id={item.id}
                             firstName={item.firstName}
                             lastName={item.lastName}
+                            gender={item.gender}
+                            phone={item.phone}
+                            email={item.email}
+                            bday={item.bday}
                             archived={item.archived}
                             key={item.id}
                             mongoKey={item._id}
-                            toggleBfcArchived={toggleBfcArchived}
                             deleteBfc={deleteBfc}
-                            editBfc={editBfc}
                         />
                     ))}
             </ul>

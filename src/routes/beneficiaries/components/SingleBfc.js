@@ -2,80 +2,159 @@ import React, { useState } from "react";
 import Popup from "./Popup";
 
 const SingleBfc = (item) => {
-    const [newFirstName, setNewFirstName] = useState("");
-    const [newLastName, setNewLastName] = useState("");
-    const [newGender, setNewGender] = useState({
-        value: "female",
-        label: "Female",
-    });
-    const [newPhoneNumber, setPhoneNumber] = useState("");
-    const [newEmail, setEmail] = useState("");
-    const [newBirthDate, setBirthDate] = useState(new Date());
+    const [beneficiary, setBeneficiary] = useState([]);
+    
+    const [firstName, setFirstName] = useState(item.firstName);
+    const [lastName, setLastName] = useState(item.lastName);
+    const [gender, setGender] = useState(item.gender);
+    const [phone, setPhone] = useState(item.phone);
+    const [email, setEmail] = useState(item.email);
+    const [birthDate, setBirthDate] = useState(item.bday);
+    const [archived, setArchived] = useState(item.archived);
 
     const [isEditing, setEditing] = useState(false);
     const [buttonPopup, setButtonPopup] = useState(false);
 
+    // states used when editing individual field
+    const [firstNameEdited, setFirstNameEdited] = useState(false);
+    const [lastNameEdited, setLastNameEdited] = useState(false);
+    const [genderEdited, setGenderEdited] = useState(false);
+    const [phoneEdited, setPhoneEdited] = useState(false);
+    const [emailEdited, setEmailEdited] = useState(false);
+    const [birthDateEdited, setBirthDateEdited] = useState(false);
+    const [archivedEdited, setArchivedEdited] = useState(false);
+
     const handleChangeFirstName = (event) => {
-        setNewFirstName(event.target.value);
+        setFirstNameEdited(true);
+        setFirstName(event.target.value);
     };
 
-    const handleChangeLastName = (event) => {
-        setNewLastName(event.target.value);
-    };
+    // const handleChangeLastName = (event) => {
+    //     setNewLastName(event.target.value);
+    // };
 
-    const handleGenderSelect = (data) => {
-        setNewSelectedGender(data);
-    };
+    // const handleChangeGender = (event) => {
+    //     setNewGender(event.target.value);
+    // };
 
-    const handleChangePhoneNumber = (event) => {
-        setNewPhoneNumber(event.target.value);
-    };
+    // const handleChangePhone = (event) => {
+    //     setNewPhone(event.target.value);
+    // };
 
-    const handleChangeEmail = (event) => {
-        setNewEmail(event.target.value);
-    };
+    // const handleChangeEmail = (event) => {
+    //     setNewEmail(event.target.value);
+    // };
 
-    const handleChangeBirthDate = (event) => {
-        setNewBirthDate(new Date(event.target.value));
-    };
+    // const handleChangeBirthDate = (event) => {
+    //     setNewBirthDate(new Date(event.target.value));
+    // };
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        item.editBfc(
-            item.id,
-            newFirstName,
-            newLastName,
-            newGender,
-            newPhoneNumber,
-            newEmail,
-            newBirthDate
-        );
-        setNewFirstName("");
+    // const handleChangeArchived = () => {
+    //     setNewArchived(!archived);
+    // }
+
+    const handleSubmit = (e) => {
+        //e.preventDefault();
+        console.log('You clicked save.');
+        const id = item.mongoKey.toString();
+        console.log(`id: ${id}`);
+        if (firstNameEdited) {
+            // update backend
+            fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    // lastName: lastName,
+                    // bday: birthDate,
+                    // gender: gender,
+                    // phone: phone,
+                    // email: email,
+                    // archived: archived,
+                }),
+            }).then(async () => {
+                try {
+                    let data = await fetch("http://localhost:3000/beneficiaries");
+                    data = await data.json();
+                    setBeneficiary(data);
+                    console.log(data);
+                    console.log(beneficiary);
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        }
+
         setEditing(false);
     }
 
-    const editingTemplate = (
-        <form className="stack-small" onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label className="bfc-label" htmlFor="firstName">
-                    New first name for {item.firstName}
-                </label>
-                <input
-                    id="firstName"
-                    className="bfc-text"
+    const EditComponent = () => (
+        <div className="bfc-edit-info-btns">
+            <div className="edit-group">
+                <label>
+                    First Name: 
+                    <input
                     type="text"
+                    id="first-name"
                     onChange={handleChangeFirstName}
-                />
-                <br></br>
-                <label className="bfc-label" htmlFor="lastName">
-                    New last name for {item.lastName}
+                    defaultValue={firstName}
+                    />
                 </label>
-                <input
-                    id="lastName"
-                    className="bfc-text"
+                <br></br>
+                {/* <label>
+                    Last Name: 
+                    <input
                     type="text"
+                    id="last-name"
                     onChange={handleChangeLastName}
-                />
+                    defaultValue={lastName}
+                    />
+                </label>
+                <br></br>
+                <label>
+                    Gender: 
+                    <input
+                    type="text"
+                    id="gender"
+                    onChange={handleChangeGender}
+                    defaultValue={gender}
+                    />
+                </label>
+                <br></br>
+                <label>
+                    Birth Date: 
+                    <input
+                    type="date"
+                    id="birthdate"
+                    onChange={handleChangeBirthDate}
+                    defaultValue={new Date(birthDate).toISOString().split("T")[0]}
+                    />
+                </label>
+                <br></br>
+                <label>
+                    Phone Number: 
+                    <input
+                    type="number"
+                    onChange={handleChangePhone}
+                    id="phone-numbef_r"
+                    defaultValue={phone}
+                    />
+                </label>
+                <br></br>
+                <label>
+                    Email: 
+                    <input
+                    type="email"
+                    onChange={handleChangeEmail}
+                    id="email-address"
+                    defaultValue={phone}
+                    />
+                </label>
+                <br></br>
+                <label>
+                    Archived: 
+                    <input type="checkbox" defaultChecked={archived} onChange={handleChangeArchived}/>
+                </label> */}
             </div>
             <div className="btn-group">
                 <button
@@ -86,25 +165,22 @@ const SingleBfc = (item) => {
                     Cancel
                 </button>
 
-                <button type="submit" className="btn btn__primary bfc-edit">
+                <button type="submit" className="btn btn__primary bfc-edit" onClick={handleSubmit}>
                     Save
                 </button>
             </div>
-        </form>
+        </div>
     );
 
-    const viewTemplate = (
-        <div className="stack-small">
-            <div className="bfc-checkbox">
-                <input
-                    id={item.id}
-                    type="checkbox"
-                    defaultChecked={item.archived}
-                    onChange={() => item.toggleBfcArchived(item.id)}
-                />
-                <label className="bfc-label" htmlFor={item.id}>
-                    {item.firstName}
-                </label>
+    const ViewComponent = () => (
+        <div className="bfc-view-info-btns">
+            <div className="bfc-info">
+                <h3 id="bfc-first-name">{`${item.firstName} ${item.lastName}`}</h3>
+                <h4 id="bfc-gender">{`gender: ${item.gender}`}</h4>
+                <h4 id="bfc-phone">{`phone: ${item.phone}`}</h4>
+                <h4 id="bfc-email">{`email: ${item.email}`}</h4>
+                <h4 id="bfc-bday">{`birthdate: ${item.bday}`}</h4>
+                <h4 id="bfc-archived">{`archived: ${item.archived}`}</h4>
             </div>
             <div className="btn-group">
                 <button
@@ -112,7 +188,7 @@ const SingleBfc = (item) => {
                     className="btn"
                     onClick={() => setEditing(true)}
                 >
-                    Edit{" "}
+                    Edit
                 </button>
 
                 <button
@@ -120,7 +196,7 @@ const SingleBfc = (item) => {
                     className="btn btn__danger"
                     onClick={() => item.deleteBfc(item.mongoKey.toString())}
                 >
-                    Delete{" "}
+                    Delete
                 </button>
             </div>
         </div>
@@ -128,26 +204,20 @@ const SingleBfc = (item) => {
 
     return (
         <div className="edit-popup">
-            <li className="todo">
-                {isEditing ? editingTemplate : viewTemplate}
+            <li className="bfc-label" htmlFor={item.id}>
+                {`${item.firstName} ${item.lastName}`}
             </li>
             <main>
                 <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>
 
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3>My Popup</h3>
-                <li className="todo">
-                    {isEditing ? editingTemplate : viewTemplate}
-                </li>
+            <Popup isEditingPopup={isEditing} trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <div className="bfc-edit">
+                    {isEditing ? <EditComponent /> : <ViewComponent />}
+                </div>
             </Popup>
         </div>
     );
 };
-
-const genderOpts = [
-    { value: "female", label: "Female" },
-    { value: "male", label: "Male" },
-];
 
 export default SingleBfc;
