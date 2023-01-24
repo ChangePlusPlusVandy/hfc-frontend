@@ -4,47 +4,50 @@ import "./BeneficiaryRegistration.css";
 //TO DO: add gender and interests
 
 const Page4 = ({
-    formFirstName,
-    formLastName,
-    formAge,
-    formEmail,
-    formPhoneNumber,
-    formAddress,
-    formCity,
-    formState,
-    formZipcode,
-    formLanguages,
-    formNationalities,
-    formEducation,
-    formSelectedReasons,
-    formSelectedPrograms,
-    formSelectedReferrals,
+    firstName,
+    lastName,
+    age,
+    email,
+    phoneNumber,
+    address,
+    languages,
+    nationalities,
+    education,
+    reasons,
+    referrals,
+    interests,
+    birthDate,
+    joinDate,
+    needs,
+    selectedGender, 
+    staffNotes, 
+    sponsorInfo
 }) => {
+
     return (
         <div>
             <h1>Review</h1>
-            {/* do we want it to say First Name: Isa Last Name: Dominguez or just Isa Dominguez*/}
             <h5>
                 {" "}
-                {formFirstName} {formLastName}{" "}
+                {firstName} {lastName}{" "}
             </h5>
-            <h5> Age: {formAge} </h5>
-            <h5> Gender: </h5> {/* TO DO: add gender when we have it*/}
-            <h5>
-                {" "}
-                Contact: {formEmail} {formPhoneNumber}{" "}
-            </h5>
-            <h5>
-                {" "}
-                Address: {formAddress}, {formCity}, {formState} {formZipcode}{" "}
-            </h5>
-            <h5> Languages: {formLanguages} </h5>
-            <h5> Nationalities: {formNationalities} </h5>
-            <h5> Education: {formEducation} </h5>
-            <h5> Reasons For Visit: {formSelectedReasons} </h5>
-            <h5> Registrations: {formSelectedPrograms} </h5>
-            <h5> Interests: </h5> {/* TO DO: add interests when we have it*/}
-            <h5> Referrals: {formSelectedReferrals} </h5>
+            <h5> Age: {age} </h5>
+            <h5> Gender: {selectedGender.label} </h5> 
+            <h5> Email: {email} </h5>
+            <h5> Phone: {phoneNumber}</h5>
+            <h5> Address: {address} </h5>
+            <h5> Birthdate: {birthDate} </h5>
+            <h5> Languages: {languages.map((language) => language.label + " ")} </h5> 
+            <h5> Nationalities: {nationalities.map((nationality) => nationality.label + " ")} </h5> 
+            <h5> Education: {education.label} </h5> 
+            <h5> Join Date: {joinDate.toDateString()} </h5>
+            <h5> Reasons For Visit: {reasons} </h5>
+            <h5> Interests: {interests.map((interest) =>  interest.label + " ")} </h5> 
+            <h5> Referrals: {referrals} </h5>
+            <h5> Needs: {needs.map((need) =>  need.label + " ")} </h5> 
+            <h5> Sponsorship: {sponsorInfo} </h5>
+            <h5> Notes: {staffNotes} </h5>
+    
         </div>
     );
 };

@@ -4,64 +4,46 @@ import CreatableSelect from "react-select/creatable";
 import "./BeneficiaryRegistration.css";
 
 const Page0 = ({
-    formFirstName,
-    setFormFirstName,
-    formLastName,
-    setFormLastName,
-    formSelectedGender,
-    setFormSelectedGender,
-    formPhoneNumber,
-    setFormPhoneNumber,
-    formEmail,
-    setFormEmail,
-    formAddress,
-    setFormAddress,
-    formCity,
-    setFormCity,
-    formState,
-    setFormState,
-    formZipcode,
-    setFormZipcode,
-    formAge,
-    setFormAge,
-    formBirthDate,
-    setFormBirthDate,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    selectedGender,
+    setSelectedGender,
+    phoneNumber,
+    setPhoneNumber,
+    email,
+    setEmail,
+    address,
+    setAddress,
+    age,
+    setAge,
+    birthDate,
+    setBirthDate,
 }) => {
     const handleChangeFirstName = (event) => {
-        setFormFirstName(event.target.value);
-        console.log(formFirstName);
+        setFirstName(event.target.value);
+        console.log(firstName);
     };
 
     const handleChangeLastName = (event) => {
-        setFormLastName(event.target.value);
+        setLastName(event.target.value);
     };
 
     const handleGenderSelect = (data) => {
-        setFormSelectedGender(data);
+        setSelectedGender(data);
     };
 
     const handleChangePhoneNumber = (event) => {
-        setFormPhoneNumber(event.target.value);
+        setPhoneNumber(event.target.value);
     };
 
     const handleChangeEmail = (event) => {
-        setFormEmail(event.target.value);
+        setEmail(event.target.value);
     };
 
     const handleChangeAddress = (event) => {
-        setFormAddress(event.target.value);
-    };
-
-    const handleChangeCity = (event) => {
-        setFormCity(event.target.value);
-    };
-
-    const handleChangeState = (event) => {
-        setFormState(event.target.value);
-    };
-
-    const handleChangeZipcode = (event) => {
-        setFormZipcode(event.target.value);
+        setAddress(event.target.value);
     };
 
     const handleChangeBirthDate = (event) => {
@@ -75,8 +57,8 @@ const Page0 = ({
         ) {
             age -= 1;
         }
-        setFormBirthDate(event.target.value);
-        setFormAge(age);
+        setBirthDate(event.target.value);
+        setAge(age);
     };
 
     return (
@@ -94,14 +76,14 @@ const Page0 = ({
                 type="text"
                 id="first-name"
                 onChange={handleChangeFirstName}
-                value={formFirstName}
+                value={firstName}
                 placeholder="First Name *"
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
-                value={formLastName}
+                value={lastName}
                 placeholder="Last Name *"
             />
             <br></br>
@@ -111,7 +93,7 @@ const Page0 = ({
                 Gender *
                 <CreatableSelect
                     options={genderOpts}
-                    value={formSelectedGender}
+                    value={selectedGender}
                     onChange={handleGenderSelect}
                     name="gender"
                     className="creatable-single-select"
@@ -125,10 +107,10 @@ const Page0 = ({
                 type="date"
                 id="birthdate"
                 onChange={handleChangeBirthDate}
-                value={formBirthDate}
+                value={birthDate}
             />
 
-            <p> Age: {formAge} </p>
+            <p> Age: {age} </p>
             <br></br>
 
             <p>Contact Information</p>
@@ -136,15 +118,15 @@ const Page0 = ({
                 type="number"
                 onChange={handleChangePhoneNumber}
                 id="phone-number"
-                placeholder="Phone Number (XXXXXXXXX)"
-                value={formPhoneNumber}
+                placeholder="Phone Number"
+                value={phoneNumber}
             />
             <input
                 type="email"
                 onChange={handleChangeEmail}
                 id="email-address"
                 placeholder="Email Address"
-                value={formEmail}
+                value={email}
             />
             <br></br>
 
@@ -154,32 +136,10 @@ const Page0 = ({
                 type="text"
                 onChange={handleChangeAddress}
                 id="address"
-                placeholder="Street Address"
-                value={formAddress}
+                placeholder="Address"
+                value={address}
             />
             <br></br>
-            <input
-                type="text"
-                onChange={handleChangeCity}
-                id="city"
-                placeholder="City"
-                value={formCity}
-            />
-            <input
-                type="text"
-                onChange={handleChangeState}
-                id="state"
-                placeholder="State"
-                value={formState}
-            />
-            <br></br>
-            <input
-                type="number"
-                onChange={handleChangeZipcode}
-                id="zip-code"
-                placeholder="Zip Code"
-                value={formZipcode}
-            />
         </div>
     );
 };

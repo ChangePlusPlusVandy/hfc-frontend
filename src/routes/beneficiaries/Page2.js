@@ -15,29 +15,29 @@ const interestOpts = [
 ];
 
 const Page2 = ({
-    formJoinDate,
-    setFormJoinDate,
-    formReason,
-    setFormReason,
-    formSelectedNeeds,
-    setFormSelectedNeeds,
-    formSelectedInterests,
-    setFormSelectedInterest,
+    joinDate,
+    setJoinDate,
+    reasons,
+    setReasons,
+    needs,
+    setNeeds,
+    interests,
+    setInterests,
 }) => {
     const handleChangeReason = (event) => {
-        setFormReason(event.target.value);
+        setReasons(event.target.value);
     };
 
     const handleNeedSelect = (data) => {
-        setFormSelectedNeeds(data);
+        setNeeds(data);
     };
 
     const handleInterestSelect = (data) => {
-        setFormSelectedInterest(data);
+        setInterests(data);
     };
 
     const handleChangeJoinDate = (event) => {
-        setFormJoinDate(new Date(event.target.value));
+        setJoinDate(new Date(event.target.value));
     };
 
     return (
@@ -62,6 +62,7 @@ const Page2 = ({
                         rows="5"
                         cols="80"
                         onChange={handleChangeReason}
+                        value={reasons}
                     />
                 </label>
                 <br />
@@ -70,7 +71,7 @@ const Page2 = ({
                     Needs
                     <CreatableSelect
                         options={needOpts}
-                        value={formSelectedNeeds}
+                        value={needs}
                         onChange={handleNeedSelect}
                         isMulti
                         name="needs"
@@ -84,7 +85,7 @@ const Page2 = ({
                     Interests
                     <CreatableSelect
                         options={interestOpts}
-                        value={formSelectedInterests}
+                        value={interests}
                         onChange={handleInterestSelect}
                         isMulti
                         name="interests"

@@ -5,25 +5,26 @@ import Select from "react-select";
 import "./BeneficiaryRegistration.css";
 
 const Page1 = ({
-    formLanguages,
-    setFormLanguages,
-    formNationalities,
-    setFormNationalities,
-    formEducation,
-    setFormEducation,
+    languages,
+    setLanguages,
+    nationalities,
+    setNationalities,
+    education,
+    setEducation,
 }) => {
     const handleLanguageSelect = (data) => {
-        setFormLanguages(data);
+        setLanguages(data);
     };
 
     const handleNationalitySelect = (data) => {
-        setFormNationalities(data);
+        setNationalities(data);
     };
 
     const handleEducationSelect = (data) => {
-        setFormEducation(data);
+        setEducation(data);
     };
 
+    console.log(languages);
     return (
         <div className="page1-container">
             <h3>Basic Info</h3>
@@ -32,7 +33,7 @@ const Page1 = ({
                     Fluent Languages
                     <CreatableSelect
                         options={languageOpts}
-                        value={formLanguages}
+                        value={languages}
                         onChange={handleLanguageSelect}
                         // defaultValue={[languageOptions[0], languageOptions[1]]}
                         isMulti
@@ -47,7 +48,7 @@ const Page1 = ({
                     Nationality
                     <CreatableSelect
                         options={nationalityOpts}
-                        value={formNationalities}
+                        value={nationalities}
                         onChange={handleNationalitySelect}
                         isMulti
                         name="nationality"
@@ -61,7 +62,7 @@ const Page1 = ({
                     Education Level
                     <Select
                         options={eduOpts}
-                        value={formEducation}
+                        value={education}
                         onChange={handleEducationSelect}
                         name="education"
                         className="single-select"
