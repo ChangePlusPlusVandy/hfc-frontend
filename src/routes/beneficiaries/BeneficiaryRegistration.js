@@ -29,7 +29,7 @@ const BeneficiaryRegistration = () => {
     const [staffNotes, setStaffNotes] = useState();
     const [sponsorInfo, setSponsorInfo] = useState();
     const [interests, setInterests] = useState([]);
-    const [joinDate, setJoinDate] = useState();
+    const [joinDate, setJoinDate] = useState(new Date());
     const [needs, setNeeds] = useState([]);
 
     const [languages, setLanguages] = useState([]);
