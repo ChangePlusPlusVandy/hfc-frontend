@@ -3,7 +3,7 @@ import Popup from "./Popup";
 
 const SingleBfc = (item) => {
     const [beneficiary, setBeneficiary] = useState([]);
-    
+
     const [firstName, setFirstName] = useState(item.firstName);
     const [lastName, setLastName] = useState(item.lastName);
     const [gender, setGender] = useState(item.gender);
@@ -55,7 +55,7 @@ const SingleBfc = (item) => {
 
     const handleSubmit = (e) => {
         //e.preventDefault();
-        console.log('You clicked save.');
+        console.log("You clicked save.");
         const id = item.mongoKey.toString();
         console.log(`id: ${id}`);
         if (firstNameEdited) {
@@ -74,7 +74,9 @@ const SingleBfc = (item) => {
                 }),
             }).then(async () => {
                 try {
-                    let data = await fetch("http://localhost:3000/beneficiaries");
+                    let data = await fetch(
+                        "http://localhost:3000/beneficiaries"
+                    );
                     data = await data.json();
                     setBeneficiary(data);
                     console.log(data);
@@ -86,18 +88,18 @@ const SingleBfc = (item) => {
         }
 
         setEditing(false);
-    }
+    };
 
     const EditComponent = () => (
         <div className="bfc-edit-info-btns">
             <div className="edit-group">
                 <label>
-                    First Name: 
+                    First Name:
                     <input
-                    type="text"
-                    id="first-name"
-                    onChange={handleChangeFirstName}
-                    defaultValue={firstName}
+                        type="text"
+                        id="first-name"
+                        onChange={handleChangeFirstName}
+                        defaultValue={firstName}
                     />
                 </label>
                 <br></br>
@@ -165,7 +167,11 @@ const SingleBfc = (item) => {
                     Cancel
                 </button>
 
-                <button type="submit" className="btn btn__primary bfc-edit" onClick={handleSubmit}>
+                <button
+                    type="submit"
+                    className="btn btn__primary bfc-edit"
+                    onClick={handleSubmit}
+                >
                     Save
                 </button>
             </div>
@@ -211,7 +217,11 @@ const SingleBfc = (item) => {
                 <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>
 
-            <Popup isEditingPopup={isEditing} trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <Popup
+                isEditingPopup={isEditing}
+                trigger={buttonPopup}
+                setTrigger={setButtonPopup}
+            >
                 <div className="bfc-edit">
                     {isEditing ? <EditComponent /> : <ViewComponent />}
                 </div>

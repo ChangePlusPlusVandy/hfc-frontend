@@ -50,7 +50,7 @@ const Beneficiaries = () => {
                 console.error(error);
             }
         });
-    }
+    };
 
     const sortByName = () => {
         let data = [...beneficiary];
