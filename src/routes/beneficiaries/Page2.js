@@ -17,15 +17,15 @@ const interestOpts = [
 const Page2 = ({
     joinDate,
     setJoinDate,
-    reasons,
-    setReasons,
+    reason,
+    setReason,
     needs,
     setNeeds,
     interests,
     setInterests,
 }) => {
     const handleChangeReason = (event) => {
-        setReasons(event.target.value);
+        setReason(event.target.value);
     };
 
     const handleNeedSelect = (data) => {
@@ -62,7 +62,7 @@ const Page2 = ({
                         rows="5"
                         cols="80"
                         onChange={handleChangeReason}
-                        value={reasons}
+                        value={reason}
                     />
                 </label>
                 <br />

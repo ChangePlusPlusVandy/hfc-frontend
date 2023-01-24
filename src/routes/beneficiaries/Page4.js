@@ -13,13 +13,13 @@ const Page4 = ({
     languages,
     nationalities,
     education,
-    reasons,
+    reason,
     referrals,
     interests,
     birthDate,
     joinDate,
     needs,
-    selectedGender,
+    gender,
     staffNotes,
     sponsorInfo,
 }) => {
@@ -31,7 +31,7 @@ const Page4 = ({
                 {firstName} {lastName}{" "}
             </h5>
             <h5> Age: {age} </h5>
-            <h5> Gender: {selectedGender.label} </h5>
+            <h5> Gender: {gender.label} </h5>
             <h5> Email: {email} </h5>
             <h5> Phone: {phoneNumber}</h5>
             <h5> Address: {address} </h5>
@@ -51,7 +51,7 @@ const Page4 = ({
             </h5>
             <h5> Education: {education.label} </h5>
             <h5> Join Date: {joinDate.toDateString()} </h5>
-            <h5> Reasons For Visit: {reasons} </h5>
+            <h5> Reason For Visit: {reason} </h5>
             <h5>
                 {" "}
                 Interests: {interests.map(

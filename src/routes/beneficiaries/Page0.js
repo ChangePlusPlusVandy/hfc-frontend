@@ -8,8 +8,8 @@ const Page0 = ({
     setFirstName,
     lastName,
     setLastName,
-    selectedGender,
-    setSelectedGender,
+    gender,
+    setGender,
     phoneNumber,
     setPhoneNumber,
     email,
@@ -31,7 +31,7 @@ const Page0 = ({
     };
 
     const handleGenderSelect = (data) => {
-        setSelectedGender(data);
+        setGender(data);
     };
 
     const handleChangePhoneNumber = (event) => {
@@ -93,7 +93,7 @@ const Page0 = ({
                 Gender *
                 <CreatableSelect
                     options={genderOpts}
-                    value={selectedGender}
+                    value={gender}
                     onChange={handleGenderSelect}
                     name="gender"
                     className="creatable-single-select"

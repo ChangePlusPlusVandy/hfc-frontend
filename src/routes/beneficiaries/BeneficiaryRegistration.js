@@ -22,9 +22,9 @@ const BeneficiaryRegistration = () => {
     const [address, setAddress] = useState("");
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(""); // BirthDate is defined as a string not a date
-    const [selectedGender, setSelectedGender] = useState("");
+    const [gender, setGender] = useState("");
 
-    const [reasons, setReasons] = useState(); // Displays what Reasons were selected
+    const [reason, setReason] = useState(); // Displays what Reason were selected
     const [referrals, setReferrals] = useState(); // Display what Referal Orgs were Selected
     const [staffNotes, setStaffNotes] = useState();
     const [sponsorInfo, setSponsorInfo] = useState();
@@ -52,8 +52,8 @@ const BeneficiaryRegistration = () => {
             setAge={setAge}
             birthDate={birthDate}
             setBirthDate={setBirthDate}
-            selectedGender={selectedGender}
-            setSelectedGender={setSelectedGender}
+            gender={gender}
+            setGender={setGender}
         />,
         <Page1
             languages={languages}
@@ -64,8 +64,8 @@ const BeneficiaryRegistration = () => {
             setEducation={setEducation}
         />,
         <Page2
-            reasons={reasons}
-            setReasons={setReasons}
+            reason={reason}
+            setReason={setReason}
             interests={interests}
             setInterests={setInterests}
             joinDate={joinDate}
@@ -91,13 +91,13 @@ const BeneficiaryRegistration = () => {
             languages={languages}
             nationalities={nationalities}
             education={education}
-            reasons={reasons}
+            reason={reason}
             referrals={referrals}
             birthDate={birthDate}
             joinDate={joinDate}
             interests={interests}
             needs={needs}
-            selectedGender={selectedGender}
+            gender={gender}
             staffNotes={staffNotes}
             sponsorInfo={sponsorInfo}
         />,
@@ -121,8 +121,8 @@ const BeneficiaryRegistration = () => {
                 id: "2222345", // TODO
                 bday: birthDate,
                 age: age,
-                gender: selectedGender.value,
-                visitReason: reasons,
+                gender: gender.value,
+                visitReason: reason,
                 joinDate: joinDate,
                 phone: phoneNumber,
                 email: email,
