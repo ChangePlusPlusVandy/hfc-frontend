@@ -1,0 +1,46 @@
+.dashboard-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard-layout .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 350px;
+    min-height: 100vh;
+    border-right: 1px solid black;
+}
+
+.dashboard-layout .display-name {
+    font-weight: bold;
+    text-align: center;
+    margin: 0.25rem 0;
+}
+
+.dashboard-layout nav {
+    width: 100%;
+}
+
+.dashboard-layout nav a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    width: 60%;
+    margin: 5px auto;
+    padding: 18px 15px;
+    border-radius: 15px;
+}
+
+.dashboard-layout nav a.active {
+    background-color: #D9D9D9;
+}
+
+/* TODO: Edit me when profile pics are implemented */
+.dashboard-layout .PLACEHOLDER-PROFILE-PIC {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+}

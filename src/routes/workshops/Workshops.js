@@ -11,7 +11,7 @@ export const Workshops = () => {
                 <Link className="button" to="./create">
                     Create Workshop
                 </Link>
-                <Link className="button" to="./get">
+                <Link className="button" to="./all">
                     Get Workshops
                 </Link>
                 <Link className="button" to="./delete">
