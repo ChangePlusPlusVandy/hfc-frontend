@@ -1,6 +1,6 @@
 .programs {
     padding: 30px;
-    width: 100rem;
+    width: 80rem;
 }
 
 .programsListContainer {
@@ -12,6 +12,7 @@
 }
 
 .programCard {
+    color: white;
     display: flex;
     width: auto;
     border: 1px solid white;
@@ -19,6 +20,12 @@
     padding: 5px;
 }
 
-.programCard > h5 {
+.programCard > h5,
+h4 {
     margin: 3px;
+    color: white;
+}
+
+.basic-multi-select {
+    color: black;
 }

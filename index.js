@@ -2,6 +2,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Styles
 import "./index.css";
@@ -9,6 +10,7 @@ import "./index.css";
 // React Components
 import Home from "./src/routes/home/Home";
 import Programs from "./src/routes/Programs/Programs";
+import SingleProgram from "./src/routes/Programs/SingleProgram";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "/programs",
         element: <Programs />,
+    },
+    {
+        path: "/programs/singleview",
+        element: <SingleProgram />,
     },
     {
         path: "/workshops",
