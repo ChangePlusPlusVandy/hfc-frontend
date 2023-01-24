@@ -22,28 +22,7 @@ export const Workshops = () => {
     );
 };
 
-export const WorkshopsList = () => {
-    const [workshops, setWorkshops] = useState([]);
 
-    // Fetch workshops
-    useEffect(() => {
-        fetch("http://localhost:3000/workshops")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Fetched workshops:");
-                console.log(data);
-                setWorkshops(data);
-            });
-    }, []);
-
-    return (
-        <ul>
-            {workshops.map((workshop) => (
-                <li key={workshop.id}>{JSON.stringify(workshop)}</li>
-            ))}
-        </ul>
-    );
-};
 export const WorkshopDeleteForm = () => {
     let [id, setID] = useState();
 

@@ -4,10 +4,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
     Workshops,
-    WorkshopsList,
     WorkshopDeleteForm,
 } from "./src/routes/workshops/Workshops";
 import { WorkshopCreateForm } from "./src/routes/workshops/CreateWorkshop";
+import { WorkshopsList } from "./src/routes/workshops/WorkshopView";
 // Styles
 import "./index.css";
 
