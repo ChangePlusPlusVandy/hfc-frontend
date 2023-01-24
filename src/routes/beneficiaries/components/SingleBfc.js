@@ -30,27 +30,27 @@ const SingleBfc = (item) => {
     };
 
     // const handleChangeLastName = (event) => {
-    //     setNewLastName(event.target.value);
+    //     setLastName(event.target.value);
     // };
 
     // const handleChangeGender = (event) => {
-    //     setNewGender(event.target.value);
+    //     setGender(event.target.value);
     // };
 
     // const handleChangePhone = (event) => {
-    //     setNewPhone(event.target.value);
+    //     setPhone(event.target.value);
     // };
 
     // const handleChangeEmail = (event) => {
-    //     setNewEmail(event.target.value);
+    //     setEmail(event.target.value);
     // };
 
     // const handleChangeBirthDate = (event) => {
-    //     setNewBirthDate(new Date(event.target.value));
+    //     setBirthDate(new Date(event.target.value));
     // };
 
     // const handleChangeArchived = () => {
-    //     setNewArchived(!archived);
+    //     setArchived(!archived);
     // }
 
     const handleSubmit = (e) => {
