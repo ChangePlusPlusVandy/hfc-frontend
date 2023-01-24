@@ -20,80 +20,86 @@ const BeneficiaryRegistration = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [zipcode, setZipcode] = useState("");
     const [age, setAge] = useState("");
     const [birthDate, setBirthDate] = useState(""); // BirthDate is defined as a string not a date
+    const [gender, setGender] = useState("");
 
-    const [selectedReasons, setSelectedReasons] = useState(); // Displays what Reasons were selected
-    const [selectedPrograms, setSelectedPrograms] = useState(); // Displays what Programs were selected
-    const [programs, setPrograms] = useState([{}]); // Save and render programs collection data as state
-    const [selectedReferrals, setSelectedReferrals] = useState(); // Display what Referal Orgs were Selected
+    const [reason, setReason] = useState(); // Displays what Reason were selected
+    const [referrals, setReferrals] = useState(); // Display what Referal Orgs were Selected
+    const [staffNotes, setStaffNotes] = useState();
+    const [sponsorInfo, setSponsorInfo] = useState();
+    const [interests, setInterests] = useState([]);
+    const [joinDate, setJoinDate] = useState(new Date());
+    const [needs, setNeeds] = useState([]);
 
-    const [languages, setLanguages] = useState();
-    const [nationalities, setNationalites] = useState();
-    const [education, setEducation] = useState();
+    const [languages, setLanguages] = useState([]);
+    const [nationalities, setNationalities] = useState([]);
+    const [education, setEducation] = useState("");
 
     const PAGES = [
         <Page0
-            formFirstName={firstName}
-            setFormFirstName={setFirstName}
-            formLastName={lastName}
-            setFormLastName={setLastName}
-            formPhoneNumber={phoneNumber}
-            setFormPhoneNumber={setPhoneNumber}
-            formEmail={email}
-            setFormEmail={setEmail}
-            formAddress={address}
-            setFormAddress={setAddress}
-            formCity={city}
-            setFormCity={setCity}
-            formState={state}
-            setFormState={setState}
-            formZipcode={zipcode}
-            setFormZipcode={setZipcode}
-            formAge={age}
-            setFormAge={setAge}
-            formBirthDate={birthDate}
-            setFormBirthDate={setBirthDate}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            email={email}
+            setEmail={setEmail}
+            address={address}
+            setAddress={setAddress}
+            age={age}
+            setAge={setAge}
+            birthDate={birthDate}
+            setBirthDate={setBirthDate}
+            gender={gender}
+            setGender={setGender}
         />,
         <Page1
-            formLanguages={languages}
-            setFormLanguages={setLanguages}
-            formNationalities={nationalities}
-            setFormNationalities={setNationalites}
-            formEducation={education}
-            setFormEducation={setEducation}
+            languages={languages}
+            setLanguages={setLanguages}
+            nationalities={nationalities}
+            setNationalites={setNationalities}
+            education={education}
+            setEducation={setEducation}
         />,
         <Page2
-            formSelectedReasons={selectedReasons}
-            setFormSelectedReasons={setSelectedReasons}
-            formSelectedPrograms={selectedPrograms}
-            setFormSelectedPrograms={setSelectedPrograms}
-            formPrograms={programs}
-            setFormPrograms={setPrograms}
+            reason={reason}
+            setReason={setReason}
+            interests={interests}
+            setInterests={setInterests}
+            joinDate={joinDate}
+            setJoinDate={setJoinDate}
+            needs={needs}
+            setNeeds={setNeeds}
         />,
         <Page3
-            formSelectedReferrals={selectedReferrals}
-            setFormSelectedReferrals={setSelectedReferrals}
+            referrals={referrals}
+            setReferrals={setReferrals}
+            staffNotes={staffNotes}
+            setStaffNotes={setStaffNotes}
+            sponsorInfo={sponsorInfo}
+            setSponsorInfo={setSponsorInfo}
         />,
         <Page4
-            formFirstName={firstName}
-            formLastName={lastName}
-            formAge={age}
-            formEmail={email}
-            formPhoneNumber={phoneNumber}
-            formAddress={address}
-            formCity={city}
-            formState={state}
-            formZipcode={zipcode}
-            formLanguages={languages}
-            formNationalities={nationalities}
-            formEducation={education}
-            formSelectedReasons={selectedReasons}
-            formSelectedPrograms={selectedPrograms}
-            formSelectedReferrals={selectedReferrals}
+            firstName={firstName}
+            lastName={lastName}
+            age={age}
+            email={email}
+            phoneNumber={phoneNumber}
+            address={address}
+            languages={languages}
+            nationalities={nationalities}
+            education={education}
+            reason={reason}
+            referrals={referrals}
+            birthDate={birthDate}
+            joinDate={joinDate}
+            interests={interests}
+            needs={needs}
+            gender={gender}
+            staffNotes={staffNotes}
+            sponsorInfo={sponsorInfo}
         />,
     ];
 
@@ -114,7 +120,7 @@ const BeneficiaryRegistration = () => {
                 lastName: lastName,
                 id: "2222345", // TODO
                 bday: birthDate,
-                age: 20,
+                age: age,
                 gender: gender.value,
                 visitReason: reason,
                 joinDate: joinDate,
@@ -126,7 +132,9 @@ const BeneficiaryRegistration = () => {
                 interests: interests.map((option) => option.value),
                 needs: needs.map((option) => option.value),
                 sponsorInfo: sponsorInfo,
-                referrals: selectedReferrals.map((option) => option.value),
+                referrals: referrals,
+                archived: false,
+                address: address,
             }),
         });
 
