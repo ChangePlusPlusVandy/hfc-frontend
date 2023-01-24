@@ -5,7 +5,6 @@ import Accordion from "react-bootstrap/Accordion";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import Card from "react-bootstrap/Card";
 
-
 export const WorkshopsList = () => {
     const [workshops, setWorkshops] = useState([]);
 
