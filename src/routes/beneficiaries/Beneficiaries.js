@@ -95,7 +95,8 @@ const Beneficiaries = () => {
             />
             <div className="filters btn-group">{filterList}</div>
             <div className="bfc stack-large"></div>
-
+            <button onClick={sortByDate}>Sort by Date</button>
+            <button onClick={sortByName}>Sort by Name</button>
             <h1>Beneficiaries Below: </h1>
             <ul
                 role="list"
