@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SingleProgram from "./SingleProgram.jsx";
 import "./Programs.css";
 import Accordion from "react-bootstrap/Accordion";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
