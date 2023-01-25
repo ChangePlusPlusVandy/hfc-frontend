@@ -3,6 +3,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import "./DashboardLayout.css";
 
+import HFCLogo from "../assets/images/hfc-logo-peach.png";
+
 const DashboardLayout = () => {
     const handleLogout = () => {
         alert("TODO: this lol");
@@ -11,7 +13,7 @@ const DashboardLayout = () => {
     return (
         <div className="dashboard-layout">
             <div className="sidebar">
-                <div>Her Future Coalition Logo</div>
+                <img src={HFCLogo} alt="Her Future Coalition Logo" className="logo" />
                 <div className="PLACEHOLDER-PROFILE-PIC" />
                 <h1 className="display-name">Amanda C.</h1>
                 <nav>

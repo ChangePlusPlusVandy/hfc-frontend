@@ -3,6 +3,12 @@
     flex-direction: row;
 }
 
+.dashboard-layout img.logo {
+    width: 100px;
+    height: 100px;
+    margin: 0.5rem 0;
+}
+
 .dashboard-layout .sidebar {
     display: flex;
     flex-direction: column;
@@ -39,8 +45,8 @@
 
 /* TODO: Edit me when profile pics are implemented */
 .dashboard-layout .PLACEHOLDER-PROFILE-PIC {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: #D9D9D9;
 }
