@@ -1,3 +1,11 @@
+.workshops{
+    padding: 30px;
+    width: 50rem;
+}
+.workshops .dropdown{
+    width:10rem;
+    color: black;
+}
 .workshops-container {
     display: flex;
     flex-direction: column;

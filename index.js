@@ -13,6 +13,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import Programs from "./src/routes/Programs/Programs";
 import BeneficiaryRegistration from "./src/routes/beneficiaries/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/programs",
-        element: <div>INSERT PROGRAMS COMPONENT HERE</div>,
+        element: <Programs />,
     },
     {
         path: "/workshops",

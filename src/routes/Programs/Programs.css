@@ -1,0 +1,24 @@
+.programs {
+    padding: 30px;
+    width: 100rem;
+}
+
+.programsListContainer {
+    border: 3px solid white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.programCard {
+    display: flex;
+    width: auto;
+    border: 1px solid white;
+    color: black;
+    padding: 5px;
+}
+
+.programCard > h5 {
+    margin: 3px;
+}
