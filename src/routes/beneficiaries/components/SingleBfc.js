@@ -15,77 +15,76 @@ const SingleBfc = (item) => {
     const [isEditing, setEditing] = useState(false);
     const [buttonPopup, setButtonPopup] = useState(false);
 
-    // states used when editing individual field
-    const [firstNameEdited, setFirstNameEdited] = useState(false);
-    const [lastNameEdited, setLastNameEdited] = useState(false);
-    const [genderEdited, setGenderEdited] = useState(false);
-    const [phoneEdited, setPhoneEdited] = useState(false);
-    const [emailEdited, setEmailEdited] = useState(false);
-    const [birthDateEdited, setBirthDateEdited] = useState(false);
-    const [archivedEdited, setArchivedEdited] = useState(false);
+    // // states used when editing individual field
+    // const [firstNameEdited, setFirstNameEdited] = useState(false);
+    // const [lastNameEdited, setLastNameEdited] = useState(false);
+    // const [genderEdited, setGenderEdited] = useState(false);
+    // const [phoneEdited, setPhoneEdited] = useState(false);
+    // const [emailEdited, setEmailEdited] = useState(false);
+    // const [birthDateEdited, setBirthDateEdited] = useState(false);
+    // const [archivedEdited, setArchivedEdited] = useState(false);
 
     const handleChangeFirstName = (event) => {
-        setFirstNameEdited(true);
+        // setFirstNameEdited(true);
         setFirstName(event.target.value);
     };
 
-    // const handleChangeLastName = (event) => {
-    //     setLastName(event.target.value);
-    // };
+    const handleChangeLastName = (event) => {
+        setLastName(event.target.value);
+    };
 
-    // const handleChangeGender = (event) => {
-    //     setGender(event.target.value);
-    // };
+    const handleChangeGender = (event) => {
+        setGender(event.target.value);
+    };
 
-    // const handleChangePhone = (event) => {
-    //     setPhone(event.target.value);
-    // };
+    const handleChangePhone = (event) => {
+        setPhone(event.target.value);
+    };
 
-    // const handleChangeEmail = (event) => {
-    //     setEmail(event.target.value);
-    // };
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value);
+    };
 
-    // const handleChangeBirthDate = (event) => {
-    //     setBirthDate(new Date(event.target.value));
-    // };
+    const handleChangeBirthDate = (event) => {
+        setBirthDate(new Date(event.target.value));
+    };
 
-    // const handleChangeArchived = () => {
-    //     setArchived(!archived);
-    // }
+    const handleChangeArchived = () => {
+        setArchived(!archived);
+    }
 
     const handleSubmit = (e) => {
-        //e.preventDefault();
+        e.preventDefault();
         console.log("You clicked save.");
         const id = item.mongoKey.toString();
         console.log(`id: ${id}`);
-        if (firstNameEdited) {
-            // update backend
-            fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstName: firstName,
-                    // lastName: lastName,
-                    // bday: birthDate,
-                    // gender: gender,
-                    // phone: phone,
-                    // email: email,
-                    // archived: archived,
-                }),
-            }).then(async () => {
-                try {
-                    let data = await fetch(
-                        "http://localhost:3000/beneficiaries"
-                    );
-                    data = await data.json();
-                    setBeneficiary(data);
-                    console.log(data);
-                    console.log(beneficiary);
-                } catch (error) {
-                    console.error(error);
-                }
-            });
-        }
+        // update backend
+        fetch(`http://localhost:3000/beneficiaries`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                beneficiaryID: id,
+                firstName: firstName,
+                lastName: lastName,
+                bday: birthDate,
+                gender: gender,
+                phone: phone,
+                email: email,
+                archived: archived,
+            }),
+        }).then(async () => {
+            try {
+                let data = await fetch(
+                    "http://localhost:3000/beneficiaries"
+                );
+                data = await data.json();
+                setBeneficiary(data);
+                console.log(data);
+                console.log(beneficiary);
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
         setEditing(false);
     };
@@ -103,7 +102,7 @@ const SingleBfc = (item) => {
                     />
                 </label>
                 <br></br>
-                {/* <label>
+                <label>
                     Last Name: 
                     <input
                     type="text"
@@ -149,18 +148,17 @@ const SingleBfc = (item) => {
                     type="email"
                     onChange={handleChangeEmail}
                     id="email-address"
-                    defaultValue={phone}
+                    defaultValue={email}
                     />
                 </label>
                 <br></br>
                 <label>
                     Archived: 
                     <input type="checkbox" defaultChecked={archived} onChange={handleChangeArchived}/>
-                </label> */}
+                </label>
             </div>
             <div className="btn-group">
                 <button
-                    type="button"
                     className="btn bfc-cancel"
                     onClick={() => setEditing(false)}
                 >
@@ -168,7 +166,6 @@ const SingleBfc = (item) => {
                 </button>
 
                 <button
-                    type="submit"
                     className="btn btn__primary bfc-edit"
                     onClick={handleSubmit}
                 >
