@@ -87,7 +87,52 @@ const SingleBfc = (item) => {
         setEditing(false);
     };
 
-    const EditComponent = () => (
+    const ViewComponent = () => (
+        <div className="bfc-view-info-btns">
+            <div className="bfc-info">
+                <h3 id="bfc-first-name">{`${item.firstName} ${item.lastName}`}</h3>
+                <h4 id="bfc-gender">{`gender: ${item.gender}`}</h4>
+                <h4 id="bfc-phone">{`phone: ${item.phone}`}</h4>
+                <h4 id="bfc-email">{`email: ${item.email}`}</h4>
+                <h4 id="bfc-bday">{`birthdate: ${item.bday}`}</h4>
+                <h4 id="bfc-archived">{`archived: ${item.archived}`}</h4>
+            </div>
+            <div className="btn-group">
+                <button
+                    type="button"
+                    className="btn"
+                    onClick={() => setEditing(true)}
+                >
+                    Edit
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn__danger"
+                    onClick={() => item.deleteBfc(item.mongoKey.toString())}
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="edit-popup">
+            <li className="bfc-label" htmlFor={item.id}>
+                {`${item.firstName} ${item.lastName}`}
+            </li>
+            <main>
+                <button onClick={() => setButtonPopup(true)}> Expand </button>
+            </main>
+
+            <Popup
+                isEditingPopup={isEditing}
+                trigger={buttonPopup}
+                setTrigger={setButtonPopup}
+            >
+                <div className="bfc-edit">
+                    {isEditing ? 
         <div className="bfc-edit-info-btns">
             <div className="edit-group">
                 <label>
@@ -176,55 +221,7 @@ const SingleBfc = (item) => {
                     Save
                 </button>
             </div>
-        </div>
-    );
-
-    const ViewComponent = () => (
-        <div className="bfc-view-info-btns">
-            <div className="bfc-info">
-                <h3 id="bfc-first-name">{`${item.firstName} ${item.lastName}`}</h3>
-                <h4 id="bfc-gender">{`gender: ${item.gender}`}</h4>
-                <h4 id="bfc-phone">{`phone: ${item.phone}`}</h4>
-                <h4 id="bfc-email">{`email: ${item.email}`}</h4>
-                <h4 id="bfc-bday">{`birthdate: ${item.bday}`}</h4>
-                <h4 id="bfc-archived">{`archived: ${item.archived}`}</h4>
-            </div>
-            <div className="btn-group">
-                <button
-                    type="button"
-                    className="btn"
-                    onClick={() => setEditing(true)}
-                >
-                    Edit
-                </button>
-
-                <button
-                    type="button"
-                    className="btn btn__danger"
-                    onClick={() => item.deleteBfc(item.mongoKey.toString())}
-                >
-                    Delete
-                </button>
-            </div>
-        </div>
-    );
-
-    return (
-        <div className="edit-popup">
-            <li className="bfc-label" htmlFor={item.id}>
-                {`${item.firstName} ${item.lastName}`}
-            </li>
-            <main>
-                <button onClick={() => setButtonPopup(true)}> Expand </button>
-            </main>
-
-            <Popup
-                isEditingPopup={isEditing}
-                trigger={buttonPopup}
-                setTrigger={setButtonPopup}
-            >
-                <div className="bfc-edit">
-                    {isEditing ? <EditComponent /> : <ViewComponent />}
+        </div> : <ViewComponent />}
                 </div>
             </Popup>
         </div>
