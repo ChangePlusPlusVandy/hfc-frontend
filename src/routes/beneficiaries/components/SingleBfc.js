@@ -132,96 +132,101 @@ const SingleBfc = (item) => {
                 setTrigger={setButtonPopup}
             >
                 <div className="bfc-edit">
-                    {isEditing ? 
-        <div className="bfc-edit-info-btns">
-            <div className="edit-group">
-                <label>
-                    First Name:
-                    <input
-                        type="text"
-                        id="first-name"
-                        onChange={handleChangeFirstName}
-                        defaultValue={firstName}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Last Name:
-                    <input
-                        type="text"
-                        id="last-name"
-                        onChange={handleChangeLastName}
-                        defaultValue={lastName}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Gender:
-                    <input
-                        type="text"
-                        id="gender"
-                        onChange={handleChangeGender}
-                        defaultValue={gender}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Birth Date:
-                    <input
-                        type="date"
-                        id="birthdate"
-                        onChange={handleChangeBirthDate}
-                        defaultValue={
-                            new Date(birthDate).toISOString().split("T")[0]
-                        }
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Phone Number:
-                    <input
-                        type="number"
-                        onChange={handleChangePhone}
-                        id="phone-numbef_r"
-                        defaultValue={phone}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        onChange={handleChangeEmail}
-                        id="email-address"
-                        defaultValue={email}
-                    />
-                </label>
-                <br></br>
-                <label>
-                    Archived:
-                    <input
-                        type="checkbox"
-                        defaultChecked={archived}
-                        onChange={handleChangeArchived}
-                    />
-                </label>
-            </div>
-            <div className="btn-group">
-                <button
-                    className="btn bfc-cancel"
-                    onClick={() => setEditing(false)}
-                >
-                    Cancel
-                </button>
+                    {isEditing ? (
+                        <div className="bfc-edit-info-btns">
+                            <div className="edit-group">
+                                <label>
+                                    First Name:
+                                    <input
+                                        type="text"
+                                        id="first-name"
+                                        onChange={handleChangeFirstName}
+                                        defaultValue={firstName}
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Last Name:
+                                    <input
+                                        type="text"
+                                        id="last-name"
+                                        onChange={handleChangeLastName}
+                                        defaultValue={lastName}
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Gender:
+                                    <input
+                                        type="text"
+                                        id="gender"
+                                        onChange={handleChangeGender}
+                                        defaultValue={gender}
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Birth Date:
+                                    <input
+                                        type="date"
+                                        id="birthdate"
+                                        onChange={handleChangeBirthDate}
+                                        defaultValue={
+                                            new Date(birthDate)
+                                                .toISOString()
+                                                .split("T")[0]
+                                        }
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Phone Number:
+                                    <input
+                                        type="number"
+                                        onChange={handleChangePhone}
+                                        id="phone-numbef_r"
+                                        defaultValue={phone}
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Email:
+                                    <input
+                                        type="email"
+                                        onChange={handleChangeEmail}
+                                        id="email-address"
+                                        defaultValue={email}
+                                    />
+                                </label>
+                                <br></br>
+                                <label>
+                                    Archived:
+                                    <input
+                                        type="checkbox"
+                                        defaultChecked={archived}
+                                        onChange={handleChangeArchived}
+                                    />
+                                </label>
+                            </div>
+                            <div className="btn-group">
+                                <button
+                                    className="btn bfc-cancel"
+                                    onClick={() => setEditing(false)}
+                                >
+                                    Cancel
+                                </button>
 
-                <button
-                    className="btn btn__primary bfc-edit"
-                    onClick={handleSubmit}
-                >
-                    Save
-                </button>
-            </div>
-        </div> : <ViewComponent />}
+                                <button
+                                    className="btn btn__primary bfc-edit"
+                                    onClick={handleSubmit}
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <ViewComponent />
+                    )}
                 </div>
             </Popup>
         </div>
