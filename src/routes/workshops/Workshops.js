@@ -22,7 +22,6 @@ export const Workshops = () => {
     );
 };
 
-
 export const WorkshopDeleteForm = () => {
     let [id, setID] = useState();
 

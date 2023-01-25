@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 //import "../Programs/Programs.css";
 import Select from "react-select";
 
+<<<<<<< HEAD
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () =>
         console.log("totally custom!")
@@ -23,6 +24,8 @@ function CustomToggle({ children, eventKey }) {
     );
 }
 
+=======
+>>>>>>> e5ff711cfad1e8a38e845371e25d5b63631cc558
 export const WorkshopsList = () => {
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy]=useState("alphabetical")
