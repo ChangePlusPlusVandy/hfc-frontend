@@ -56,11 +56,13 @@ const SingleProgram = (props) => {
             let data = await fetch("http://localhost:3000/beneficiaries");
             data = await data.json();
             setAllBeneficiaries(data);
+
             let tmp = data.map((e) => ({
                 value: e._id,
                 label: e.firstName,
                 color: "black",
             }));
+
             setBenOptions(tmp);
         } catch (err) {
             console.log(err);
@@ -95,8 +97,6 @@ const SingleProgram = (props) => {
             program.roster.map((event, i) => event._id).concat(addBeneficiary)
         );
         setAddBeneficiary(combinedBenificiers);
-
-        console.log(combinedBenificiers);
 
         const requestOptions = {
             method: "PUT",
