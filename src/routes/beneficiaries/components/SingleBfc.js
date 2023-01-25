@@ -51,7 +51,7 @@ const SingleBfc = (item) => {
 
     const handleChangeArchived = () => {
         setArchived(!archived);
-    }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -74,9 +74,7 @@ const SingleBfc = (item) => {
             }),
         }).then(async () => {
             try {
-                let data = await fetch(
-                    "http://localhost:3000/beneficiaries"
-                );
+                let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
                 setBeneficiary(data);
                 console.log(data);
@@ -103,58 +101,64 @@ const SingleBfc = (item) => {
                 </label>
                 <br></br>
                 <label>
-                    Last Name: 
+                    Last Name:
                     <input
-                    type="text"
-                    id="last-name"
-                    onChange={handleChangeLastName}
-                    defaultValue={lastName}
+                        type="text"
+                        id="last-name"
+                        onChange={handleChangeLastName}
+                        defaultValue={lastName}
                     />
                 </label>
                 <br></br>
                 <label>
-                    Gender: 
+                    Gender:
                     <input
-                    type="text"
-                    id="gender"
-                    onChange={handleChangeGender}
-                    defaultValue={gender}
+                        type="text"
+                        id="gender"
+                        onChange={handleChangeGender}
+                        defaultValue={gender}
                     />
                 </label>
                 <br></br>
                 <label>
-                    Birth Date: 
+                    Birth Date:
                     <input
-                    type="date"
-                    id="birthdate"
-                    onChange={handleChangeBirthDate}
-                    defaultValue={new Date(birthDate).toISOString().split("T")[0]}
+                        type="date"
+                        id="birthdate"
+                        onChange={handleChangeBirthDate}
+                        defaultValue={
+                            new Date(birthDate).toISOString().split("T")[0]
+                        }
                     />
                 </label>
                 <br></br>
                 <label>
-                    Phone Number: 
+                    Phone Number:
                     <input
-                    type="number"
-                    onChange={handleChangePhone}
-                    id="phone-numbef_r"
-                    defaultValue={phone}
+                        type="number"
+                        onChange={handleChangePhone}
+                        id="phone-numbef_r"
+                        defaultValue={phone}
                     />
                 </label>
                 <br></br>
                 <label>
-                    Email: 
+                    Email:
                     <input
-                    type="email"
-                    onChange={handleChangeEmail}
-                    id="email-address"
-                    defaultValue={email}
+                        type="email"
+                        onChange={handleChangeEmail}
+                        id="email-address"
+                        defaultValue={email}
                     />
                 </label>
                 <br></br>
                 <label>
-                    Archived: 
-                    <input type="checkbox" defaultChecked={archived} onChange={handleChangeArchived}/>
+                    Archived:
+                    <input
+                        type="checkbox"
+                        defaultChecked={archived}
+                        onChange={handleChangeArchived}
+                    />
                 </label>
             </div>
             <div className="btn-group">
