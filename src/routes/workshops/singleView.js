@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { json, Link } from "react-router-dom";
-import "./Workshops.css";
 import { useLocation } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import Modal from "react-modal";
 import Select from "react-select";
 
 import "react-tabs/style/react-tabs.css";
-import "../Programs/Programs.css";
+import "./Workshops.css";
 
 export const WorkshopSingle = () => {
     const workshopID = useLocation().state.id;
@@ -21,11 +18,6 @@ export const WorkshopSingle = () => {
     const [editMode, setEditMode] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [hostOptions, setHostOptions] = useState([]);
-    const resetNewProgram = () => {
-        setUpdateWorkTitle(workshop.title);
-        setUpdateWorkDesc(workshop.description);
-        setUpdateWorkHosts(workshop.hosts);
-    };
 
     const editUpdateMode = () => {
         setEditMode((current) => !current);
@@ -62,7 +54,7 @@ export const WorkshopSingle = () => {
             });
     }, [editMode]);
     return (
-        <div className="singleProgramContainer">
+        <div className="single-workshop-container">
             {editMode ? (
                 <div>
                     <div>
@@ -120,7 +112,7 @@ export const WorkshopSingle = () => {
                 <Tabs defaultIndex={1}>
                     <h3>{workshop.title}</h3>
 
-                    <TabList className="programTabs">
+                    <TabList className="workshop-tabs">
                         <Tab>
                             <h5>Overview</h5>
                         </Tab>
