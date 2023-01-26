@@ -38,15 +38,22 @@
 .dashboard-layout nav a {
     color: black;
     text-decoration: none;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 60%;
     margin: 5px auto;
-    padding: 18px 15px;
+    padding: 10px 15px;
     border-radius: 15px;
 }
 
 .dashboard-layout nav a.active {
     background-color: #D9D9D9;
+}
+
+.dashboard-layout nav img.icon {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 10px;
 }
 
 .dashboard-layout button.logout-button {
