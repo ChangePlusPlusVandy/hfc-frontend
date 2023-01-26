@@ -25,10 +25,10 @@
     right: 16px;
 }
 
-h3 {
-    color: white;
+.popup h3 {
+    color: black;
 }
 
-label {
-    color: white;
+.popup label {
+    color: black;
 }
