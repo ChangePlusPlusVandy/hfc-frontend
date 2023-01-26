@@ -13,7 +13,7 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import BeneficiaryRegistration from "./src/routes/beneficiaries/BeneficiaryRegistration";
+import BeneficiaryRegistration from "./src/routes/beneficiaries/registration/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 
 // Router from React Router
