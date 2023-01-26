@@ -13,8 +13,8 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
+import BeneficiaryRegistration from "./src/routes/beneficiaries/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
-import Form from "./src/routes/form/Form";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -28,7 +28,10 @@ const router = createBrowserRouter([
     },
     {
         path: "/beneficiaries",
-        element: <Beneficiaries />,
+        children: [
+            { path: "", element: <Beneficiaries /> },
+            { path: "register", element: <BeneficiaryRegistration /> },
+        ],
     },
     {
         path: "/programs",
@@ -46,10 +49,6 @@ const router = createBrowserRouter([
     {
         path: "/assessment",
         element: <div>INSERT ASSESSMENT COMPONENT HERE</div>,
-    },
-    {
-        path: "/form",
-        element: <Form />,
     },
 ]);
 

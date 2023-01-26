@@ -2,7 +2,7 @@ import React from "react";
 // import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-import "./Form.css";
+import "./BeneficiaryRegistration.css";
 
 const needOpts = [
     { value: "need1", label: "need 1" },
@@ -15,29 +15,29 @@ const interestOpts = [
 ];
 
 const Page2 = ({
-    formJoinDate,
-    setFormJoinDate,
-    formReason,
-    setFormReason,
-    formSelectedNeeds,
-    setFormSelectedNeeds,
-    formSelectedInterests,
-    setFormSelectedInterest,
+    joinDate,
+    setJoinDate,
+    reason,
+    setReason,
+    needs,
+    setNeeds,
+    interests,
+    setInterests,
 }) => {
     const handleChangeReason = (event) => {
-        setFormReason(event.target.value);
+        setReason(event.target.value);
     };
 
     const handleNeedSelect = (data) => {
-        setFormSelectedNeeds(data);
+        setNeeds(data);
     };
 
     const handleInterestSelect = (data) => {
-        setFormSelectedInterest(data);
+        setInterests(data);
     };
 
     const handleChangeJoinDate = (event) => {
-        setFormJoinDate(new Date(event.target.value));
+        setJoinDate(new Date(event.target.value));
     };
 
     return (
@@ -62,6 +62,7 @@ const Page2 = ({
                         rows="5"
                         cols="80"
                         onChange={handleChangeReason}
+                        value={reason}
                     />
                 </label>
                 <br />
@@ -70,7 +71,7 @@ const Page2 = ({
                     Needs
                     <CreatableSelect
                         options={needOpts}
-                        value={formSelectedNeeds}
+                        value={needs}
                         onChange={handleNeedSelect}
                         isMulti
                         name="needs"
@@ -84,7 +85,7 @@ const Page2 = ({
                     Interests
                     <CreatableSelect
                         options={interestOpts}
-                        value={formSelectedInterests}
+                        value={interests}
                         onChange={handleInterestSelect}
                         isMulti
                         name="interests"

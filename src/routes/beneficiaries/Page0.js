@@ -1,95 +1,72 @@
 import React from "react";
 import CreatableSelect from "react-select/creatable";
 
-import "./Page0.css";
+import "./BeneficiaryRegistration.css";
 
 const Page0 = ({
-    formFirstName,
-    setFormFirstName,
-    formLastName,
-    setFormLastName,
-    formSelectedGender,
-    setFormSelectedGender,
-    formPhoneNumber,
-    setFormPhoneNumber,
-    formEmail,
-    setFormEmail,
-    formAddress,
-    setFormAddress,
-    formCity,
-    setFormCity,
-    formState,
-    setFormState,
-    formZipcode,
-    setFormZipcode,
-    formAge,
-    setFormAge,
-    formBirthDate,
-    setFormBirthDate,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    gender,
+    setGender,
+    phoneNumber,
+    setPhoneNumber,
+    email,
+    setEmail,
+    address,
+    setAddress,
+    age,
+    setAge,
+    birthDate,
+    setBirthDate,
 }) => {
     const handleChangeFirstName = (event) => {
-        setFormFirstName(event.target.value);
+        setFirstName(event.target.value);
+        console.log(firstName);
     };
 
     const handleChangeLastName = (event) => {
-        setFormLastName(event.target.value);
+        setLastName(event.target.value);
     };
 
     const handleGenderSelect = (data) => {
-        setFormSelectedGender(data);
+        setGender(data);
     };
 
     const handleChangePhoneNumber = (event) => {
-        setFormPhoneNumber(event.target.value);
+        setPhoneNumber(event.target.value);
     };
 
     const handleChangeEmail = (event) => {
-        setFormEmail(event.target.value);
+        setEmail(event.target.value);
     };
 
     const handleChangeAddress = (event) => {
-        setFormAddress(event.target.value);
+        setAddress(event.target.value);
     };
-
-    const handleChangeCity = (event) => {
-        setFormCity(event.target.value);
-    };
-
-    const handleChangeState = (event) => {
-        setFormState(event.target.value);
-    };
-
-    const handleChangeZipcode = (event) => {
-        setFormZipcode(event.target.value);
-    };
-
-    // this is just a template. it does NOT grab the correct date need help with spaces and actually getting the correct date
-    const handleChangeBirthDate = (event) => {
-        setFormBirthDate(new Date(event.target.value));
-    };
-
-    /*
-    must write a function that calulates age from birthdate but it is not working
 
     const handleChangeBirthDate = (event) => {
-        // does not work says birthDate is not defined
-        
-        setFormBirthDate(new Date(event.target.value));
-        console.log(formBirthDate);
+        const birthDate = new Date(event.target.value);
         const today = new Date();
-        let yearDiff = today.getFullYear() - birthDate.getFullYear();
+        let age = today.getFullYear() - birthDate.getFullYear();
         const month = today.getMonth() - birthDate.getMonth();
-        if (month<0 || (month === 0 && today.getDate()<birthDate.getDate())){
-            yearDiff -= 1;
+        if (
+            month < 0 ||
+            (month === 0 && today.getDate() < birthDate.getDate())
+        ) {
+            age -= 1;
         }
-        setFormAge(yearDiff);
-    }
-    */
+        setBirthDate(event.target.value);
+        setAge(age);
+    };
 
     return (
         <div className="form-container">
             <h3> Basic Info: Fill In</h3>
             <p> Please Upload a Profile Photo of the User </p>
+
+            {/* TO DO: must find out how to support this image type and how to best store it */}
             <input type="image" id="profile-photo" />
             <br></br>
 
@@ -99,12 +76,14 @@ const Page0 = ({
                 type="text"
                 id="first-name"
                 onChange={handleChangeFirstName}
+                value={firstName}
                 placeholder="First Name *"
             />
             <input
                 type="text"
                 id="last-name"
                 onChange={handleChangeLastName}
+                value={lastName}
                 placeholder="Last Name *"
             />
             <br></br>
@@ -114,7 +93,7 @@ const Page0 = ({
                 Gender *
                 <CreatableSelect
                     options={genderOpts}
-                    value={formSelectedGender}
+                    value={gender}
                     onChange={handleGenderSelect}
                     name="gender"
                     className="creatable-single-select"
@@ -128,8 +107,10 @@ const Page0 = ({
                 type="date"
                 id="birthdate"
                 onChange={handleChangeBirthDate}
+                value={birthDate}
             />
-            <p> Age: {formAge} </p>
+
+            <p> Age: {age} </p>
             <br></br>
 
             <p>Contact Information</p>
@@ -137,13 +118,15 @@ const Page0 = ({
                 type="number"
                 onChange={handleChangePhoneNumber}
                 id="phone-number"
-                placeholder="Phone Number (XXXXXXXXX)"
+                placeholder="Phone Number"
+                value={phoneNumber}
             />
             <input
                 type="email"
                 onChange={handleChangeEmail}
                 id="email-address"
                 placeholder="Email Address"
+                value={email}
             />
             <br></br>
 
@@ -153,28 +136,10 @@ const Page0 = ({
                 type="text"
                 onChange={handleChangeAddress}
                 id="address"
-                placeholder="Street Address"
+                placeholder="Address"
+                value={address}
             />
             <br></br>
-            <input
-                type="text"
-                onChange={handleChangeCity}
-                id="city"
-                placeholder="City"
-            />
-            <input
-                type="text"
-                onChange={handleChangeState}
-                id="state"
-                placeholder="State"
-            />
-            <br></br>
-            <input
-                type="number"
-                onChange={handleChangeZipcode}
-                id="zip-code"
-                placeholder="Zip Code"
-            />
         </div>
     );
 };

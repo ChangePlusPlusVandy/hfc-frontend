@@ -1,26 +1,25 @@
 import React from "react";
-import Select from "react-select";
 
-import "./Form.css";
-
-const referrals = [
-    { value: "reason1", label: "Reason 1" },
-    { value: "reason2", label: "Reason 2" },
-    { value: "reason3", label: "Reason 3" },
-];
+import "./BeneficiaryRegistration.css";
 
 const Page3 = ({
-    formSelectedReferrals,
-    setFormSelectedReferrals,
-    formSponsorInfo,
-    setFormSponsorInfo,
+    referrals,
+    setReferrals,
+    sponsorInfo,
+    setSponsorInfo,
+    staffNotes,
+    setStaffNotes,
 }) => {
-    const handleReferralSelect = (data) => {
-        setFormSelectedReferrals(data);
+    const handleReferralSelect = (event) => {
+        setReferrals(event.target.value);
     };
 
     const handleChangeSponsorInfo = (event) => {
-        setFormSponsorInfo(event.target.value);
+        setSponsorInfo(event.target.value);
+    };
+
+    const handleChangeStaffNotes = (event) => {
+        setStaffNotes(event.target.value);
     };
 
     return (
@@ -31,6 +30,15 @@ const Page3 = ({
                     <label>
                         Referred by Partner Organization
                         <br />
+                        <textarea
+                            rows="5"
+                            cols="80"
+                            onChange={handleReferralSelect}
+                            value={referrals}
+                        >
+                            {" "}
+                        </textarea>
+                        {/* 
                         <Select
                             options={referrals}
                             placeholder="Select Referrals"
@@ -39,6 +47,7 @@ const Page3 = ({
                             isSearchable={true}
                             isMulti
                         />
+                        */}
                     </label>
                 </div>
                 <br />
@@ -49,15 +58,18 @@ const Page3 = ({
                         rows="5"
                         cols="80"
                         onChange={handleChangeSponsorInfo}
+                        value={sponsorInfo}
                     />
                 </label>
                 <br />
                 <label>
                     Staff notes
                     <br />
-                    <textarea // FIXME: not sure which field corresponds to this in backend
+                    <textarea
                         rows="5"
                         cols="80"
+                        onChange={handleChangeStaffNotes}
+                        value={staffNotes}
                     ></textarea>
                 </label>
             </form>
