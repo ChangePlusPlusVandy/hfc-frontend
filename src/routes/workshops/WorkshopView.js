@@ -19,7 +19,7 @@ export const WorkshopsList = () => {
                 filterWorkshops();
             });
     };
-    
+
     useEffect(() => {
         getWorkshops();
         setSearch("");
