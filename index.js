@@ -2,12 +2,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {
-    Workshops,
-    WorkshopsList,
-    WorkshopCreateForm,
-    WorkshopDeleteForm,
-} from "./src/routes/workshops/Workshops";
 
 // Styles
 import "./index.css";
@@ -18,6 +12,13 @@ import Programs from "./src/routes/Programs/Programs";
 import SingleProgram from "./src/routes/Programs/SingleProgram";
 import BeneficiaryRegistration from "./src/routes/beneficiaries/registration/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
+import {
+    Workshops,
+    WorkshopDeleteForm,
+} from "./src/routes/workshops/Workshops";
+import { WorkshopCreateForm } from "./src/routes/workshops/CreateWorkshop";
+import { WorkshopsList } from "./src/routes/workshops/WorkshopView";
+import { WorkshopSingle } from "./src/routes/workshops/singleView";
 
 // Router from React Router
 const router = createBrowserRouter([
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
             { path: "create", element: <WorkshopCreateForm /> },
             { path: "get", element: <WorkshopsList /> },
             { path: "delete", element: <WorkshopDeleteForm /> },
+            { path: "singleview", element: <WorkshopSingle /> },
         ],
     },
     {
