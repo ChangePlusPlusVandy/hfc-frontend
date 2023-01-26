@@ -1,6 +1,5 @@
 .programs {
     padding: 30px;
-    width: 80rem;
 }
 
 .programs-list-container {
@@ -14,7 +13,6 @@
 .program-card {
     color: white;
     display: flex;
-    width: auto;
     border: 1px solid white;
     color: black;
     padding: 5px;
@@ -43,7 +41,6 @@ h4 {
 .single-program-container {
     border: 1px solid white;
     margin: auto;
-    width: 50%;
     padding: 10px;
 }
 
