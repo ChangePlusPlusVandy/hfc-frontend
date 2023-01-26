@@ -1,0 +1,83 @@
+.programs {
+    padding: 30px;
+}
+
+.programs-list-container {
+    border: 3px solid white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.program-card {
+    color: white;
+    display: flex;
+    border: 1px solid white;
+    color: black;
+    padding: 5px;
+}
+
+.program-card > h5,
+h4 {
+    margin: 3px;
+    color: white;
+}
+
+.react-select-container {
+    color: black;
+    margin: 25px 0px;
+}
+
+.react-select__menu-list {
+    color: black;
+    font-size: 20px;
+}
+
+.react-select__value-container {
+    font-size: 25px;
+}
+
+.single-program-container {
+    border: 1px solid white;
+    margin: auto;
+    padding: 10px;
+}
+
+.prog-nav {
+    width: 100%;
+    justify-content: right;
+}
+
+.programTabs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-panel {
+    width: 90%;
+    margin: auto;
+}
+
+.enrolled-ben-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button {
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    padding: 5px 25px 5px 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal-body {
+    height: 100%;
+    align-items: center;
+    padding-top: 10px;
+    margin: auto;
+    color: black;
+}
