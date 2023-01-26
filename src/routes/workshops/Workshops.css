@@ -32,7 +32,10 @@
     text-align: center;
 }
 
-.workshops .card > h3, h4, h5, button {
+.workshops .card > h3,
+h4,
+h5,
+button {
     margin: 3px;
     color: white;
     align-items: right;
@@ -52,7 +55,7 @@
     color: white;
 }
 
-.workshopTabs{
+.workshopTabs {
     display: flex;
     justify-content: space-between;
 }

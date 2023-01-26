@@ -4,30 +4,29 @@ import "./Workshops.css";
 import Select from "react-select";
 export const WorkshopsList = () => {
     const [workshops, setWorkshops] = useState([]);
-    const [sortBy, setSortBy]=useState("alphabetical")
-    const [filteredWorkshops, setFilteredWorkshops]=useState([])
-    const [search, setSearch]=useState("")
-    const [filter, setFilter]=useState("all")
+    const [sortBy, setSortBy] = useState("alphabetical");
+    const [filteredWorkshops, setFilteredWorkshops] = useState([]);
+    const [search, setSearch] = useState("");
+    const [filter, setFilter] = useState("all");
     // Fetch workshops
     const getWorkshops = () => {
         fetch("http://localhost:3000/workshops")
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Fetched workshops:");
-            console.log(data);
-            setWorkshops(data);
-            filterWorkshops();
-        });
-
-    }
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Fetched workshops:");
+                console.log(data);
+                setWorkshops(data);
+                filterWorkshops();
+            });
+    };
     useEffect(() => {
         getWorkshops();
         setSearch("");
     }, []);
-    const handleSearchChange=(e)=>{
-        setSearch(e.target.value)
-        filterWorkshops()
-    }
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value);
+        filterWorkshops();
+    };
     const handleSortValChange = (e) => {
         setSortBy(e.target.value);
         sortWorkshops();
@@ -35,7 +34,7 @@ export const WorkshopsList = () => {
     const handleFilterChange = (e) => {
         setFilter(e.value).then(filterWorkshops());
         filterWorkshops();
-    }
+    };
 
     const sortWorkshops = () => {
         if (sortBy === "alphabetical") {
@@ -48,19 +47,22 @@ export const WorkshopsList = () => {
             });
         }
         filterWorkshops();
-    }
-    const filterWorkshops=()=>{
-        let temp = workshops.filter((item)=>{
-            if(filter=="archived"&&!item.archived){
+    };
+    const filterWorkshops = () => {
+        let temp = workshops.filter((item) => {
+            if (filter == "archived" && !item.archived) {
                 return false;
             }
             if (filter == "active" && item.archived) {
                 return false;
             }
-            return search&&(item.title).toLowerCase().includes(search.toLowerCase());
-        })
+            return (
+                search &&
+                item.title.toLowerCase().includes(search.toLowerCase())
+            );
+        });
         setFilteredWorkshops(temp);
-    }
+    };
     return (
         <div className="workshops">
             <h1>Workshops:</h1>
@@ -97,25 +99,23 @@ export const WorkshopsList = () => {
                 </div>
             </div>
 
-        <div>
-            <Accordion
-                defaultActiveKey="0"
-                className="programsListContainer"
-            >
-                {filteredWorkshops.map((item, i) => (
-                    <Card key={i} className="programCard">
-                        <Card.Header>
-                            <CustomToggle >
-                                <h2> {item.title}</h2>
-                                <h3> {item.description}</h3>
-                            </CustomToggle>
-                        </Card.Header>
-                    </Card>
-                ))}
-            </Accordion>
+            <div>
+                <Accordion
+                    defaultActiveKey="0"
+                    className="programsListContainer"
+                >
+                    {filteredWorkshops.map((item, i) => (
+                        <Card key={i} className="programCard">
+                            <Card.Header>
+                                <CustomToggle>
+                                    <h2> {item.title}</h2>
+                                    <h3> {item.description}</h3>
+                                </CustomToggle>
+                            </Card.Header>
+                        </Card>
+                    ))}
+                </Accordion>
+            </div>
         </div>
-
-       </div>
-
     );
 };

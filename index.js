@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             { path: "create", element: <WorkshopCreateForm /> },
             { path: "get", element: <WorkshopsList /> },
             { path: "delete", element: <WorkshopDeleteForm /> },
-            {path: "singleview", element: <WorkshopSingle/>}
+            { path: "singleview", element: <WorkshopSingle /> },
         ],
     },
     {

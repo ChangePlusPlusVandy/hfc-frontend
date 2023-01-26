@@ -7,52 +7,50 @@ import Modal from "react-modal";
 import Select from "react-select";
 
 import "react-tabs/style/react-tabs.css";
-import "../Programs/Programs.css"
+import "../Programs/Programs.css";
 
-export const WorkshopSingle=()=>{
+export const WorkshopSingle = () => {
     const workshopID = useLocation().state.id;
-    console.log(workshopID)
-    const [workshop, setWorkshop]=useState({});
-    const [hosts, setHosts]=useState([])
+    console.log(workshopID);
+    const [workshop, setWorkshop] = useState({});
+    const [hosts, setHosts] = useState([]);
     const [updateWorkTitle, setUpdateWorkTitle] = useState("");
     const [updateWorkDesc, setUpdateWorkDesc] = useState("");
     const [updateWorkHosts, setUpdateWorkHosts] = useState([]);
     const [updateWorkStatus, setUpdateWorkStatus] = useState("");
     const [editMode, setEditMode] = useState(false);
     const [openModal, setOpenModal] = useState(false);
-    const [hostOptions, setHostOptions]=useState([])
+    const [hostOptions, setHostOptions] = useState([]);
     const resetNewProgram = () => {
         setUpdateWorkTitle(workshop.title);
         setUpdateWorkDesc(workshop.description);
-        setUpdateWorkHosts(workshop.hosts)
+        setUpdateWorkHosts(workshop.hosts);
     };
 
     const editUpdateMode = () => {
         setEditMode((current) => !current);
     };
-    useEffect(()=>{
-        console.log("here")
-        fetch("http://localhost:3000/workshops?_id="+workshopID)
-        .then((response) => response.json())
-        .then((data) => {
-            
-
-            setWorkshop(data[0]);
-        })
+    useEffect(() => {
+        console.log("here");
+        fetch("http://localhost:3000/workshops?_id=" + workshopID)
+            .then((response) => response.json())
+            .then((data) => {
+                setWorkshop(data[0]);
+            });
         fetch("http://localhost:3000/users/users")
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            let tempOptions = data
-                .filter((item) => item.firstName && item.lastName)
-                .map((item) => {
-                    return {
-                        value: item._id,
-                        label: item.firstName + " " + item.lastName,
-                    };
-                });
-            setHostOptions(tempOptions);
-            /*setHosts(workshop.hosts.map((item)=>{
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                let tempOptions = data
+                    .filter((item) => item.firstName && item.lastName)
+                    .map((item) => {
+                        return {
+                            value: item._id,
+                            label: item.firstName + " " + item.lastName,
+                        };
+                    });
+                setHostOptions(tempOptions);
+                /*setHosts(workshop.hosts.map((item)=>{
                 for(let i=0;i<hostOptions.length;i++){
                     if(hostOptions[i].value==item){
                         console.log(hostOptions[i].label)
@@ -61,15 +59,11 @@ export const WorkshopSingle=()=>{
                 }
                 return(item)
             }))*/
-        })
-        
-
-    }
-    
-    ,[editMode]);
-    return(           
-    <div className="singleProgramContainer">
-        {editMode ? (
+            });
+    }, [editMode]);
+    return (
+        <div className="singleProgramContainer">
+            {editMode ? (
                 <div>
                     <div>
                         <label>
@@ -80,9 +74,7 @@ export const WorkshopSingle=()=>{
                                     value={updateWorkTitle}
                                     //name="title"
                                     onChange={(e) =>
-                                        setUpdateWorkTitle(
-                                            e.target.value
-                                        )
+                                        setUpdateWorkTitle(e.target.value)
                                     }
                                 />
                             </h3>
@@ -97,9 +89,7 @@ export const WorkshopSingle=()=>{
                                     value={updateWorkDesc}
                                     name="description"
                                     onChange={(e) =>
-                                        setUpdateWorkDesc(
-                                            e.target.value
-                                        )
+                                        setUpdateWorkDesc(e.target.value)
                                     }
                                 />
                             </label>
@@ -114,65 +104,56 @@ export const WorkshopSingle=()=>{
                                     type="text"
                                     value={updateWorkHosts}
                                     name="description"
-                                    onChange={(e) =>
-                                        setUpdateWorkHosts(
-                                            e
-                                        )
-                                    }
+                                    onChange={(e) => setUpdateWorkHosts(e)}
                                 />
                             </label>
                         </h3>
                     </div>
                     <button
-                    onClick={updateWorkshopFormOverview}
-                    className="submit-button"
-                >
-                    Submit
-                </button>
+                        onClick={updateWorkshopFormOverview}
+                        className="submit-button"
+                    >
+                        Submit
+                    </button>
                 </div>
-                
             ) : (
-    <Tabs defaultIndex={1}>
-    <h3>{workshop.title}</h3>
+                <Tabs defaultIndex={1}>
+                    <h3>{workshop.title}</h3>
 
-        <TabList className="programTabs">
-                <Tab>
-                    <h5>Overview</h5>
-                </Tab>
-        </TabList>
+                    <TabList className="programTabs">
+                        <Tab>
+                            <h5>Overview</h5>
+                        </Tab>
+                    </TabList>
 
-        <TabPanel className="tab-panel">
-            
-                <div>
-                    <h3>Description: {workshop.description}</h3>
-                    <h3>Hosts: {workshop.hosts}</h3>
-                    <h3>Date: {workshop.date}</h3>
-                    <h3>
-                        Status:{" "}
-                        {workshop.archived ? <>archived</> : <>active</>}
-                    </h3>
-                </div>
+                    <TabPanel className="tab-panel">
+                        <div>
+                            <h3>Description: {workshop.description}</h3>
+                            <h3>Hosts: {workshop.hosts}</h3>
+                            <h3>Date: {workshop.date}</h3>
+                            <h3>
+                                Status:{" "}
+                                {workshop.archived ? (
+                                    <>archived</>
+                                ) : (
+                                    <>active</>
+                                )}
+                            </h3>
+                        </div>
 
-            
-
-                <button
-                    onClick={editUpdateMode}
-                    className="submit-button"
-                >
-                    {" "}
-                    Edit Workshop
-                </button>
-            
-        </TabPanel>
-
-    </Tabs>)
-    }         
-</div>)
-
-
-
-
-}
+                        <button
+                            onClick={editUpdateMode}
+                            className="submit-button"
+                        >
+                            {" "}
+                            Edit Workshop
+                        </button>
+                    </TabPanel>
+                </Tabs>
+            )}
+        </div>
+    );
+};
 
 /*{editMode ? (
                 <div>
@@ -231,8 +212,7 @@ export const WorkshopSingle=()=>{
                 </div>
             ) : (*/
 
-
-            /*            {editMode ? (
+/*            {editMode ? (
                 <button
                     onClick={updateWorkshopFormOverview}
                     className="submit-button"
