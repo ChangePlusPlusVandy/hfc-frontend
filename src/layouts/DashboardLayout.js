@@ -37,7 +37,10 @@ const DashboardLayout = () => {
                     alt="Default User"
                     className="user-profile-pic"
                 />
-                <h1 className="display-name">{user.firstName} {user.lastName && user.lastName.charAt(0) + "."}</h1>
+                <h1 className="display-name">
+                    {user.firstName}{" "}
+                    {user.lastName && user.lastName.charAt(0) + "."}
+                </h1>
                 <nav>
                     <NavLink to="beneficiaries/all">
                         <img
@@ -92,7 +95,9 @@ const DashboardLayout = () => {
                     Logout
                 </button>
             </div>
-            <Outlet />
+            <div className="page-content">
+                <Outlet />
+            </div>
         </div>
     );
 };
