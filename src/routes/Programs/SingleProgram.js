@@ -179,9 +179,9 @@ const SingleProgram = (props) => {
     Modal.setAppElement("#root");
 
     return (
-        <div className="singleProgramContainer">
+        <div className="single-program-container">
             <Tabs defaultIndex={1}>
-                <TabList className="programTabs">
+                <TabList className="program-tabs">
                     <h1>{program.title}</h1>
                     <div dir="rtl">
                         <Tab>
@@ -224,7 +224,7 @@ const SingleProgram = (props) => {
                             </Modal>
 
                             <div>
-                                <div className="enrolledBenTitle">
+                                <div className="enrolled-ben-title">
                                     <h3>Current Beneficiaries:</h3>
                                     <button
                                         onClick={() => setOpenModal(true)}
@@ -235,7 +235,7 @@ const SingleProgram = (props) => {
                                 </div>
                                 {program.roster?.map((ben, i) => (
                                     <div key={i}>
-                                        <h5 id="beneficiaryName">
+                                        <h5 id="beneficiary-name">
                                             {i + 1}: {ben.firstName}{" "}
                                             {ben.lastName}
                                             <button
@@ -258,7 +258,7 @@ const SingleProgram = (props) => {
                         </div>
                     ) : (
                         <div>
-                            <div className="enrolledBenTitle">
+                            <div className="enrolled-ben-title">
                                 <h3>Enrolled Beneficiaries: </h3>
                                 <button
                                     onClick={editBenMode}
@@ -378,11 +378,11 @@ export default SingleProgram;
 
 {
     /* <Select
-                                    isMulti
-                                    name="colors"
-                                    options={benOptions}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                    onChange={handleAddBen}
-                                /> */
+            isMulti
+            name="colors"
+            options={benOptions}
+            className="basic-multi-select"
+            classNamePrefix="select"
+            onChange={handleAddBen}
+        /> */
 }

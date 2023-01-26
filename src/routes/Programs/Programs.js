@@ -1,6 +1,5 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SingleProgram from "./SingleProgram.jsx";
 import "./Programs.css";
 
 const Programs = () => {
@@ -136,9 +135,9 @@ const Programs = () => {
         <div className="programs">
             <h1>Programs: 6386ba96c71942148162a7b2</h1>
             <h1>63cc4f1d38c9a5e3ceb66e3d</h1>
-            <div className="sortAndSearch">
+            <div className="sort-and-search">
                 <div
-                    className="sortIndicator"
+                    className="sort-indicator"
                     onChange={(e) => handleSortValChange(e)}
                 >
                     <h3>Sort By:</h3>
@@ -147,7 +146,7 @@ const Programs = () => {
                     <input type="radio" value="alphabetical" name="sortVal" />
                     Date
                 </div>
-                <div className="singleSearch">
+                <div className="single-search">
                     <input
                         type="text"
                         name="search-bar"
@@ -156,7 +155,7 @@ const Programs = () => {
                     />
                 </div>
                 <div
-                    className="archivedSort"
+                    className="archived-sort"
                     onChange={(e) => handleSortArchivedChange(e)}
                 >
                     <input type="radio" value="archived" name="sortVal" />
@@ -168,9 +167,9 @@ const Programs = () => {
                 </div>
             </div>
             <div>
-                <div className="programsListContainer">
+                <div className="programs-list-container">
                     {programsFiltered.map((item, i) => (
-                        <div key={i} className="programCard">
+                        <div key={i} className="program-card">
                             <h4># {i}</h4>
                             <h4>Title: {item.title}</h4>
 
