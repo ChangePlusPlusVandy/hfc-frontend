@@ -9,22 +9,19 @@ import {
 // Dashboard Layout
 import DashboardLayout from "./layouts/DashboardLayout";
 
-// Beneficiaries
-import Beneficiaries from "./routes/beneficiaries/Beneficiaries";
-import BeneficiaryRegistration from "./routes/beneficiaries/registration/BeneficiaryRegistration";
+// Beneficiaries Page
+import Beneficiaries from "./pages/beneficiaries/Beneficiaries";
+import BeneficiaryRegistration from "./pages/beneficiaries/registration/BeneficiaryRegistration";
 
-// Programs
-import Programs from "./routes/programs/Programs";
-import SingleProgram from "./routes/programs/SingleProgram";
+// Programs Page
+import Programs from "./pages/programs/Programs";
+import SingleProgram from "./pages/programs/SingleProgram";
 
-// Workshops
-import {
-    Workshops,
-    WorkshopDeleteForm,
-} from "./routes/workshops/Workshops";
-import { WorkshopCreateForm } from "./routes/workshops/CreateWorkshop";
-import { WorkshopsList } from "./routes/workshops/WorkshopView";
-import { WorkshopSingle } from "./routes/workshops/singleView";
+// Workshops Page
+import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
+import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
+import { WorkshopsList } from "./pages/workshops/WorkshopView";
+import { WorkshopSingle } from "./pages/workshops/singleView";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
