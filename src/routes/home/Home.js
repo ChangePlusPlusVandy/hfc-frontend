@@ -10,11 +10,24 @@ const Home = () => {
         <div className="home">
             <h1>Home</h1>
             <div>
-                <Link to="/users">Users</Link>
-                <Link to="/beneficiaries">Beneficiaries</Link>
-                <Link to="/programs">Programs</Link>
-                <Link to="/workshops">Workshops</Link>
-                <Link to="/assessment">Assessment</Link>
+                <Link className="button" to="/users">
+                    Users
+                </Link>
+                <Link className="button" to="/beneficiaries">
+                    Beneficiaries
+                </Link>
+                <Link className="button" to="/programs">
+                    Programs
+                </Link>
+                <Link className="button" to="/workshops">
+                    Workshops
+                </Link>
+                <Link className="button" to="/assessment">
+                    Assessment
+                </Link>
+                <Link className="button" to="/beneficiaries/register">
+                    Beneficiary Registration
+                </Link>
             </div>
         </div>
     );

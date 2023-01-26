@@ -65,7 +65,7 @@
         "react-bootstrap": "^2.7.0",
         "react-dom": "^18.2.0",
         "react-modal": "^3.16.1",
-        "react-router-dom": "^6.4.4",
+        "react-router-dom": "^6.4.5",
         "react-select": "^5.7.0",
         "react-tabs": "^6.0.0"
     }
