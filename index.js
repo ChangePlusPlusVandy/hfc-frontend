@@ -10,10 +10,10 @@ import { WorkshopCreateForm } from "./src/routes/workshops/CreateWorkshop";
 import { WorkshopsList } from "./src/routes/workshops/WorkshopView";
 // Styles
 import "./index.css";
+import { WorkshopSingle } from "./src/routes/workshops/singleView";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import Programs from "./src/routes/Programs/Programs";
 import BeneficiaryRegistration from "./src/routes/beneficiaries/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 
@@ -34,10 +34,7 @@ const router = createBrowserRouter([
             { path: "register", element: <BeneficiaryRegistration /> },
         ],
     },
-    {
-        path: "/programs",
-        element: <Programs />,
-    },
+
     {
         path: "/workshops",
         children: [
@@ -45,6 +42,7 @@ const router = createBrowserRouter([
             { path: "create", element: <WorkshopCreateForm /> },
             { path: "get", element: <WorkshopsList /> },
             { path: "delete", element: <WorkshopDeleteForm /> },
+            {path: "singleview", element: <WorkshopSingle/>}
         ],
     },
     {

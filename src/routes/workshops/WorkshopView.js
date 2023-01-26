@@ -1,32 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { json, Link } from "react-router-dom";
 import "./Workshops.css";
-import Accordion from "react-bootstrap/Accordion";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import Card from "react-bootstrap/Card";
-//import "../Programs/Programs.css";
 import Select from "react-select";
-
-function CustomToggle({ children, eventKey }) {
-    const decoratedOnClick = useAccordionButton(eventKey, () =>
-        console.log("totally custom!")
-    );
-
-    return (
-        <button
-            type="button"
-            style={{ backgroundColor: "pink" }}
-            onClick={decoratedOnClick}
-        >
-            {children}
-        </button>
-    );
-}
-
 export const WorkshopsList = () => {
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy]=useState("alphabetical")
-    const [filteredWorkshops, setFilteredWorkshops]=useState([])
     const [search, setSearch]=useState("")
     const [filter, setFilter]=useState("all")
     // Fetch workshops
@@ -37,7 +15,6 @@ export const WorkshopsList = () => {
             console.log("Fetched workshops:");
             console.log(data);
             setWorkshops(data);
-            filterWorkshops();
         });
 
     }
@@ -50,7 +27,6 @@ export const WorkshopsList = () => {
     }, []);
     const handleSearchChange=(e)=>{
         setSearch(e.target.value)
-        filterWorkshops()
     }
     const handleSortValChange = (e) => {
         setSortBy(e.target.value);
@@ -58,7 +34,6 @@ export const WorkshopsList = () => {
     };
     const handleFilterChange=(e) =>{
         setFilter(e.value).then(filterWorkshops());
-        filterWorkshops();
     }
 
     const sortWorkshops=()=>{
@@ -72,20 +47,17 @@ export const WorkshopsList = () => {
                 return item1._id.localeCompare(item2._id);
             });
         }
-        filterWorkshops();
     }
-    const filterWorkshops=()=>{
-        let temp = workshops.filter((item)=>{
+    let filteredWorkshops=workshops.filter((item)=>{
             if(filter=="archived"&&!item.archived){
                 return false;
             }
             if(filter=="active"&&item.archived){
                 return false;
             }
-            return search&&(item.title).toLowerCase().includes(search.toLowerCase());
+            return !search||(item.title).toLowerCase().includes(search.toLowerCase());
         })
-        setFilteredWorkshops(temp);
-    }
+    
     return (
 <div className="workshops">
 
@@ -124,23 +96,20 @@ export const WorkshopsList = () => {
                     </div>
             </div>
 
-        <div>
-            <Accordion
-                defaultActiveKey="0"
-                className="programsListContainer"
-            >
-                {filteredWorkshops.map((item, i) => (
-                    <Card key={i} className="programCard">
-                        <Card.Header>
-                            <CustomToggle >
-                                <h2> {item.title}</h2>
-                                <h3> {item.description}</h3>
-                            </CustomToggle>
-                        </Card.Header>
-                    </Card>
-                ))}
-            </Accordion>
-        </div>
+                    {filteredWorkshops.map((item, i) => (
+                        <div key={i} className="card">
+                            <h1> {item.title}</h1>
+
+
+                            <h3> {item.description}</h3>
+                            <h5>
+                                {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}
+                            </h5>
+                            <Link className="button" to="../singleview" state={{id: item._id}}>
+                    View  Workshop
+                </Link>
+                        </div>
+                    ))}        
 
        </div>
 

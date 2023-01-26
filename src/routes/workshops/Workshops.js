@@ -7,7 +7,7 @@ export const Workshops = () => {
     return (
         <div className="workshops-container">
             <h1>Choose an option</h1>
-            <div>
+            <div> 
                 <Link className="button" to="./create">
                     Create Workshop
                 </Link>
