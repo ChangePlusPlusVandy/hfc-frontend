@@ -5,84 +5,85 @@ import Select from "react-select";
 export const WorkshopsList = () => {
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy]=useState("alphabetical")
+    const [filteredWorkshops, setFilteredWorkshops]=useState([])
     const [search, setSearch]=useState("")
     const [filter, setFilter]=useState("all")
     // Fetch workshops
-    const getWorkshops=()=>{
+    const getWorkshops = () => {
         fetch("http://localhost:3000/workshops")
         .then((response) => response.json())
         .then((data) => {
             console.log("Fetched workshops:");
             console.log(data);
             setWorkshops(data);
+            filterWorkshops();
         });
 
     }
     useEffect(() => {
-        
         getWorkshops();
-        setSearch("")
-        
-
+        setSearch("");
     }, []);
     const handleSearchChange=(e)=>{
         setSearch(e.target.value)
+        filterWorkshops()
     }
     const handleSortValChange = (e) => {
         setSortBy(e.target.value);
         sortWorkshops();
     };
-    const handleFilterChange=(e) =>{
+    const handleFilterChange = (e) => {
         setFilter(e.value).then(filterWorkshops());
+        filterWorkshops();
     }
 
-    const sortWorkshops=()=>{
-        if(sortBy==="alphabetical"){
+    const sortWorkshops = () => {
+        if (sortBy === "alphabetical") {
             workshops.sort((item1, item2) => {
                 return item1.title.localeCompare(item2.title);
             });
-        }
-        else if(sortBy==="dateAdded"){
+        } else if (sortBy === "dateAdded") {
             workshops.sort((item1, item2) => {
                 return item1._id.localeCompare(item2._id);
             });
         }
+        filterWorkshops();
     }
-    let filteredWorkshops=workshops.filter((item)=>{
+    const filterWorkshops=()=>{
+        let temp = workshops.filter((item)=>{
             if(filter=="archived"&&!item.archived){
                 return false;
             }
-            if(filter=="active"&&item.archived){
+            if (filter == "active" && item.archived) {
                 return false;
             }
-            return !search||(item.title).toLowerCase().includes(search.toLowerCase());
+            return search&&(item.title).toLowerCase().includes(search.toLowerCase());
         })
-    
+        setFilteredWorkshops(temp);
+    }
     return (
-<div className="workshops">
-
-
-        <h1>Workshops:</h1>
-        <div className="sortAndSearch">
-            <div
-                className="sortIndicator"
-                onChange={(e) => handleSortValChange(e)}
-            >
-                <h3>Sort By:</h3>
-                <input type="radio" value="dateAdded" name="sortVal" />
-                Date Added
-                <input type="radio" value="alphabetical" name="sortVal" />
-                Alphabetical
-            </div>
-            <div className="singleSearch">
-                <input
-                    type="text"
-                    name="search-bar"
-                    placeholder="Search..."
-                    onChange={(e) => handleSearchChange(e)}
-                /> 
-            </div>
-            <div className="dropdown">
+        <div className="workshops">
+            <h1>Workshops:</h1>
+            <div className="sortAndSearch">
+                <div
+                    className="sortIndicator"
+                    onChange={(e) => handleSortValChange(e)}
+                >
+                    <h3>Sort By:</h3>
+                    <input type="radio" value="dateAdded" name="sortVal" />
+                    Date Added
+                    <input type="radio" value="alphabetical" name="sortVal" />
+                    Alphabetical
+                </div>
+                <div className="singleSearch">
+                    <input
+                        type="text"
+                        name="search-bar"
+                        placeholder="Search..."
+                        onChange={(e) => handleSearchChange(e)}
+                    />
+                </div>
+                <div className="dropdown">
                     <Select
                         options={[
                             { value: "all", label: "all" },
@@ -93,23 +94,26 @@ export const WorkshopsList = () => {
                         onChange={handleFilterChange}
                         value={filter}
                     />
-                    </div>
+                </div>
             </div>
 
-                    {filteredWorkshops.map((item, i) => (
-                        <div key={i} className="card">
-                            <h1> {item.title}</h1>
-
-
-                            <h3> {item.description}</h3>
-                            <h5>
-                                {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}
-                            </h5>
-                            <Link className="button" to="../singleview" state={{id: item._id}}>
-                    View  Workshop
-                </Link>
-                        </div>
-                    ))}        
+        <div>
+            <Accordion
+                defaultActiveKey="0"
+                className="programsListContainer"
+            >
+                {filteredWorkshops.map((item, i) => (
+                    <Card key={i} className="programCard">
+                        <Card.Header>
+                            <CustomToggle >
+                                <h2> {item.title}</h2>
+                                <h3> {item.description}</h3>
+                            </CustomToggle>
+                        </Card.Header>
+                    </Card>
+                ))}
+            </Accordion>
+        </div>
 
        </div>
 
