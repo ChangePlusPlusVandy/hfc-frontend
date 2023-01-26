@@ -38,11 +38,10 @@ const router = createBrowserRouter([
     },
     {
         path: "/programs",
-        element: <Programs />,
-    },
-    {
-        path: "/programs/singleview",
-        element: <SingleProgram />,
+        children: [
+            { path: "", element: <Programs /> },
+            { path: "singleview", element: <SingleProgram /> },
+        ],
     },
     {
         path: "/workshops",
