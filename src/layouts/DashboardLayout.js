@@ -27,7 +27,7 @@ const DashboardLayout = () => {
                     <NavLink to="workshops">Manage Workshops</NavLink>
                     <NavLink to="assessments">Manage Assessments</NavLink>
                 </nav>
-                <button onClick={handleLogout}>Logout</button>
+                <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
             <Outlet />
         </div>
