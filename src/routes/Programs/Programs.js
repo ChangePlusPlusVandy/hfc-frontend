@@ -1,49 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Programs.css";
-import Accordion from "react-bootstrap/Accordion";
-import { useAccordionButton } from "react-bootstrap/AccordionButton";
-import Card from "react-bootstrap/Card";
-
-function CustomToggle({ children, eventKey }) {
-    const decoratedOnClick = useAccordionButton(eventKey, () =>
-        console.log("totally custom!")
-    );
-
-    return (
-        <button
-            type="button"
-            style={{ backgroundColor: "pink" }}
-            onClick={decoratedOnClick}
-        >
-            {children}
-        </button>
-    );
-}
-
-const DoubleClickToInput = (props) => {
-    const [fullName, setFullName] = useState("Joe Abraham");
-    const [showInputEle, setShowInputEle] = useState(false);
-    return (
-        <span>
-            {
-                // Use JavaScript's ternary operator to specify <span>'s inner content
-                props.showInputEle ? (
-                    <input
-                        type="text"
-                        value={props.value}
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        autoFocus
-                    />
-                ) : (
-                    <span onDoubleClick={props.handleDoubleClick}>
-                        {props.value}
-                    </span>
-                )
-            }
-        </span>
-    );
-};
 
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
@@ -51,25 +8,15 @@ const Programs = () => {
     const [archivedSort, setArchivedSort] = useState("all");
     const [searchProgram, setSearchProgram] = useState("");
 
-    const [fullName, setFullName] = useState("Joe Abraham");
-    const [showInputEle, setShowInputEle] = useState(false);
-
     const [newProgram, setNewProgram] = useState({
         title: "",
-        hosts: "",
+        //hosts: "",
         description: "",
         archived: false,
     });
 
-    // const [updateProgramVar, setUpdateProgramVar] = useState({
-    //     title: "",
-    //     hosts: "",
-    //     description: "",
-    // });
-
     useEffect(() => {
         getPrograms();
-        console.log(programs);
     }, []);
 
     const programsFiltered = programs
@@ -102,14 +49,13 @@ const Programs = () => {
         try {
             let data = await fetch("http://localhost:3000/programs");
             data = await data.json();
-            console.log(data);
             setPrograms(sortPrograms(data));
         } catch (err) {
             console.log(err);
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -117,6 +63,12 @@ const Programs = () => {
         };
         await fetch("http://localhost:3000/programs", requestOptions);
         getPrograms();
+        setNewProgram({
+            title: "",
+            //hosts: "",
+            description: "",
+            archived: false,
+        });
     };
 
     const deleteProgram = async (e) => {
@@ -124,29 +76,13 @@ const Programs = () => {
             const requestOptions = {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title: e }),
+                body: JSON.stringify({ _id: e }),
             };
             await fetch("http://localhost:3000/programs", requestOptions);
         } catch (err) {
             console.log(err);
         }
         getPrograms();
-    };
-
-    const updateProgram = async (e) => {
-        // try {
-        //     const requestOptions = {
-        //         method: 'PUT',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ title: e.title },
-        //             { description: e.description },
-        //             { hosts: e.hosts })
-        //     };
-        //     await fetch('http://localhost:3000/programs', requestOptions);
-        // } catch (err) {
-        //     console.log(err);
-        // }
-        // getPrograms();
     };
 
     const handleSearchChange = (e) => {
@@ -172,7 +108,7 @@ const Programs = () => {
     const handleHostChange = (e) => {
         setNewProgram(() => ({
             ...newProgram,
-            hosts: e.target.value,
+            //hosts: e.target.value,
         }));
     };
     const handleArchivedChange = (e) => {
@@ -187,11 +123,6 @@ const Programs = () => {
                 archived: false,
             }));
         }
-
-        // setNewProgram(() => ({
-        //     ...newProgram,
-        //     archived: e.target.value,
-        // }));
     };
     const handleDescChange = (e) => {
         setNewProgram(() => ({
@@ -200,18 +131,13 @@ const Programs = () => {
         }));
     };
 
-    const getFromProg = (e) => {
-        //if (e.param.localeCompare("description") == 0)
-        console.log(programs.find(({ tit }) => tit === e.item));
-    };
-
     return (
         <div className="programs">
-            <h1>Programs:</h1>
-            <h3>(Click on a program to delete it)</h3>
-            <div className="sortAndSearch">
+            <h1>Programs: 6386ba96c71942148162a7b2</h1>
+            <h1>63cc4f1d38c9a5e3ceb66e3d</h1>
+            <div className="sort-and-search">
                 <div
-                    className="sortIndicator"
+                    className="sort-indicator"
                     onChange={(e) => handleSortValChange(e)}
                 >
                     <h3>Sort By:</h3>
@@ -220,7 +146,7 @@ const Programs = () => {
                     <input type="radio" value="alphabetical" name="sortVal" />
                     Date
                 </div>
-                <div className="singleSearch">
+                <div className="single-search">
                     <input
                         type="text"
                         name="search-bar"
@@ -229,7 +155,7 @@ const Programs = () => {
                     />
                 </div>
                 <div
-                    className="archivedSort"
+                    className="archived-sort"
                     onChange={(e) => handleSortArchivedChange(e)}
                 >
                     <input type="radio" value="archived" name="sortVal" />
@@ -241,111 +167,79 @@ const Programs = () => {
                 </div>
             </div>
             <div>
-                <Accordion
-                    defaultActiveKey="0"
-                    className="programsListContainer"
-                >
+                <div className="programs-list-container">
                     {programsFiltered.map((item, i) => (
-                        <Card key={i} className="programCard">
-                            <Card.Header>
-                                <CustomToggle eventKey={i}>
-                                    <h4># {i}</h4>
-                                    <h4>Title: {item.title}</h4>
-                                </CustomToggle>
-                            </Card.Header>
+                        <div key={i} className="program-card">
+                            <h4># {i}</h4>
+                            <h4>Title: {item.title}</h4>
 
-                            <Accordion.Collapse eventKey={i}>
-                                <Card.Body>
-                                    <h5>id: {item._id}</h5>
-                                    <h5>hosts: {item.hosts}</h5>
-                                    <h5>
-                                        description:
-                                        <DoubleClickToInput
-                                            value={fullName}
-                                            handleChange={(e) =>
-                                                setFullName(e.target.value)
-                                            }
-                                            handleDoubleClick={() =>
-                                                setShowInputEle(true)
-                                            }
-                                            handleBlur={() =>
-                                                setShowInputEle(false)
-                                            }
-                                            showInputEle={showInputEle}
-                                        />
-                                    </h5>
+                            <Link
+                                to="/programs/singleview"
+                                state={{
+                                    id: item._id,
+                                }}
+                            >
+                                View Program
+                            </Link>
 
-                                    <h5>description: {item.description}</h5>
-                                    <h5>attendance: {item.attendance}</h5>
-                                    <h5>Days Of Week: {item.daysOfWeek}</h5>
-                                    <h5>Date Added: {item.dateAdded}</h5>
-                                    <h5>
-                                        {item.archived ? (
-                                            <>ARCHIVED</>
-                                        ) : (
-                                            <>ACTIVE</>
-                                        )}
-                                    </h5>
-                                    <button
-                                        onClick={() =>
-                                            deleteProgram(item.title)
-                                        }
-                                    >
-                                        Delete Program
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            updateProgram({
-                                                item: title,
-                                                description: item.description,
-                                            })
-                                        }
-                                    >
-                                        Update Program
-                                    </button>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
+                            <h5>id: {item._id}</h5>
+                            <h5>hosts: {item.hosts}</h5>
+
+                            <h5>description: {item.description}</h5>
+                            <h5>attendance: {item.attendance}</h5>
+                            <h5>Days Of Week: {item.daysOfWeek}</h5>
+                            <h5>Date Added: {item.dateAdded}</h5>
+                            <h5>
+                                {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}
+                            </h5>
+                            <button onClick={() => deleteProgram(item._id)}>
+                                Delete Program
+                            </button>
+                        </div>
                     ))}
-                </Accordion>
+                </div>
             </div>
             <h1>Add A program</h1>
             <div>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <div>
                     <label>
                         Title:
                         <input
                             type="text"
+                            value={newProgram.title}
                             name="title"
-                            onChange={(e) => handleTitleChange(e)}
+                            onChange={handleTitleChange}
                         />
                     </label>
                     <label>
                         Hosts:
                         <input
                             type="text"
+                            value={newProgram.hosts}
                             name="hosts"
-                            onChange={(e) => handleHostChange(e)}
+                            onChange={handleHostChange}
                         />
                     </label>
                     <label>
-                        Archived (true or false):
+                        Archived:
                         <input
                             type="text"
+                            value={newProgram.archived}
                             name="archived"
-                            onChange={(e) => handleArchivedChange(e)}
+                            onChange={handleArchivedChange}
                         />
                     </label>
                     <label>
                         Description:
                         <input
                             type="text"
+                            value={newProgram.description}
                             name="description"
-                            onChange={(e) => handleDescChange(e)}
+                            onChange={handleDescChange}
                         />
                     </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                    <button onClick={handleSubmit}>Submit</button>
+                </div>
             </div>
         </div>
     );

@@ -8,13 +8,16 @@ import {
 } from "./src/routes/workshops/Workshops";
 import { WorkshopCreateForm } from "./src/routes/workshops/CreateWorkshop";
 import { WorkshopsList } from "./src/routes/workshops/WorkshopView";
+
 // Styles
 import "./index.css";
 import { WorkshopSingle } from "./src/routes/workshops/singleView";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import BeneficiaryRegistration from "./src/routes/beneficiaries/BeneficiaryRegistration";
+import Programs from "./src/routes/Programs/Programs";
+import SingleProgram from "./src/routes/Programs/SingleProgram";
+import BeneficiaryRegistration from "./src/routes/beneficiaries/registration/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 
 // Router from React Router
@@ -34,7 +37,13 @@ const router = createBrowserRouter([
             { path: "register", element: <BeneficiaryRegistration /> },
         ],
     },
-
+    {
+        path: "/programs",
+        children: [
+            { path: "", element: <Programs /> },
+            { path: "singleview", element: <SingleProgram /> },
+        ],
+    },
     {
         path: "/workshops",
         children: [
