@@ -8,8 +8,8 @@ import "./index.css";
 
 // React Components
 import Home from "./src/routes/home/Home";
-import Programs from "./src/routes/Programs/Programs";
-import SingleProgram from "./src/routes/Programs/SingleProgram";
+import Programs from "./src/routes/programs/Programs";
+import SingleProgram from "./src/routes/programs/SingleProgram";
 import BeneficiaryRegistration from "./src/routes/beneficiaries/registration/BeneficiaryRegistration";
 import Beneficiaries from "./src/routes/beneficiaries/Beneficiaries";
 import {
