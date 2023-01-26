@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { json, Link } from "react-router-dom";
-import Select from "react-select";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Workshops.css";
 
 export const Workshops = () => {

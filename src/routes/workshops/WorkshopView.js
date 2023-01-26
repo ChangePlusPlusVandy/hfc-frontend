@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { json, Link } from "react-router-dom";
 import "./Workshops.css";
 import Select from "react-select";
 export const WorkshopsList = () => {
@@ -8,6 +7,7 @@ export const WorkshopsList = () => {
     const [filteredWorkshops, setFilteredWorkshops] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
+
     // Fetch workshops
     const getWorkshops = () => {
         fetch("http://localhost:3000/workshops")
@@ -19,20 +19,24 @@ export const WorkshopsList = () => {
                 filterWorkshops();
             });
     };
+    
     useEffect(() => {
         getWorkshops();
         setSearch("");
     }, []);
+
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
         filterWorkshops();
     };
+
     const handleSortValChange = (e) => {
         setSortBy(e.target.value);
         sortWorkshops();
     };
+
     const handleFilterChange = (e) => {
-        setFilter(e.value).then(filterWorkshops());
+        setFilter(e.value);
         filterWorkshops();
     };
 
@@ -48,6 +52,7 @@ export const WorkshopsList = () => {
         }
         filterWorkshops();
     };
+
     const filterWorkshops = () => {
         let temp = workshops.filter((item) => {
             if (filter == "archived" && !item.archived) {
@@ -63,6 +68,7 @@ export const WorkshopsList = () => {
         });
         setFilteredWorkshops(temp);
     };
+
     return (
         <div className="workshops">
             <h1>Workshops:</h1>
@@ -98,23 +104,13 @@ export const WorkshopsList = () => {
                     />
                 </div>
             </div>
-
             <div>
-                <Accordion
-                    defaultActiveKey="0"
-                    className="programsListContainer"
-                >
-                    {filteredWorkshops.map((item, i) => (
-                        <Card key={i} className="programCard">
-                            <Card.Header>
-                                <CustomToggle>
-                                    <h2> {item.title}</h2>
-                                    <h3> {item.description}</h3>
-                                </CustomToggle>
-                            </Card.Header>
-                        </Card>
-                    ))}
-                </Accordion>
+                {filteredWorkshops.map((item, i) => (
+                    <div>
+                        <h2> {item.title}</h2>
+                        <h3> {item.description}</h3>
+                    </div>
+                ))}
             </div>
         </div>
     );
