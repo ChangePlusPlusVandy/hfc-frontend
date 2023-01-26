@@ -42,7 +42,7 @@ const DashboardLayout = () => {
                     {user.lastName && user.lastName.charAt(0) + "."}
                 </h1>
                 <nav>
-                    <NavLink to="beneficiaries/all">
+                    <NavLink to="beneficiaries">
                         <img
                             src={UserListIcon}
                             alt="Beneficiaries List"
