@@ -3,8 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 335px;
+    width: 300px;
     border-right: 1px solid black;
+    overflow-y: scroll;
+}
+
+.nav-sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 .nav-sidebar img.logo {
@@ -38,7 +43,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    width: 60%;
+    width: 75%;
     margin: 5px auto;
     padding: 10px 15px;
     border-radius: 15px;
@@ -51,7 +56,7 @@
 .nav-sidebar nav img.icon {
     width: 2rem;
     height: 2rem;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .nav-sidebar button.logout-button {

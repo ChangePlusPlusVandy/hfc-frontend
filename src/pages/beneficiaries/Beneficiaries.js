@@ -86,7 +86,7 @@ const Beneficiaries = () => {
     }, []);
 
     return (
-        <div className="beneficiaries-container" >
+        <div className="beneficiaries-page-container">
             <input
                 onChange={(e) => setSearch(e.target.value)}
                 className="del-form"

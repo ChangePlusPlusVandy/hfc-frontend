@@ -132,7 +132,7 @@ const Programs = () => {
     };
 
     return (
-        <div className="programs-container">
+        <div className="programs-page-container">
             <h1>Programs: 6386ba96c71942148162a7b2</h1>
             <h1>63cc4f1d38c9a5e3ceb66e3d</h1>
             <div className="sort-and-search">

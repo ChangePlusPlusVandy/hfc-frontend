@@ -23,17 +23,21 @@ import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
 import { WorkshopSingle } from "./pages/workshops/singleView";
 
+// Assessments Page
+import Assessments from "./pages/assessments/Assessments";
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<h1>Index</h1>} />
+            <Route index element={<h1>TODO: Index</h1>} />
             <Route path="beneficiaries">
                 <Route index element={<Beneficiaries />} />
                 <Route path="register" element={<BeneficiaryRegistration />} />
             </Route>
-            <Route path="data" element={<h1>Data</h1>} />
+            <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
             <Route path="programs">
                 <Route index element={<Programs />} />
+                {/* TODO: Make dynamic routes for each program */}
                 <Route path="singleview" element={<SingleProgram />} />
             </Route>
             <Route path="workshops">
@@ -41,9 +45,12 @@ const router = createBrowserRouter(
                 <Route path="create" element={<WorkshopCreateForm />} />
                 <Route path="all" element={<WorkshopsList />} />
                 <Route path="delete" element={<WorkshopDeleteForm />} />
+                {/* TODO: Make dynamic routes for each workshop */}
                 <Route path="singleview" element={<WorkshopSingle />} />
             </Route>
-            <Route path="assessments" element={<h1>Assessments</h1>} />
+            <Route path="assessments">
+                <Route index element={<Assessments />} />
+            </Route>
         </Route>
     )
 );

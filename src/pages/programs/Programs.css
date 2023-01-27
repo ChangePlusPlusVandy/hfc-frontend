@@ -1,8 +1,8 @@
-.programs-container {
+.programs-page-container {
     padding: 30px;
 }
 
-.programs-container .programs-list-container {
+.programs-page-container .programs-list-container {
     border: 3px solid black;
     display: flex;
     flex-wrap: wrap;
@@ -10,61 +10,61 @@
     justify-content: center;
 }
 
-.programs-container .program-card {
+.programs-page-container .program-card {
     color: black;
     display: flex;
     border: 1px solid white;
     padding: 5px;
 }
 
-.programs-container .program-card > h5,
-.programs-container > h4 {
+.programs-page-container .program-card > h5,
+.programs-page-container > h4 {
     margin: 3px;
     color: black;
 }
 
-.programs-container .react-select-container {
+.programs-page-container .react-select-container {
     color: black;
     margin: 25px 0px;
 }
 
-.programs-container .react-select__menu-list {
+.programs-page-container .react-select__menu-list {
     color: black;
     font-size: 20px;
 }
 
-.programs-container .react-select__value-container {
+.programs-page-container .react-select__value-container {
     font-size: 25px;
 }
 
-.programs-container .single-program-container {
+.programs-page-container .single-program-container {
     border: 1px solid black;
     margin: auto;
     padding: 10px;
 }
 
-.programs-container .prog-nav {
+.programs-page-container .prog-nav {
     width: 100%;
     justify-content: right;
 }
 
-.programs-container .program-tabs {
+.programs-page-container .program-tabs {
     display: flex;
     justify-content: space-between;
 }
 
-.programs-container .tab-panel {
+.programs-page-container .tab-panel {
     width: 90%;
     margin: auto;
 }
 
-.programs-container .enrolled-ben-title {
+.programs-page-container .enrolled-ben-title {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.programs-container .submit-button {
+.programs-page-container .submit-button {
     background-color: black;
     border-radius: 10px;
     color: white;
@@ -73,7 +73,7 @@
     font-weight: 500;
 }
 
-.programs-container .modal-body {
+.programs-page-container .modal-body {
     height: 100%;
     align-items: center;
     padding-top: 10px;
