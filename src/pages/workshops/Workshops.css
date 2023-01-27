@@ -2,20 +2,26 @@
     padding: 30px;
     width: 50rem;
 }
+
 .workshops .dropdown {
     width: 10rem;
     color: black;
 }
 .workshops .button {
-    border: 2px solid white;
+    border: 2px solid black;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     margin: 1rem;
     text-decoration: none;
-    color: white;
+    color: black;
 }
-.workshops-container {
-    border: 3px solid white;
+
+.workshops-page-container .button {
+    border: 2px solid black;
+}
+
+.workshops-page-container {
+    border: 3px solid black;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -23,39 +29,39 @@
 }
 
 .workshops .card {
-    color: white;
+    color: black;
     display: flex;
     width: auto;
-    border: 1px solid white;
-    color: white;
+    border: 1px solid black;
     padding: 5px;
     text-align: center;
 }
 
 .workshops .card > h3,
-h4,
-h5,
-button {
+.workshops .card > h4,
+.workshops .card > h5,
+.workshops .card > button {
     margin: 3px;
-    color: white;
+    color: black;
     align-items: right;
 }
-.workshops-container .button {
-    border: 2px solid white;
+
+.workshops-page-container .button {
+    border: 2px solid black;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     margin: 1rem;
     text-decoration: none;
-    color: white;
+    color: black;
     align-items: center;
 }
 
-.workshops-container .button:hover {
-    background-color: white;
+.workshops-page-container .button:hover {
+    background-color: black;
     color: white;
 }
 
-.workshop-tabs {
+.single-workshop-container .workshop-tabs {
     display: flex;
     justify-content: space-between;
 }

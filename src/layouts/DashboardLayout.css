@@ -1,0 +1,10 @@
+.dashboard-layout {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.dashboard-layout > .page-content {
+    overflow-y: scroll;
+    flex: 1;
+}

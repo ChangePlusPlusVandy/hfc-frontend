@@ -4,13 +4,13 @@ import "./Workshops.css";
 
 export const Workshops = () => {
     return (
-        <div className="workshops-container">
+        <div className="workshops-page-container">
             <h1>Choose an option</h1>
             <div>
                 <Link className="button" to="./create">
                     Create Workshop
                 </Link>
-                <Link className="button" to="./get">
+                <Link className="button" to="./all">
                     Get Workshops
                 </Link>
                 <Link className="button" to="./delete">
