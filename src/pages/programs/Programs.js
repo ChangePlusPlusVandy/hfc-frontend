@@ -184,7 +184,9 @@ const Programs = () => {
                             {/* <h5>id: {item._id}</h5> */}
                             {/* <h5>hosts: {item.hosts}</h5> */}
 
-                            <h5><h4>description:</h4> {item.description}</h5>
+                            <h5>
+                                <h4>description:</h4> {item.description}
+                            </h5>
                             {/* <h5>attendance: {item.attendance}</h5>
                             <h5>Days Of Week: {item.daysOfWeek}</h5> */}
                             <h5>Date Added: {item.dateAdded}</h5>
