@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
-import './Register.css'
-import {auth} from '../../../firebase/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import React, { useState } from "react";
+import "./Register.css";
+import { auth } from "../../../firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
 
@@ -43,5 +43,3 @@ const Register = () => {
     </div>
   )
 }
-
-export default Register
