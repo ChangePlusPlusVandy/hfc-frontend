@@ -33,9 +33,7 @@ import Assessments from "./pages/assessments/Assessments";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route path="/login" element={<Login />}>
-                {" "}
-            </Route>
+            <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/dashboard" element={<DashboardLayout />}>
                 <Route index element={<h1>TODO: Index</h1>} />

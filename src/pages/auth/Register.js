@@ -5,12 +5,13 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
 
-  const addUserToFb = async (uid,level=0) => {
+  const addUserToMongo = async (uid,level=0) => {
     const response = await fetch('http://localhost:3000/users', {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
               firebaseUID: uid,
+              level: parseInt(level),
           }),
       });
     return response
@@ -21,7 +22,7 @@ const Register = () => {
       console.log(email,password)
       try{
         const userCrediential = await createUserWithEmailAndPassword(auth,email,password);
-        const res = await addUserToFb(userCrediential.user.uid);
+        const res = await addUserToMongo(userCrediential.user.uid);
       console.log(res)
     } catch (err) {
       console.log(err);
@@ -43,3 +44,5 @@ const Register = () => {
     </div>
   )
 }
+
+export default Register;

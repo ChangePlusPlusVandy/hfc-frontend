@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 
 import "./NavSidebar.css";
 
@@ -11,6 +11,9 @@ import UserCirclePlusIcon from "../assets/icons/user-circle-plus-icon.png";
 import TabsIcon from "../assets/icons/tabs-icon.png";
 import BookIcon from "../assets/icons/book-icon.png";
 import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
+import { onAuthStateChanged,signOut } from 'firebase/auth';
+import {auth} from '../../firebase/firebase';
+
 
 const NavSidebar = () => {
     // TODO: Get first and last name from logged in user using Firebase Auth
@@ -20,9 +23,26 @@ const NavSidebar = () => {
     });
 
     const handleLogout = () => {
-        // TODO: Logout user using Firebase Auth
-        alert("TODO: this lol");
+
+            signOut(auth).then(() => {
+              console.log('signout successful');
+              navigate('../login')
+            }).catch(err => {
+              console.log('error signing out')
+              console.log(err);
+            })
+
     };
+
+    const navigate = useNavigate(); 
+    onAuthStateChanged(auth, user => {
+        if (user) {
+          console.log('User exists')
+        }
+        else {
+          navigate('../login')
+        }
+      });
 
     return (
         <div className="nav-sidebar">
