@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./NavSidebar.css";
 
@@ -11,9 +11,8 @@ import UserCirclePlusIcon from "../assets/icons/user-circle-plus-icon.png";
 import TabsIcon from "../assets/icons/tabs-icon.png";
 import BookIcon from "../assets/icons/book-icon.png";
 import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
-import { onAuthStateChanged,signOut } from 'firebase/auth';
-import {auth} from '../../firebase/firebase';
-
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 const NavSidebar = () => {
     // TODO: Get first and last name from logged in user using Firebase Auth
@@ -23,26 +22,25 @@ const NavSidebar = () => {
     });
 
     const handleLogout = () => {
-
-            signOut(auth).then(() => {
-              console.log('signout successful');
-              navigate('../login')
-            }).catch(err => {
-              console.log('error signing out')
-              console.log(err);
+        signOut(auth)
+            .then(() => {
+                console.log("signout successful");
+                navigate("../login");
             })
-
+            .catch((err) => {
+                console.log("error signing out");
+                console.log(err);
+            });
     };
 
-    const navigate = useNavigate(); 
-    onAuthStateChanged(auth, user => {
+    const navigate = useNavigate();
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log('User exists')
+            console.log("User exists");
+        } else {
+            navigate("../login");
         }
-        else {
-          navigate('../login')
-        }
-      });
+    });
 
     return (
         <div className="nav-sidebar">
