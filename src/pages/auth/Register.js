@@ -4,30 +4,34 @@ import { auth } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
-
-  const addUserToMongo = async (uid,level=0) => {
-    const response = await fetch('http://localhost:3000/users', {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-              firebaseUID: uid,
-              level: parseInt(level),
-          }),
-      });
-    return response
-  }
+    const addUserToMongo = async (uid, level = 0) => {
+        const response = await fetch("http://localhost:3000/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                firebaseUID: uid,
+                level: parseInt(level),
+            }),
+        });
+        return response;
+    };
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      console.log(email,password)
-      try{
-        const userCrediential = await createUserWithEmailAndPassword(auth,email,password);
-        const res = await addUserToMongo(userCrediential.user.uid);
-      console.log(res)
-    } catch (err) {
-      console.log(err);
-      console.log(err.message);
-    }}
+        e.preventDefault();
+        console.log(email, password);
+        try {
+            const userCrediential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            const res = await addUserToMongo(userCrediential.user.uid);
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+            console.log(err.message);
+        }
+    };
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
