@@ -29,20 +29,29 @@ const Register = () => {
       console.log(err.message);
     }}
 
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-
-  return (
-    <div className='form_container'>
-      <h1>Register</h1>
-      <form className='form' onSubmit={(e) => handleSubmit(e)}>
-        <input onChange={(e) => setEmail(e.target.value)} value={email} type='text' placeholder='Email'/>
-        <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='Password'/>
-        <input type='submit' value='Register'/>
-      </form>
-    </div>
-  )
-}
+    return (
+        <div className="form_container">
+            <h1>Register</h1>
+            <form className="form" onSubmit={(e) => handleSubmit(e)}>
+                <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    type="text"
+                    placeholder="Email"
+                />
+                <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    type="password"
+                    placeholder="Password"
+                />
+                <input type="submit" value="Register" />
+            </form>
+        </div>
+    );
+};
 
 export default Register;
