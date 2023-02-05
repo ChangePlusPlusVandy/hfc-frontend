@@ -38,7 +38,7 @@ const router = createBrowserRouter(
         <>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route element={<PrivateRoutes/>}>
+            <Route element={<PrivateRoutes />}>
                 <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route index element={<h1>TODO: Index</h1>} />
                     <Route path="beneficiaries">
@@ -48,7 +48,10 @@ const router = createBrowserRouter(
                             element={<BeneficiaryRegistration />}
                         />
                     </Route>
-                    <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
+                    <Route
+                        path="data"
+                        element={<h1>TODO: Data Dashboard</h1>}
+                    />
                     <Route path="programs">
                         <Route index element={<Programs />} />
                         {/* TODO: Make dynamic routes for each program */}
@@ -65,7 +68,7 @@ const router = createBrowserRouter(
                     <Route path="assessments">
                         <Route index element={<Assessments />} />
                     </Route>
-            </Route>
+                </Route>
             </Route>
         </>
     )

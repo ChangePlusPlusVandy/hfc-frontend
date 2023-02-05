@@ -83,8 +83,7 @@ const Beneficiaries = () => {
             }
         };
         // eventualy we should only call this if user has correct auth/permissions
-            getBeneficiaries();
-        
+        getBeneficiaries();
     }, []);
 
     return (
