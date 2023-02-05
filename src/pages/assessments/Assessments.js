@@ -63,7 +63,7 @@ const Assessments = () => {
             answer8={answer8}
             setAnswer8={setAnswer8}
             answer9={answer9}
-            setAnswer1={setAnswer9}
+            setAnswer9={setAnswer9}
         />,
         <Page3
             answer10={answer10}
