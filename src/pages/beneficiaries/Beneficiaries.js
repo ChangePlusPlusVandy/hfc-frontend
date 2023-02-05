@@ -83,11 +83,7 @@ const Beneficiaries = () => {
             }
         };
         // eventualy we should only call this if user has correct auth/permissions
-        if (auth.currentUser) {
             getBeneficiaries();
-        } else {
-            console.log("not logged in sorry bro");
-        }
         
     }, []);
 
