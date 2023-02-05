@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SingleBenficiary from "./components/SingleBfc";
 import FilterButton from "./components/FilterButton";
-import {auth} from '../../../firebase/firebase';
+import { auth } from "../../../firebase/firebase";
 
 import "./Beneficiaries.css";
 
