@@ -9,7 +9,7 @@ export const WorkshopsList = () => {
     const [filteredWorkshops, setFilteredWorkshops] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
-    const [hostOptions, setHostOptions]=useState([])
+    const [hostOptions, setHostOptions] = useState([]);
     // Fetch workshops
     const getWorkshops = () => {
         fetch("http://localhost:3000/workshops")
@@ -17,29 +17,32 @@ export const WorkshopsList = () => {
             .then((data) => {
                 console.log("Fetched workshops:");
                 fetch("http://localhost:3000/users/users")
-                .then((response2) => response2.json())
-                .then((data2) => {
-                    let tempOptions = data2
-                        .filter((item) => item.firstName && item.lastName)
-                        .map((item) => {
-                            return {
-                                value: item._id,
-                                label: item.firstName + " " + item.lastName,
-                            };
-                        });
-                        console.log(tempOptions)
-                    for(let i=0; i<data.length;i++){
-                        for(let j=0; j<data[i].hosts.length;j++){
-                            for(let k=0; k<tempOptions.length;k++){
-                                if(data[i].hosts[j]==tempOptions[k].value){
-                                    data[i].hosts[j]=tempOptions[k].label                                }
+                    .then((response2) => response2.json())
+                    .then((data2) => {
+                        let tempOptions = data2
+                            .filter((item) => item.firstName && item.lastName)
+                            .map((item) => {
+                                return {
+                                    value: item._id,
+                                    label: item.firstName + " " + item.lastName,
+                                };
+                            });
+                        console.log(tempOptions);
+                        for (let i = 0; i < data.length; i++) {
+                            for (let j = 0; j < data[i].hosts.length; j++) {
+                                for (let k = 0; k < tempOptions.length; k++) {
+                                    if (
+                                        data[i].hosts[j] == tempOptions[k].value
+                                    ) {
+                                        data[i].hosts[j] = tempOptions[k].label;
+                                    }
+                                }
                             }
                         }
-                    }
-                    setHostOptions(tempOptions);
-                    setWorkshops(data);
-                    filterWorkshops(data, search, filter);
-                });                
+                        setHostOptions(tempOptions);
+                        setWorkshops(data);
+                        filterWorkshops(data, search, filter);
+                    });
             });
     };
 
@@ -76,7 +79,6 @@ export const WorkshopsList = () => {
     };
 
     const filterWorkshops = (ws, srch, fltr) => {
-        
         let temp = ws.filter((item) => {
             if (fltr == "archived" && !item.archived) {
                 return false;
@@ -85,8 +87,7 @@ export const WorkshopsList = () => {
                 return false;
             }
             return (
-                (!srch)||
-                item.title.toLowerCase().includes(srch.toLowerCase())
+                !srch || item.title.toLowerCase().includes(srch.toLowerCase())
             );
         });
         setFilteredWorkshops(temp);
@@ -130,20 +131,30 @@ export const WorkshopsList = () => {
             <div className="workshops-list-container">
                 {filteredWorkshops.map((item, i) => (
                     <div key={i} className="workshops-card">
-                        
                         <h3> {item.title} &emsp;</h3>
-                        <h5>{item.archived ? <>ARCHIVED</> : <>ACTIVE</>} &emsp;</h5>
+                        <h5>
+                            {item.archived ? <>ARCHIVED</> : <>ACTIVE</>} &emsp;
+                        </h5>
                         <h5> Description: {item.description}</h5>
-                        <h5> {item.hosts.length>0 ? <>Hosts: {item.hosts.join(", ")}</> : <></>}</h5>
+                        <h5>
+                            {" "}
+                            {item.hosts.length > 0 ? (
+                                <>Hosts: {item.hosts.join(", ")}</>
+                            ) : (
+                                <></>
+                            )}
+                        </h5>
 
-                        <Link className="button"
-                                to="../singleview"
-                                state={{
-                                    id: item._id,
-                                }}
-                            >View Workshop</Link>
+                        <Link
+                            className="button"
+                            to="../singleview"
+                            state={{
+                                id: item._id,
+                            }}
+                        >
+                            View Workshop
+                        </Link>
                     </div>
-
                 ))}
             </div>
         </div>
