@@ -44,7 +44,6 @@ const router = createBrowserRouter(
                 <Route index element={<Workshops />} />
                 <Route path="create" element={<WorkshopCreateForm />} />
                 <Route path="all" element={<WorkshopsList />} />
-                <Route path="delete" element={<WorkshopDeleteForm />} />
                 {/* TODO: Make dynamic routes for each workshop */}
                 <Route path="singleview" element={<WorkshopSingle />} />
             </Route>

@@ -37,9 +37,6 @@ export const WorkshopCreateForm = () => {
     const handleDateChange = (event) => {
         setDate(event.target.value);
     };
-    const handleNumAttendeesChange = (event) => {
-        setNumAttendees(event.target.value);
-    };
     const handleHostsChange = (event) => {
         setHosts(event);
         console.log(hosts);
@@ -53,16 +50,12 @@ export const WorkshopCreateForm = () => {
             title,
             hosts: hosts.map((item) => {
                 return item.value;
-            }), // TODO:
+            }),
             description,
             date,
             numAttendees, // TODO:
             attendees: [], // TODO:
         };
-        console.log("New workshop data:");
-        console.log(newWorkshopData);
-
-        // Validate data
         if (title && description) {
             console.log("No missing fields...");
             try {
@@ -71,7 +64,6 @@ export const WorkshopCreateForm = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(newWorkshopData),
                 };
-
                 fetch("http://localhost:3000/workshops", requestOptions)
                     .then((response) => response.json())
                     .then((data) => {
@@ -93,7 +85,7 @@ export const WorkshopCreateForm = () => {
     };
 
     return (
-        <div className="create-workshop-form">
+        <div className="workshops-page-container">
             <h3>Create a Workshop</h3>
             <div>Workshop Title</div>
             <input
@@ -129,14 +121,6 @@ export const WorkshopCreateForm = () => {
             <div>Workshop Date</div>
             <input type="date" id="Date" onChange={handleDateChange} />
             <br />
-            <div>Number of Attendees</div>
-            <input
-                type="number"
-                id="numAttendees"
-                onChange={handleNumAttendeesChange}
-                placeholder="Number of Attendees"
-                min={0}
-            />
             <br />
             <br />
             <button className="button" onClick={createWorkshop}>
