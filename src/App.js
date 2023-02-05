@@ -21,7 +21,7 @@ import SingleProgram from "./pages/programs/SingleProgram";
 import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
 import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
-import { WorkshopSingle } from "./pages/workshops/singleView";
+import { WorkshopSingle } from "./pages/workshops/WorkshopSingle";
 
 // Assessments Page
 import Assessments from "./pages/assessments/Assessments";
