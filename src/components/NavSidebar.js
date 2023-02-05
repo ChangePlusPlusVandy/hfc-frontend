@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import "./NavSidebar.css";
@@ -34,13 +34,22 @@ const NavSidebar = () => {
     };
 
     const navigate = useNavigate();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log("User exists");
-        } else {
-            navigate("../login");
-        }
-    });
+    
+
+    useEffect(() => {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) { 
+                console.log("User exists",user,user.uid);
+                const res = await fetch(`http://localhost:3000/users?firebaseUID=${user.uid}`);
+                const mongoUser = await res.json()
+                setUser({firstName: mongoUser[0].firstName,
+                            lastName: mongoUser[0].lastName});
+            
+            } else {
+                navigate("../login");
+            }
+        });
+    },[])
 
     return (
         <div className="nav-sidebar">

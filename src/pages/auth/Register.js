@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
     const navigate = useNavigate();
 
-    const addUserToMongo = async (uid, level = 0) => {
+    const addUserToMongo = async (uid, fn,ln,level = 0,) => {
         const response = await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 firebaseUID: uid,
+                firstName: fn,
+                lastName: ln,
                 level: parseInt(level),
             }),
         });
@@ -28,7 +30,7 @@ const Register = () => {
                 email,
                 password
             );
-            const res = await addUserToMongo(userCrediential.user.uid);
+            const res = await addUserToMongo(userCrediential.user.uid,firstName,lastName);
             console.log(res);
             navigate("/dashboard");
         } catch (err) {
@@ -36,7 +38,9 @@ const Register = () => {
             console.log(err.message);
         }
     };
-
+    
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -44,6 +48,8 @@ const Register = () => {
         <div className="form_container">
             <h1>Register</h1>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
+                <input onChange={(e) => setFirstName(e.target.value)} value={firstName} type="text" placeholder="First Name"/>
+                <input onChange={(e) => setLastName(e.target.value)} value={lastName} type="text" placeholder="Last Name"/> 
                 <input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
