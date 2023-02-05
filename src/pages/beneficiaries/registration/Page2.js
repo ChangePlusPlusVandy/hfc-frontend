@@ -42,7 +42,6 @@ const Page2 = ({
 
     return (
         <div className="Page2">
-            <h3> Basic info: Check and Fill</h3>
             <form>
                 <label>
                     First date of visit *

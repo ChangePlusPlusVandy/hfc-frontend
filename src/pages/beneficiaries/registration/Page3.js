@@ -24,7 +24,6 @@ const Page3 = ({
 
     return (
         <div className="Page3">
-            <h3> Basic info: Other </h3>
             <form>
                 <div className="dropdown-container">
                     <label>

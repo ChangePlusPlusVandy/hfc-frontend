@@ -1,0 +1,61 @@
+.form-progress-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 0;
+}
+
+.form-progress-bar-container .form-progress-bar {
+    display: flex;
+}
+
+.form-progress-bar-container .form-progress-bar-step-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-progress-bar-container .form-progress-bar-step {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.form-progress-bar-container .form-progress-bar-step-circle {
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid black;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.form-progress-bar-container
+    .form-progress-bar-step.active
+    .form-progress-bar-step-circle,
+.form-progress-bar-container
+    .form-progress-bar-step:hover
+    .form-progress-bar-step-circle {
+    background: black;
+    color: white;
+}
+
+.form-progress-bar-container .form-progress-bar-step-name {
+    font-size: 18px;
+}
+
+.form-progress-bar-container .form-progress-bar-step-delimiter {
+    width: 5vw;
+    height: 1px;
+    background: black;
+    margin: 0 1.5vw;
+}
+
+.form-progress-bar-container
+    .form-progress-bar-step-container:last-child
+    .form-progress-bar-step-delimiter {
+    display: none;
+}

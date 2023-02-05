@@ -27,7 +27,6 @@ const Page1 = ({
     console.log(languages);
     return (
         <div className="page1-container">
-            <h3>Basic Info</h3>
             <div className="wrapper">
                 <label>
                     Fluent Languages

@@ -24,44 +24,43 @@ const Page4 = ({
     sponsorInfo,
 }) => {
     return (
-        <div>
-            <h1>Review</h1>
-            <h5>
+        <div className="review-page-container">
+            <p>
                 {" "}
                 {firstName} {lastName}{" "}
-            </h5>
-            <h5> Age: {age} </h5>
-            <h5> Gender: {gender.label} </h5>
-            <h5> Email: {email} </h5>
-            <h5> Phone: {phoneNumber}</h5>
-            <h5> Address: {address} </h5>
-            <h5> Birthdate: {birthDate} </h5>
-            <h5>
+            </p>
+            <p> Age: {age} </p>
+            <p> Gender: {gender.label} </p>
+            <p> Email: {email} </p>
+            <p> Phone: {phoneNumber}</p>
+            <p> Address: {address} </p>
+            <p> Birthdate: {birthDate} </p>
+            <p>
                 {" "}
                 Languages: {languages.map(
                     (language) => language.label + " "
                 )}{" "}
-            </h5>
-            <h5>
+            </p>
+            <p>
                 {" "}
                 Nationalities:{" "}
                 {nationalities.map(
                     (nationality) => nationality.label + " "
                 )}{" "}
-            </h5>
-            <h5> Education: {education.label} </h5>
-            <h5> Join Date: {joinDate.toDateString()} </h5>
-            <h5> Reason For Visit: {reason} </h5>
-            <h5>
+            </p>
+            <p> Education: {education.label} </p>
+            <p> Join Date: {joinDate.toDateString()} </p>
+            <p> Reason For Visit: {reason} </p>
+            <p>
                 {" "}
                 Interests: {interests.map(
                     (interest) => interest.label + " "
                 )}{" "}
-            </h5>
-            <h5> Referrals: {referrals} </h5>
-            <h5> Needs: {needs.map((need) => need.label + " ")} </h5>
-            <h5> Sponsorship: {sponsorInfo} </h5>
-            <h5> Notes: {staffNotes} </h5>
+            </p>
+            <p> Referrals: {referrals} </p>
+            <p> Needs: {needs.map((need) => need.label + " ")} </p>
+            <p> Sponsorship: {sponsorInfo} </p>
+            <p> Notes: {staffNotes} </p>
         </div>
     );
 };
