@@ -12,7 +12,7 @@ const Login = () => {
     }
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error,setError] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -40,15 +40,18 @@ const Login = () => {
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
-                        setEmail(e.target.value)
-                        setError("")}}
+                        setEmail(e.target.value);
+                        setError("");
+                    }}
                     value={email}
                     type="text"
                     placeholder="Email"
                 />
                 <input
-                    onChange={(e) => {setPassword(e.target.value)
-                    setError("")}}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        setError("");
+                    }}
                     value={password}
                     type="password"
                     placeholder="Password"
