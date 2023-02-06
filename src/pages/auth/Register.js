@@ -82,12 +82,16 @@ const Register = () => {
                     lastName
                 );
             } catch (err) {
-                console.log("Error addign user to MongoBD, deleting from Firebase")
+                console.log(
+                    "Error addign user to MongoBD, deleting from Firebase"
+                );
                 console.log(err);
                 console.log(err.message);
-                deleteUser(userCrediential.user).then(() => console.log("User deleted from Firebase"))
+                deleteUser(userCrediential.user).then(() =>
+                    console.log("User deleted from Firebase")
+                );
             }
-            
+
             console.log(res);
             navigate("/dashboard");
         } catch (err) {
@@ -164,5 +168,5 @@ const Register = () => {
         </div>
     );
 };
- 
+
 export default Register;
