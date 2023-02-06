@@ -6,10 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const ERRORS = {
-        "Firebase: Error (auth/wrong-password).": "Incorrect username or password",
-        "Firebase: Error (auth/user-not-found).": "Incorrect username or password",
-        "Firebase: Error (auth/internal-error).": "Server error, please try again"
-    }
+        "Firebase: Error (auth/wrong-password).":
+            "Incorrect username or password",
+        "Firebase: Error (auth/user-not-found).":
+            "Incorrect username or password",
+        "Firebase: Error (auth/internal-error).":
+            "Server error, please try again",
+    };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -58,7 +61,9 @@ const Login = () => {
                 />
                 <input type="submit" value="Login" />
             </form>
-            <h4 onClick={(e) => navigate('/register')}>Don't have an account? Create one here!</h4>
+            <h4 onClick={(e) => navigate("/register")}>
+                Don't have an account? Create one here!
+            </h4>
         </div>
     );
 };
