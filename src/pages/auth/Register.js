@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const navigate = useNavigate();
-    
+
     const ERRORS = {
-        "Firebase: Error (auth/email-already-in-use)." : "This email is already in use",
-    }
+        "Firebase: Error (auth/email-already-in-use).":
+            "This email is already in use",
+    };
 
     const checkInputs = () => {
         if (!isEmail(email)) {
@@ -17,7 +18,7 @@ const Register = () => {
             return false;
         }
         if (!isStrongPassword(password)) {
-            setError("Password must be at least 6 characters.")
+            setError("Password must be at least 6 characters.");
             return false;
         }
         if (firstName.length == 0 || lastName.length == 0) {
@@ -25,10 +26,11 @@ const Register = () => {
             return false;
         }
         return true;
-    }
+    };
 
     function isEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
@@ -40,7 +42,6 @@ const Register = () => {
         return password.length >= 6;
     }
 
-      
     const addUserToMongo = async (uid, fn, ln, level = 0) => {
         const response = await fetch("http://localhost:3000/users", {
             method: "POST",
@@ -55,12 +56,10 @@ const Register = () => {
         return response;
     };
 
-    
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!checkInputs()) {
-            console.log('error')
+            console.log("error");
             return;
         }
         console.log(email, password);
@@ -90,41 +89,45 @@ const Register = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error,setError] = useState('')
+    const [error, setError] = useState("");
 
     return (
         <div className="form_container">
             <h1>Register</h1>
-            {error && error.length ? <h1>{error}</h1>: ""}
+            {error && error.length ? <h1>{error}</h1> : ""}
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
-                        setFirstName(e.target.value)
-                        setError('')}}
+                        setFirstName(e.target.value);
+                        setError("");
+                    }}
                     value={firstName}
                     type="text"
                     placeholder="First Name"
                 />
                 <input
                     onChange={(e) => {
-                        setLastName(e.target.value)
-                        setError('')}}
+                        setLastName(e.target.value);
+                        setError("");
+                    }}
                     value={lastName}
                     type="text"
                     placeholder="Last Name"
                 />
                 <input
                     onChange={(e) => {
-                        setEmail(e.target.value)
-                        setError('')}}
+                        setEmail(e.target.value);
+                        setError("");
+                    }}
                     value={email}
                     type="text"
                     placeholder="Email"
                 />
                 <input
                     onChange={(e) => {
-                        setPassword(e.target.value)
-                        setError('')}}
+                        setPassword(e.target.value);
+                        setError("");
+                    }}
                     value={password}
                     type="password"
                     placeholder="Password"
