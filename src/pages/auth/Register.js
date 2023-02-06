@@ -93,8 +93,6 @@ const Register = () => {
                     console.log("User deleted from Firebase")
                 );
             }
-
-            
         } catch (err) {
             console.log(err);
             console.log(err.message);
