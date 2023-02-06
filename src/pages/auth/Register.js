@@ -10,6 +10,7 @@ const Register = () => {
     const ERRORS = {
         "Firebase: Error (auth/email-already-in-use).":
             "This email is already in use",
+        "Firebase: Error (auth/internal-error).": "Server error, please try again"
     };
 
     const checkInputs = () => {
@@ -148,6 +149,7 @@ const Register = () => {
                 />
                 <input type="submit" value="Register" />
             </form>
+            <h4 onClick={(e) => navigate('/login')}>Already have an account? Login here!</h4>
         </div>
     );
 };
