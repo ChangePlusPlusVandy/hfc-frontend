@@ -3,10 +3,16 @@ import "./Login.css";
 import { auth } from "../../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { errorPrefix } from "@firebase/util";
 
 const Login = () => {
+    const ERRORS = {
+        "Firebase: Error (auth/wrong-password).": "Incorrect username or password",
+        "Firebase: Error (auth/user-not-found).": "Incorrect username or password"
+    }
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error,setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,20 +28,27 @@ const Login = () => {
         } catch (err) {
             console.log(err);
             console.log(err.message);
+            if (err.message in ERRORS) {
+                setError(ERRORS[err.message]);
+            }
         }
     };
     return (
         <div className="form_container">
             <h1 className="title">Login</h1>
+            {error && error.length ? <h1>{error}</h1> : ""}
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                        setError("")}}
                     value={email}
                     type="text"
                     placeholder="Email"
                 />
                 <input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {setPassword(e.target.value)
+                    setError("")}}
                     value={password}
                     type="password"
                     placeholder="Password"
