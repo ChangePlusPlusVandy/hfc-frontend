@@ -81,6 +81,8 @@ const Register = () => {
                     firstName,
                     lastName
                 );
+                console.log(res);
+                navigate("/dashboard");
             } catch (err) {
                 console.log(
                     "Error addign user to MongoBD, deleting from Firebase"
@@ -92,8 +94,7 @@ const Register = () => {
                 );
             }
 
-            console.log(res);
-            navigate("/dashboard");
+            
         } catch (err) {
             console.log(err);
             console.log(err.message);
