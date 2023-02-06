@@ -16,6 +16,10 @@ const Register = () => {
             setError("Please enter a valid email");
             return false;
         }
+        if (password != passwordConfirm) {
+            setError("Passwords do not match.")
+            return false;
+        }
         if (!isStrongPassword(password)) {
             setError("Password must be at least 6 characters.")
             return false;
@@ -90,6 +94,7 @@ const Register = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error,setError] = useState('')
 
     return (
@@ -128,6 +133,14 @@ const Register = () => {
                     value={password}
                     type="password"
                     placeholder="Password"
+                />
+                <input
+                    onChange={(e) => {
+                        setPasswordConfirm(e.target.value)
+                        setError('')}}
+                    value={passwordConfirm}
+                    type="password"
+                    placeholder="Confirm Password"
                 />
                 <input type="submit" value="Register" />
             </form>
