@@ -7,12 +7,14 @@ import { errorPrefix } from "@firebase/util";
 
 const Login = () => {
     const ERRORS = {
-        "Firebase: Error (auth/wrong-password).": "Incorrect username or password",
-        "Firebase: Error (auth/user-not-found).": "Incorrect username or password"
-    }
+        "Firebase: Error (auth/wrong-password).":
+            "Incorrect username or password",
+        "Firebase: Error (auth/user-not-found).":
+            "Incorrect username or password",
+    };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error,setError] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -40,15 +42,18 @@ const Login = () => {
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
-                        setEmail(e.target.value)
-                        setError("")}}
+                        setEmail(e.target.value);
+                        setError("");
+                    }}
                     value={email}
                     type="text"
                     placeholder="Email"
                 />
                 <input
-                    onChange={(e) => {setPassword(e.target.value)
-                    setError("")}}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        setError("");
+                    }}
                     value={password}
                     type="password"
                     placeholder="Password"
