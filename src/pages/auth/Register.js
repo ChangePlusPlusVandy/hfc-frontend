@@ -18,7 +18,7 @@ const Register = () => {
             return false;
         }
         if (password != passwordConfirm) {
-            setError("Passwords do not match.")
+            setError("Passwords do not match.");
             return false;
         }
         if (!isStrongPassword(password)) {
@@ -94,7 +94,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [error,setError] = useState('')
+    const [error, setError] = useState("");
 
     return (
         <div className="form_container">
@@ -139,8 +139,9 @@ const Register = () => {
                 />
                 <input
                     onChange={(e) => {
-                        setPasswordConfirm(e.target.value)
-                        setError('')}}
+                        setPasswordConfirm(e.target.value);
+                        setError("");
+                    }}
                     value={passwordConfirm}
                     type="password"
                     placeholder="Confirm Password"
