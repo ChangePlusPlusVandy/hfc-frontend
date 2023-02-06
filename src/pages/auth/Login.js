@@ -40,6 +40,9 @@ const Login = () => {
         <div className="form_container">
             <h1 className="title">Login</h1>
             {error && error.length ? <h1>{error}</h1> : ""}
+            <h4 onClick={(e) => navigate("/register")}>
+                Don't have an account? Create one here!
+            </h4>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
@@ -61,9 +64,7 @@ const Login = () => {
                 />
                 <input type="submit" value="Login" />
             </form>
-            <h4 onClick={(e) => navigate("/register")}>
-                Don't have an account? Create one here!
-            </h4>
+            
         </div>
     );
 };

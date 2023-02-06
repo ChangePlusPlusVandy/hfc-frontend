@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { auth } from "../../../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -75,11 +75,19 @@ const Register = () => {
                 email,
                 password
             );
-            const res = await addUserToMongo(
-                userCrediential.user.uid,
-                firstName,
-                lastName
-            );
+            try {
+                const res = await addUserToMongo(
+                    userCrediential.user.uid,
+                    firstName,
+                    lastName
+                );
+            } catch (err) {
+                console.log("Error addign user to MongoBD, deleting from Firebase")
+                console.log(err);
+                console.log(err.message);
+                deleteUser(userCrediential.user).then(() => console.log("User deleted from Firebase"))
+            }
+            
             console.log(res);
             navigate("/dashboard");
         } catch (err) {
@@ -102,6 +110,9 @@ const Register = () => {
         <div className="form_container">
             <h1>Register</h1>
             {error && error.length ? <h1>{error}</h1> : ""}
+            <h4 onClick={(e) => navigate("/login")}>
+                Already have an account? Login here!
+            </h4>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
@@ -150,11 +161,8 @@ const Register = () => {
                 />
                 <input type="submit" value="Register" />
             </form>
-            <h4 onClick={(e) => navigate("/login")}>
-                Already have an account? Login here!
-            </h4>
         </div>
     );
 };
-
+ 
 export default Register;
