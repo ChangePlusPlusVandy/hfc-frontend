@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import "./BeneficiaryRegistration.css";
 
-import FormProgressBar from "./FormProgressBar";
-import FormNavBar from "./FormNavBar";
+import FormProgressBar from "../../../components/FormProgressBar";
+import FormNavBar from "../../../components/FormNavBar";
 import Page1 from "./Page1";
 import Page0 from "./Page0";
 import Page2 from "./Page2";
