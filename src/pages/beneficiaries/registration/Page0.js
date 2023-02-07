@@ -102,9 +102,7 @@ const Page0 = ({
                             placeholder="Birth Date *"
                         />
                         <div className="age-container">
-                            <div className="age">
-                                {age != "" ? age : "Age"}
-                            </div>
+                            <div className="age">{age != "" ? age : "Age"}</div>
                         </div>
                     </div>
                     <div>

@@ -21,7 +21,7 @@
 .beneficiary-registration-container input[type="text"],
 .beneficiary-registration-container input[type="email"] {
     all: unset;
-    border-bottom: 1px solid #C1C1C1;
+    border-bottom: 1px solid #c1c1c1;
 }
 
 .beneficiary-registration-container .section-container {
@@ -47,8 +47,8 @@
 .beneficiary-registration-container .upload-button {
     all: unset;
     background: white;
-    border: 1px solid #6D6D6D;
-    color: #6D6D6D;
+    border: 1px solid #6d6d6d;
+    color: #6d6d6d;
     padding: 10px 60px;
     border-radius: 20px;
     cursor: pointer;
@@ -56,7 +56,7 @@
 
 .beneficiary-registration-container .upload-button:hover,
 .beneficiary-registration-container .upload-button:focus {
-    background: #6D6D6D;
+    background: #6d6d6d;
     color: white;
 }
 
@@ -73,8 +73,8 @@
 }
 
 .beneficiary-registration-container .age-container .age {
-    border: 1px solid #C1C1C1;
-    color: #C1C1C1;
+    border: 1px solid #c1c1c1;
+    color: #c1c1c1;
     border-radius: 20px;
     width: 95px;
     text-align: center;
