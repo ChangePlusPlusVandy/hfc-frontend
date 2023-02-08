@@ -56,7 +56,7 @@ const Login = () => {
                 Don't have an account? Create one here!
             </h4>
             <h4 onClick={handlePasswordReset}>
-                Imma bum and forgot my password! (type your email into the box first)
+                Forgot your password? (type your email into the box first)
             </h4>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
