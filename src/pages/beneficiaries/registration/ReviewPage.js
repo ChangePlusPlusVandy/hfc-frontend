@@ -94,7 +94,7 @@ const ReviewPage = ({
             <div className="section-container">
                 <label className="section-label">Education</label>
                 <div className="section-contents">
-                    <p>{education || "N/A"}</p>
+                    <p>{education.label || "N/A"}</p>
                 </div>
             </div>
             <div className="section-container">

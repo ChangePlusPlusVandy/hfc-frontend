@@ -146,7 +146,7 @@ const BeneficiaryRegistration = () => {
         const newBeneficiary = {
             firstName,
             lastName,
-            id: "2222345", // TODO
+            id: await Beneficiary.findOne().sort(),
             bday: birthDate,
             age,
             gender,
@@ -165,21 +165,21 @@ const BeneficiaryRegistration = () => {
             address,
         };
 
-        let response;
-        try {
-            console.log("Attempting to save a new beneficiary...");
-            console.log("New beneficiary:", newBeneficiary);
-            response = await fetch("http://localhost:3000/beneficiaries", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newBeneficiary),
+        console.log("Attempting to save a new beneficiary...");
+        console.log("New beneficiary:", newBeneficiary);
+        fetch("http://localhost:3000/beneficiaries", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newBeneficiary),
+        })
+            .then((response) => {
+                console.log("Response:", response);
+                if (response.ok)
+                    console.log("Successfully saved a new beneficiary!");
+            })
+            .catch((error) => {
+                console.log("Error saving a new beneficiary:", error);
             });
-        } catch (error) {
-            console.log("Error saving a new beneficiary:", error);
-        } finally {
-            console.log("Successfully saved a new beneficiary!");
-            console.log("Response:", response.json());
-        }
     };
 
     return (
