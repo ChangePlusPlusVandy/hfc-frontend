@@ -8,7 +8,7 @@ import Page1 from "./Page1";
 import Page0 from "./Page0";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
-import Page4 from "./Page4";
+import ReviewPage from "./ReviewPage";
 
 const BeneficiaryRegistration = () => {
     const [pageNum, setPageNum] = useState(0);
@@ -31,7 +31,9 @@ const BeneficiaryRegistration = () => {
     // Page 2 Data
     const [reason, setReason] = useState(""); // Displays what Reason were selected
     const [interests, setInterests] = useState([]);
-    const [joinDate, setJoinDate] = useState(new Date());
+    const [joinDate, setJoinDate] = useState(
+        new Date().toISOString().split("T")[0]
+    );
     const [needs, setNeeds] = useState([]);
 
     // Page 3 Data
@@ -112,7 +114,7 @@ const BeneficiaryRegistration = () => {
             title: "Review",
             shortName: "Review",
             component: (
-                <Page4
+                <ReviewPage
                     firstName={firstName}
                     lastName={lastName}
                     age={age}
@@ -141,33 +143,43 @@ const BeneficiaryRegistration = () => {
     };
 
     const handleSubmit = async () => {
-        const response = await fetch("http://localhost:3000/beneficiaries", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                firstName: firstName,
-                lastName: lastName,
-                id: "2222345", // TODO
-                bday: birthDate,
-                age: age,
-                gender: gender.value,
-                visitReason: reason,
-                joinDate: joinDate,
-                phone: phoneNumber,
-                email: email,
-                languages: languages.map((option) => option.value),
-                nationality: nationalities.map((option) => option.value),
-                eduLvl: education.value,
-                interests: interests.map((option) => option.value),
-                needs: needs.map((option) => option.value),
-                sponsorInfo: sponsorInfo,
-                referrals: referrals,
-                archived: false,
-                address: address,
-            }),
-        });
+        const newBeneficiary = {
+            firstName,
+            lastName,
+            id: "2222345", // TODO
+            bday: birthDate,
+            age,
+            gender,
+            visitReason: reason,
+            joinDate,
+            phone: phoneNumber,
+            email,
+            languages: languages.map((option) => option.value),
+            nationality: nationalities.map((option) => option.value),
+            eduLvl: education.value,
+            interests: interests.map((option) => option.value),
+            needs: needs.map((option) => option.value),
+            sponsorInfo,
+            referrals,
+            archived: false,
+            address,
+        };
 
-        console.log(response.json());
+        let response;
+        try {
+            console.log("Attempting to save a new beneficiary...");
+            console.log("New beneficiary:", newBeneficiary);
+            response = await fetch("http://localhost:3000/beneficiaries", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newBeneficiary),
+            });
+        } catch (error) {
+            console.log("Error saving a new beneficiary:", error);
+        } finally {
+            console.log("Successfully saved a new beneficiary!");
+            console.log("Response:", response.json());
+        }
     };
 
     return (
@@ -178,7 +190,7 @@ const BeneficiaryRegistration = () => {
                 onStepClick={handleStepClick}
             />
             <h2 className="page-title">{PAGES[pageNum].title}</h2>
-            <div className="page-content">{PAGES[pageNum].component}</div>
+            <div className="page-container">{PAGES[pageNum].component}</div>
             <FormNavBar
                 pageNum={pageNum}
                 setPageNum={setPageNum}

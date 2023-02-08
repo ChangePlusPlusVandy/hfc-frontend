@@ -45,25 +45,34 @@ const Page0 = ({
     };
 
     const handleChangeBirthDate = (event) => {
-        const birthDate = new Date(event.target.value);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const month = today.getMonth() - birthDate.getMonth();
-        if (
-            month < 0 ||
-            (month === 0 && today.getDate() < birthDate.getDate())
-        ) {
-            age -= 1;
+        const value = event.target.value;
+
+        // If the user clears the input, we need to set the age to an empty string
+        if (value === "") {
+            setAge("");
+        } else {
+            // Otherwise, we need to calculate the age
+            const birthDate = new Date(value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const month = today.getMonth() - birthDate.getMonth();
+            if (
+                month < 0 ||
+                (month === 0 && today.getDate() < birthDate.getDate())
+            ) {
+                age -= 1;
+            }
+            setAge(age);
         }
-        setBirthDate(event.target.value);
-        setAge(age);
+
+        setBirthDate(value);
     };
 
     return (
-        <div className="page-0-container">
+        <div className="page-content">
             <div className="upload-container">
                 <label className="section-label">
-                    Please upload an profile photo of the beneficiary
+                    Please upload an profile photo for the beneficiary.
                 </label>
                 {/* TODO: <input type="file" id="profile-photo" /> */}
                 <button
@@ -101,9 +110,9 @@ const Page0 = ({
                             value={birthDate}
                             placeholder="Birth Date *"
                         />
-                        <div className="age">
-                            {age != "" ? `${age} years old` : "Age"}
-                        </div>
+                        {age !== "" && (
+                            <div className="age">({age} years old)</div>
+                        )}
                     </div>
                     <div className="gender-input-container">
                         <label>
@@ -165,7 +174,7 @@ const Page0 = ({
                 <input
                     type="text"
                     onChange={handleAddressChange}
-                    id="address"
+                    id="street-address"
                     placeholder="Street address"
                     value={address}
                 />

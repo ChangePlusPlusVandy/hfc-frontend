@@ -37,62 +37,55 @@ const Page2 = ({
     };
 
     const handleChangeJoinDate = (event) => {
-        setJoinDate(new Date(event.target.value));
+        setJoinDate(event.target.value);
     };
 
     return (
-        <div className="Page2">
-            <form>
-                <label>
-                    First date of visit *
-                    <input
-                        type="date"
-                        id="joinDate"
-                        onChange={handleChangeJoinDate}
-                    />
-                </label>
+        <div className="page-content">
+            <div className="section-container">
+                <label className="section-label">Join Date *</label>
+                <input
+                    type="date"
+                    id="join-date"
+                    value={joinDate}
+                    onChange={handleChangeJoinDate}
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Reason for Visit</label>
+                <textarea
+                    onChange={handleChangeReason}
+                    value={reason}
+                    placeholder="Start here..."
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Needs</label>
+                <CreatableSelect
+                    options={needOpts}
+                    value={needs}
+                    onChange={handleNeedSelect}
+                    isMulti
+                    name="needs"
+                    className="creatable-multi-select"
+                    classNamePrefix="select"
+                />
                 <br />
-                <br />
-
-                <label>
-                    Reason for this visit
-                    <br />
-                    <textarea
-                        rows="5"
-                        cols="80"
-                        onChange={handleChangeReason}
-                        value={reason}
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Needs
-                    <CreatableSelect
-                        options={needOpts}
-                        value={needs}
-                        onChange={handleNeedSelect}
-                        isMulti
-                        name="needs"
-                        className="creatable-multi-select"
-                        classNamePrefix="select"
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Interests
-                    <CreatableSelect
-                        options={interestOpts}
-                        value={interests}
-                        onChange={handleInterestSelect}
-                        isMulti
-                        name="interests"
-                        className="creatable-multi-select"
-                        classNamePrefix="select"
-                    />
-                </label>
-            </form>
+            </div>
+            <div className="section-container">
+                <label className="section-label">Interests</label>
+                <CreatableSelect
+                    options={interestOpts}
+                    value={interests}
+                    onChange={handleInterestSelect}
+                    isMulti
+                    name="interests"
+                    className="creatable-multi-select"
+                    classNamePrefix="select"
+                />
+            </div>
         </div>
     );
 };
