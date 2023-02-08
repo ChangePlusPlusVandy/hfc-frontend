@@ -77,7 +77,7 @@ const Page0 = ({
             <div className="section-container">
                 <label className="section-label">Basic Information</label>
                 <div className="basic-info-input-container">
-                    <div>
+                    <div className="name-input-container">
                         <input
                             type="text"
                             id="first-name"
@@ -93,7 +93,7 @@ const Page0 = ({
                             placeholder="Last Name *"
                         />
                     </div>
-                    <div>
+                    <div className="birthdate-input-container">
                         <input
                             type="date"
                             id="birthdate"
@@ -101,11 +101,11 @@ const Page0 = ({
                             value={birthDate}
                             placeholder="Birth Date *"
                         />
-                        <div className="age-container">
-                            <div className="age">{age != "" ? age : "Age"}</div>
+                        <div className="age">
+                            {age != "" ? `${age} years old` : "Age"}
                         </div>
                     </div>
-                    <div>
+                    <div className="gender-input-container">
                         <label>
                             <input
                                 type="checkbox"

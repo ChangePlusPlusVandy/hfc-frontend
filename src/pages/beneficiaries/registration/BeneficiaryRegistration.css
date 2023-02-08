@@ -60,25 +60,52 @@
     color: white;
 }
 
-.beneficiary-registration-container .basic-info-input-container > div {
+.beneficiary-registration-container .name-input-container {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
     align-items: center;
 }
 
-.beneficiary-registration-container .age-container {
-    display: inline;
-    width: 147px;
+.beneficiary-registration-container input#first-name {
+    margin-right: 50px;
 }
 
-.beneficiary-registration-container .age-container .age {
+.beneficiary-registration-container .birthdate-input-container {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.beneficiary-registration-container .age {
+    display: inline;
     border: 1px solid #c1c1c1;
     color: #c1c1c1;
     border-radius: 20px;
-    width: 95px;
     text-align: center;
-    padding: 1px 0;
+    padding: 5px 10px;
+    margin-left: 20px;
+}
+
+.beneficiary-registration-container .gender-input-container {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.beneficiary-registration-container input#other {
+    cursor: text;
+}
+
+.beneficiary-registration-container input#phone-number,
+.beneficiary-registration-container input#email-address,
+.beneficiary-registration-container input#street-address {
+    display: block;
+    width: 100%;
+}
+
+.beneficiary-registration-container input#phone-number {
+    margin-bottom: 15px;
 }
 
 .beneficiary-registration-container .review-page-container {
