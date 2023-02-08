@@ -1,7 +1,12 @@
 .beneficiary-registration-container {
-    height: 100vh;
+    position: absolute;
     display: flex;
     flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
 }
 
 .beneficiary-registration-container .page-title {
