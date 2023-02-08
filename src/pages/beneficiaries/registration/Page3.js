@@ -28,7 +28,11 @@ const Page3 = ({
                 <label className="section-label">
                     Partner Organization Referrals
                 </label>
-                <textarea value={referrals} onChange={handleReferralChange} />
+                <textarea
+                    value={referrals}
+                    onChange={handleReferralChange}
+                    placeholder="Start here..."
+                />
             </div>
             <br />
             <div className="section-container">
@@ -36,6 +40,7 @@ const Page3 = ({
                 <textarea
                     value={sponsorInfo}
                     onChange={handleSponsorInfoChange}
+                    placeholder="Start here..."
                 />
             </div>
             <br />
@@ -44,6 +49,7 @@ const Page3 = ({
                 <textarea
                     value={staffNotes}
                     onChange={handleStaffNotesChange}
+                    placeholder="Start here..."
                 />
             </div>
         </div>

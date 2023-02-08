@@ -90,6 +90,15 @@
     align-items: center;
 }
 
+.beneficiary-registration-container input[type="date"] {
+    color: #A4A4A4;
+    font-family: inherit;
+    font-size: 18px;
+    border: 1px solid #A4A4A4;
+    background: #dadada;
+    padding: 5px;
+}
+
 .beneficiary-registration-container .age {
     /* display: inline;
     border: 1px solid #c1c1c1;
