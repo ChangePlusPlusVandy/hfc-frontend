@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { auth } from "../../../firebase/firebase";
-import { signInWithEmailAndPassword,sendPasswordResetEmail } from "firebase/auth";
+import {
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -38,15 +41,17 @@ const Login = () => {
     };
 
     const handlePasswordReset = async (e) => {
-        console.log('email being sent to',email)
-        sendPasswordResetEmail(auth,email).then(() => {
-            console.log("Password reset email sent")
-        }).catch((err) => {
-            const errorCode = err.code;
-            const errorMessage = err.message;
-            console.log(errorCode,errorMessage)
-        })
-    }
+        console.log("email being sent to", email);
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                console.log("Password reset email sent");
+            })
+            .catch((err) => {
+                const errorCode = err.code;
+                const errorMessage = err.message;
+                console.log(errorCode, errorMessage);
+            });
+    };
 
     return (
         <div className="form_container">
