@@ -11,11 +11,10 @@
 }
 
 .beneficiaries-page-header .search-bar {
-    float:left;
-    width:200px;
-    height:20px;
-    border: 5px solid #00FF00
-    
+    float: left;
+    width: 200px;
+    height: 20px;
+    border: 5px solid #00ff00;
 }
 
 .beneficiaries-page-header .sort-btn-group {
@@ -25,7 +24,7 @@
 }
 
 .beneficiaries-page-container .filter-btn {
-    border:#1fa035
+    border: #1fa035;
 }
 
 .beneficiaries-page-header .sort-btn-group .sort-by-name {
@@ -41,10 +40,5 @@
 .beneficiaries-page-header .sort-btn-group {
     box-align: left;
     height: 20px;
-    width:200px;
+    width: 200px;
 }
-
-
-
-
-

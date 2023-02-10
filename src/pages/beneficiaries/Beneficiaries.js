@@ -112,10 +112,8 @@ const Beneficiaries = () => {
                         <button onClick={sortByDate}>Sort by Date</button>
                     </div>
                 </div>
-                <div className="filter-btn">
-                    {filterList}
-                </div>
-                <div className = "register-beneficiary-btn">
+                <div className="filter-btn">{filterList}</div>
+                <div className="register-beneficiary-btn">
                     <NavLink to="../beneficiaries/register">
                         <button> Register a Beneficiary </button>
                     </NavLink>
