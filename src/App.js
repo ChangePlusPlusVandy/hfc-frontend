@@ -16,6 +16,7 @@ import BeneficiaryRegistration from "./pages/beneficiaries/registration/Benefici
 // Programs Page
 import Programs from "./pages/programs/Programs";
 import SingleProgram from "./pages/programs/SingleProgram";
+import MarkAttendance from "./pages/programs/MarkAttendance";
 
 // Workshops Page
 import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
@@ -38,7 +39,11 @@ const router = createBrowserRouter(
             <Route path="programs">
                 <Route index element={<Programs />} />
                 {/* TODO: Make dynamic routes for each program */}
-                <Route path="singleview" element={<SingleProgram />} />
+
+                <Route path="singleview">
+                    <Route index element={<SingleProgram />} />
+                    <Route path="markattendance" element={<MarkAttendance />}></Route>
+                </Route>
             </Route>
             <Route path="workshops">
                 <Route index element={<Workshops />} />

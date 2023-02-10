@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./Programs.css";
+import "./styles/Programs.css";
 
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
     const [archivedSort, setArchivedSort] = useState("all");
     const [searchProgram, setSearchProgram] = useState("");
-
     const [newProgram, setNewProgram] = useState({
         title: "",
-        // hosts: "",
+        //hosts: "",
         description: "",
         archived: false,
     });
@@ -50,6 +49,7 @@ const Programs = () => {
             let data = await fetch("http://localhost:3000/programs");
             data = await data.json();
             setPrograms(sortPrograms(data));
+            console.log(data);
         } catch (err) {
             console.log(err);
         }
@@ -132,7 +132,7 @@ const Programs = () => {
     };
 
     return (
-        <div className="programs-page-container">
+        <div className="programs">
             <h1>Programs:</h1>
             <div className="sort-and-search">
                 <div
@@ -169,11 +169,11 @@ const Programs = () => {
                 <div className="programs-list-container">
                     {programsFiltered.map((item, i) => (
                         <div key={i} className="program-card">
-                            {/* <h4># {i}</h4> */}
-                            <h4>{item.title}</h4>
+                            <h4># {i}</h4>
+                            <h4>Title: {item.title}</h4>
 
                             <Link
-                                to="singleview"
+                                to="/dashboard/programs/singleview"
                                 state={{
                                     id: item._id,
                                 }}
@@ -181,12 +181,12 @@ const Programs = () => {
                                 View Program
                             </Link>
 
-                            {/* <h5>id: {item._id}</h5> */}
-                            {/* <h5>hosts: {item.hosts}</h5> */}
+                            <h5>id: {item._id}</h5>
+                            <h5>hosts: {item.hosts}</h5>
 
-                            <h5><h4>description:</h4> {item.description}</h5>
-                            {/* <h5>attendance: {item.attendance}</h5>
-                            <h5>Days Of Week: {item.daysOfWeek}</h5> */}
+                            <h5>description: {item.description}</h5>
+                            {/* <h5>attendance: {item.attendance}</h5> */}
+                            <h5>Days Of Week: {item.daysOfWeek}</h5>
                             <h5>Date Added: {item.dateAdded}</h5>
                             <h5>
                                 {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}

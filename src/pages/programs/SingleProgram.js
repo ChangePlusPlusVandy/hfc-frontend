@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Select from "react-select";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import Modal from "react-modal";
-import "react-tabs/style/react-tabs.css";
-import "./Programs.css";
+import { useLocation, Link } from "react-router-dom";
+import EnrollPopup from "./EnrollPopup";
+import "./styles/Programs.css";
 //TODO fix bug where you delete ben then add and it automatically updates
 
 const SingleProgram = (props) => {
@@ -26,17 +23,12 @@ const SingleProgram = (props) => {
     const [editMode, setEditMode] = useState(false);
     const [editBeneficiaries, setEditBeneficiaries] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [overviewOrEnroll, setOverviewOrEnroll] = useState(false);
 
     useEffect(() => {
         getProgramFromID();
         getBeneficiaries();
     }, []);
-
-    // const colourStyles = {
-    //     multiValue: {
-    //         color: 'green'
-    //     }
-    // };
 
     const getProgramFromID = async (e) => {
         try {
@@ -56,10 +48,9 @@ const SingleProgram = (props) => {
             let data = await fetch("http://localhost:3000/beneficiaries");
             data = await data.json();
             setAllBeneficiaries(data);
-
             let tmp = data.map((e) => ({
                 value: e._id,
-                label: e.firstName,
+                label: e.id + " - " + e.firstName,
                 color: "black",
             }));
 
@@ -155,14 +146,6 @@ const SingleProgram = (props) => {
         },
     };
 
-    // const selectStyling = {
-    //     overlay: {
-    //         backgroundColor: 'green'
-    //     },
-    //     color: 'black',
-    //     backgroundColor: 'green'
-    // }
-
     const handleAddBen = (e) => {
         let addBenFiltered = e.map((event, i) => event.value);
         setAddBeneficiary(addBenFiltered);
@@ -176,53 +159,22 @@ const SingleProgram = (props) => {
         parent.style.color = "red";
     };
 
-    Modal.setAppElement("#root");
-
     return (
         <div className="single-program-container">
-            <Tabs defaultIndex={1}>
-                <TabList className="program-tabs">
-                    <h1>{program.title}</h1>
-                    <div dir="rtl">
-                        <Tab>
-                            <h5>Enrollment</h5>
-                        </Tab>
-                        <Tab>
-                            <h5>Overview</h5>
-                        </Tab>
-                    </div>
-                </TabList>
-
-                <TabPanel className="tab-panel">
+            <button onClick={() => setOverviewOrEnroll(false)}>Overview</button>
+            <button onClick={() => setOverviewOrEnroll(true)}>
+                Enrollment
+            </button>
+            {overviewOrEnroll ? (
+                <div>
                     {editBeneficiaries ? (
                         <div>
-                            <Modal
-                                onClose={updateProgramFromEnrollment}
-                                isOpen={openModal}
-                                style={customStyles}
-                            >
-                                <div className="modal-body">
-                                    <h2>Enroll Beneficiary</h2>
-                                    <Select
-                                        isMulti
-                                        name="colors"
-                                        isClearable
-                                        isSearchable
-                                        menuPortalTarget={document.body}
-                                        options={benOptions}
-                                        className="react-select-container"
-                                        classNamePrefix="react-select"
-                                        onChange={handleAddBen}
-                                    />
-                                    <button
-                                        onClick={updateProgramFromEnrollment}
-                                        className="submit-button"
-                                    >
-                                        Submit
-                                    </button>
-                                </div>
-                            </Modal>
-
+                            <EnrollPopup
+                                openModal={openModal}
+                                options={benOptions}
+                                onChange={handleAddBen}
+                                submit={updateProgramFromEnrollment}
+                            />
                             <div>
                                 <div className="enrolled-ben-title">
                                     <h3>Current Beneficiaries:</h3>
@@ -278,8 +230,18 @@ const SingleProgram = (props) => {
                             ))}
                         </div>
                     )}
-                </TabPanel>
-                <TabPanel className="tab-panel">
+                    <Link
+                        to="/dashboard/programs/singleview/markattendance"
+                        state={{
+                            id: programID,
+                        }}
+                    >
+                        Mark Attendance
+                    </Link>
+                </div>
+            ) : (
+                <div>
+                    <h1>Title: {program.title}</h1>
                     {editMode ? (
                         <div>
                             <div>
@@ -352,6 +314,7 @@ const SingleProgram = (props) => {
                             </h3>
                         </div>
                     )}
+
                     {editMode ? (
                         <button
                             onClick={updateProgramFromOverview}
@@ -368,21 +331,10 @@ const SingleProgram = (props) => {
                             Edit Program
                         </button>
                     )}
-                </TabPanel>
-            </Tabs>
+                </div>
+            )}
         </div>
     );
 };
 
 export default SingleProgram;
-
-{
-    /* <Select
-            isMulti
-            name="colors"
-            options={benOptions}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={handleAddBen}
-        /> */
-}

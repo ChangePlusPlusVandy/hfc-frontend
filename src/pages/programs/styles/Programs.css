@@ -1,0 +1,58 @@
+.programs {
+    padding: 30px;
+}
+
+.programs-list-container {
+    border: 3px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.program-card {
+    display: flex;
+    border: 1px solid black;
+    color: black;
+    padding: 5px;
+}
+
+.program-card>h5,
+h4 {
+    margin: 3px;
+}
+
+.single-program-container {
+    border: 1px solid black;
+    margin: auto;
+    padding: 10px;
+}
+
+.prog-nav {
+    width: 100%;
+    justify-content: right;
+}
+
+.programTabs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-panel {
+    width: 90%;
+    margin: auto;
+}
+
+.enrolled-ben-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button {
+    border-radius: 10px;
+    color: black;
+    padding: 5px 25px 5px 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
