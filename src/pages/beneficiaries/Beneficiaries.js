@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SingleBenficiary from "./components/SingleBfc";
 import FilterButton from "./components/FilterButton";
+import { NavLink } from "react-router-dom";
 
 import "./Beneficiaries.css";
 
@@ -83,20 +84,44 @@ const Beneficiaries = () => {
         };
         // eventualy we should only call this if user has correct auth/permissions
         getBeneficiaries();
+        // sortByName(;
     }, []);
+
+    /*
+    useEffect(() => {
+        sortByName();
+    },[]);
+    */
 
     return (
         <div className="beneficiaries-page-container">
-            <input
-                onChange={(e) => setSearch(e.target.value)}
-                className="del-form"
-                type="text"
-                placeholder="Search..."
-            />
-            <div className="filters btn-group">{filterList}</div>
-            <div className="bfc stack-large"></div>
-            <button onClick={sortByDate}>Sort by Date</button>
-            <button onClick={sortByName}>Sort by Name</button>
+            <div className="beneficiaries-page-header">
+                <div className="search-bar">
+                    <input
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="del-form"
+                        type="text"
+                        placeholder="Search..."
+                    />
+                </div>
+                <div className="sort-btn-group">
+                    <div className="sort-by-name">
+                        <button onClick={sortByName}>Sort by Name</button>
+                    </div>
+                    <div className="sort-by-date">
+                        <button onClick={sortByDate}>Sort by Date</button>
+                    </div>
+                </div>
+                <div className="filter-btn">
+                    {filterList}
+                </div>
+                <div className = "register-beneficiary-btn">
+                    <NavLink to="../beneficiaries/register">
+                        <button> Register a Beneficiary </button>
+                    </NavLink>
+                </div>
+            </div>
+            <div className="beneficiaries-container"></div>
             <h1>Beneficiaries Below: </h1>
             <ul
                 role="list"
