@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./Assessments.css";
 
@@ -7,12 +7,13 @@ import Page1 from "./Page1";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
 import Page4 from "./Page4";
-import MultiStepProgressBar from "./MultiStepProgressBar";
+import FormProgressBar from "../../components/FormProgressBar";
+import FormNavBar from "../../components/FormNavBar";
 
-const NUM_PAGES = 5;
+// const NUM_PAGES = 5;
 
 const Assessments = () => {
-    const [pageNum, setpageNum] = useState(0);
+    const [pageNum, setPageNum] = useState(0);
 
     // Mental Health Page 0
     const [answer1, setAnswer1] = useState("");
@@ -41,56 +42,90 @@ const Assessments = () => {
     const [answer16, setAnswer16] = useState("");
 
     const PAGES = [
-        <Page0
-            answer1={answer1}
-            setAnswer1={setAnswer1}
-            answer2={answer2}
-            setAnswer2={setAnswer2}
-            answer3={answer3}
-            setAnswer3={setAnswer3}
-            answer4={answer4}
-            setAnswer4={setAnswer4}
-        />,
-        <Page1
-            answer5={answer5}
-            setAnswer5={setAnswer5}
-            answer6={answer6}
-            setAnswer6={setAnswer6}
-            answer7={answer7}
-            setAnswer7={setAnswer7}
-        />,
-        <Page2
-            answer8={answer8}
-            setAnswer8={setAnswer8}
-            answer9={answer9}
-            setAnswer9={setAnswer9}
-        />,
-        <Page3
-            answer10={answer10}
-            setAnswer10={setAnswer10}
-            answer11={answer11}
-            setAnswer11={setAnswer11}
-            answer12={answer12}
-            setAnswer12={setAnswer12}
-            answer13={answer13}
-            setAnswer13={setAnswer13}
-            answer14={answer14}
-            setAnswer14={setAnswer14}
-        />,
-        <Page4
-            answer15={answer15}
-            setAnswer15={setAnswer15}
-            answer16={answer16}
-            setAnswer16={setAnswer16}
-        />,
+        {
+            title: "Mental Health Questionnaire",
+            shortName: "Mental Health",
+            component: (
+                <Page0
+                    answer1={answer1}
+                    setAnswer1={setAnswer1}
+                    answer2={answer2}
+                    setAnswer2={setAnswer2}
+                    answer3={answer3}
+                    setAnswer3={setAnswer3}
+                    answer4={answer4}
+                    setAnswer4={setAnswer4}
+                />
+            ),
+        },
+        {
+            title: "Life Skills Questionnaire",
+            shortName: "Life Skills",
+            component: (
+                <Page1
+                    answer5={answer5}
+                    setAnswer5={setAnswer5}
+                    answer6={answer6}
+                    setAnswer6={setAnswer6}
+                    answer7={answer7}
+                    setAnswer7={setAnswer7}
+                />
+            ),
+        },
+        {
+            title: "Social Skills Questionnaire",
+            shortName: "Social Skills",
+            component: (
+                <Page2
+                    answer8={answer8}
+                    setAnswer8={setAnswer8}
+                    answer9={answer9}
+                    setAnswer9={setAnswer9}
+                />
+            ),
+        },
+        {
+            title: "Education Questionnaire",
+            shortName: "Education",
+            component: (
+                <Page3
+                    answer10={answer10}
+                    setAnswer10={setAnswer10}
+                    answer11={answer11}
+                    setAnswer11={setAnswer11}
+                    answer12={answer12}
+                    setAnswer12={setAnswer12}
+                    answer13={answer13}
+                    setAnswer13={setAnswer13}
+                    answer14={answer14}
+                    setAnswer14={setAnswer14}
+                />
+            ),
+        },
+        {
+            title: "Vocation Questionnaire",
+            shortName: "Vocation",
+            component: (
+                <Page4
+                    answer15={answer15}
+                    setAnswer15={setAnswer15}
+                    answer16={answer16}
+                    setAnswer16={setAnswer16}
+                />
+            ),
+        },
     ];
 
-    const handlePageDecrement = () => {
-        setpageNum((prev) => prev - 1);
-    };
+    // const handlePageDecrement = () => {
+    //     setpageNum((prev) => prev - 1);
+    // };
 
-    const handlePageIncrement = () => {
-        setpageNum((prev) => prev + 1);
+    // const handlePageIncrement = () => {
+    //     setpageNum((prev) => prev + 1);
+    // };
+
+    const handleStepClick = (index) => {
+        setPageNum(index);
     };
 
     const handleSubmit = async () => {
@@ -116,33 +151,25 @@ const Assessments = () => {
                 answer16: answer16,
             }),
         });
-
+        console.log("Successful.");
         console.log(response.json());
     };
 
     return (
         <div className="assessments-page-container">
-            <div>
-                <MultiStepProgressBar // FIXME: can't show
-                    // stepPercentage={(pageNum / (NUM_PAGES - 1)) * 100}
-                    page={pageNum}
-                />
-            </div>
-            <h4>Page Number: {pageNum}</h4>
-            <div className="page-content">{PAGES[pageNum]}</div>
-            <div className="button-container">
-                {pageNum > 0 && (
-                    <button onClick={handlePageDecrement}>Previous</button>
-                )}
-                {pageNum < NUM_PAGES - 1 && (
-                    <button onClick={handlePageIncrement}>Next</button>
-                )}
-            </div>
-            <div className="submit-button">
-                {pageNum === 4 && (
-                    <button onClick={handleSubmit}>Sumbit</button>
-                )}
-            </div>
+            <FormProgressBar
+                stepNames={PAGES.map((page) => page.shortName)}
+                activeStepIndex={pageNum}
+                onStepClick={handleStepClick}
+            />
+            <h2 className="page-title">{PAGES[pageNum].title}</h2>
+            <div className="page-container">{PAGES[pageNum].component}</div>
+            <FormNavBar
+                pageNum={pageNum}
+                setPageNum={setPageNum}
+                numPages={PAGES.length}
+                onSubmit={handleSubmit}
+            />
         </div>
     );
 };

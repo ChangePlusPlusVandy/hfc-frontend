@@ -11,7 +11,6 @@ const Page2 = ({ answer8, setAnswer8, answer9, setAnswer9 }) => {
 
     return (
         <div className="form-container">
-            <h2>Social Skills Questionnaire</h2>
             <p>
                 Enter numeric value of response with the corresponding question.
             </p>

@@ -22,7 +22,6 @@ const Page1 = ({
 
     return (
         <div className="form-container">
-            <h2>Life Skills Questionnaire</h2>
             <p>
                 Enter numeric value of response with the corresponding question.
             </p>

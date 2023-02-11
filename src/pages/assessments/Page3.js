@@ -34,7 +34,6 @@ const Page3 = ({
 
     return (
         <div className="form-container">
-            <h2>Education Questionnaire</h2>
             <p>
                 Enter numeric value of response with the corresponding question.
             </p>

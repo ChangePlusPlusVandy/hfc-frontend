@@ -1,4 +1,5 @@
 import React from "react";
+import RateButtons from "./components/RateButtons";
 
 const Page0 = ({
     answer1,
@@ -10,8 +11,9 @@ const Page0 = ({
     answer4,
     setAnswer4,
 }) => {
-    const handleChangeAnswer1 = (event) => {
-        setAnswer1(event.target.value);
+    const handleChangeAnswer1 = (index) => {
+        console.log("answer1: ", index + 1);
+        setAnswer1(index + 1);
     };
 
     const handleChangeAnswer2 = (event) => {
@@ -28,7 +30,6 @@ const Page0 = ({
 
     return (
         <div className="form-container">
-            <h2>Mental Health Questionnaire</h2>
             <p>
                 Enter numeric value of response with the corresponding question.
             </p>
@@ -36,13 +37,10 @@ const Page0 = ({
             <label>
                 <h4>Question 1</h4>
                 <p>How hopeful and positive do you feel about your future?</p>
-                <input
-                    type="number"
-                    id="answer1"
-                    onChange={handleChangeAnswer1}
-                    placeholder="Enter a number 1-5"
-                    value={answer1}
-                />
+                <RateButtons
+                    activeRatingIndex={answer1 - 1}
+                    onBtnClick={handleChangeAnswer1}
+                ></RateButtons>
             </label>
             <br></br>
 
