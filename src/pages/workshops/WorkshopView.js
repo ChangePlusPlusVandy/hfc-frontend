@@ -159,12 +159,9 @@ export const WorkshopsList = () => {
             </div>
             <br></br>
             <br></br>
-            <Link
-                            className="button"
-                            to="./create"
-                        >
-                            Create Workshop
-                        </Link>
+            <Link className="button" to="./create">
+                Create Workshop
+            </Link>
         </div>
     );
 };

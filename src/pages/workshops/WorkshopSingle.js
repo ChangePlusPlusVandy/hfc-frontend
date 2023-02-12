@@ -35,23 +35,23 @@ export const WorkshopSingle = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 _id: workshopID,
-                content: {title: updateWorkTitle,
+                content: {
+                    title: updateWorkTitle,
                     description: updateWorkDesc,
                     archived: updateWorkStatus,
                     hosts: updateWorkHosts.map((item) => {
                         return item.value;
                     }),
-                    date: updateDate}
-                
+                    date: updateDate,
+                },
             }),
         };
         console.log(requestOptions);
-        fetch(
-            "http://localhost:3000/workshops",
-            requestOptions
-        ).then((response) => {
-            setEditMode(false);
-        });
+        fetch("http://localhost:3000/workshops", requestOptions).then(
+            (response) => {
+                setEditMode(false);
+            }
+        );
     };
     const enterUpdateMode = () => {
         setUpdateWorkDesc(workshop.description);
@@ -201,13 +201,21 @@ export const WorkshopSingle = () => {
                                 )}
                             </h3>
                             <h3>
-                            {workshop.numAttendees ? (
-                                <>Registered Attendees: {workshop.numRegistered}
-                                <br></br>
-                                Unregistered Attendees: {workshop.numAttendees-workshop.numRegistered}
-                                <br></br>
-                                Rating: {workshop.rating}</>):(<></>)
-                            }</h3>
+                                {workshop.numAttendees ? (
+                                    <>
+                                        Registered Attendees:{" "}
+                                        {workshop.numRegistered}
+                                        <br></br>
+                                        Unregistered Attendees:{" "}
+                                        {workshop.numAttendees -
+                                            workshop.numRegistered}
+                                        <br></br>
+                                        Rating: {workshop.rating}
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </h3>
                         </div>
 
                         <button
@@ -224,9 +232,13 @@ export const WorkshopSingle = () => {
                             {" "}
                             Delete Workshop
                         </button>
-                        <Link className="button" to="../attendance"  state={{
+                        <Link
+                            className="button"
+                            to="../attendance"
+                            state={{
                                 id: workshopID,
-                            }}>
+                            }}
+                        >
                             Take Attendance
                         </Link>
                     </TabPanel>
