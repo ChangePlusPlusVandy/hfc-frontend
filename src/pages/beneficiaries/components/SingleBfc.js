@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Popup from "./Popup";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SingleBfc = (item) => {
     const [beneficiary, setBeneficiary] = useState([]);
