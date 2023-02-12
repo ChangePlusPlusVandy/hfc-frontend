@@ -1,4 +1,5 @@
 import React from "react";
+import RateButtons from "./components/RateButtons";
 
 const Page3 = ({
     answer10,
@@ -28,8 +29,8 @@ const Page3 = ({
         setAnswer13(event.target.value);
     };
 
-    const handleChangeAnswer14 = (event) => {
-        setAnswer14(event.target.value);
+    const handleChangeAnswer14 = (index) => {
+        setAnswer14(index + 1);
     };
 
     return (
@@ -38,7 +39,7 @@ const Page3 = ({
                 Enter numeric value of response with the corresponding question.
             </p>
 
-            <label>
+            <div>
                 <h4> Question 10</h4>
                 <p>What is your grade at school?</p>
                 <input
@@ -48,10 +49,10 @@ const Page3 = ({
                     placeholder="Enter a number"
                     value={answer10}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 11</h4>
                 <p>
                     Please rate your academic performance at school from 1 to 10
@@ -63,10 +64,10 @@ const Page3 = ({
                     placeholder="Enter a number 1-10"
                     value={answer11}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 12</h4>
                 <p>Do you have any concerns or special needs</p>
                 <input
@@ -76,10 +77,10 @@ const Page3 = ({
                     placeholder="Type your answer here"
                     value={answer12}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 13</h4>
                 <p>What strengths do you think you have?</p>
                 <input
@@ -89,20 +90,17 @@ const Page3 = ({
                     placeholder="Type your answer here"
                     value={answer13}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 14</h4>
                 <p>How satisfied are you with your skills and abilities?</p>
-                <input
-                    type="number"
-                    id="answer14"
-                    onChange={handleChangeAnswer14}
-                    placeholder="Enter a number 1-5"
-                    value={answer14}
+                <RateButtons
+                    activeRatingIndex={answer14 - 1}
+                    onBtnClick={handleChangeAnswer14}
                 />
-            </label>
+            </div>
             <br></br>
         </div>
     );

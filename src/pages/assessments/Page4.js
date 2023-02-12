@@ -1,12 +1,13 @@
 import React from "react";
+import RateButtons from "./components/RateButtons";
 
 const Page4 = ({ answer15, setAnswer15, answer16, setAnswer16 }) => {
-    const handleChangeAnswer15 = (event) => {
-        setAnswer15(event.target.value);
+    const handleChangeAnswer15 = (index) => {
+        setAnswer15(index + 1);
     };
 
-    const handleChangeAnswer16 = (event) => {
-        setAnswer16(event.target.value);
+    const handleChangeAnswer16 = (index) => {
+        setAnswer16(index + 1);
     };
 
     return (
@@ -15,36 +16,30 @@ const Page4 = ({ answer15, setAnswer15, answer16, setAnswer16 }) => {
                 Enter numeric value of response with the corresponding question.
             </p>
 
-            <label>
+            <div>
                 <h4> Question 15</h4>
                 <p>
                     How confident you feel about your skills, and ability to
                     find work or earning money using your vocational skills?
                 </p>
-                <input
-                    type="number"
-                    id="answer15"
-                    onChange={handleChangeAnswer15}
-                    placeholder="Enter a number 1-5"
-                    value={answer15}
+                <RateButtons
+                    activeRatingIndex={answer15 - 1}
+                    onBtnClick={handleChangeAnswer15}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 16</h4>
                 <p>
                     How often/much do you worry about your or your family's
                     financial difficulties?
                 </p>
-                <input
-                    type="number"
-                    id="answer16"
-                    onChange={handleChangeAnswer16}
-                    placeholder="Enter a number 1-5"
-                    value={answer16}
+                <RateButtons
+                    activeRatingIndex={answer16 - 1}
+                    onBtnClick={handleChangeAnswer16}
                 />
-            </label>
+            </div>
             <br></br>
         </div>
     );

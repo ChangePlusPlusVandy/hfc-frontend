@@ -24,7 +24,8 @@ import { WorkshopsList } from "./pages/workshops/WorkshopView";
 import { WorkshopSingle } from "./pages/workshops/singleView";
 
 // Assessments Page
-import Assessments from "./pages/assessments/Assessments";
+import Assessments from "./pages/assessments/AssessmentsOverview";
+import AssessmentForm from "./pages/assessments/Assessments";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -50,6 +51,7 @@ const router = createBrowserRouter(
             </Route>
             <Route path="assessments">
                 <Route index element={<Assessments />} />
+                <Route path="assessment" element={<AssessmentForm />} />
             </Route>
         </Route>
     )

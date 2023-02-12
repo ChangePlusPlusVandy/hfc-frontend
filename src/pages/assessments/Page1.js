@@ -1,4 +1,5 @@
 import React from "react";
+import RateButtons from "./components/RateButtons";
 
 const Page1 = ({
     answer5,
@@ -8,16 +9,16 @@ const Page1 = ({
     answer7,
     setAnswer7,
 }) => {
-    const handleChangeAnswer5 = (event) => {
-        setAnswer5(event.target.value);
+    const handleChangeAnswer5 = (index) => {
+        setAnswer5(index + 1);
     };
 
-    const handleChangeAnswer6 = (event) => {
-        setAnswer6(event.target.value);
+    const handleChangeAnswer6 = (index) => {
+        setAnswer6(index + 1);
     };
 
-    const handleChangeAnswer7 = (event) => {
-        setAnswer7(event.target.value);
+    const handleChangeAnswer7 = (index) => {
+        setAnswer7(index + 1);
     };
 
     return (
@@ -26,46 +27,37 @@ const Page1 = ({
                 Enter numeric value of response with the corresponding question.
             </p>
 
-            <label>
+            <div>
                 <h4> Question 5</h4>
                 <p>How much do you value yourself?</p>
-                <input
-                    type="number"
-                    id="answer5"
-                    onChange={handleChangeAnswer5}
-                    placeholder="Enter a number 1-5"
-                    value={answer5}
+                <RateButtons
+                    activeRatingIndex={answer5 - 1}
+                    onBtnClick={handleChangeAnswer5}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 6</h4>
                 <p>How well do you manage your stress and anxiety?</p>
-                <input
-                    type="number"
-                    id="answer6"
-                    onChange={handleChangeAnswer6}
-                    placeholder="Enter a number 1-5"
-                    value={answer6}
+                <RateButtons
+                    activeRatingIndex={answer6 - 1}
+                    onBtnClick={handleChangeAnswer6}
                 />
-            </label>
+            </div>
             <br></br>
 
-            <label>
+            <div>
                 <h4> Question 7</h4>
                 <p>
                     How strong are you in solving problems and making decisions
                     for yourself?
                 </p>
-                <input
-                    type="number"
-                    id="answer7"
-                    onChange={handleChangeAnswer7}
-                    placeholder="Enter a number 1-5"
-                    value={answer7}
+                <RateButtons
+                    activeRatingIndex={answer7 - 1}
+                    onBtnClick={handleChangeAnswer7}
                 />
-            </label>
+            </div>
             <br></br>
         </div>
     );

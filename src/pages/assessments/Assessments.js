@@ -116,14 +116,6 @@ const Assessments = () => {
         },
     ];
 
-    // const handlePageDecrement = () => {
-    //     setpageNum((prev) => prev - 1);
-    // };
-
-    // const handlePageIncrement = () => {
-    //     setpageNum((prev) => prev + 1);
-    // };
-
     const handleStepClick = (index) => {
         setPageNum(index);
     };
