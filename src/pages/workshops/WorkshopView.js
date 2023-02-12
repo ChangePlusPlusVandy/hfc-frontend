@@ -147,7 +147,7 @@ export const WorkshopsList = () => {
 
                         <Link
                             className="button"
-                            to="../singleview"
+                            to="./singleview"
                             state={{
                                 id: item._id,
                             }}
@@ -157,6 +157,14 @@ export const WorkshopsList = () => {
                     </div>
                 ))}
             </div>
+            <br></br>
+            <br></br>
+            <Link
+                            className="button"
+                            to="./create"
+                        >
+                            Create Workshop
+                        </Link>
         </div>
     );
 };

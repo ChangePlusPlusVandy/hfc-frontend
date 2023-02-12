@@ -18,11 +18,10 @@ import Programs from "./pages/programs/Programs";
 import SingleProgram from "./pages/programs/SingleProgram";
 
 // Workshops Page
-import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
 import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
 import { WorkshopSingle } from "./pages/workshops/WorkshopSingle";
-
+import { WorkshopAttendance } from "./pages/workshops/WorkshopAttendance";
 // Assessments Page
 import Assessments from "./pages/assessments/Assessments";
 
@@ -41,11 +40,11 @@ const router = createBrowserRouter(
                 <Route path="singleview" element={<SingleProgram />} />
             </Route>
             <Route path="workshops">
-                <Route index element={<Workshops />} />
+                <Route index element={<WorkshopsList />} />
                 <Route path="create" element={<WorkshopCreateForm />} />
-                <Route path="all" element={<WorkshopsList />} />
                 {/* TODO: Make dynamic routes for each workshop */}
                 <Route path="singleview" element={<WorkshopSingle />} />
+                <Route path="attendance" element={<WorkshopAttendance/>}/>
             </Route>
             <Route path="assessments">
                 <Route index element={<Assessments />} />

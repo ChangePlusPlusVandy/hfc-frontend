@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { json, Link } from "react-router-dom";
 import Select from "react-select";
 import "./Workshops.css";
@@ -75,6 +77,7 @@ export const WorkshopCreateForm = () => {
                             setMessage("Error: " + data);
                         }
                     });
+                    navigate(`../`)
             } catch (err) {
                 console.log(err);
             }

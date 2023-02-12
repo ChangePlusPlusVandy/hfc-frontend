@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Select from "react-select";
 import { Navigate } from "react-router-dom";
@@ -34,18 +34,20 @@ export const WorkshopSingle = () => {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                title: updateWorkTitle,
-                description: updateWorkDesc,
-                archived: updateWorkStatus,
-                hosts: updateWorkHosts.map((item) => {
-                    return item.value;
-                }),
-                date: updateDate,
+                _id: workshopID,
+                content: {title: updateWorkTitle,
+                    description: updateWorkDesc,
+                    archived: updateWorkStatus,
+                    hosts: updateWorkHosts.map((item) => {
+                        return item.value;
+                    }),
+                    date: updateDate}
+                
             }),
         };
         console.log(requestOptions);
         fetch(
-            "http://localhost:3000/workshops?_id=" + workshopID,
+            "http://localhost:3000/workshops",
             requestOptions
         ).then((response) => {
             setEditMode(false);
@@ -198,6 +200,14 @@ export const WorkshopSingle = () => {
                                     <>active</>
                                 )}
                             </h3>
+                            <h3>
+                            {workshop.numAttendees ? (
+                                <>Registered Attendees: {workshop.numRegistered}
+                                <br></br>
+                                Unregistered Attendees: {workshop.numAttendees-workshop.numRegistered}
+                                <br></br>
+                                Rating: {workshop.rating}</>):(<></>)
+                            }</h3>
                         </div>
 
                         <button
@@ -214,75 +224,14 @@ export const WorkshopSingle = () => {
                             {" "}
                             Delete Workshop
                         </button>
+                        <Link className="button" to="../attendance"  state={{
+                                id: workshopID,
+                            }}>
+                            Take Attendance
+                        </Link>
                     </TabPanel>
                 </Tabs>
             )}
         </div>
     );
 };
-
-/*{editMode ? (
-                <div>
-                    <div>
-                        <label>
-                            <h3>
-                                Title:
-                                <input
-                                    type="text"
-                                    value={updateWorkTitle}
-                                    //name="title"
-                                    onChange={(e) =>
-                                        setUpdateWorkTitle(
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            </h3>
-                        </label>
-                    </div>
-                    <div>
-                        <h3>
-                            <label>
-                                Description:
-                                <input
-                                    type="text"
-                                    value={updateWorkDesc}
-                                    name="description"
-                                    onChange={(e) =>
-                                        setUpdateWorkDesc(
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                            </label>
-                        </h3>
-                    </div>
-
-                    <div>
-                        <h3>
-                            <label>
-                                Hosts:
-                                <Select
-                                    type="text"
-                                    value={updateWorkHosts}
-                                    name="description"
-                                    onChange={(e) =>
-                                        setUpdateWorkHosts(
-                                            e
-                                        )
-                                    }
-                                />
-                            </label>
-                        </h3>
-                    </div>
-                </div>
-            ) : (*/
-
-/*            {editMode ? (
-                <button
-                    onClick={updateWorkshopFormOverview}
-                    className="submit-button"
-                >
-                    Submit
-                </button>
-            ) : */
