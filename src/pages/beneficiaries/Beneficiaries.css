@@ -7,7 +7,6 @@
 
 .beneficiaries-page-container .beneficiaries-page-header {
     width: 800px;
-    margin: 0 auto;
 }
 
 .beneficiaries-page-header .search-bar {
@@ -15,6 +14,10 @@
     width: 200px;
     height: 20px;
     border: 5px solid #00ff00;
+}
+
+.beneficiaries-page-container .beneficiaries-page-header {
+    width: 800px;
 }
 
 .beneficiaries-page-header .sort-btn-group {

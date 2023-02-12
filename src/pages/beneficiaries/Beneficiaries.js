@@ -39,7 +39,7 @@ const Beneficiaries = () => {
 
     const deleteBfc = (id) => {
         console.log(id);
-        fetch(`http://localhost:3000/beneficiaries?beneficiaryID=${id}`, {
+        fetch(`http://localhost:3000/beneficiaries?id=${id}`, {
             method: "DELETE",
         }).then(async () => {
             try {
@@ -75,7 +75,9 @@ const Beneficiaries = () => {
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
-                setBeneficiary(data);
+                let dataCopy = [...data];
+                dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));
+                setBeneficiary(dataCopy);
                 console.log(data);
                 console.log(beneficiary);
             } catch (error) {
@@ -84,14 +86,7 @@ const Beneficiaries = () => {
         };
         // eventualy we should only call this if user has correct auth/permissions
         getBeneficiaries();
-        // sortByName(;
     }, []);
-
-    /*
-    useEffect(() => {
-        sortByName();
-    },[]);
-    */
 
     return (
         <div className="beneficiaries-page-container">
