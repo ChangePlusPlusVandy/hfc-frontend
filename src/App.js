@@ -71,7 +71,7 @@ const router = createBrowserRouter(
                     <Route path="assessments">
                         <Route index element={<Assessments />} />
                     </Route>
-                    <Route path="users" element={<Users/>}></Route>
+                    <Route path="users" element={<Users />}></Route>
                 </Route>
             </Route>
         </>
