@@ -82,6 +82,14 @@ const NavSidebar = () => {
                     />
                     <span>Data Dashboard</span>
                 </NavLink>
+                <NavLink to="users">
+                    <img
+                        src={UserListIcon}
+                        alt="Beneficiaries List"
+                        className="icon"
+                    />
+                    <span>Admin User List</span>
+                </NavLink>
                 <NavLink to="beneficiaries/register">
                     <img
                         src={UserCirclePlusIcon}

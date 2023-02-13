@@ -1,0 +1,84 @@
+import React, { useEffect, useState } from "react";
+import Dropdown from '../../utils/Dropdown';
+import { auth } from "../../../firebase/firebase";
+import './Users.css'
+import DefaultUser from '../../../src/assets/images/default-user.png'
+
+
+const SORT_OPTIONS = [
+    {value: 'ABC', label: 'Alphabetical'},
+    {value: 'DATE', label: "Date"}
+]
+
+const FILTER_OPTIONS = [
+    {value: 0, label: '0'},
+    {value: 1, label: '1'},
+    {value: 2, label: '2'},
+    {value: 3, label: '3'}
+]
+
+
+const User = ({fname,lname,uid,langs,_id,level,joinDate,pictureUrl=''}) => {
+    return (
+    <div className='user-container'>
+        <img className="user-pfp" src={DefaultUser}></img>
+        <p className='user-name'>{fname} {lname}</p>
+    </div>
+    )
+}
+
+const Users = () => {
+    const [users, setUsers] = useState([]);
+    const [search,setSearch] = useState('');
+    const [filter, setFilter] = useState("All");
+
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                let data = await fetch("http://localhost:3000/users/users");
+                data = await data.json();
+                setUsers(data);
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getUsers();
+    }, []);
+
+    return (
+        <div className="user-page-container">
+            <h1 className='title'>Staff Directory</h1>
+            <div className="query-container">
+                <input className="search" placeholder='Search user' type='text' onChange={(e) => setSearch(e.target.value)}/>
+                <Dropdown placeHolder="Sort Order" isMulti options={SORT_OPTIONS} onChange={(value) => console.log(value)}/>
+                <Dropdown placeHolder="Filter Level" options={FILTER_OPTIONS} isMulti onChange={(value) => console.log(value)}/>
+                <input className="onboarding-btn" value='Onboarding' type='button'/>
+            </div>
+            <div className="users-container">
+            {users
+                .filter((value) => {
+                    if (search == "") {
+                        return value;
+                    } else if (
+                        value.firstName
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                        value.lastName
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                    ) {
+                        return value;
+                    }
+                })
+                .map((item) => (
+                    <User key={item.firebaseUID} uid={item.firebaseUID} fname={item.firstName} lname={item.lastName} langs={item.languages} level={item.level} joinDate={item.joinDate}/>
+                ))}
+            </div>
+                
+        </div>
+    );
+};
+
+export default Users;

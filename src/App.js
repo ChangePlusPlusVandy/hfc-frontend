@@ -30,6 +30,9 @@ import { WorkshopSingle } from "./pages/workshops/singleView";
 // Assessments Page
 import Assessments from "./pages/assessments/Assessments";
 
+// Users Page
+import Users from "./pages/users/Users";
+
 //Utilis
 import PrivateRoutes from "./utils/PrivateRoutes";
 
@@ -38,7 +41,7 @@ const router = createBrowserRouter(
         <>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route element={<PrivateRoutes />}>
+            <Route>
                 <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route index element={<h1>TODO: Index</h1>} />
                     <Route path="beneficiaries">
@@ -68,6 +71,7 @@ const router = createBrowserRouter(
                     <Route path="assessments">
                         <Route index element={<Assessments />} />
                     </Route>
+                    <Route path="users" element={<Users/>}></Route>
                 </Route>
             </Route>
         </>
