@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import Dropdown from '../../utils/Dropdown';
 import { auth } from "../../../firebase/firebase";
 import './Users.css'
@@ -30,8 +31,40 @@ const User = ({fname,lname,uid,langs,_id,level,joinDate,pictureUrl=''}) => {
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [search,setSearch] = useState('');
-    const [filter, setFilter] = useState("All");
+    const [filter,setFilter] = useState('')
+    const navigate = useNavigate()
+    const handleOnboarding = () => {
+        navigate('../onboard')
+    }
 
+    const sortByName = () => {
+        let data = [...users];
+        data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        setUsers(data);
+    };
+
+    const sortByDate = () => {
+        let data = [...users];
+        console.log(data)
+        data.sort(function (a, b) {
+            const dateA = new Date(a.joinDate);
+            const dateB = new Date(b.joinDate);
+            return dateB - dateA;
+        });
+        setUsers(data);
+    };
+
+    const handleSortChange = (e) => {
+        if (e == [] || e.length == 0) {
+            return;
+        }
+        else if (e[0].value == 'ABC') {
+            sortByName()
+        } 
+        else if (e[0].value == 'DATE') {
+            sortByDate()
+        }
+    }
 
     useEffect(() => {
         const getUsers = async () => {
@@ -52,9 +85,9 @@ const Users = () => {
             <h1 className='title'>Staff Directory</h1>
             <div className="query-container">
                 <input className="search" placeholder='Search user' type='text' onChange={(e) => setSearch(e.target.value)}/>
-                <Dropdown placeHolder="Sort Order" isMulti options={SORT_OPTIONS} onChange={(value) => console.log(value)}/>
+                <Dropdown placeHolder="Sort Order" isMulti options={SORT_OPTIONS} onChange={(value) => handleSortChange(value)}/>
                 <Dropdown placeHolder="Filter Level" options={FILTER_OPTIONS} isMulti onChange={(value) => console.log(value)}/>
-                <input className="onboarding-btn" value='Onboarding' type='button'/>
+                <input onClick={handleOnboarding} className="onboarding-btn" value='Onboarding' type='button'/>
             </div>
             <div className="users-container">
             {users

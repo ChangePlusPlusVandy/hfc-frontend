@@ -79,13 +79,14 @@ const Register = () => {
                 const res = await addUserToMongo(
                     userCrediential.user.uid,
                     firstName,
-                    lastName
+                    lastName,
+                    level
                 );
                 console.log(res);
                 navigate("/dashboard");
             } catch (err) {
                 console.log(
-                    "Error addign user to MongoBD, deleting from Firebase"
+                    "Error adding user to MongoBD, deleting from Firebase"
                 );
                 console.log(err);
                 console.log(err.message);
@@ -105,17 +106,15 @@ const Register = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [level,setLevel] = useState(0)
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
 
     return (
         <div className="form_container">
-            <h1>Register</h1>
+            <h1>Register User</h1>
             {error && error.length ? <h1>{error}</h1> : ""}
-            <h4 onClick={(e) => navigate("/login")}>
-                Already have an account? Login here!
-            </h4>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
                     onChange={(e) => {
@@ -143,6 +142,16 @@ const Register = () => {
                     value={email}
                     type="text"
                     placeholder="Email"
+                />
+                Level
+                <input
+                    onChange={(e) => {
+                        setLevel(e.target.value);
+                        setError("");
+                    }}
+                    value={level}
+                    type="number"
+                    placeholder="Level"
                 />
                 <input
                     onChange={(e) => {
