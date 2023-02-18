@@ -15,7 +15,9 @@ const CreateProgramPopup = (props) => {
                                     type="text"
                                     value={props.title}
                                     name="title"
-                                    onChange={e => props.titleChange(e.target.value)}
+                                    onChange={(e) =>
+                                        props.titleChange(e.target.value)
+                                    }
                                 />
                             </label>
                             <label>
@@ -24,10 +26,11 @@ const CreateProgramPopup = (props) => {
                                     type="text"
                                     value={props.description}
                                     name="description"
-                                    onChange={e => props.descChange(e.target.value)}
+                                    onChange={(e) =>
+                                        props.descChange(e.target.value)
+                                    }
                                 />
                             </label>
-
                         </div>
                     </div>
                     <h3>Add Users</h3>

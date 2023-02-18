@@ -42,7 +42,10 @@ const router = createBrowserRouter(
 
                 <Route path="singleview">
                     <Route index element={<SingleProgram />} />
-                    <Route path="markattendance" element={<MarkAttendance />}></Route>
+                    <Route
+                        path="markattendance"
+                        element={<MarkAttendance />}
+                    ></Route>
                 </Route>
             </Route>
             <Route path="workshops">

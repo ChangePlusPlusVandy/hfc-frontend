@@ -89,8 +89,7 @@ const Programs = () => {
                 title: newProgTitle,
                 description: newProgDesc,
                 hosts: addUsers,
-            }
-            ),
+            }),
         };
         await fetch("http://localhost:3000/programs", requestOptions);
         getPrograms();
@@ -163,12 +162,12 @@ const Programs = () => {
     //         description: e.target.value,
     //     }));
     // };
-    const handleTitleChange = e => {
+    const handleTitleChange = (e) => {
         setNewProgTitle(e);
-    }
-    const handleDescChange = e => {
+    };
+    const handleDescChange = (e) => {
         setNewProgDesc(e);
-    }
+    };
 
     return (
         <div className="programs">
@@ -185,7 +184,6 @@ const Programs = () => {
                 onChange={handleAddUser}
                 submit={createProgramFromModal}
             />
-
 
             <div className="sort-and-search">
                 <div
@@ -224,7 +222,6 @@ const Programs = () => {
                         <div key={i} className="program-card">
                             <h4># {i}</h4>
                             <h4>Title: {item.title}</h4>
-
                             <Link
                                 to="/dashboard/programs/singleview"
                                 state={{
@@ -233,13 +230,11 @@ const Programs = () => {
                             >
                                 View Program
                             </Link>
-
                             <h5>id: {item._id}</h5>
                             HOSTS:
                             {item.hosts.map((host, h) => (
                                 <h5 key={host._id}>{host.firstName}</h5>
                             ))}
-
                             <h5>description: {item.description}</h5>
                             {/* <h5>attendance: {item.attendance}</h5> */}
                             <h5>Days Of Week: {item.daysOfWeek}</h5>

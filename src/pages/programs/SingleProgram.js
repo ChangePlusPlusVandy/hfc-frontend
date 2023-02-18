@@ -29,8 +29,10 @@ const SingleProgram = (props) => {
     useEffect(() => {
         getProgramFromID();
         getBeneficiaries();
-        document.getElementById("overview-button").style.backgroundColor = "#888b8f";
-        document.getElementById("enrollment-button").style.backgroundColor = "#e8e9eb";
+        document.getElementById("overview-button").style.backgroundColor =
+            "#888b8f";
+        document.getElementById("enrollment-button").style.backgroundColor =
+            "#e8e9eb";
     }, []);
 
     const getProgramFromID = async (e) => {
@@ -131,7 +133,6 @@ const SingleProgram = (props) => {
         setEditBeneficiaries((current) => !current);
     };
 
-
     const handleAddBen = (e) => {
         let addBenFiltered = e.map((event, i) => event.value);
         setAddBeneficiary(addBenFiltered);
@@ -148,28 +149,37 @@ const SingleProgram = (props) => {
     const editOverviewOrEnroll = (bool) => {
         setOverviewOrEnroll(bool);
         if (bool) {
-            document.getElementById("overview-button").style.backgroundColor = "#e8e9eb";
-            document.getElementById("enrollment-button").style.backgroundColor = "#888b8f";
+            document.getElementById("overview-button").style.backgroundColor =
+                "#e8e9eb";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#888b8f";
         } else {
-            document.getElementById("overview-button").style.backgroundColor = "#888b8f";
-            document.getElementById("enrollment-button").style.backgroundColor = "#e8e9eb";
+            document.getElementById("overview-button").style.backgroundColor =
+                "#888b8f";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#e8e9eb";
         }
-
-    }
+    };
 
     return (
         <div className="single-program-container">
-            <Link to="/dashboard/programs" >
-                &lt;  back to program list
-            </Link>
+            <Link to="/dashboard/programs">&lt; back to program list</Link>
             <div className="single-program">
                 <div className="single-program-heading">
                     <h1>{program.title}</h1>
                     <div className="heading-buttons">
-                        <button onClick={() => editOverviewOrEnroll(false)} id="overview-button" className="tab">
+                        <button
+                            onClick={() => editOverviewOrEnroll(false)}
+                            id="overview-button"
+                            className="tab"
+                        >
                             Overview
                         </button>
-                        <button onClick={() => editOverviewOrEnroll(true)} id="enrollment-button" className="tab">
+                        <button
+                            onClick={() => editOverviewOrEnroll(true)}
+                            id="enrollment-button"
+                            className="tab"
+                        >
                             Enrollment
                         </button>
                     </div>
@@ -191,7 +201,10 @@ const SingleProgram = (props) => {
                                     onChange={handleAddBen}
                                     submit={updateProgramFromEnrollment}
                                 />
-                                <button onClick={() => setOpenModal(true)} className="submit-button program-enroll-ben">
+                                <button
+                                    onClick={() => setOpenModal(true)}
+                                    className="submit-button program-enroll-ben"
+                                >
                                     Add Beneficiaries
                                 </button>
                             </div>
@@ -212,10 +225,11 @@ const SingleProgram = (props) => {
 
                                             <div className="card-info">
                                                 <div className="tmp-photo"></div>
-                                                <h5>{ben.firstName}{" "}
-                                                    {ben.lastName}</h5>
+                                                <h5>
+                                                    {ben.firstName}{" "}
+                                                    {ben.lastName}
+                                                </h5>
                                             </div>
-
                                         </div>
                                     </div>
                                 ))}
@@ -246,7 +260,11 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-info">
                             <h3>Status</h3>
-                            {program.archived ? <h7>archived</h7> : <h7>active</h7>}
+                            {program.archived ? (
+                                <h7>archived</h7>
+                            ) : (
+                                <h7>active</h7>
+                            )}
                         </div>
                         <div className="program-info">
                             <h3>Schedule</h3>
@@ -286,10 +304,6 @@ const SingleProgram = (props) => {
 };
 
 export default SingleProgram;
-
-
-
-
 
 // return (
 //     <div className="single-program-container">
