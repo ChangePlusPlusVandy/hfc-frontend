@@ -32,7 +32,7 @@ import Assessments from "./pages/assessments/Assessments";
 
 // Users Page
 import Users from "./pages/users/Users";
-import SingleUser from './pages/users/SingleUser'
+import SingleUser from "./pages/users/SingleUser";
 
 //Utilis
 import PrivateRoutes from "./utils/PrivateRoutes";
@@ -71,9 +71,9 @@ const router = createBrowserRouter(
                     <Route path="assessments">
                         <Route index element={<Assessments />} />
                     </Route>
-                    <Route path="users" element={<Users/>}></Route>
-                    <Route path="onboard" element={<Register/>}></Route>
-                    <Route path='users/:fbId' element={<SingleUser/>}></Route>
+                    <Route path="users" element={<Users />}></Route>
+                    <Route path="onboard" element={<Register />}></Route>
+                    <Route path="users/:fbId" element={<SingleUser />}></Route>
                 </Route>
             </Route>
         </>

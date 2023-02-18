@@ -76,15 +76,14 @@
     width: 200px;
     border-radius: 12px;
     margin-top: 1rem;
-    margin-left: .5rem;
-    margin-right: .5rem; 
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     cursor: pointer;
 }
 
 .user-container:hover {
-    background-color: rgb(214,214,214);
-    transition: .2s;
-
+    background-color: rgb(214, 214, 214);
+    transition: 0.2s;
 }
 
 .user-name {
