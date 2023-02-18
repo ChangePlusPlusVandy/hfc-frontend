@@ -26,9 +26,10 @@ const User = ({
     level,
     joinDate,
     pictureUrl = "",
+    onClick
 }) => {
     return (
-        <div className="user-container">
+        <div onClick={onClick} className="user-container">
             <img className="user-pfp" src={DefaultUser}></img>
             <p className="user-name">
                 {fname} {lname}
@@ -116,6 +117,7 @@ const Users = () => {
                     })
                     .map((item) => (
                         <User
+                            onClick={(e) => navigate(`${item.firebaseUID}`)}
                             key={item.firebaseUID}
                             uid={item.firebaseUID}
                             fname={item.firstName}

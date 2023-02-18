@@ -39,11 +39,11 @@ const Register = () => {
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-    // TODO: 8, 1 special, 1 uppercase, 1 number
     // function isStrongPassword(password) {
-    //     const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    //     return strongPasswordRegex.test(passworwd);
+    //     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])(.{8,})$/;
+    //     return passwordRegex.test(password);
     // }
+      
     function isStrongPassword(password) {
         return password.length >= 6;
     }
