@@ -1,9 +1,11 @@
 import React,{useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
 import {auth} from '../../../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updatePassword} from 'firebase/auth';
 
 const SingleUser = () => {
+    const navigate = useNavigate();
     const [user,setUser] = useState({
         firstName: '',
         lastName: '',
@@ -13,9 +15,17 @@ const SingleUser = () => {
         fbUid: ''
     })
     const [isCurrentUser,setisCurrentUser] = useState(false);
+    const [newPass, setnewPass] = useState('');
     const {fbId} = useParams()
 
-
+    const handleUpdatePassword = async () => {
+        const fbuser = auth.currentUser;
+        updatePassword(fbuser,newPass).then(() => {
+            console.log('Update password successful',newPass);
+        }).catch((err) => {
+            console.log(err.message);
+        })
+    }
     
     const getMongoUser = async (fbId) => {
         try {
@@ -39,21 +49,30 @@ const SingleUser = () => {
         
     }
 
-    onAuthStateChanged(auth, async (fbuser) => {
+    
+    onAuthStateChanged(auth,(fbuser) => {
         if (fbuser) {
-            console.log(fbuser.uid,'g',user.fbUid)
-            setisCurrentUser(fbuser.uid == user.fbUid);
+            if (!isCurrentUser) {
+                console.log(fbuser.uid,'g',user.fbUid)
+                setisCurrentUser(fbuser.uid == user.fbUid);
+            }
         } else {
             navigate("../login");
         }
     });
 
-
     useEffect(() => {
-        getMongoUser(fbId)
+        getMongoUser(fbId)    
     },[])
   return (
-    <div>{isCurrentUser ? "true" : "false"} </div>
+    <div>{isCurrentUser ? (
+        <div>
+            <input placeholder="New Password" type='password' value={newPass} onChange={(e) => setnewPass(e.target.value)}/>
+            <button onClick={handleUpdatePassword}>Change Password</button>
+        </div>
+    )
+        : "false"}
+    </div>
 
   )
 }

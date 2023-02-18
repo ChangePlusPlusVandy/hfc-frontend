@@ -8,14 +8,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-<<<<<<< HEAD
     justify-content: space-around;
     flex-wrap: wrap;
-
-
-=======
-    justify-content: space-evenly;
->>>>>>> 687de1afe5081d77678580ffdfe5374d7cbf4425
 }
 
 .search {
@@ -82,7 +76,6 @@
     width: 200px;
     border-radius: 12px;
     margin-top: 1rem;
-<<<<<<< HEAD
     margin-left: .5rem;
     margin-right: .5rem; 
     cursor: pointer;
@@ -92,10 +85,6 @@
     background-color: rgb(214,214,214);
     transition: .2s;
 
-=======
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
->>>>>>> 687de1afe5081d77678580ffdfe5374d7cbf4425
 }
 
 .user-name {

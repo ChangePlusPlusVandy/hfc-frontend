@@ -71,13 +71,9 @@ const router = createBrowserRouter(
                     <Route path="assessments">
                         <Route index element={<Assessments />} />
                     </Route>
-<<<<<<< HEAD
                     <Route path="users" element={<Users/>}></Route>
                     <Route path="onboard" element={<Register/>}></Route>
                     <Route path='users/:fbId' element={<SingleUser/>}></Route>
-=======
-                    <Route path="users" element={<Users />}></Route>
->>>>>>> 687de1afe5081d77678580ffdfe5374d7cbf4425
                 </Route>
             </Route>
         </>
