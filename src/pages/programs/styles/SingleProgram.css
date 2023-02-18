@@ -1,0 +1,197 @@
+:root {
+    --text-link: #888b8f;
+    --button-color: #e8e9eb;
+    --mid-color: #d0d0d1;
+}
+
+.single-program-container {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 2em 3em;
+}
+
+.single-program-container>a {
+    width: fit-content;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 12pt;
+    font-weight: 400;
+    color: var(--text-link);
+
+}
+
+.single-program-container>.single-program {
+    margin: auto;
+    width: 80%;
+    height: 85%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.single-program-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: solid black;
+    margin-bottom: 20px;
+}
+
+.tab {
+    border-radius: 8px 8px 0 0;
+    margin-left: 5px;
+    border: 0;
+    padding: 8px 20px;
+}
+
+.single-program-heading>h1 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+
+/* OVERVIEW TAB */
+
+.program-info-container,
+.program-enroll-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.program-info-container>.program-info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3em;
+    margin: 0.7em 0em;
+}
+
+.program-info>h3 {
+    flex: 1;
+    height: fit-content;
+    margin: 0;
+}
+
+.program-info>h7,
+.program-info>.program-hosts {
+    flex: 4;
+}
+
+.program-info>.program-hosts {
+    display: flex;
+    flex-direction: column;
+}
+
+.program-info-buttons-container {
+    margin-top: 2em;
+}
+
+.program-info-buttons-container>.program-buttons-inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.program-buttons-inner>.program-archive-delete {
+    display: flex;
+    flex-direction: column;
+}
+
+.program-archive-delete>button {
+    background-color: transparent;
+    border: none;
+    text-decoration-line: underline;
+    text-decoration-color: var(--text-link);
+    color: var(--text-link);
+    cursor: pointer;
+}
+
+.submit-button {
+    padding: 5px 40px;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    border: none;
+    cursor: pointer;
+    font-size: 12pt;
+}
+
+
+/* ENROLL TAB */
+
+
+.program-enroll-subheading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.program-enroll-subheading>h3 {
+    margin: 0;
+}
+
+.program-enroll-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.program-enroll-options>.ben-search-bar {
+    height: 22px;
+}
+
+.program-enroll-beneficiaries-container {
+    height: 100%;
+    margin-top: 20px;
+    background-color: var(--button-color);
+    border-radius: 10px;
+}
+
+.program-enroll-beneficiaries {
+    margin: 15px 20px;
+    /* margin-right: min(1em, 15px);
+    margin-left: min(1em, 15px); */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    row-gap: 10px;
+    column-gap: 15px;
+    overflow-y: scroll;
+    align-content: stretch;
+}
+
+.beneficiary-card {
+    flex-basis: clamp(150px, 30%, 180px);
+    height: 130px;
+    border-radius: 10px;
+    background-color: var(--mid-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+.beneficiary-card>.card-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.delete-ben-button {
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: none;
+}
+
+.tmp-photo {
+    height: 60px;
+    width: 60px;
+    background-color: var(--text-link);
+    border-radius: 50%;
+}
