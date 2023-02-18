@@ -77,7 +77,7 @@ export const WorkshopCreateForm = () => {
                             setMessage("Error: " + data);
                         }
                     });
-                    navigate(`../`)
+                navigate(`../`);
             } catch (err) {
                 console.log(err);
             }
