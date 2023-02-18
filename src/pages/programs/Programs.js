@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/Programs.css";
+import CreateProgramPopup from "./CreateProgramPopup";
 
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
+
+    const [users, setUsers] = useState([]);
+    const [userOptions, setUserOptions] = useState([]);
+    const [addUsers, setAddUsers] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
+
     const [sortBy, setSortBy] = useState("alphabetical");
     const [archivedSort, setArchivedSort] = useState("all");
     const [searchProgram, setSearchProgram] = useState("");
-    const [newProgram, setNewProgram] = useState({
-        title: "",
-        //hosts: "",
-        description: "",
-        archived: false,
-    });
+
+    const [newProgTitle, setNewProgTitle] = useState("");
+    const [newProgDesc, setNewProgDesc] = useState("");
 
     useEffect(() => {
         getPrograms();
+        getUsers();
     }, []);
 
     const programsFiltered = programs
@@ -49,6 +54,26 @@ const Programs = () => {
             let data = await fetch("http://localhost:3000/programs");
             data = await data.json();
             setPrograms(sortPrograms(data));
+            console.log("programs: ");
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getUsers = async () => {
+        try {
+            let data = await fetch("http://localhost:3000/users/users");
+            data = await data.json();
+            setUsers(data);
+            let tmp = data.map((e) => ({
+                value: e._id,
+                label: e.firstName,
+                color: "black",
+            }));
+
+            setUserOptions(tmp);
+            console.log("users: ");
             console.log(data);
         } catch (err) {
             console.log(err);
@@ -59,16 +84,15 @@ const Programs = () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newProgram),
+            //UPDATE
+            body: JSON.stringify({
+                title: newProgTitle,
+                description: newProgDesc,
+                hosts: addUsers,
+            }),
         };
         await fetch("http://localhost:3000/programs", requestOptions);
         getPrograms();
-        setNewProgram({
-            title: "",
-            //hosts: "",
-            description: "",
-            archived: false,
-        });
     };
 
     const deleteProgram = async (e) => {
@@ -94,46 +118,73 @@ const Programs = () => {
         setSortBy(e.target.value);
         sortPrograms(programs);
     };
+
     const handleSortArchivedChange = (e) => {
         setArchivedSort(e.target.value);
     };
 
-    //Updates newProgram info
+    const handleAddUser = (e) => {
+        let addUserFiltered = e.map((event, i) => event.value);
+        setAddUsers(addUserFiltered);
+    };
+
+    const createProgramFromModal = (e) => {
+        handleSubmit();
+        setOpenModal(false);
+        setNewProgTitle("");
+        setNewProgDesc("");
+    };
+
+    // //Updates newProgram info
+    // const handleTitleChange = (e) => {
+    //     setNewProgram(() => ({
+    //         ...newProgram,
+    //         title: e.target.value,
+    //     }));
+    // };
+
+    // const handleArchivedChange = (e) => {
+    //     if (e.target.value.localeCompare("true") == 0) {
+    //         setNewProgram(() => ({
+    //             ...newProgram,
+    //             archived: true,
+    //         }));
+    //     } else {
+    //         setNewProgram(() => ({
+    //             ...newProgram,
+    //             archived: false,
+    //         }));
+    //     }
+    // };
+    // const handleDescChange = (e) => {
+    //     setNewProgram(() => ({
+    //         ...newProgram,
+    //         description: e.target.value,
+    //     }));
+    // };
     const handleTitleChange = (e) => {
-        setNewProgram(() => ({
-            ...newProgram,
-            title: e.target.value,
-        }));
-    };
-    const handleHostChange = (e) => {
-        setNewProgram(() => ({
-            ...newProgram,
-            //hosts: e.target.value,
-        }));
-    };
-    const handleArchivedChange = (e) => {
-        if (e.target.value.localeCompare("true") == 0) {
-            setNewProgram(() => ({
-                ...newProgram,
-                archived: true,
-            }));
-        } else {
-            setNewProgram(() => ({
-                ...newProgram,
-                archived: false,
-            }));
-        }
+        setNewProgTitle(e);
     };
     const handleDescChange = (e) => {
-        setNewProgram(() => ({
-            ...newProgram,
-            description: e.target.value,
-        }));
+        setNewProgDesc(e);
     };
 
     return (
         <div className="programs">
             <h1>Programs:</h1>
+            <button onClick={() => setOpenModal(true)}>Create Program</button>
+
+            <CreateProgramPopup
+                openModal={openModal}
+                title={newProgTitle}
+                titleChange={handleTitleChange}
+                description={newProgDesc}
+                descChange={handleDescChange}
+                userOptions={userOptions}
+                onChange={handleAddUser}
+                submit={createProgramFromModal}
+            />
+
             <div className="sort-and-search">
                 <div
                     className="sort-indicator"
@@ -171,7 +222,6 @@ const Programs = () => {
                         <div key={i} className="program-card">
                             <h4># {i}</h4>
                             <h4>Title: {item.title}</h4>
-
                             <Link
                                 to="/dashboard/programs/singleview"
                                 state={{
@@ -180,10 +230,11 @@ const Programs = () => {
                             >
                                 View Program
                             </Link>
-
                             <h5>id: {item._id}</h5>
-                            <h5>hosts: {item.hosts}</h5>
-
+                            HOSTS:
+                            {item.hosts.map((host, h) => (
+                                <h5 key={host._id}>{host.firstName}</h5>
+                            ))}
                             <h5>description: {item.description}</h5>
                             {/* <h5>attendance: {item.attendance}</h5> */}
                             <h5>Days Of Week: {item.daysOfWeek}</h5>
@@ -198,8 +249,7 @@ const Programs = () => {
                     ))}
                 </div>
             </div>
-            <h1>Add A program</h1>
-            <div>
+            {/* <div>
                 <div>
                     <label>
                         Title:
@@ -210,7 +260,7 @@ const Programs = () => {
                             onChange={handleTitleChange}
                         />
                     </label>
-                    <label>
+                     <label>
                         Hosts:
                         <input
                             type="text"
@@ -218,7 +268,7 @@ const Programs = () => {
                             name="hosts"
                             onChange={handleHostChange}
                         />
-                    </label>
+                    </label> 
                     <label>
                         Archived:
                         <input
@@ -239,7 +289,7 @@ const Programs = () => {
                     </label>
                     <button onClick={handleSubmit}>Submit</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
