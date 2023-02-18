@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./Programs.css";
+import "./styles/Programs.css";
 
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
     const [archivedSort, setArchivedSort] = useState("all");
     const [searchProgram, setSearchProgram] = useState("");
-
     const [newProgram, setNewProgram] = useState({
         title: "",
         //hosts: "",
@@ -50,6 +49,7 @@ const Programs = () => {
             let data = await fetch("http://localhost:3000/programs");
             data = await data.json();
             setPrograms(sortPrograms(data));
+            console.log(data);
         } catch (err) {
             console.log(err);
         }
@@ -132,9 +132,8 @@ const Programs = () => {
     };
 
     return (
-        <div className="programs-page-container">
-            <h1>Programs: 6386ba96c71942148162a7b2</h1>
-            <h1>63cc4f1d38c9a5e3ceb66e3d</h1>
+        <div className="programs">
+            <h1>Programs:</h1>
             <div className="sort-and-search">
                 <div
                     className="sort-indicator"
@@ -174,7 +173,7 @@ const Programs = () => {
                             <h4>Title: {item.title}</h4>
 
                             <Link
-                                to="singleview"
+                                to="/dashboard/programs/singleview"
                                 state={{
                                     id: item._id,
                                 }}
@@ -186,7 +185,7 @@ const Programs = () => {
                             <h5>hosts: {item.hosts}</h5>
 
                             <h5>description: {item.description}</h5>
-                            <h5>attendance: {item.attendance}</h5>
+                            {/* <h5>attendance: {item.attendance}</h5> */}
                             <h5>Days Of Week: {item.daysOfWeek}</h5>
                             <h5>Date Added: {item.dateAdded}</h5>
                             <h5>

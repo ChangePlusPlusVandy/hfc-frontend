@@ -1,0 +1,35 @@
+.modal-container {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    position: relative;
+    margin: auto;
+    color: black;
+    max-width: 640px;
+    max-height: 200px;
+    top: 10%;
+    background-color: white;
+    padding: 10px;
+}
+
+.react-select-container {
+    margin: 25px 0px;
+}
+
+.react-select__menu-list {
+    color: black;
+    font-size: 20px;
+}
+
+.react-select__value-container {
+    font-size: 25px;
+}

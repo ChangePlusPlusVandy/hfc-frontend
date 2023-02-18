@@ -59,7 +59,7 @@ const BeneficiaryRegistration = () => {
             languages={languages}
             setLanguages={setLanguages}
             nationalities={nationalities}
-            setNationalites={setNationalities}
+            setNationalities={setNationalities}
             education={education}
             setEducation={setEducation}
         />,
