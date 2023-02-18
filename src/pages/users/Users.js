@@ -26,7 +26,7 @@ const User = ({
     level,
     joinDate,
     pictureUrl = "",
-    onClick
+    onClick,
 }) => {
     return (
         <div onClick={onClick} className="user-container">
