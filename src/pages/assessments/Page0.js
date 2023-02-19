@@ -1,32 +1,32 @@
 import React from "react";
 import RateButtons from "./components/RateButtons";
 
-const Page0 = ({
-    answer1,
-    setAnswer1,
-    answer2,
-    setAnswer2,
-    answer3,
-    setAnswer3,
-    answer4,
-    setAnswer4,
-}) => {
-    const handleChangeAnswer1 = (index) => {
-        console.log("answer1: ", index + 1);
-        setAnswer1(index + 1);
+const Page0 = ({ questions, answers, setAnswers }) => {
+    const handleChangeAnswers = (index) => {
+        setAnswers([...answers, index + 1]);
     };
+    // const [ans1, ans2, ans3, ans4] = answers;
 
-    const handleChangeAnswer2 = (index) => {
-        setAnswer2(index + 1);
-    };
-
-    const handleChangeAnswer3 = (index) => {
-        setAnswer3(index + 1);
-    };
-
-    const handleChangeAnswer4 = (index) => {
-        setAnswer4(index + 1);
-    };
+    // const handleChangeAnswer1 = (index) => {
+    //     answers[0] = index + 1;
+    //     setAnswers(answers);
+    //     console.log(answers);
+    // };
+    // const handleChangeAnswer2 = (index) => {
+    //     answers[1] = index + 1;
+    //     setAnswers(answers);
+    //     console.log(answers);
+    // };
+    // const handleChangeAnswer3 = (index) => {
+    //     answers[2] = index + 1;
+    //     setAnswers(answers);
+    //     console.log(answers);
+    // };
+    // const handleChangeAnswer4 = (index) => {
+    //     answers[3] = index + 1;
+    //     setAnswers(answers);
+    //     console.log(answers);
+    // };
 
     return (
         <div className="form-container">
@@ -36,43 +36,40 @@ const Page0 = ({
 
             <div>
                 <h4>Question 1</h4>
-                <p>How hopeful and positive do you feel about your future?</p>
+                <p>{questions[0]}</p>
                 <RateButtons
-                    activeRatingIndex={answer1 - 1}
-                    onBtnClick={handleChangeAnswer1}
+                    activeRatingIndex={answers[0] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
                 <h4>Question 2</h4>
-                <p>
-                    How much do you experience happy, positive feelings in your
-                    daily life?
-                </p>
+                <p>{questions[1]}</p>
                 <RateButtons
-                    activeRatingIndex={answer2 - 1}
-                    onBtnClick={handleChangeAnswer2}
+                    activeRatingIndex={answers[1] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
                 <h4>Question 3</h4>
-                <p>How often do you feel depressed?</p>{" "}
+                <p>{questions[2]}</p>
                 <RateButtons
-                    activeRatingIndex={answer3 - 1}
-                    onBtnClick={handleChangeAnswer3}
+                    activeRatingIndex={answers[2] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
                 <h4>Question 4</h4>
-                <p>How much are you able to relax and enjoy yourself?</p>
+                <p>{questions[3]}</p>
                 <RateButtons
-                    activeRatingIndex={answer4 - 1}
-                    onBtnClick={handleChangeAnswer4}
+                    activeRatingIndex={answers[3] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>

@@ -1,13 +1,9 @@
 import React from "react";
 import RateButtons from "./components/RateButtons";
 
-const Page4 = ({ answer15, setAnswer15, answer16, setAnswer16 }) => {
-    const handleChangeAnswer15 = (index) => {
-        setAnswer15(index + 1);
-    };
-
-    const handleChangeAnswer16 = (index) => {
-        setAnswer16(index + 1);
+const Page4 = ({ questions, answers, setAnswers }) => {
+    const handleChangeAnswers = (index) => {
+        setAnswers([...answers, index + 1]);
     };
 
     return (
@@ -17,27 +13,21 @@ const Page4 = ({ answer15, setAnswer15, answer16, setAnswer16 }) => {
             </p>
 
             <div>
-                <h4> Question 15</h4>
-                <p>
-                    How confident you feel about your skills, and ability to
-                    find work or earning money using your vocational skills?
-                </p>
+                <h4> Question 11</h4>
+                <p>{questions[0]}</p>
                 <RateButtons
-                    activeRatingIndex={answer15 - 1}
-                    onBtnClick={handleChangeAnswer15}
+                    activeRatingIndex={answers[0] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
-                <h4> Question 16</h4>
-                <p>
-                    How often/much do you worry about your or your family's
-                    financial difficulties?
-                </p>
+                <h4> Question 12</h4>
+                <p>{questions[1]}</p>
                 <RateButtons
-                    activeRatingIndex={answer16 - 1}
-                    onBtnClick={handleChangeAnswer16}
+                    activeRatingIndex={answers[1] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>

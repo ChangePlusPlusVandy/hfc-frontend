@@ -2,6 +2,7 @@ import React from "react";
 import "./RateButtons.css";
 
 const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
+    console.log(activeRatingIndex);
     const buttonNames = [
         "Not at all",
         "Slightly",

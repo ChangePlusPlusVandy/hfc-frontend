@@ -1,24 +1,9 @@
 import React from "react";
 import RateButtons from "./components/RateButtons";
 
-const Page1 = ({
-    answer5,
-    setAnswer5,
-    answer6,
-    setAnswer6,
-    answer7,
-    setAnswer7,
-}) => {
-    const handleChangeAnswer5 = (index) => {
-        setAnswer5(index + 1);
-    };
-
-    const handleChangeAnswer6 = (index) => {
-        setAnswer6(index + 1);
-    };
-
-    const handleChangeAnswer7 = (index) => {
-        setAnswer7(index + 1);
+const Page1 = ({ questions, answers, setAnswers }) => {
+    const handleChangeAnswers = (index) => {
+        setAnswers([...answers, index + 1]);
     };
 
     return (
@@ -29,33 +14,30 @@ const Page1 = ({
 
             <div>
                 <h4> Question 5</h4>
-                <p>How much do you value yourself?</p>
+                <p>{questions[0]}</p>
                 <RateButtons
-                    activeRatingIndex={answer5 - 1}
-                    onBtnClick={handleChangeAnswer5}
+                    activeRatingIndex={answers[0] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
                 <h4> Question 6</h4>
-                <p>How well do you manage your stress and anxiety?</p>
+                <p>{questions[1]}</p>
                 <RateButtons
-                    activeRatingIndex={answer6 - 1}
-                    onBtnClick={handleChangeAnswer6}
+                    activeRatingIndex={answers[1] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>
 
             <div>
                 <h4> Question 7</h4>
-                <p>
-                    How strong are you in solving problems and making decisions
-                    for yourself?
-                </p>
+                <p>{questions[2]}</p>
                 <RateButtons
-                    activeRatingIndex={answer7 - 1}
-                    onBtnClick={handleChangeAnswer7}
+                    activeRatingIndex={answers[2] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>

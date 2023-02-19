@@ -1,36 +1,25 @@
 import React from "react";
 import RateButtons from "./components/RateButtons";
 
-const Page3 = ({
-    answer10,
-    setAnswer10,
-    answer11,
-    setAnswer11,
-    answer12,
-    setAnswer12,
-    answer13,
-    setAnswer13,
-    answer14,
-    setAnswer14,
-}) => {
-    const handleChangeAnswer10 = (event) => {
-        setAnswer10(event.target.value);
-    };
+const Page3 = ({ questions, answers, setAnswers }) => {
+    // const handleChangeAnswer10 = (event) => {
+    //     setAnswer10(event.target.value);
+    // };
 
-    const handleChangeAnswer11 = (event) => {
-        setAnswer11(event.target.value);
-    };
+    // const handleChangeAnswer11 = (event) => {
+    //     setAnswer11(event.target.value);
+    // };
 
-    const handleChangeAnswer12 = (event) => {
-        setAnswer12(event.target.value);
-    };
+    // const handleChangeAnswer12 = (event) => {
+    //     setAnswer12(event.target.value);
+    // };
 
-    const handleChangeAnswer13 = (event) => {
-        setAnswer13(event.target.value);
-    };
+    // const handleChangeAnswer13 = (event) => {
+    //     setAnswer13(event.target.value);
+    // };
 
-    const handleChangeAnswer14 = (index) => {
-        setAnswer14(index + 1);
+    const handleChangeAnswers = (index) => {
+        setAnswers([...answers, index + 1]);
     };
 
     return (
@@ -39,7 +28,7 @@ const Page3 = ({
                 Enter numeric value of response with the corresponding question.
             </p>
 
-            <div>
+            {/* <div>
                 <h4> Question 10</h4>
                 <p>What is your grade at school?</p>
                 <input
@@ -91,14 +80,14 @@ const Page3 = ({
                     value={answer13}
                 />
             </div>
-            <br></br>
+            <br></br> */}
 
             <div>
-                <h4> Question 14</h4>
-                <p>How satisfied are you with your skills and abilities?</p>
+                <h4> Question 10</h4>
+                <p>{questions[0]}</p>
                 <RateButtons
-                    activeRatingIndex={answer14 - 1}
-                    onBtnClick={handleChangeAnswer14}
+                    activeRatingIndex={answers[0] - 1}
+                    onBtnClick={handleChangeAnswers}
                 />
             </div>
             <br></br>

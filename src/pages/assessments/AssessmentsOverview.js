@@ -18,7 +18,6 @@ const AssesssmentsOverview = () => {
             const dateB = new Date(b.dateTaken);
             return dateB - dateA;
         });
-        console.log(data);
         setAssessments(data);
     };
 
@@ -63,6 +62,12 @@ const AssesssmentsOverview = () => {
                 aria-labelledby="list-heading"
             >
                 {assessments
+                    // default sort from new to old
+                    .sort(function (a, b) {
+                        const dateA = new Date(a.dateTaken);
+                        const dateB = new Date(b.dateTaken);
+                        return dateB - dateA;
+                    })
                     // .filter((value) => {
                     //     if (search == "") {
                     //         return value;

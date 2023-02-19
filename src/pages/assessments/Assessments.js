@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Assessments.css";
 
@@ -9,37 +10,27 @@ import Page3 from "./Page3";
 import Page4 from "./Page4";
 import FormProgressBar from "../../components/FormProgressBar";
 import FormNavBar from "../../components/FormNavBar";
-
-// const NUM_PAGES = 5;
+import PageReview from "./PageReview";
 
 const Assessments = () => {
     const [pageNum, setPageNum] = useState(0);
 
+    const navigate = useNavigate();
+
     // Mental Health Page 0
-    const [answer1, setAnswer1] = useState("");
-    const [answer2, setAnswer2] = useState("");
-    const [answer3, setAnswer3] = useState("");
-    const [answer4, setAnswer4] = useState("");
+    const [mentalHealthAnswers, setMentalHealthAnswers] = useState([]);
 
     // Life Skills Page 1
-    const [answer5, setAnswer5] = useState("");
-    const [answer6, setAnswer6] = useState("");
-    const [answer7, setAnswer7] = useState("");
+    const [lifeSkillsAnswers, setLifeSkillsAnswers] = useState([]);
 
     // Social Skills Page 2
-    const [answer8, setAnswer8] = useState("");
-    const [answer9, setAnswer9] = useState("");
+    const [socialSkillsAnswers, setSocialSkillsAnswers] = useState([]);
 
     // Education Page 3
-    const [answer10, setAnswer10] = useState("");
-    const [answer11, setAnswer11] = useState("");
-    const [answer12, setAnswer12] = useState("");
-    const [answer13, setAnswer13] = useState("");
-    const [answer14, setAnswer14] = useState("");
+    const [educationAnswers, setEducationAnswers] = useState([]);
 
     // Vocation Page 4
-    const [answer15, setAnswer15] = useState("");
-    const [answer16, setAnswer16] = useState("");
+    const [vocationAnswers, setVocationAnswers] = useState([]);
 
     const PAGES = [
         {
@@ -47,14 +38,9 @@ const Assessments = () => {
             shortName: "Mental Health",
             component: (
                 <Page0
-                    answer1={answer1}
-                    setAnswer1={setAnswer1}
-                    answer2={answer2}
-                    setAnswer2={setAnswer2}
-                    answer3={answer3}
-                    setAnswer3={setAnswer3}
-                    answer4={answer4}
-                    setAnswer4={setAnswer4}
+                    questions={meantalHealthQs}
+                    answers={mentalHealthAnswers}
+                    setAnswers={setMentalHealthAnswers}
                 />
             ),
         },
@@ -63,12 +49,9 @@ const Assessments = () => {
             shortName: "Life Skills",
             component: (
                 <Page1
-                    answer5={answer5}
-                    setAnswer5={setAnswer5}
-                    answer6={answer6}
-                    setAnswer6={setAnswer6}
-                    answer7={answer7}
-                    setAnswer7={setAnswer7}
+                    questions={lifeSkillsQs}
+                    answers={lifeSkillsAnswers}
+                    setAnswers={setLifeSkillsAnswers}
                 />
             ),
         },
@@ -77,10 +60,9 @@ const Assessments = () => {
             shortName: "Social Skills",
             component: (
                 <Page2
-                    answer8={answer8}
-                    setAnswer8={setAnswer8}
-                    answer9={answer9}
-                    setAnswer9={setAnswer9}
+                    questions={socialSkillsQs}
+                    answers={socialSkillsAnswers}
+                    setAnswers={setSocialSkillsAnswers}
                 />
             ),
         },
@@ -89,16 +71,9 @@ const Assessments = () => {
             shortName: "Education",
             component: (
                 <Page3
-                    answer10={answer10}
-                    setAnswer10={setAnswer10}
-                    answer11={answer11}
-                    setAnswer11={setAnswer11}
-                    answer12={answer12}
-                    setAnswer12={setAnswer12}
-                    answer13={answer13}
-                    setAnswer13={setAnswer13}
-                    answer14={answer14}
-                    setAnswer14={setAnswer14}
+                    questions={educationQs}
+                    answers={educationAnswers}
+                    setAnswers={setEducationAnswers}
                 />
             ),
         },
@@ -107,10 +82,27 @@ const Assessments = () => {
             shortName: "Vocation",
             component: (
                 <Page4
-                    answer15={answer15}
-                    setAnswer15={setAnswer15}
-                    answer16={answer16}
-                    setAnswer16={setAnswer16}
+                    questions={vocationQs}
+                    answers={vocationAnswers}
+                    setAnswers={setVocationAnswers}
+                />
+            ),
+        },
+        {
+            title: "Review",
+            shortName: "review",
+            component: (
+                <PageReview
+                    mentalHealthQs={meantalHealthQs}
+                    mentalHealthAnswers={mentalHealthAnswers}
+                    lifeSkillsQs={lifeSkillsQs}
+                    lifeSkillsAnswers={lifeSkillsAnswers}
+                    socialSkillsQs={socialSkillsQs}
+                    socialSillsAnswers={socialSkillsAnswers}
+                    educationQs={educationQs}
+                    educationAnswers={educationAnswers}
+                    vocationQs={vocationQs}
+                    vocationAnswers={vocationAnswers}
                 />
             ),
         },
@@ -125,26 +117,16 @@ const Assessments = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                answer1: answer1,
-                answer2: answer2,
-                answer3: answer3,
-                answer4: answer4,
-                answer5: answer5,
-                answer6: answer6,
-                answer7: answer7,
-                answer8: answer8,
-                answer9: answer9,
-                answer10: answer10,
-                answer11: answer11,
-                answer12: answer12,
-                answer13: answer13,
-                answer14: answer14,
-                answer15: answer15,
-                answer16: answer16,
+                mentalHealthAnswers: mentalHealthAnswers,
+                lifeSkillsAnswers: lifeSkillsAnswers,
+                socialSkillsAnswers: socialSkillsAnswers,
+                educationAnswers: educationAnswers,
+                vocationAnswers: vocationAnswers,
             }),
         });
         console.log("Successful.");
         console.log(response.json());
+        navigate(-1); // to the overview page
     };
 
     return (
@@ -166,4 +148,28 @@ const Assessments = () => {
     );
 };
 
+const meantalHealthQs = [
+    "How hopeful and positive do you feel about your future?",
+    "How much do you experience happy, positive feelings in your daily life?",
+    "How often do you feel depressed?",
+    "How much are you able to relax and enjoy yourself?",
+];
+
+const lifeSkillsQs = [
+    "How much do you value yourself?",
+    "How well do you manage your stress and anxiety?",
+    "How strong are you in solving problems and making decisions for yourself?",
+];
+
+const socialSkillsQs = [
+    "How much do you feel that loneliness is a problem for you?",
+    "Are you able to get the kind of support from others that you need?",
+];
+
+const educationQs = ["How satisfied are you with your skills and abilities?"];
+
+const vocationQs = [
+    "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
+    "How often/much do you worry about your or your family's financial difficulties?",
+];
 export default Assessments;
