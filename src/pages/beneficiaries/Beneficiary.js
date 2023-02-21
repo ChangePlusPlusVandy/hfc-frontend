@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import CreatableSelect from "react-select/creatable";
 
 const Beneficiary = () => {
     const { beneficiaryId } = useParams();
@@ -14,9 +15,12 @@ const Beneficiary = () => {
     const [languages, setLanguages] = useState([]);
     const [phone, setPhone] = useState();
     const [archived, setArchived] = useState(false);
+    const [id, setId] = useState();
 
     const handleToggleEditMode = () => {
         setEditing((prev) => !prev);
+        if (!editing) {
+        }
     };
 
     const handleChangeFirstName = (event) => {
@@ -39,8 +43,8 @@ const Beneficiary = () => {
         setEmail(event.target.value);
     };
 
-    const handleChangeLanguages = (event) => {
-        setLanguages(event.target.value);
+    const handleChangeLanguages = (data) => {
+        setLanguages(data);
     };
 
     const handleChangePhone = (event) => {
@@ -56,21 +60,30 @@ const Beneficiary = () => {
         console.log(archived);
     };
 
+    const languageOpts = [
+        { value: "english", label: "English" },
+        { value: "mandarin", label: "Mandarin" },
+        { value: "french", label: "French" },
+    ];
+
     const handleSubmit = () => {
+        const body = JSON.stringify({
+            id,
+            firstName,
+            lastName,
+            phone,
+            email,
+            languages: languages.map((option) => option.value),
+            archived,
+            bday,
+            address,
+        });
+        console.log(body);
         fetch(`http://localhost:3000/beneficiaries/${beneficiaryId}`, {
             // this may be /beneficiary but either way doesn't work
             method: "PUT",
-            body: JSON.stringify({
-                id: beneficiaryId,
-                firstName,
-                lastName,
-                phone,
-                email,
-                languages,
-                archived,
-                bday,
-                address,
-            }),
+            headers: { "Content-Type": "application/json" },
+            body,
         })
             .then((response) => console.log(response))
             .catch((error) => console.log(error));
@@ -86,14 +99,16 @@ const Beneficiary = () => {
                 setEmail(data.email);
                 setPhone(data.phone);
                 setAddress(data.address);
-                setLanguages(data.languages);
+                setLanguages(data.languages.map((option) => option.value));
                 setBday(data.bday);
                 setArchived(data.archived);
+                setId(data.id);
                 console.log(data);
             })
             .catch((error) => console.log(error));
     }, []);
 
+    console.log(languageOpts, languages);
     return (
         <div className="beneficiary-page-container">
             <p> {beneficiaryId} </p>
@@ -180,10 +195,12 @@ const Beneficiary = () => {
                 {" "}
                 Languages:{" "}
                 {editing ? (
-                    <input
-                        placeholder="Languages"
+                    <CreatableSelect
+                        name="Languages"
                         value={languages}
                         onChange={handleChangeLanguages}
+                        isMulti
+                        options={languageOpts}
                     />
                 ) : (
                     beneficiary.languages

@@ -7,12 +7,27 @@
 
 .beneficiaries-page-container .beneficiaries-page-header {
     width: 800px;
+    height: 40px;
+    float: left;
+    border: 5px solid #00ff00;
 }
 
-.beneficiaries-page-header .search-bar {
+.beneficiaries-page-container .beneficiaries-page-header .filter-dropdown {
+    width: 200px;
+    float: left;
+    height: 40px;
+}
+
+.beneficiaries-page-container .beneficiaries-page-header .sort-dropdown {
+    width: 200px;
+    float: left;
+    height: 40px;
+}
+
+.beneficiaries-page-header .beneficiaries-page-header .search-bar {
     float: left;
     width: 200px;
-    height: 20px;
+    height: 40px;
     border: 5px solid #00ff00;
 }
 
@@ -20,6 +35,7 @@
     width: 800px;
 }
 
+/*
 .beneficiaries-page-header .sort-btn-group {
     border: 8px solid #332148;
     margin-left: 200px;
@@ -45,3 +61,4 @@
     height: 20px;
     width: 200px;
 }
+*/
