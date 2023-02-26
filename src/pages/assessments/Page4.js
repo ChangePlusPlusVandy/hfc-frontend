@@ -13,6 +13,12 @@ const Page4 = ({ questions, answers, setAnswers }) => {
         console.log(answers);
     };
 
+    const handleChangeAnswer3 = (index) => {
+        answers[2] = index + 1;
+        setAnswers(answers);
+        console.log(answers);
+    };
+
     return (
         <div className="form-container">
             <p>
@@ -32,6 +38,13 @@ const Page4 = ({ questions, answers, setAnswers }) => {
                 question={questions[1]}
                 answer={answers[1]}
                 setAnswer={handleChangeAnswer2}
+            />
+
+            <Question
+                questionNum={13}
+                question={questions[2]}
+                answer={answers[2]}
+                setAnswer={handleChangeAnswer3}
             />
         </div>
     );

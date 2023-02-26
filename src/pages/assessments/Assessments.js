@@ -32,6 +32,14 @@ const Assessments = () => {
     // Vocation Page 4
     const [vocationAnswers, setVocationAnswers] = useState([]);
 
+    // Revew Page
+    const [mentalHealthScore, setMentalHealthScore] = useState();
+    const [lifeSkillsScore, setLifeSkillsScore] = useState();
+    const [socialSkillsScore, setSocialSkillsScore] = useState();
+    const [educationScore, setEductionScore] = useState();
+    const [vocationScore, setVocationScore] = useState();
+    const [totalScore, setTotalScore] = useState();
+
     const PAGES = [
         {
             title: "Mental Health Questionnaire",
@@ -103,6 +111,18 @@ const Assessments = () => {
                     educationAnswers={educationAnswers}
                     vocationQs={vocationQs}
                     vocationAnswers={vocationAnswers}
+                    mentalHealthScore={mentalHealthScore}
+                    setMentalHealthScore={setMentalHealthScore}
+                    lifeSkillsScore={lifeSkillsScore}
+                    setLifeSkillsScore={setLifeSkillsScore}
+                    socialSkillsScore={socialSkillsScore}
+                    setSocialSkillsScore={setSocialSkillsScore}
+                    educationScore={educationScore}
+                    setEducationScore={setEductionScore}
+                    vocationScore={vocationScore}
+                    setVocationScore={setVocationScore}
+                    totalScore={totalScore}
+                    setTotalScore={setTotalScore}
                 />
             ),
         },
@@ -122,6 +142,12 @@ const Assessments = () => {
                 socialSkillsAnswers: socialSkillsAnswers,
                 educationAnswers: educationAnswers,
                 vocationAnswers: vocationAnswers,
+                mentalHealthScore: mentalHealthScore,
+                lifeSkillsScore: lifeSkillsScore,
+                socialSkillsScore: socialSkillsScore,
+                educationScore: educationScore,
+                vocationScore: vocationScore,
+                totalScore: totalScore,
             }),
         });
         console.log("Successful.");
@@ -173,5 +199,6 @@ export const educationQs = [
 export const vocationQs = [
     "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
     "How often/much do you worry about your or your family's financial difficulties?",
+    "How satisfied are you with your skills and abilities?",
 ];
 export default Assessments;

@@ -87,8 +87,8 @@ const Page3 = ({ questions, answers, setAnswers }) => {
             <Question
                 questionNum={10}
                 question={questions[0]}
-                rating={answers[0]}
-                setRating={handleChangeAnswer1}
+                answer={answers[0]}
+                setAnswer={handleChangeAnswer1}
             />
             <br></br>
 
