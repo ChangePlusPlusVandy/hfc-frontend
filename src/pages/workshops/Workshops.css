@@ -1,3 +1,26 @@
+.modal-container {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    position: relative;
+    margin: auto;
+    color: black;
+    width:50%;
+    top: 10%;
+    height: auto;
+    background-color: white;
+    padding: 10px;
+}
+
+
+
 .workshops-page-container {
     padding: 30px;
 }
@@ -13,29 +36,51 @@
     margin: 1rem;
     text-decoration: none;
     color: black;
-}
+    width: 100%
 
+    
+}
+.workshops-page-container
 .workshops-page-container .workshops-list-container {
     border: 3px solid black;
     flex-wrap: wrap;
-    gap: 30px;
     justify-content: center;
 }
 
 .workshops-page-container .workshops-card {
     color: black;
-    display: flex;
-    border: 1px solid white;
+    display: table-cell;
+    border-bottom: 1px solid black ;
     padding: 5px;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    text-decoration: none;
+    color: black;
+    width: 80rem;
 }
 
-.workshops-page-container .workshops-card > h3,
+.workshops-page-container .workshops-card > h3{
+    color: black;
+    font-weight:bold;
+    width: 15rem;
+    display: inline-block;
+    height: 5%;
+    align-items: top;
+}
 .workshops-page-container .workshops-card > h4,
-.workshops-page-container .workshops-card > h5,
+.workshops-page-container .workshops-card > h5{
+    color: black;
+    font-weight:normal;
+    width: 15rem;
+    display: inline-block;
+    height: 5%;
+    align-items: top;
+}
+
 .workshops-page-container .workshops-card > button {
     margin: 3px;
     color: black;
-    align-items: right;
+    display: inline-block;
 }
 
 .workshops-page-container .button:hover {

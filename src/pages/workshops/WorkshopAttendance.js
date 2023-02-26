@@ -12,16 +12,25 @@ export const WorkshopAttendance = () => {
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [registered, setRegistered] = useState(0);
     const [ratingPoints, setRatingPoints] = useState(0);
+    const [benIDs, setBenIds]=useState([])
+    const [message, setMessage]=useState("")
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
         setTotalAttendees(totalAttendees + 1);
         setidMode(true);
     };
     const handleIDNumber = (event) => {
-        //todo: verify ID numbers
-        setRegistered(registered + 1);
-        setidMode(false);
-        console.log(totalAttendees + " " + registered + ratingPoints);
+        console.log(id)
+        console.log(benIDs)
+        if(benIDs.includes(id)){
+            setRegistered(registered + 1);
+            setidMode(false);
+            setMessage("")
+        }
+        else{
+            setMessage("ID number is not valid. Please try again, or click skip.")
+        }
+        
     };
     const submitAttendance = () => {
         if (totalAttendees > 0) {
@@ -58,6 +67,11 @@ export const WorkshopAttendance = () => {
                     setRatingPoints(data[0].rating * data[0].numAttendees);
                 }
             });
+        fetch("http://localhost:3000/beneficiaries")
+        .then((response) => response.json())
+            .then((data) => {
+                setBenIds(data.map(item=>Number(item.id)));
+            });
     }, []);
     return (
         <div className="workshops-page-container">
@@ -68,12 +82,13 @@ export const WorkshopAttendance = () => {
                     <input
                         type="Number"
                         id="BeneficiaryID"
-                        onChange={(e) => setID(e.target.value)}
+                        onChange={(e) => setID(Number(e.target.value))}
                     />
                     <button onClick={handleIDNumber} className="submit-button">
                         Submit
                     </button>
                     <button onClick={(e) => setidMode(false)}>Skip</button>
+                    {message}
                 </div>
             ) : (
                 <div className="workshops-list-container">
@@ -92,11 +107,12 @@ export const WorkshopAttendance = () => {
                         3
                     </button>
                     <br></br>
-                </div>
-            )}
-            <button onClick={submitAttendance} className="button">
+                    <button onClick={submitAttendance} className="button">
                 Submit
             </button>
+                </div>
+            )}
+
         </div>
     );
 };

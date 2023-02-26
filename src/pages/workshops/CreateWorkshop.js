@@ -5,7 +5,7 @@ import { json, Link } from "react-router-dom";
 import Select from "react-select";
 import "./Workshops.css";
 
-export const WorkshopCreateForm = () => {
+export const WorkshopCreateForm = (props) => {
     const [message, setMessage] = useState("");
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -73,6 +73,8 @@ export const WorkshopCreateForm = () => {
                             console.log("Post successful! Response:");
                             console.log(data);
                             setMessage("Workshop created successfully!");
+                            props.onClose();
+
                         } else {
                             setMessage("Error: " + data);
                         }
@@ -88,8 +90,8 @@ export const WorkshopCreateForm = () => {
     };
 
     return (
-        <div className="workshops-page-container">
-            <h3>Create a Workshop</h3>
+        <div className="modal-container">
+            <div className="modal-body">
             <div>Workshop Title</div>
             <input
                 type="text"
@@ -108,7 +110,7 @@ export const WorkshopCreateForm = () => {
             <br />
             <div className="dropdown-container">
                 <label>
-                    Hosts
+                    Hosts 
                     <br />
                     <Select
                         options={hostOptions}
@@ -118,9 +120,9 @@ export const WorkshopCreateForm = () => {
                         isSearchable={true}
                         isMulti
                     />
-                    {`${hosts}`}
                 </label>
             </div>
+            <br></br>
             <div>Workshop Date</div>
             <input type="date" id="Date" onChange={handleDateChange} />
             <br />
@@ -130,6 +132,7 @@ export const WorkshopCreateForm = () => {
                 Create
             </button>
             <div>{message}</div>
+            </div>
         </div>
     );
 };

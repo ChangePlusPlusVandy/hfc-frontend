@@ -2,15 +2,25 @@ import React, { useEffect, useState } from "react";
 import "./Workshops.css";
 import Select from "react-select";
 import { Link } from "react-router-dom";
-
+import { WorkshopCreateForm } from "./CreateWorkshop";
 export const WorkshopsList = () => {
+    const [showPopup, setShowPopup] = useState(false);
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
     const [filteredWorkshops, setFilteredWorkshops] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
     const [hostOptions, setHostOptions] = useState([]);
+    const [reload, setReload]=useState(0)
     // Fetch workshops
+    const handleCreate=()=>{
+        setShowPopup(true);
+    }
+    const handleClosePopup=()=>{
+        setShowPopup(false);
+        setReload(reload+1)
+
+    }
     const getWorkshops = () => {
         fetch("http://localhost:3000/workshops")
             .then((response) => response.json())
@@ -39,8 +49,9 @@ export const WorkshopsList = () => {
                                 }
                             }
                         }
+                        setWorkshops(data)
                         setHostOptions(tempOptions);
-                        setWorkshops(data);
+                        sortWorkshops("alphabetical", data);
                         filterWorkshops(data, search, filter);
                     });
             });
@@ -48,7 +59,7 @@ export const WorkshopsList = () => {
 
     useEffect(() => {
         getWorkshops();
-    }, []);
+    }, [reload]);
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -57,7 +68,7 @@ export const WorkshopsList = () => {
 
     const handleSortValChange = (e) => {
         setSortBy(e.target.value);
-        sortWorkshops(e.target.value);
+        sortWorkshops(e.target.value, workshops);
     };
 
     const handleFilterChange = (e) => {
@@ -65,20 +76,22 @@ export const WorkshopsList = () => {
         filterWorkshops(workshops, search, e.value);
     };
 
-    const sortWorkshops = (sort) => {
+    const sortWorkshops = (sort, ws) => {
         if (sort == "alphabetical") {
-            workshops.sort((item1, item2) => {
+            ws.sort((item1, item2) => {
                 return item1.title.localeCompare(item2.title);
             });
         } else if (sort == "dateAdded") {
-            workshops.sort((item1, item2) => {
+            ws.sort((item1, item2) => {
                 return item1._id.localeCompare(item2._id);
             });
         }
-        filterWorkshops(workshops, search, filter);
+        setWorkshops(ws)
+        filterWorkshops(ws, search, filter);
     };
 
     const filterWorkshops = (ws, srch, fltr) => {
+        console.log(ws, srch, fltr)
         let temp = ws.filter((item) => {
             if (fltr == "archived" && !item.archived) {
                 return false;
@@ -90,16 +103,20 @@ export const WorkshopsList = () => {
                 !srch || item.title.toLowerCase().includes(srch.toLowerCase())
             );
         });
+        console.log(temp)
         setFilteredWorkshops(temp);
     };
 
     return (
         <div className="workshops-page-container">
-            <h1>Workshops:</h1>
+            
+            <h1>Workshop Overview</h1>
+            <button onClick={handleCreate}>Create Workshop</button>
+            {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
             <div className="sortAndSearch">
                 <div
                     className="sortIndicator"
-                    onChange={(e) => handleSortValChange(e)}
+                    onChange={handleSortValChange}
                 >
                     <h3>Sort By:</h3>
                     <input type="radio" value="dateAdded" name="sortVal" />
@@ -128,40 +145,52 @@ export const WorkshopsList = () => {
                     />
                 </div>
             </div>
-            <div className="workshops-list-container">
-                {filteredWorkshops.map((item, i) => (
-                    <div key={i} className="workshops-card">
-                        <h3> {item.title} &emsp;</h3>
-                        <h5>
-                            {item.archived ? <>ARCHIVED</> : <>ACTIVE</>} &emsp;
-                        </h5>
-                        <h5> Description: {item.description}</h5>
-                        <h5>
-                            {" "}
-                            {item.hosts.length > 0 ? (
-                                <>Hosts: {item.hosts.join(", ")}</>
-                            ) : (
-                                <></>
-                            )}
-                        </h5>
+            <br></br>
+                <div className="workshops-list-container">
+                    <div className="workshops-card">
+            <h3> TITLE</h3>
 
-                        <Link
-                            className="button"
+        <h3> DATE</h3>
+        <h3>HOSTS
+        
+</h3>
+<h3>
+    STATUS
+</h3>
+</div>
+</div>
+            <div className="workshops-list-container" >
+                {filteredWorkshops.map((item, i) => (
+                    <div key={i} >
+                    <Link
+                            className="workshops-card"
                             to="./singleview"
                             state={{
                                 id: item._id,
                             }}
                         >
-                            View Workshop
+                        <h4> {item.title}</h4>
+
+                        <h4> {item.date}</h4>
+                        <h4>
+                            {" "}
+                            {item.hosts.length > 0 ? (
+                                <>{item.hosts.join(", ")}</>
+                            ) : (
+                                <>none</>
+                            )}
+                        </h4>
+                        <h4>
+                            {item.archived ? <>ARCHIVED</> : <>ACTIVE</>} &emsp;
+                        </h4>
                         </Link>
                     </div>
                 ))}
             </div>
             <br></br>
             <br></br>
-            <Link className="button" to="./create">
-                Create Workshop
-            </Link>
+            
+            
         </div>
     );
 };

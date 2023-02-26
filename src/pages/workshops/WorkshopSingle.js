@@ -14,7 +14,7 @@ export const WorkshopSingle = () => {
     const [updateWorkTitle, setUpdateWorkTitle] = useState("");
     const [updateWorkDesc, setUpdateWorkDesc] = useState("");
     const [updateWorkHosts, setUpdateWorkHosts] = useState([]);
-    const [updateWorkStatus, setUpdateWorkStatus] = useState();
+    const [updateWorkStatus, setUpdateWorkStatus] = useState(false);
     const [updateDate, setUpdateDate] = useState(new Date());
     const [editMode, setEditMode] = useState(false);
     const [hostOptions, setHostOptions] = useState([]);
@@ -22,9 +22,11 @@ export const WorkshopSingle = () => {
         const requestOptions = {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-        };
+            body: JSON.stringify({
+                workshopID,
+        })};
         fetch(
-            "http://localhost:3000/workshops?_id=" + workshopID,
+            "http://localhost:3000/workshops",
             requestOptions
         );
     };
@@ -45,8 +47,8 @@ export const WorkshopSingle = () => {
                     date: updateDate,
                 },
             }),
+            
         };
-        console.log(requestOptions);
         fetch("http://localhost:3000/workshops", requestOptions).then(
             (response) => {
                 setEditMode(false);
@@ -203,6 +205,9 @@ export const WorkshopSingle = () => {
                             <h3>
                                 {workshop.numAttendees ? (
                                     <>
+                                        Attendees:{" "}
+                                        {workshop.numAttendees}
+                                        <br></br>
                                         Registered Attendees:{" "}
                                         {workshop.numRegistered}
                                         <br></br>
@@ -210,7 +215,7 @@ export const WorkshopSingle = () => {
                                         {workshop.numAttendees -
                                             workshop.numRegistered}
                                         <br></br>
-                                        Rating: {workshop.rating}
+                                        Rating: {workshop.rating.toFixed(2)}
                                     </>
                                 ) : (
                                     <></>
