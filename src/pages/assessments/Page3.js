@@ -1,5 +1,5 @@
 import React from "react";
-import RateButtons from "./components/RateButtons";
+import Question from "./components/question";
 
 const Page3 = ({ questions, answers, setAnswers }) => {
     // const handleChangeAnswer10 = (event) => {
@@ -18,8 +18,10 @@ const Page3 = ({ questions, answers, setAnswers }) => {
     //     setAnswer13(event.target.value);
     // };
 
-    const handleChangeAnswers = (index) => {
-        setAnswers([...answers, index + 1]);
+    const handleChangeAnswer1 = (index) => {
+        answers[0] = index + 1;
+        setAnswers(answers);
+        console.log(answers);
     };
 
     return (
@@ -82,14 +84,14 @@ const Page3 = ({ questions, answers, setAnswers }) => {
             </div>
             <br></br> */}
 
-            <div>
-                <h4> Question 10</h4>
-                <p>{questions[0]}</p>
-                <RateButtons
-                    activeRatingIndex={answers[0] - 1}
-                    onBtnClick={handleChangeAnswers}
-                />
-            </div>
+            <Question
+                questionNum={10}
+                question={questions[0]}
+                rating={answers[0]}
+                setRating={handleChangeAnswer1}
+            />
+            <br></br>
+
             <br></br>
         </div>
     );

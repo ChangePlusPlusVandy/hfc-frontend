@@ -14,7 +14,6 @@ const PageReview = ({
 }) => {
     return (
         <div className="review-form-container">
-            <h1>Review</h1>
             <h4>Mental Health Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
                 {mentalHealthQs.map((q, i) => (

@@ -38,7 +38,7 @@ const Assessments = () => {
             shortName: "Mental Health",
             component: (
                 <Page0
-                    questions={meantalHealthQs}
+                    questions={mentalHealthQs}
                     answers={mentalHealthAnswers}
                     setAnswers={setMentalHealthAnswers}
                 />
@@ -90,10 +90,10 @@ const Assessments = () => {
         },
         {
             title: "Review",
-            shortName: "review",
+            shortName: "Review",
             component: (
                 <PageReview
-                    mentalHealthQs={meantalHealthQs}
+                    mentalHealthQs={mentalHealthQs}
                     mentalHealthAnswers={mentalHealthAnswers}
                     lifeSkillsQs={lifeSkillsQs}
                     lifeSkillsAnswers={lifeSkillsAnswers}
@@ -148,27 +148,29 @@ const Assessments = () => {
     );
 };
 
-const meantalHealthQs = [
+export const mentalHealthQs = [
     "How hopeful and positive do you feel about your future?",
     "How much do you experience happy, positive feelings in your daily life?",
     "How often do you feel depressed?",
     "How much are you able to relax and enjoy yourself?",
 ];
 
-const lifeSkillsQs = [
+export const lifeSkillsQs = [
     "How much do you value yourself?",
     "How well do you manage your stress and anxiety?",
     "How strong are you in solving problems and making decisions for yourself?",
 ];
 
-const socialSkillsQs = [
+export const socialSkillsQs = [
     "How much do you feel that loneliness is a problem for you?",
     "Are you able to get the kind of support from others that you need?",
 ];
 
-const educationQs = ["How satisfied are you with your skills and abilities?"];
+export const educationQs = [
+    "How satisfied are you with your skills and abilities?",
+];
 
-const vocationQs = [
+export const vocationQs = [
     "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
     "How often/much do you worry about your or your family's financial difficulties?",
 ];

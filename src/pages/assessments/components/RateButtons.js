@@ -2,7 +2,7 @@ import React from "react";
 import "./RateButtons.css";
 
 const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
-    console.log(activeRatingIndex);
+    console.log("activeRatingIndex: ", activeRatingIndex);
     const buttonNames = [
         "Not at all",
         "Slightly",
@@ -10,6 +10,11 @@ const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
         "Very much",
         "Extremely",
     ];
+
+    // const handleClick = (index) => {
+    //     onBtnClick(index);
+    //     activeRatingIndex = index;
+    // };
 
     return (
         <div className="form-rate-btns-container">
@@ -22,6 +27,7 @@ const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
                                     index === activeRatingIndex ? " active" : ""
                                 }`}
                                 onClick={() => onBtnClick(index)}
+                                // onClick={() => handleClick(index)}
                             >
                                 <div className="form-rate-btn-circle">
                                     {index + 1}

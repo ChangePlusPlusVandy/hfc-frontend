@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import SingleAssessment from "./components/SingleAssessment";
 
 const AssesssmentsOverview = () => {
     const [assessments, setAssessments] = useState([]);
@@ -83,25 +84,17 @@ const AssesssmentsOverview = () => {
                     //         return value;
                     //     }
                     // })
-                    .map(
-                        (item) => (
-                            <li> {item.dateTaken}</li>
-                        )
-
-                        // <SingleBenficiary
-                        //     id={item.id}
-                        //     firstName={item.firstName}
-                        //     lastName={item.lastName}
-                        //     gender={item.gender}
-                        //     phone={item.phone}
-                        //     email={item.email}
-                        //     bday={item.bday}
-                        //     archived={item.archived}
-                        //     key={item.id}
-                        //     mongoKey={item._id}
-                        //     deleteBfc={deleteBfc}
-                        // />
-                    )}
+                    .map((item) => (
+                        <SingleAssessment
+                            dateTaken={item.dateTaken}
+                            mentalHealthAnswers={item.mentalHealthAnswers}
+                            lifeSkillsAnswers={item.lifeSkillsAnswers}
+                            socialSkillsAnswers={item.socialSkillsAnswers}
+                            educationAnswers={item.educationAnswers}
+                            vocationAnswers={item.vocationAnswers}
+                            mongoKey={item._id}
+                        />
+                    ))}
             </ul>
         </div>
     );

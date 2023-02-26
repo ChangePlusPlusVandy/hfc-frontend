@@ -1,9 +1,28 @@
 import React from "react";
-import RateButtons from "./components/RateButtons";
+import Question from "./components/question";
 
 const Page1 = ({ questions, answers, setAnswers }) => {
-    const handleChangeAnswers = (index) => {
-        setAnswers([...answers, index + 1]);
+    // const handleChangeAnswers = (index) => {
+    //     // console.log("index:", index);
+    //     setAnswers([...answers, index + 1]);
+    // };
+
+    const handleChangeAnswer1 = (index) => {
+        answers[0] = index + 1;
+        setAnswers(answers);
+        console.log(answers);
+    };
+
+    const handleChangeAnswer2 = (index) => {
+        answers[1] = index + 1;
+        setAnswers(answers);
+        console.log(answers);
+    };
+
+    const handleChangeAnswer3 = (index) => {
+        answers[2] = index + 1;
+        setAnswers(answers);
+        console.log(answers);
     };
 
     return (
@@ -12,17 +31,29 @@ const Page1 = ({ questions, answers, setAnswers }) => {
                 Enter numeric value of response with the corresponding question.
             </p>
 
-            <div>
-                <h4> Question 5</h4>
-                <p>{questions[0]}</p>
-                <RateButtons
-                    activeRatingIndex={answers[0] - 1}
-                    onBtnClick={handleChangeAnswers}
-                />
-            </div>
+            <Question
+                questionNum={5}
+                question={questions[0]}
+                answer={answers[0]}
+                setAnswer={handleChangeAnswer1}
+            />
             <br></br>
 
-            <div>
+            <Question
+                questionNum={6}
+                question={questions[1]}
+                answer={answers[1]}
+                setAnswer={handleChangeAnswer2}
+            />
+
+            <Question
+                questionNum={7}
+                question={questions[2]}
+                answer={answers[2]}
+                setAnswer={handleChangeAnswer3}
+            />
+
+            {/* <div>
                 <h4> Question 6</h4>
                 <p>{questions[1]}</p>
                 <RateButtons
@@ -30,16 +61,16 @@ const Page1 = ({ questions, answers, setAnswers }) => {
                     onBtnClick={handleChangeAnswers}
                 />
             </div>
-            <br></br>
+            <br></br> */}
 
-            <div>
+            {/* <div>
                 <h4> Question 7</h4>
                 <p>{questions[2]}</p>
                 <RateButtons
                     activeRatingIndex={answers[2] - 1}
                     onBtnClick={handleChangeAnswers}
                 />
-            </div>
+            </div> */}
             <br></br>
         </div>
     );
