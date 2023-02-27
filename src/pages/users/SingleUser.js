@@ -38,13 +38,13 @@ const SingleUser = () => {
             const res = await fetch(
                 `http://localhost:3000/users?firebaseUID=${fbId}`
             );
-            const mongoUser = await res.json()
-            setIsAdmin(parseInt(mongoUser[0].level) == 3)
+            const mongoUser = await res.json();
+            setIsAdmin(parseInt(mongoUser[0].level) == 3);
         } catch (err) {
             console.error(err);
             console.log(err.message);
-        } 
-    }
+        }
+    };
 
     const getMongoUser = async (fbId) => {
         try {
@@ -71,7 +71,7 @@ const SingleUser = () => {
         if (fbuser) {
             if (!isCurrentUser) {
                 console.log(fbuser.uid, "g", user.fbUid);
-                checkAdminStatus(fbuser.uid)
+                checkAdminStatus(fbuser.uid);
                 setisCurrentUser(fbuser.uid == user.fbUid || isAdmin);
             }
         } else {

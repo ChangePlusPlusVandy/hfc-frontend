@@ -8,7 +8,7 @@
 .left {
     width: 50%;
     height: 100vh;
-    background-color: rgb(191,191,191);
+    background-color: rgb(191, 191, 191);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,38 +22,34 @@
     flex-direction: column;
     align-items: center;
     justify-self: center;
-
 }
 
-
 .form input[type="text"] {
-    border: 1px solid rgb(0,0,0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 50px;
     width: 50%;
-    padding: .5rem;
-    margin: .5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
 }
 
 .form input[type="password"] {
-    border: 1px solid rgb(0,0,0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 50px;
     width: 50%;
-    padding: .5rem;
+    padding: 0.5rem;
     margin-bottom: 0;
 }
 
-
 .submit-btn {
-    background-color: rgb(217,217,217);
+    background-color: rgb(217, 217, 217);
     cursor: pointer;
     border: none !important;
     width: 30%;
     border-radius: 25px;
-    padding: .8rem;
-    
+    padding: 0.8rem;
 }
 
-.title { 
+.title {
     font-weight: 600;
     color: black;
     text-align: left;
@@ -62,30 +58,29 @@
     font-size: 1.7rem;
 }
 
-
 .forgot-password {
     text-align: right;
     width: 50%;
     padding-top: 0;
     margin-top: 5px;
-    color: rgb(136,136,136);
-    font-size: .8rem;
+    color: rgb(136, 136, 136);
+    font-size: 0.8rem;
     cursor: pointer;
     margin-bottom: 10px;
 }
 
-.alt-login { 
-    color: rgb(136,136,136); 
-    font-size: .8rem;
+.alt-login {
+    color: rgb(136, 136, 136);
+    font-size: 0.8rem;
 }
 
 .divider {
     margin-top: 1rem;
     width: 30%;
     height: 0.1rem;
-    border-radius: .2rem;
+    border-radius: 0.2rem;
     border: none;
-    background: rgb(136,136,136);
+    background: rgb(136, 136, 136);
     margin-left: 1rem;
     margin-right: 1rem;
 }

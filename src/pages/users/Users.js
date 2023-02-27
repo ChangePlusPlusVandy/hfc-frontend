@@ -7,9 +7,9 @@ import DefaultUser from "../../../src/assets/images/default-user.png";
 
 const SORT_OPTIONS = [
     { value: "FNAZ", label: "First Name A-Z" },
-    {value: "FNZA", label: "First Name Z-A"},
-    {value: "LNAZ", label: "Last Name A-Z"},
-    {value: "LNZA", label: "Last Name Z-A"},
+    { value: "FNZA", label: "First Name Z-A" },
+    { value: "LNAZ", label: "Last Name A-Z" },
+    { value: "LNZA", label: "Last Name Z-A" },
     { value: "DATE", label: "Date" },
 ];
 
@@ -51,15 +51,14 @@ const Users = () => {
     };
 
     const parseValueAndSetFilter = (value) => {
-        let res = []
-        value.forEach(item => {
-            res.push(item.value)
-        })
-        return res
-    }
+        let res = [];
+        value.forEach((item) => {
+            res.push(item.value);
+        });
+        return res;
+    };
 
-
-    const sortByName = (first,az) => {
+    const sortByName = (first, az) => {
         let data = [...users];
         if (first) {
             data.sort((a, b) => a.firstName.localeCompare(b.firstName));
@@ -71,7 +70,6 @@ const Users = () => {
         } else {
             setUsers(data.reverse());
         }
-        
     };
 
     const sortByDate = () => {
@@ -89,15 +87,14 @@ const Users = () => {
         if (e == [] || e.length == 0) {
             return;
         } else if (e[0].value == "FNAZ") {
-            sortByName(true,true);
+            sortByName(true, true);
         } else if (e[0].value == "LNAZ") {
-            sortByName(false,true);
+            sortByName(false, true);
         } else if (e[0].value == "FNZA") {
-            sortByName(true,false);
+            sortByName(true, false);
         } else if (e[0].value == "LNZA") {
-            sortByName(false,false);
-        } 
-        else if (e[0].value == "DATE") {
+            sortByName(false, false);
+        } else if (e[0].value == "DATE") {
             sortByDate();
         }
     };
@@ -137,8 +134,9 @@ const Users = () => {
                     options={FILTER_OPTIONS}
                     isMulti
                     onChange={(value) => {
-                        setFilter(parseValueAndSetFilter(value))
-                        console.log(filter)}}
+                        setFilter(parseValueAndSetFilter(value));
+                        console.log(filter);
+                    }}
                 />
                 <input
                     onClick={handleOnboarding}
@@ -162,9 +160,10 @@ const Users = () => {
                         ) {
                             return value;
                         }
-                    }).filter((value) => {
+                    })
+                    .filter((value) => {
                         if (filter.length == 0) {
-                            return value
+                            return value;
                         } else if (filter.includes(parseInt(value.level))) {
                             return value;
                         }

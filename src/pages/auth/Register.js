@@ -58,7 +58,7 @@ const Register = () => {
                 firstName: fn,
                 lastName: ln,
                 level: parseInt(level),
-                languages: languages.map((option) => option.value)
+                languages: languages.map((option) => option.value),
             }),
         });
         return response;
@@ -112,7 +112,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
-    const [languages,setLanguages] = useState([])
+    const [languages, setLanguages] = useState([]);
 
     const handleLanguageSelect = (data) => {
         setLanguages(data);
@@ -152,15 +152,15 @@ const Register = () => {
                 />
                 Fluent Languages
                 <CreatableSelect
-                        options={languageOpts}
-                        value={languages}
-                        onChange={handleLanguageSelect}
-                        // defaultValue={[languageOptions[0], languageOptions[1]]}
-                        isMulti
-                        name="languages"
-                        className="creatable-multi-select"
-                        classNamePrefix="select"
-                    />
+                    options={languageOpts}
+                    value={languages}
+                    onChange={handleLanguageSelect}
+                    // defaultValue={[languageOptions[0], languageOptions[1]]}
+                    isMulti
+                    name="languages"
+                    className="creatable-multi-select"
+                    classNamePrefix="select"
+                />
                 Level
                 <input
                     onChange={(e) => {
@@ -196,7 +196,6 @@ const Register = () => {
 };
 
 export default Register;
-
 
 const languageOpts = [
     { value: "english", label: "English" },
