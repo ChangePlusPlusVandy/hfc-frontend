@@ -15,7 +15,7 @@ const Beneficiary = () => {
     const [languages, setLanguages] = useState([]);
     const [phone, setPhone] = useState();
     const [archived, setArchived] = useState(false);
-    const [id, setId] = useState();
+    const [id, setId] = useState("");
 
     const handleToggleEditMode = () => {
         setEditing((prev) => !prev);
@@ -55,6 +55,20 @@ const Beneficiary = () => {
         navigate(-1);
     };
 
+    const handleDelete = (id) => {
+        console.log("id is" + id);
+        fetch("http://localhost:3000/beneficiaries?id=" + beneficiaryId, {
+            method: "DELETE",
+        }).then(async () => {
+            try {
+                let data = await fetch("http://localhost:3000/beneficiaries");
+                data = await data.json();
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    };
+
     const handleToggleArchive = () => {
         setArchived((prev) => !prev);
         console.log(archived);
@@ -87,6 +101,8 @@ const Beneficiary = () => {
         })
             .then((response) => console.log(response))
             .catch((error) => console.log(error));
+
+        navigate(-1);
     };
 
     useEffect(() => {
@@ -102,7 +118,8 @@ const Beneficiary = () => {
                 setLanguages(data.languages.map((option) => option.value));
                 setBday(data.bday);
                 setArchived(data.archived);
-                setId(data.id);
+                setId(data._id);
+                console.log(data._id);
                 console.log(data);
             })
             .catch((error) => console.log(error));
@@ -111,7 +128,7 @@ const Beneficiary = () => {
     console.log(languageOpts, languages);
     return (
         <div className="beneficiary-page-container">
-            <p> {beneficiaryId} </p>
+            <p> Beneficiary ID: {beneficiaryId} </p>
             <p>
                 {" "}
                 First Name:{" "}
@@ -204,14 +221,31 @@ const Beneficiary = () => {
                     />
                 ) : (
                     beneficiary.languages
+                    //console.log(languages)
+                    //languages.map((language) => language.label + " ")
                 )}{" "}
             </p>
+
             <button onClick={handleToggleEditMode}>
                 {editing ? "Cancel Edits" : "Edit Beneficiary"}
             </button>
-            <button onClick={handleToggleArchive}>
-                {archived ? "Unarchive Beneficiary" : "Archive Beneficiary"}
-            </button>
+
+            <div className="archive-button">
+                {editing && (
+                    <button onClick={handleToggleArchive}>
+                        {archived
+                            ? "Unarchive Beneficiary"
+                            : "Archive Beneficiary"}
+                    </button>
+                )}
+            </div>
+
+            <div className="delete-button">
+                {editing && (
+                    <button onClick={handleDelete}>Delete Beneficiary</button>
+                )}
+            </div>
+
             <button onClick={handleBack}>Back</button>
             <button onClick={handleSubmit}>Submit</button>
         </div>

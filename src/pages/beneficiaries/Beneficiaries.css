@@ -1,64 +1,20 @@
-.beneficiaries-page-container .del-form {
-    width: 100%;
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    align-items: center;
+.beneficiaries-page-header {
+    display: flex;
+    justify-content: space-evenly;
 }
 
-.beneficiaries-page-container .beneficiaries-page-header {
-    width: 800px;
-    height: 40px;
-    float: left;
-    border: 5px solid #00ff00;
+.filter-dropdown {
+    flex-grow: 2;
 }
 
-.beneficiaries-page-container .beneficiaries-page-header .filter-dropdown {
-    width: 200px;
-    float: left;
-    height: 40px;
+.sort-dropdown {
+    flex-grow: 2;
 }
 
-.beneficiaries-page-container .beneficiaries-page-header .sort-dropdown {
-    width: 200px;
-    float: left;
-    height: 40px;
+.search-bar {
+    flex-grow: 3;
 }
 
-.beneficiaries-page-header .beneficiaries-page-header .search-bar {
-    float: left;
-    width: 200px;
-    height: 40px;
-    border: 5px solid #00ff00;
+.register-beneficiary-btn {
+    flex-grow: 1;
 }
-
-.beneficiaries-page-container .beneficiaries-page-header {
-    width: 800px;
-}
-
-/*
-.beneficiaries-page-header .sort-btn-group {
-    border: 8px solid #332148;
-    margin-left: 200px;
-    height: 20px;
-}
-
-.beneficiaries-page-container .filter-btn {
-    border: #1fa035;
-}
-
-.beneficiaries-page-header .sort-btn-group .sort-by-name {
-    float: left;
-    width: 100px;
-}
-
-.beneficiaries-page-header .sort-btn-group .sort-by-date {
-    float: right;
-    width: 100px;
-}
-
-.beneficiaries-page-header .sort-btn-group {
-    box-align: left;
-    height: 20px;
-    width: 200px;
-}
-*/

@@ -20,18 +20,7 @@ const Beneficiaries = () => {
     const [filter, setFilter] = useState("Active");
     const [activeFilter, setActiveFilter] = useState(true);
     const [archivedFilter, setArchivedFilter] = useState(false);
-    const [interestsFilter, setInterestsFilter] = useState([]);
-
-    // function toggleBfcArchived(id) {
-    //     const updateBfc = beneficiary.map((item) => {
-    //         // if this bfc has the same ID as the edited
-    //         if (id == item.id) {
-    //             return { ...item, archived: !item.archived };
-    //         }
-    //         return item;
-    //     });
-    //     setBeneficiary(updateBfc);
-    // }
+    const [interestsFilter, setInterestsFilter] = useState(false);
 
     const filterList = FILTER_NAMES.map((name) => (
         <FilterButton
@@ -61,13 +50,25 @@ const Beneficiaries = () => {
     const sortByFirstName = () => {
         let data = [...beneficiaries];
         data.sort((a, b) => a.firstName.localeCompare(b.firstName));
-        console.log("hi");
+        setBeneficiaries(data);
+    };
+
+    const sortBackwardsByFirstName = () => {
+        let data = [...beneficiaries];
+        data.sort((a, b) => b.firstName.localeCompare(a.firstName));
         setBeneficiaries(data);
     };
 
     const sortByLastName = () => {
         let data = [...beneficiaries];
         data.sort((a, b) => a.lastName.localeCompare(b.lastName));
+        console.log(data);
+        setBeneficiaries(data);
+    };
+
+    const sortBackwardsByLastName = () => {
+        let data = [...beneficiaries];
+        data.sort((a, b) => b.lastName.localeCompare(a.lastName));
         console.log(data);
         setBeneficiaries(data);
     };
@@ -79,12 +80,31 @@ const Beneficiaries = () => {
             const dateB = new Date(b.joinDate);
             return dateB - dateA;
         });
-        // console.log(data);
         setBeneficiaries(data);
     };
 
-    const handleChangeFilter = () => {
-        set;
+    const sortBackwardsByDate = () => {
+        let data = [...beneficiaries];
+        data.sort(function (a, b) {
+            const dateA = new Date(a.joinDate);
+            const dateB = new Date(b.joinDate);
+            return dateA - dateB;
+        });
+        setBeneficiaries(data);
+    };
+
+    const handleClickArchive = () => {
+        setArchivedFilter((prev) => !prev);
+        console.log("archived = " + archivedFilter);
+    };
+
+    const handleClickActive = () => {
+        setActiveFilter((prev) => !prev);
+        console.log("active = " + activeFilter); // this maybe is outputting the wrong value??
+    };
+
+    const handleChangeInterests = () => {
+        console.log("test");
     };
 
     const handleChangeSort = (selectedOptions) => {
@@ -98,32 +118,48 @@ const Beneficiaries = () => {
             case 3:
                 sortByDate();
                 break;
+            case 4:
+                sortBackwardsByFirstName();
+                break;
+            case 5:
+                sortBackwardsByLastName();
+                break;
+            case 6:
+                sortBackwardsByDate();
+                break;
         }
     };
 
     const sortOptions = [
         {
             value: 1,
-            label: "Sort By First Name",
+            label: "Sort By First Name (A-Z)",
         },
         {
             value: 2,
-            label: "Sort By Last Name",
+            label: "Sort By Last Name (A-Z)",
         },
         {
             value: 3,
-            label: "Sort By Join Date",
+            label: "Sort By Join Date (New to Old)",
+        },
+        {
+            value: 4,
+            label: "Sort By First Name (Z-A)",
+        },
+        {
+            value: 5,
+            label: "Sort By Last Name (Z-A)",
+        },
+        {
+            value: 6,
+            label: "Sort By Date (Old to New)",
         },
     ];
 
-    const filterOptions = [
-        { name: "All", id: 1 },
-        { name: "Active", id: 2 },
-        { name: "Archived", id: 3 },
-        { name: "Interest1", id: 4 },
-        { name: "Interest2", id: 5 },
-        { name: "Need1", id: 6 },
-        { name: "Need2", id: 7 },
+    const interestOptions = [
+        { name: "Interest1", id: 1 },
+        { name: "Interest2", id: 2 },
     ];
 
     /*
@@ -164,23 +200,44 @@ const Beneficiaries = () => {
             (beneficiary) =>
                 (!activeFilter && !archivedFilter && !interestsFilter) ||
                 beneficiary.archived === archivedFilter ||
-                beneficiary.archived !== activeFilter ||
-                Set(beneficiary.interests).intersection(Set(interestsFilter))
+                !beneficiary.archived === activeFilter ||
+                !interestsFilter // ||
+            // beneficiary.interests.filter((interest) =>
+            // interestsFilter.includes(interest)
+            // )
         );
         setBeneficiaries(beneficiariesCopy);
+        console.log("finished use effect");
     }, [activeFilter, archivedFilter, interestsFilter]);
 
     return (
         <div className="beneficiaries-page-container">
+            <div className="beneficiaries-page-title">
+                <h1> List of Beneficiaries </h1>
+            </div>
             <div className="beneficiaries-page-header">
                 <div className="filter-dropdown">
-                    <Multiselect
-                        displayValue="name"
-                        placeholder="Filter"
-                        options={filterOptions}
-                        showCheckbox
-                        onChange={handleChangeFilter}
-                    />
+                    <div className="active-checkbox">
+                        <input
+                            type="checkbox"
+                            onChange={handleClickActive}
+                            defaultChecked
+                        />
+                        <label for="Active"> Active </label>
+                    </div>
+                    <div className="archived-checkbox">
+                        <input type="checkbox" onChange={handleClickArchive} />
+                        <label for="Archived"> Archived </label>
+                    </div>
+                    <div className="interest-multiselect">
+                        <Multiselect
+                            displayValue="name"
+                            placeholder="Interests"
+                            options={interestOptions}
+                            onChange={handleChangeInterests}
+                            showCheckbox
+                        />
+                    </div>
                 </div>
                 <div className="sort-dropdown">
                     <Select
@@ -197,7 +254,7 @@ const Beneficiaries = () => {
                         placeholder="Search..."
                     />
                 </div>
-                {/* 
+                {/*}
                 <div className="sort-btn-group">
                     <div className="sort-by-first-name">
                         <button onClick={sortByFirstName}>
@@ -214,16 +271,16 @@ const Beneficiaries = () => {
                         <button onClick={sortByDate}>Sort by Date</button>
                     </div>
                 </div>
+                
                 <div className="filter-btn">{filterList}</div>
+                */}
                 <div className="register-beneficiary-btn">
                     <NavLink to="../beneficiaries/register">
-                        <button> Register a Beneficiary </button>
+                        <button> New </button>
                     </NavLink>
                 </div>
-                */}
             </div>
             <div className="beneficiaries-container"></div>
-            <h1>Beneficiaries Below: </h1>
             <ul
                 role="list"
                 className="bfc-list stack"
