@@ -6,7 +6,12 @@ import {
     sendPasswordResetEmail,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import {RiGoogleLine,RiInstagramLine,RiFacebookCircleLine,RiAppleLine} from 'react-icons/Ri'
+import {
+    RiGoogleLine,
+    RiInstagramLine,
+    RiFacebookCircleLine,
+    RiAppleLine,
+} from "react-icons/Ri";
 import HFCLogo from "../../assets/images/hfc-logo-peach.png";
 
 const Login = () => {
@@ -57,56 +62,49 @@ const Login = () => {
 
     return (
         <>
-        
-        <div className='container'>
-        <div className="left">
-            <img className='logo' src={HFCLogo}/>
-        </div>
-        <div className="right">
-            
-            
-            {error && error.length ? <h1>{error}</h1> : ""}
-            <form className="form" onSubmit={(e) => handleSubmit(e)}>
-                <div className='title'>
-                    Logging you in 🫶🏽
+            <div className="container">
+                <div className="left">
+                    <img className="logo" src={HFCLogo} />
                 </div>
-                <input
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError("");
-                    }}
-                    value={email}
-                    type="text"
-                    placeholder="Email"
-                />
-                <input
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        setError("");
-                    }}
-                    value={password}
-                    type="password"
-                    placeholder="Password"
-                />
-                <div className='forgot-password'>
-                    Forgot password?
+                <div className="right">
+                    {error && error.length ? <h1>{error}</h1> : ""}
+                    <form className="form" onSubmit={(e) => handleSubmit(e)}>
+                        <div className="title">Logging you in 🫶🏽</div>
+                        <input
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setError("");
+                            }}
+                            value={email}
+                            type="text"
+                            placeholder="Email"
+                        />
+                        <input
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError("");
+                            }}
+                            value={password}
+                            type="password"
+                            placeholder="Password"
+                        />
+                        <div className="forgot-password">Forgot password?</div>
+                        <div className="alt-login">Or log in with</div>
+                        <hr className="divider" />
+                        <div className="login-icons">
+                            <RiGoogleLine />
+                            <RiFacebookCircleLine />
+                            <RiInstagramLine />
+                            <RiAppleLine />
+                        </div>
+                        <input
+                            className="submit-btn"
+                            type="submit"
+                            value="Log In"
+                        />
+                    </form>
                 </div>
-                <div className='alt-login'>
-                    Or log in with
-                </div>
-                <hr className='divider'/>
-                <div className='login-icons'>
-                    <RiGoogleLine/>
-                    <RiFacebookCircleLine/>
-                    <RiInstagramLine/>
-                    <RiAppleLine/>
-                </div>
-                <input className='submit-btn' type="submit" value="Log In" />
-            </form>
-        </div>
-        </div>
-
-        
+            </div>
         </>
     );
 };
