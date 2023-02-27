@@ -44,7 +44,7 @@ const Register = () => {
     //     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])(.{8,})$/;
     //     return passwordRegex.test(password);
     // }
-      
+
     function isStrongPassword(password) {
         return password.length >= 6;
     }
