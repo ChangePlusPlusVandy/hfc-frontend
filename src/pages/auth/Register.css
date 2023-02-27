@@ -21,3 +21,9 @@ input {
     padding: 5px;
     border-radius: 10px;
 }
+
+.creatable-multi-select {
+   margin: 30px;
+   padding: 5px;
+   border-radius: 10px; 
+}

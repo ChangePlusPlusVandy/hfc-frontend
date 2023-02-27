@@ -6,6 +6,8 @@ import {
     sendPasswordResetEmail,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import {RiGoogleLine,RiInstagramLine,RiFacebookCircleLine,RiAppleLine} from 'react-icons/Ri'
+import HFCLogo from "../../assets/images/hfc-logo-peach.png";
 
 const Login = () => {
     const ERRORS = {
@@ -54,16 +56,20 @@ const Login = () => {
     };
 
     return (
-        <div className="form_container">
-            <h1 className="title">Login</h1>
+        <>
+        
+        <div className='container'>
+        <div className="left">
+            <img className='logo' src={HFCLogo}/>
+        </div>
+        <div className="right">
+            
+            
             {error && error.length ? <h1>{error}</h1> : ""}
-            <h4 onClick={(e) => navigate("/register")}>
-                Don't have an account? Create one here!
-            </h4>
-            <h4 onClick={handlePasswordReset}>
-                Forgot your password? (type your email into the box first)
-            </h4>
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
+                <div className='title'>
+                    Logging you in 🫶🏽
+                </div>
                 <input
                     onChange={(e) => {
                         setEmail(e.target.value);
@@ -82,9 +88,26 @@ const Login = () => {
                     type="password"
                     placeholder="Password"
                 />
-                <input type="submit" value="Login" />
+                <div className='forgot-password'>
+                    Forgot password?
+                </div>
+                <div className='alt-login'>
+                    Or log in with
+                </div>
+                <hr className='divider'/>
+                <div className='login-icons'>
+                    <RiGoogleLine/>
+                    <RiFacebookCircleLine/>
+                    <RiInstagramLine/>
+                    <RiAppleLine/>
+                </div>
+                <input className='submit-btn' type="submit" value="Log In" />
             </form>
         </div>
+        </div>
+
+        
+        </>
     );
 };
 

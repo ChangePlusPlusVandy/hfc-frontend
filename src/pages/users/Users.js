@@ -4,9 +4,13 @@ import Dropdown from "../../utils/Dropdown";
 import { auth } from "../../../firebase/firebase";
 import "./Users.css";
 import DefaultUser from "../../../src/assets/images/default-user.png";
+import { MAX_VALUE_MILLIS } from "@firebase/util";
 
 const SORT_OPTIONS = [
-    { value: "ABC", label: "Alphabetical" },
+    { value: "FNAZ", label: "First Name A-Z" },
+    {value: "FNZA", label: "First Name Z-A"},
+    {value: "LNAZ", label: "Last Name A-Z"},
+    {value: "LNZA", label: "Last Name Z-A"},
     { value: "DATE", label: "Date" },
 ];
 
@@ -41,16 +45,34 @@ const User = ({
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState([]);
     const navigate = useNavigate();
     const handleOnboarding = () => {
         navigate("../onboard");
     };
 
-    const sortByName = () => {
+    const parseValueAndSetFilter = (value) => {
+        let res = []
+        value.forEach(item => {
+            res.push(item.value)
+        })
+        return res
+    }
+
+
+    const sortByName = (first,az) => {
         let data = [...users];
-        data.sort((a, b) => a.firstName.localeCompare(b.firstName));
-        setUsers(data);
+        if (first) {
+            data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        } else {
+            data.sort((a, b) => a.lastName.localeCompare(b.lastName));
+        }
+        if (az) {
+            setUsers(data);
+        } else {
+            setUsers(data.reverse());
+        }
+        
     };
 
     const sortByDate = () => {
@@ -67,9 +89,16 @@ const Users = () => {
     const handleSortChange = (e) => {
         if (e == [] || e.length == 0) {
             return;
-        } else if (e[0].value == "ABC") {
-            sortByName();
-        } else if (e[0].value == "DATE") {
+        } else if (e[0].value == "FNAZ") {
+            sortByName(true,true);
+        } else if (e[0].value == "LNAZ") {
+            sortByName(false,true);
+        } else if (e[0].value == "FNZA") {
+            sortByName(true,false);
+        } else if (e[0].value == "LNZA") {
+            sortByName(false,false);
+        } 
+        else if (e[0].value == "DATE") {
             sortByDate();
         }
     };
@@ -108,7 +137,9 @@ const Users = () => {
                     placeHolder="Filter Level"
                     options={FILTER_OPTIONS}
                     isMulti
-                    onChange={(value) => console.log(value)}
+                    onChange={(value) => {
+                        setFilter(parseValueAndSetFilter(value))
+                        console.log(filter)}}
                 />
                 <input
                     onClick={handleOnboarding}
@@ -130,6 +161,12 @@ const Users = () => {
                                 .toLowerCase()
                                 .includes(search.toLowerCase())
                         ) {
+                            return value;
+                        }
+                    }).filter((value) => {
+                        if (filter.length == 0) {
+                            return value
+                        } else if (filter.includes(parseInt(value.level))) {
                             return value;
                         }
                     })

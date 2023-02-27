@@ -3,6 +3,7 @@ import "./Register.css";
 import { auth } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import CreatableSelect from "react-select/creatable";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -57,6 +58,7 @@ const Register = () => {
                 firstName: fn,
                 lastName: ln,
                 level: parseInt(level),
+                languages: languages.map((option) => option.value)
             }),
         });
         return response;
@@ -83,7 +85,7 @@ const Register = () => {
                     level
                 );
                 console.log(res);
-                navigate("/dashboard");
+                //navigate("/dashboard");
             } catch (err) {
                 console.log(
                     "Error adding user to MongoBD, deleting from Firebase"
@@ -110,6 +112,11 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
+    const [languages,setLanguages] = useState([])
+
+    const handleLanguageSelect = (data) => {
+        setLanguages(data);
+    };
 
     return (
         <div className="form_container">
@@ -143,6 +150,17 @@ const Register = () => {
                     type="text"
                     placeholder="Email"
                 />
+                Fluent Languages
+                <CreatableSelect
+                        options={languageOpts}
+                        value={languages}
+                        onChange={handleLanguageSelect}
+                        // defaultValue={[languageOptions[0], languageOptions[1]]}
+                        isMulti
+                        name="languages"
+                        className="creatable-multi-select"
+                        classNamePrefix="select"
+                    />
                 Level
                 <input
                     onChange={(e) => {
@@ -178,3 +196,10 @@ const Register = () => {
 };
 
 export default Register;
+
+
+const languageOpts = [
+    { value: "english", label: "English" },
+    { value: "mandarin", label: "Mandarin" },
+    { value: "french", label: "French" },
+];
