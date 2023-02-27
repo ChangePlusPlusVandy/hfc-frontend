@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase";
 import { onAuthStateChanged, updatePassword } from "firebase/auth";
-import {IoIosArrowBack} from 'react-icons/Io'
+import { IoIosArrowBack } from "react-icons/Io";
 import DefaultUser from "../../../src/assets/images/default-user.png";
-import './SingleUser.css'
+import "./SingleUser.css";
 const SingleUser = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState({
@@ -20,7 +20,6 @@ const SingleUser = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [newPass, setnewPass] = useState("");
     const { fbId } = useParams();
-
 
     const handleUpdatePassword = async () => {
         const fbuser = auth.currentUser;
@@ -83,31 +82,62 @@ const SingleUser = () => {
         getMongoUser(fbId);
     }, []);
     return (
-        <div className='container'>
-            <div onClick={(e) => navigate('../users')} className="go-back">
-                 <span className='go-back-text'><IoIosArrowBack/> Back to Staff Directory</span>
+        <div className="container">
+            <div onClick={(e) => navigate("../users")} className="go-back">
+                <span className="go-back-text">
+                    <IoIosArrowBack /> Back to Staff Directory
+                </span>
             </div>
-            <div className='staff-view'>
-                <div className='header'></div>
-                    <img className='pfp' src={DefaultUser}></img>
-                <div className='staff-content'>
-                    <div className='staff-header'>
-                        <p className='staff-name'>Raj Chopra</p>
-                        <p className='staff-role'>Organization Position</p>
+            <div className="staff-view">
+                <div className="header"></div>
+                <img className="pfp" src={DefaultUser}></img>
+                <div className="staff-content">
+                    <div className="staff-header">
+                        <p className="staff-name">Raj Chopra</p>
+                        <p className="staff-role">Organization Position</p>
                     </div>
-                    <div className='content-main'>
-                        <p className='content-row'><span className='content-row-key'>Staff ID Number:</span><span className='content-row-val'>XXXXXXXXXXXX</span></p>
-                        <p className='content-row'><span className='content-row-key'>Phone Number:</span><span className='content-row-val'>XXXXXXXXXXXX</span></p>
-                        <p className='content-row'><span className='content-row-key'>Email:</span><span className='content-row-val'>XXXXXXXXXXXX</span></p>
-                        <p className='content-row'><span className='content-row-key'>Join Date:</span><span className='content-row-val'>XXXXXXXXXXXX</span></p>
-                        <p className='content-row'><span className='content-row-key'>Fluent Languages:</span></p>
+                    <div className="content-main">
+                        <p className="content-row">
+                            <span className="content-row-key">
+                                Staff ID Number:
+                            </span>
+                            <span className="content-row-val">
+                                XXXXXXXXXXXX
+                            </span>
+                        </p>
+                        <p className="content-row">
+                            <span className="content-row-key">
+                                Phone Number:
+                            </span>
+                            <span className="content-row-val">
+                                XXXXXXXXXXXX
+                            </span>
+                        </p>
+                        <p className="content-row">
+                            <span className="content-row-key">Email:</span>
+                            <span className="content-row-val">
+                                XXXXXXXXXXXX
+                            </span>
+                        </p>
+                        <p className="content-row">
+                            <span className="content-row-key">Join Date:</span>
+                            <span className="content-row-val">
+                                XXXXXXXXXXXX
+                            </span>
+                        </p>
+                        <p className="content-row">
+                            <span className="content-row-key">
+                                Fluent Languages:
+                            </span>
+                        </p>
                     </div>
                     {isCurrentUser ? (
-                        <div className='btn-container'>
-                            <button className='edit-btn'>Edit</button>
+                        <div className="btn-container">
+                            <button className="edit-btn">Edit</button>
                         </div>
-                        
-                    ): ""}
+                    ) : (
+                        ""
+                    )}
                 </div>
             </div>
         </div>
