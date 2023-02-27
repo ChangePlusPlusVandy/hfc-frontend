@@ -4,7 +4,6 @@ import Dropdown from "../../utils/Dropdown";
 import { auth } from "../../../firebase/firebase";
 import "./Users.css";
 import DefaultUser from "../../../src/assets/images/default-user.png";
-import { MAX_VALUE_MILLIS } from "@firebase/util";
 
 const SORT_OPTIONS = [
     { value: "FNAZ", label: "First Name A-Z" },
