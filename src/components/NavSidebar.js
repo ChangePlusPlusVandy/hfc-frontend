@@ -26,7 +26,13 @@ const NavSidebar = () => {
 
     return (
         <div className="nav-sidebar">
-            <img src={HFCLogo} alt="Her Future Coalition" className="logo" />
+            <NavLink to="/dashboard">
+                <img
+                    src={HFCLogo}
+                    alt="Her Future Coalition"
+                    className="logo"
+                />
+            </NavLink>
             <img
                 src={DefaultUserProfilePic}
                 alt="Default User"

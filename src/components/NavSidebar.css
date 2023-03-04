@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 300px;
     border-right: 1px solid black;
     overflow-y: scroll;
 }
@@ -13,11 +12,9 @@
 }
 
 .nav-sidebar img.logo {
-    width: 10vh;
-    max-width: 90px;
-    height: 10vh;
-    max-height: 90px;
-    margin: 0.5rem 0;
+    height: 105px;
+    margin: 0 50px;
+    /* cursor: pointer; */
 }
 
 .nav-sidebar img.user-profile-pic {
