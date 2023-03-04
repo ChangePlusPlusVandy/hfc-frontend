@@ -15,6 +15,8 @@ import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
 import CaretDoubleRightIcon from "../assets/icons/caret-double-right-icon.png";
 import UserCircleIcon from "../assets/icons/user-circle-icon.png";
 
+const COLLAPSE_SIDEBAR_THRESHOLD = 768; // the width at which the sidebar collapses in px
+
 const NavSidebar = () => {
     // TODO: Get first and last name from logged in user using Firebase Auth
     const [user, setUser] = useState({
@@ -22,8 +24,9 @@ const NavSidebar = () => {
         lastName: "Cunningham",
     });
 
-    // TODO: initialize isCollapsed to true if screen width is less than 768px
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(
+        window.innerWidth <= COLLAPSE_SIDEBAR_THRESHOLD
+    );
 
     const toggleIsCollapsed = () => setIsCollapsed((prev) => !prev);
 
