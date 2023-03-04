@@ -103,7 +103,9 @@ const Page0 = ({
                         />
                     </div>
                     <div className="birthdate-input-container">
-                        <label className="birthdate" htmlFor="birthdate">Birthday:</label>
+                        <label className="birthdate" htmlFor="birthdate">
+                            Birthday:
+                        </label>
                         <input
                             type="date"
                             id="birthdate"
