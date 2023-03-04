@@ -89,6 +89,10 @@
     flex: 1;
 }
 
+.beneficiary-registration-container label.birthdate {
+    margin-right: 10px;
+}
+
 .beneficiary-registration-container .birthdate-input-container {
     display: flex;
     margin-bottom: 10px;

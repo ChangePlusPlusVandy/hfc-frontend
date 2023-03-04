@@ -146,7 +146,6 @@ const BeneficiaryRegistration = () => {
         const newBeneficiary = {
             firstName,
             lastName,
-            id: await Beneficiary.findOne().sort(),
             bday: birthDate,
             age,
             gender,
@@ -176,6 +175,11 @@ const BeneficiaryRegistration = () => {
                 console.log("Response:", response);
                 if (response.ok)
                     console.log("Successfully saved a new beneficiary!");
+                else
+                    console.log(
+                        "Failed to save a new beneficiary:",
+                        response.message
+                    );
             })
             .catch((error) => {
                 console.log("Error saving a new beneficiary:", error);
