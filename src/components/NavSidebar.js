@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import "./NavSidebar.css";
 
 import HFCLogo from "../assets/images/hfc-logo-peach.png";
+import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
 import DefaultUserProfilePic from "../assets/images/default-user.png";
 import UserListIcon from "../assets/icons/user-list-icon.png";
 import IdentificiationCardIcon from "../assets/icons/identification-card-icon.png";
@@ -11,6 +12,8 @@ import ChartLineIcon from "../assets/icons/chart-line-icon.png";
 import TabsIcon from "../assets/icons/tabs-icon.png";
 import BookIcon from "../assets/icons/book-icon.png";
 import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
+import CaretDoubleRightIcon from "../assets/icons/caret-double-right-icon.png";
+import UserCircleIcon from "../assets/icons/user-circle-icon.png";
 
 const NavSidebar = () => {
     // TODO: Get first and last name from logged in user using Firebase Auth
@@ -19,29 +22,55 @@ const NavSidebar = () => {
         lastName: "Cunningham",
     });
 
+    // TODO: initialize isCollapsed to true if screen width is less than 768px
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const toggleIsCollapsed = () => setIsCollapsed((prev) => !prev);
+
     const handleLogout = () => {
         // TODO: Logout user using Firebase Auth
         alert("TODO: this lol");
     };
 
     return (
-        <div className="nav-sidebar">
-            <NavLink to="/dashboard">
+        <div className={`nav-sidebar${isCollapsed ? " collapsed" : ""}`}>
+            <img
+                src={CaretDoubleRightIcon}
+                alt="Collapse"
+                className="collapse-icon"
+                onClick={toggleIsCollapsed}
+            />
+            <NavLink to="/dashboard" className="logo-container">
                 <img
-                    src={HFCLogo}
+                    src={isCollapsed ? HFCLogoSmall : HFCLogo}
                     alt="Her Future Coalition"
                     className="logo"
                 />
             </NavLink>
-            <img
-                src={DefaultUserProfilePic}
-                alt="Default User"
-                className="user-profile-pic"
-            />
-            <h1 className="display-name">
-                {user.firstName}{" "}
-                {user.lastName && user.lastName.charAt(0) + "."}
-            </h1>
+
+            {/* TODO: refactor when auth is implemented */}
+            <NavLink to="users/me" className="profile-link-container">
+                {isCollapsed ? (
+                    <img
+                        src={UserCircleIcon}
+                        alt={user.firstName + " " + user.lastName}
+                        className="icon"
+                    />
+                ) : (
+                    <>
+                        <img
+                            src={DefaultUserProfilePic}
+                            alt={user.firstName + " " + user.lastName}
+                            className="user-profile-pic"
+                        />
+                        <h1 className="display-name">
+                            {user.firstName}{" "}
+                            {user.lastName && user.lastName.charAt(0) + "."}
+                        </h1>
+                    </>
+                )}
+            </NavLink>
+
             <nav>
                 <NavLink to="beneficiaries">
                     <img
@@ -49,7 +78,7 @@ const NavSidebar = () => {
                         alt="Beneficiary Directory"
                         className="icon"
                     />
-                    <span>Beneficiary Directory</span>
+                    <span className="link-label">Beneficiary Directory</span>
                 </NavLink>
                 <NavLink to="users">
                     <img
@@ -57,7 +86,7 @@ const NavSidebar = () => {
                         alt="Staff Directory"
                         className="icon"
                     />
-                    <span>Staff Directory</span>
+                    <span className="link-label">Staff Directory</span>
                 </NavLink>
                 <NavLink to="data">
                     <img
@@ -65,15 +94,15 @@ const NavSidebar = () => {
                         alt="Data Dashboard"
                         className="icon"
                     />
-                    <span>Data Dashboard</span>
+                    <span className="link-label">Data Dashboard</span>
                 </NavLink>
                 <NavLink to="programs">
                     <img src={TabsIcon} alt="Programs" className="icon" />
-                    <span>Programs</span>
+                    <span className="link-label">Programs</span>
                 </NavLink>
                 <NavLink to="workshops">
                     <img src={BookIcon} alt="Workshops" className="icon" />
-                    <span>Workshops</span>
+                    <span className="link-label">Workshops</span>
                 </NavLink>
                 <NavLink to="assessments">
                     <img
@@ -81,7 +110,7 @@ const NavSidebar = () => {
                         alt="Assessments"
                         className="icon"
                     />
-                    <span>Assessments</span>
+                    <span className="link-label">Assessments</span>
                 </NavLink>
             </nav>
             <button className="logout-button" onClick={handleLogout}>
