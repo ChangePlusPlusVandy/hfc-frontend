@@ -1,7 +1,7 @@
 import React from "react";
 import Question from "./components/question";
 
-const Page3 = ({ questions, answers, setAnswers }) => {
+const Page3 = ({ questions, answers, setAnswers, texts, setTexts }) => {
     // const handleChangeAnswer10 = (event) => {
     //     setAnswer10(event.target.value);
     // };

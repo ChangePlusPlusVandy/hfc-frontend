@@ -1,27 +1,34 @@
 import React from "react";
 import RateButtons from "./RateButtons";
 
-const Question = ({ questionNum, question, answer, setAnswer }) => {
-    // const handleChangeAnswer10 = (event) => {
-    //     setAnswer10(event.target.value);
-    // };
-
+const Question = ({
+    questionNum,
+    question,
+    answer,
+    setAnswer,
+    text,
+    setText,
+}) => {
     return (
         <div>
             <h4> Question {questionNum}</h4>
-            <p>{question}</p>
-            <RateButtons
-                activeRatingIndex={answer - 1}
-                onBtnClick={setAnswer}
-            />
-            {/* <p>(optional) elaborate here</p>
-            <input
+            <div className="rating-answer">
+                <p>{question}</p>
+                <RateButtons
+                    activeRatingIndex={answer - 1}
+                    onBtnClick={setAnswer}
+                />
+            </div>
+            <div className="text-answer">
+                <h5>(optional) elaborate here</h5>
+                <input
                     type="text"
-                    id="answer10"
-                    onChange={handleChangeAnswer10}
+                    id="text-answer"
+                    onChange={(e) => setText(e.target.value)}
                     placeholder="Type here"
-                    value={answer10}
-                /> */}
+                    value={text}
+                />
+            </div>
         </div>
     );
 };

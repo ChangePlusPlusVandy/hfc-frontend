@@ -2,15 +2,10 @@ import React from "react";
 
 const PageReview = ({
     mentalHealthQs,
-    mentalHealthAnswers,
     lifeSkillsQs,
-    lifeSkillsAnswers,
     socialSkillsQs,
-    socialSillsAnswers,
     educationQs,
-    educationAnswers,
     vocationQs,
-    vocationAnswers,
     mentalHealthScore,
     setMentalHealthScore,
     lifeSkillsScore,
@@ -24,19 +19,21 @@ const PageReview = ({
     totalScore,
     setTotalScore,
 }) => {
-    const getAvgScore = (arr, reverseIndex) => {
+    // qArr: array of question objs
+    // reverseIndex: question index whose score should be reversed
+    const getAvgScore = (qArr, reverseIndex) => {
         let sum = 0;
-        for (let i = 0; i < arr.length; ++i) {
-            sum += i == reverseIndex ? 6 - arr[i] : arr[i];
+        for (let i = 0; i < qArr.length; ++i) {
+            sum += i == reverseIndex ? 6 - qArr[i].answer : qArr[i].answer;
         }
-        return sum / arr.length;
+        return sum / qArr.length;
     };
 
-    setMentalHealthScore(getAvgScore(mentalHealthAnswers, 2));
-    setLifeSkillsScore(getAvgScore(lifeSkillsAnswers, -1));
-    setSocialSkillsScore(getAvgScore(socialSillsAnswers, 0));
-    setEducationScore(getAvgScore(educationAnswers, -1));
-    setVocationScore(getAvgScore(vocationAnswers, 1));
+    setMentalHealthScore(getAvgScore(mentalHealthQs, 2));
+    setLifeSkillsScore(getAvgScore(lifeSkillsQs, -1));
+    setSocialSkillsScore(getAvgScore(socialSkillsQs, 0));
+    setEducationScore(getAvgScore(educationQs, -1));
+    setVocationScore(getAvgScore(vocationQs, 1));
 
     setTotalScore(
         (mentalHealthScore +
@@ -51,8 +48,8 @@ const PageReview = ({
         <div className="review-form-container">
             <h4>Mental Health Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
-                {mentalHealthQs.map((q, i) => (
-                    <li>{`${q} ${mentalHealthAnswers[i]}`}</li>
+                {mentalHealthQs.map((obj, i) => (
+                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
                     // TODO: may need to format this better
                 ))}
                 <br></br>
@@ -61,16 +58,16 @@ const PageReview = ({
 
             <h4>Life Skills Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
-                {lifeSkillsQs.map((q, i) => (
-                    <li>{`${q} ${lifeSkillsAnswers[i]}`}</li>
+                {lifeSkillsQs.map((obj, i) => (
+                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
                 ))}
                 <br></br>
                 Life Skills Score: {lifeSkillsScore}
             </ul>
             <h4>Social Skills Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
-                {socialSkillsQs.map((q, i) => (
-                    <li>{`${q} ${socialSillsAnswers[i]}`}</li>
+                {socialSkillsQs.map((obj, i) => (
+                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
                 ))}
                 <br></br>
                 Social Skills Score: {socialSkillsScore}
@@ -78,8 +75,8 @@ const PageReview = ({
 
             <h4>Education Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
-                {educationQs.map((q, i) => (
-                    <li>{`${q} ${educationAnswers[i]}`}</li>
+                {educationQs.map((obj, i) => (
+                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
                 ))}
                 <br></br>
                 Education Score: {educationScore}
@@ -87,8 +84,8 @@ const PageReview = ({
 
             <h4>Vocation Questionnaire</h4>
             <ul role="list" className="assessment-list-stack">
-                {vocationQs.map((q, i) => (
-                    <li>{`${q} ${vocationAnswers[i]}`}</li>
+                {vocationQs.map((obj, i) => (
+                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
                 ))}
                 <br></br>
                 Vocation Score: {vocationScore}

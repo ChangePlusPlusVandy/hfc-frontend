@@ -1,71 +1,77 @@
 import React, { useState } from "react";
 import Popup from "./Popup";
-import {
-    mentalHealthQs,
-    lifeSkillsQs,
-    socialSkillsQs,
-    educationQs,
-    vocationQs,
-} from "../Assessments";
 
-const SingleAssessment = (item) => {
+const SingleAssessment = (props) => {
     const [buttonPopup, setButtonPopup] = useState(false);
 
     const ViewComponent = () => (
         <div className="assessment-view">
             <div className="assessment-info">
-                <h3 id="assessment-date">{`Date taken: ${item.dateTaken}`}</h3>
+                <h3 id="assessment-date">{`Date taken: ${props.dateTaken}`}</h3>
 
                 <h4>Mental Health Questionnaire</h4>
                 <ul role="list" className="assessment-list-stack">
-                    {item.mentalHealthAnswers.map((rating, i) => (
+                    {props.mentalHealthQs.map((obj, i) => (
                         <li>
-                            {mentalHealthQs[i]} {rating}
+                            Q{i}. {obj.question} {obj.answer}
+                            additional note: {obj.text}
                         </li>
                     ))}
                 </ul>
 
                 <h4>Life Skills Questionnaire</h4>
                 <ul role="list" className="assessment-list-stack">
-                    {item.lifeSkillsAnswers.map((rating, i) => (
+                    {props.lifeSkillsQs.map((obj, i) => (
                         <li>
-                            {lifeSkillsQs[i]} {rating}
+                            Q{i}. {obj.question} {obj.answer}
+                            additional note: {obj.text}
                         </li>
                     ))}
                 </ul>
                 <h4>Social Skills Questionnaire</h4>
                 <ul role="list" className="assessment-list-stack">
-                    {item.socialSkillsAnswers.map((rating, i) => (
+                    {props.socialSkillsQs.map((obj, i) => (
                         <li>
-                            {socialSkillsQs[i]} {rating}
+                            Q{i}. {obj.question} {obj.answer}
+                            additional note: {obj.text}
                         </li>
                     ))}
                 </ul>
 
                 <h4>Education Questionnaire</h4>
                 <ul role="list" className="assessment-list-stack">
-                    {item.educationAnswers.map((rating, i) => (
+                    {props.educationQs.map((obj, i) => (
                         <li>
-                            {educationQs[i]} {rating}
+                            Q{i}. {obj.question} {obj.answer}
+                            additional note: {obj.text}
                         </li>
                     ))}
                 </ul>
 
                 <h4>Vocation Questionnaire</h4>
                 <ul role="list" className="assessment-list-stack">
-                    {item.vocationAnswers.map((rating, i) => (
+                    {props.vocationQs.map((obj, i) => (
                         <li>
-                            {vocationQs[i]} {rating}
+                            Q{i}. {obj.question} {obj.answer}
+                            additional note: {obj.text}
                         </li>
                     ))}
                 </ul>
+
+                <h4>Scores</h4>
+                <li> Mental Health Score: {props.mentalHealthScore}</li>
+                <li> Life Skills Score: {props.lifeSkillsScore}</li>
+                <li> Social Skills Score: {props.socialSkillsScore}</li>
+                <li> Education Score: {props.educationScore}</li>
+                <li> Vocation Score: {props.vocationScore}</li>
+                <li> Total Score: {props.totalScore}%</li>
             </div>
 
             {/* <div className="btn-group">
                 <button
                     type="button"
                     className="btn btn__danger"
-                    onClick={() => item.deleteBfc(item.mongoKey.toString())}
+                    onClick={() => props.deleteBfc(props.mongoKey.toString())}
                 >
                     Delete
                 </button>
@@ -75,7 +81,7 @@ const SingleAssessment = (item) => {
 
     return (
         <div className="view-popup">
-            <li className="assessment-label">{`${item.dateTaken}`}</li>
+            <li className="assessment-label">{`${props.dateTaken}`}</li>
             <main>
                 <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>

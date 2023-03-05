@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./Assessments.css";
 
 import Page0 from "./Page0";
-import Page1 from "./Page1";
-import Page2 from "./Page2";
-import Page3 from "./Page3";
-import Page4 from "./Page4";
 import FormProgressBar from "../../components/FormProgressBar";
 import FormNavBar from "../../components/FormNavBar";
 import PageReview from "./PageReview";
@@ -17,22 +13,93 @@ const Assessments = () => {
 
     const navigate = useNavigate();
 
-    // Mental Health Page 0
-    const [mentalHealthAnswers, setMentalHealthAnswers] = useState([]);
+    const [mentalHealthQs, setMentalHealthQs] = useState([
+        {
+            question: "How hopeful and positive do you feel about your future?",
+            answer: null,
+            text: "",
+        },
+        {
+            question:
+                "How much do you experience happy, positive feelings in your daily life?",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "How often do you feel depressed?",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "How much are you able to relax and enjoy yourself?",
+            answer: null,
+            text: "",
+        },
+    ]);
 
-    // Life Skills Page 1
-    const [lifeSkillsAnswers, setLifeSkillsAnswers] = useState([]);
+    const [lifeSkillsQs, setLifeSkillsQs] = useState([
+        {
+            question: "How much do you value yourself?",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "How well do you manage your stress and anxiety?",
+            answer: null,
+            text: "",
+        },
+        {
+            question:
+                "How strong are you in solving problems and making decisions for yourself?",
+            answer: null,
+            text: "",
+        },
+    ]);
 
-    // Social Skills Page 2
-    const [socialSkillsAnswers, setSocialSkillsAnswers] = useState([]);
+    const [socialSkillsQs, setSocialSkillsQs] = useState([
+        {
+            question:
+                "How much do you feel that loneliness is a problem for you?",
+            answer: null,
+            text: "",
+        },
+        {
+            question:
+                "Are you able to get the kind of support from others that you need?",
+            answer: null,
+            text: "",
+        },
+    ]);
 
-    // Education Page 3
-    const [educationAnswers, setEducationAnswers] = useState([]);
+    const [educationQs, setEducationQs] = useState([
+        {
+            question: "How satisfied are you with your skills and abilities?",
+            answer: null,
+            text: "",
+        },
+    ]);
 
-    // Vocation Page 4
-    const [vocationAnswers, setVocationAnswers] = useState([]);
+    const [vocationQs, setVocationQs] = useState([
+        {
+            question:
+                "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
+            answer: null,
+            text: "",
+        },
+        {
+            question:
+                "How often/much do you worry about your or your family's financial difficulties?",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "How satisfied are you with your skills and abilities?",
+            answer: null,
+            text: "",
+        },
+    ]);
 
-    // Revew Page
+    // For Review Page
     const [mentalHealthScore, setMentalHealthScore] = useState();
     const [lifeSkillsScore, setLifeSkillsScore] = useState();
     const [socialSkillsScore, setSocialSkillsScore] = useState();
@@ -47,8 +114,7 @@ const Assessments = () => {
             component: (
                 <Page0
                     questions={mentalHealthQs}
-                    answers={mentalHealthAnswers}
-                    setAnswers={setMentalHealthAnswers}
+                    setQuestions={setMentalHealthQs}
                 />
             ),
         },
@@ -56,10 +122,9 @@ const Assessments = () => {
             title: "Life Skills Questionnaire",
             shortName: "Life Skills",
             component: (
-                <Page1
+                <Page0
                     questions={lifeSkillsQs}
-                    answers={lifeSkillsAnswers}
-                    setAnswers={setLifeSkillsAnswers}
+                    setQuestions={setLifeSkillsQs}
                 />
             ),
         },
@@ -67,10 +132,9 @@ const Assessments = () => {
             title: "Social Skills Questionnaire",
             shortName: "Social Skills",
             component: (
-                <Page2
+                <Page0
                     questions={socialSkillsQs}
-                    answers={socialSkillsAnswers}
-                    setAnswers={setSocialSkillsAnswers}
+                    setQuestions={setSocialSkillsQs}
                 />
             ),
         },
@@ -78,22 +142,14 @@ const Assessments = () => {
             title: "Education Questionnaire",
             shortName: "Education",
             component: (
-                <Page3
-                    questions={educationQs}
-                    answers={educationAnswers}
-                    setAnswers={setEducationAnswers}
-                />
+                <Page0 questions={educationQs} setQuestions={setEducationQs} />
             ),
         },
         {
             title: "Vocation Questionnaire",
             shortName: "Vocation",
             component: (
-                <Page4
-                    questions={vocationQs}
-                    answers={vocationAnswers}
-                    setAnswers={setVocationAnswers}
-                />
+                <Page0 questions={vocationQs} setQuestions={setVocationQs} />
             ),
         },
         {
@@ -102,15 +158,10 @@ const Assessments = () => {
             component: (
                 <PageReview
                     mentalHealthQs={mentalHealthQs}
-                    mentalHealthAnswers={mentalHealthAnswers}
                     lifeSkillsQs={lifeSkillsQs}
-                    lifeSkillsAnswers={lifeSkillsAnswers}
                     socialSkillsQs={socialSkillsQs}
-                    socialSillsAnswers={socialSkillsAnswers}
                     educationQs={educationQs}
-                    educationAnswers={educationAnswers}
                     vocationQs={vocationQs}
-                    vocationAnswers={vocationAnswers}
                     mentalHealthScore={mentalHealthScore}
                     setMentalHealthScore={setMentalHealthScore}
                     lifeSkillsScore={lifeSkillsScore}
@@ -137,11 +188,11 @@ const Assessments = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                mentalHealthAnswers: mentalHealthAnswers,
-                lifeSkillsAnswers: lifeSkillsAnswers,
-                socialSkillsAnswers: socialSkillsAnswers,
-                educationAnswers: educationAnswers,
-                vocationAnswers: vocationAnswers,
+                mentalHealthQs: mentalHealthQs,
+                lifeSkillsQs: lifeSkillsQs,
+                socialSkillsQs: socialSkillsQs,
+                educationQs: educationQs,
+                vocationQs: vocationQs,
                 mentalHealthScore: mentalHealthScore,
                 lifeSkillsScore: lifeSkillsScore,
                 socialSkillsScore: socialSkillsScore,
@@ -174,7 +225,7 @@ const Assessments = () => {
     );
 };
 
-export const mentalHealthQs = [
+/* export const mentalHealthQs = [
     "How hopeful and positive do you feel about your future?",
     "How much do you experience happy, positive feelings in your daily life?",
     "How often do you feel depressed?",
@@ -200,5 +251,6 @@ export const vocationQs = [
     "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
     "How often/much do you worry about your or your family's financial difficulties?",
     "How satisfied are you with your skills and abilities?",
-];
+]; */
+
 export default Assessments;

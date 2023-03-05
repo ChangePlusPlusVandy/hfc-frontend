@@ -2,7 +2,7 @@ import React from "react";
 import "./RateButtons.css";
 
 const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
-    console.log("activeRatingIndex: ", activeRatingIndex);
+    // console.log("activeRatingIndex: ", activeRatingIndex);
     const buttonNames = [
         "Not at all",
         "Slightly",
@@ -26,7 +26,7 @@ const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
                                 className={`form-rate-btn${
                                     index === activeRatingIndex ? " active" : ""
                                 }`}
-                                onClick={() => onBtnClick(index)}
+                                onClick={() => onBtnClick(index + 1)}
                                 // onClick={() => handleClick(index)}
                             >
                                 <div className="form-rate-btn-circle">

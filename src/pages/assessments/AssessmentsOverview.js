@@ -87,11 +87,17 @@ const AssesssmentsOverview = () => {
                     .map((item) => (
                         <SingleAssessment
                             dateTaken={item.dateTaken}
-                            mentalHealthAnswers={item.mentalHealthAnswers}
-                            lifeSkillsAnswers={item.lifeSkillsAnswers}
-                            socialSkillsAnswers={item.socialSkillsAnswers}
-                            educationAnswers={item.educationAnswers}
-                            vocationAnswers={item.vocationAnswers}
+                            mentalHealthQs={item.mentalHealthQs}
+                            lifeSkillsQs={item.lifeSkillsQs}
+                            socialSkillsQs={item.socialSkillsQs}
+                            educationQs={item.educationQs}
+                            vocationQs={item.vocationQs}
+                            mentalHealthScore={item.mentalHealthScore}
+                            lifeSkillsScore={item.lifeSkillsScore}
+                            socialSkillsScore={item.socialSkillsScore}
+                            educationScore={item.educationScore}
+                            vocationScore={item.vocationScore}
+                            totalScore={item.totalScore}
                             mongoKey={item._id}
                         />
                     ))}
