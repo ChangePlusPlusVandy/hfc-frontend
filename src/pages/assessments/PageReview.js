@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "./components/Table";
 
 const PageReview = ({
@@ -32,20 +32,24 @@ const PageReview = ({
         return sum / qArr.length;
     };
 
-    setMentalHealthScore(getAvgScore(mentalHealthQs, 2));
-    setLifeSkillsScore(getAvgScore(lifeSkillsQs, -1));
-    setSocialSkillsScore(getAvgScore(socialSkillsQs, 0));
-    setEducationScore(getAvgScore(educationQs, -1));
-    setVocationScore(getAvgScore(vocationQs, 1));
+    useEffect(() => {
+        setMentalHealthScore(getAvgScore(mentalHealthQs, 2));
+        setLifeSkillsScore(getAvgScore(lifeSkillsQs, -1));
+        setSocialSkillsScore(getAvgScore(socialSkillsQs, 0));
+        setEducationScore(getAvgScore(educationQs, -1));
+        setVocationScore(getAvgScore(vocationQs, 1));
+    }, []);
 
-    setTotalScore(
-        (mentalHealthScore +
-            lifeSkillsScore +
-            socialSkillsScore +
-            educationScore +
-            vocationScore) *
-            4
-    ); // percentage (since /25*100 = *4)
+    useEffect(() => {
+        setTotalScore(
+            (mentalHealthScore +
+                lifeSkillsScore +
+                socialSkillsScore +
+                educationScore +
+                vocationScore) *
+                4 // percentage (since /25*100 = *4)
+        );
+    });
 
     return (
         <div className="review-form-container">

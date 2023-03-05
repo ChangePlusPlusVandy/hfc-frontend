@@ -18,23 +18,23 @@ const SingleAssessment = (props) => {
 
                 <Table
                     dataName="Life Skills"
-                    dataArr={props.mentalHealthQs}
-                    dataScore={props.mentalHealthScore}
+                    dataArr={props.lifeSkillsQs}
+                    dataScore={props.lifeSkillsScore}
                 />
                 <Table
                     dataName="Social Skills"
-                    dataArr={props.mentalHealthQs}
-                    dataScore={props.mentalHealthScore}
+                    dataArr={props.socialSkillsQs}
+                    dataScore={props.socialSkillsScore}
                 />
                 <Table
                     dataName="Education"
-                    dataArr={props.mentalHealthQs}
-                    dataScore={props.mentalHealthScore}
+                    dataArr={props.educationQs}
+                    dataScore={props.educationScore}
                 />
                 <Table
                     dataName="Vocation"
-                    dataArr={props.mentalHealthQs}
-                    dataScore={props.mentalHealthScore}
+                    dataArr={props.vocationQs}
+                    dataScore={props.vocationScore}
                 />
                 <h3> Total Score: {props.totalScore}%</h3>
             </div>

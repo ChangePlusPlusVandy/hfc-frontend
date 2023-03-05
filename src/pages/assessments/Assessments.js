@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "./Assessments.css";
 
 import Page0 from "./Page0";
+import PageReview from "./PageReview";
 import FormProgressBar from "../../components/FormProgressBar";
 import FormNavBar from "../../components/FormNavBar";
-import PageReview from "./PageReview";
 
 const Assessments = () => {
     const [pageNum, setPageNum] = useState(0);
@@ -100,12 +100,12 @@ const Assessments = () => {
     ]);
 
     // For Review Page
-    const [mentalHealthScore, setMentalHealthScore] = useState();
-    const [lifeSkillsScore, setLifeSkillsScore] = useState();
-    const [socialSkillsScore, setSocialSkillsScore] = useState();
-    const [educationScore, setEductionScore] = useState();
-    const [vocationScore, setVocationScore] = useState();
-    const [totalScore, setTotalScore] = useState();
+    const [mentalHealthScore, setMentalHealthScore] = useState(0);
+    const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
+    const [socialSkillsScore, setSocialSkillsScore] = useState(0);
+    const [educationScore, setEductionScore] = useState(0);
+    const [vocationScore, setVocationScore] = useState(0);
+    const [totalScore, setTotalScore] = useState(0);
 
     const PAGES = [
         {
