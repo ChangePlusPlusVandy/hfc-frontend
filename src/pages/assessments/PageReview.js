@@ -25,7 +25,9 @@ const PageReview = ({
     const getAvgScore = (qArr, reverseIndex) => {
         let sum = 0;
         for (let i = 0; i < qArr.length; ++i) {
-            sum += i == reverseIndex ? 6 - qArr[i].answer : qArr[i].answer;
+            if (qArr[i].answer != null) {
+                sum += i == reverseIndex ? 6 - qArr[i].answer : qArr[i].answer;
+            }
         }
         return sum / qArr.length;
     };
