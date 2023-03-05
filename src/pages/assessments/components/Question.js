@@ -20,12 +20,11 @@ const Question = ({
                 />
             </div>
             <div className="text-answer">
-                <h5>(optional) elaborate here</h5>
                 <input
                     type="text"
                     id="text-answer"
                     onChange={(e) => setText(e.target.value)}
-                    placeholder="Type here"
+                    placeholder="(Optional) Elaborate here"
                     value={text}
                 />
             </div>

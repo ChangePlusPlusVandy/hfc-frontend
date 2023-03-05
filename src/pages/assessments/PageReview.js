@@ -1,4 +1,5 @@
 import React from "react";
+import Table from "./components/Table";
 
 const PageReview = ({
     mentalHealthQs,
@@ -46,51 +47,31 @@ const PageReview = ({
 
     return (
         <div className="review-form-container">
-            <h4>Mental Health Questionnaire</h4>
-            <ul role="list" className="assessment-list-stack">
-                {mentalHealthQs.map((obj, i) => (
-                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
-                    // TODO: may need to format this better
-                ))}
-                <br></br>
-                Mental Health Score: {mentalHealthScore}
-            </ul>
-
-            <h4>Life Skills Questionnaire</h4>
-            <ul role="list" className="assessment-list-stack">
-                {lifeSkillsQs.map((obj, i) => (
-                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
-                ))}
-                <br></br>
-                Life Skills Score: {lifeSkillsScore}
-            </ul>
-            <h4>Social Skills Questionnaire</h4>
-            <ul role="list" className="assessment-list-stack">
-                {socialSkillsQs.map((obj, i) => (
-                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
-                ))}
-                <br></br>
-                Social Skills Score: {socialSkillsScore}
-            </ul>
-
-            <h4>Education Questionnaire</h4>
-            <ul role="list" className="assessment-list-stack">
-                {educationQs.map((obj, i) => (
-                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
-                ))}
-                <br></br>
-                Education Score: {educationScore}
-            </ul>
-
-            <h4>Vocation Questionnaire</h4>
-            <ul role="list" className="assessment-list-stack">
-                {vocationQs.map((obj, i) => (
-                    <li>{`Q${i + 1}. ${obj.question} ${obj.answer}`}</li>
-                ))}
-                <br></br>
-                Vocation Score: {vocationScore}
-            </ul>
-
+            <Table
+                dataName="Mental Health"
+                dataArr={mentalHealthQs}
+                dataScore={mentalHealthScore}
+            />
+            <Table
+                dataName="Life Skills"
+                dataArr={lifeSkillsQs}
+                dataScore={lifeSkillsScore}
+            />
+            <Table
+                dataName="Social Skills"
+                dataArr={socialSkillsQs}
+                dataScore={socialSkillsScore}
+            />
+            <Table
+                dataName="Education"
+                dataArr={educationQs}
+                dataScore={educationScore}
+            />
+            <Table
+                dataName="Vocation"
+                dataArr={vocationQs}
+                dataScore={vocationScore}
+            />
             <h4> Total Score: {totalScore}% </h4>
         </div>
     );

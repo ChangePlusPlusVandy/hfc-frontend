@@ -4,8 +4,8 @@ import "./Popup.css";
 const Popup = (props) => {
     return (
         props.trigger && (
-            <div className="popup">
-                <div className="popup-inner">
+            <div className="popup-container">
+                <div className="popup-content">
                     {
                         <button
                             className="close-btn"
