@@ -77,6 +77,12 @@ const Assessments = () => {
             answer: null,
             text: "",
         },
+        {
+            question:
+                "How good will you rate your academic performance/success at school 1-5?", // TODO: need to change the wording?
+            answer: null,
+            text: "",
+        },
     ]);
 
     const [vocationQs, setVocationQs] = useState([
