@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import EnrollPopup from "./EnrollPopup";
 import "./styles/SingleProgram.css";
-//import "./styles/Programs.css";
-//TODO fix bug where you delete ben then add and it automatically updates
 
 const SingleProgram = (props) => {
     const programID = useLocation().state.id;
+    const navigate = useNavigate();
+
     const [program, setProgram] = useState({});
+    const [roster, setRoster] = useState([]);
     const [allBeneficiaries, setAllBeneficiaries] = useState([]);
     const [benOptions, setBenOptions] = useState([]);
     const [addBeneficiary, setAddBeneficiary] = useState([]);
@@ -15,23 +16,23 @@ const SingleProgram = (props) => {
     const [updateProgTitle, setUpdateProgTitle] = useState("");
     const [updateProgDesc, setUpdateProgDesc] = useState("");
 
-    const [updateProgStart, setUpdateProgStart] = useState("");
-    const [updateProgEnd, setUpdateProgEnd] = useState("");
-    const [updateProgHosts, setUpdateProgHosts] = useState("");
-    const [updateProgStatus, setUpdateProgStatus] = useState("");
-    const [updateProgSchedule, setUpdateProgSchedule] = useState("");
-
     const [editMode, setEditMode] = useState(false);
-    const [editBeneficiaries, setEditBeneficiaries] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [overviewOrEnroll, setOverviewOrEnroll] = useState(false);
+    const [editRoster, setEditRoster] = useState(false);
+    const [editBeneficiaries, setEditBeneficiaries] = useState(false);
 
     useEffect(() => {
         getProgramFromID();
         getBeneficiaries();
+
         document.getElementById("overview-button").style.backgroundColor = "#888b8f";
         document.getElementById("enrollment-button").style.backgroundColor = "#e8e9eb";
     }, []);
+
+    useEffect(() => {
+        setRoster(program.roster);
+    }, [program]);
 
     const getProgramFromID = async (e) => {
         try {
@@ -81,15 +82,23 @@ const SingleProgram = (props) => {
         editUpdateMode();
     };
     const updateProgramFromEnrollment = (e) => {
-        updateProgram();
+        updateProgramRoster();
         editBenMode();
         setOpenModal(false);
+        let benCards = document.getElementsByClassName("beneficiary-card");
+        console.log(benCards);
+        for (let i = 0; i < benCards.length; i++) {
+            benCards[i].style.backgroundColor = '#d0d0d1';
+        }
+
+        setEditRoster(false);
     };
 
-    const updateProgram = async (e) => {
+    const updateProgramRoster = async (e) => {
         const combinedBenificiers = uniq(
             program.roster.map((event, i) => event._id).concat(addBeneficiary)
         );
+
         setAddBeneficiary(combinedBenificiers);
 
         const requestOptions = {
@@ -98,16 +107,60 @@ const SingleProgram = (props) => {
             body: JSON.stringify({
                 _id: { programID },
                 content: {
+                    roster: combinedBenificiers,
+                },
+            }),
+        };
+
+        await fetch("http://localhost:3000/programs", requestOptions);
+        getProgramFromID();
+        resetNewProgram();
+    };
+
+    const updateProgram = async (e) => {
+        const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                _id: { programID },
+                content: {
                     description: updateProgDesc,
                     title: updateProgTitle,
-                    roster: combinedBenificiers,
-                    //TODO: add rest of fields
                 },
             }),
         };
         await fetch("http://localhost:3000/programs", requestOptions);
         getProgramFromID();
         resetNewProgram();
+    };
+
+    const archiveProgram = async (id) => {
+        const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                _id: { programID },
+                content: {
+                    archived: true,
+                },
+            }),
+        };
+        await fetch("http://localhost:3000/programs", requestOptions);
+        navigate("../");
+    }
+
+    const deleteProgram = async (e) => {
+        try {
+            const requestOptions = {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ _id: e }),
+            };
+            await fetch("http://localhost:3000/programs", requestOptions);
+            navigate("/dashboard/programs");
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     const resetNewProgram = () => {
@@ -137,13 +190,24 @@ const SingleProgram = (props) => {
         setAddBeneficiary(addBenFiltered);
     };
 
-    // const removeBen = (ben, e) => {
-    //     program.roster = program.roster.filter((item) => {
-    //         return item._id !== ben;
-    //     });
-    //     let parent = e.target.parentElement;
-    //     parent.style.color = "red";
-    // };
+    const removeBen = (ben, e) => {
+        if (!program.roster.find(obj => obj._id === ben)) {
+            program.roster.push(roster.find(obj => obj._id === ben));
+            console.log("adding back ben");
+            let parent = e.target.parentElement.parentElement;
+            parent.style.backgroundColor = "#d0d0d1";
+
+            if (program.roster.length === roster.length)
+                setEditRoster(false);
+        } else {
+            program.roster = program.roster.filter((item) => {
+                return item._id !== ben;
+            });
+            setEditRoster(true);
+            let parent = e.target.parentElement.parentElement;
+            parent.style.backgroundColor = "red";
+        }
+    };
 
     const editOverviewOrEnroll = (bool) => {
         setOverviewOrEnroll(bool);
@@ -164,7 +228,21 @@ const SingleProgram = (props) => {
             </Link>
             <div className="single-program">
                 <div className="single-program-heading">
-                    <h1>{program.title}</h1>
+                    {editMode ? (
+                        <h6>  <input
+                            type="text"
+                            value={updateProgTitle}
+                            name="title"
+                            onChange={(e) =>
+                                setUpdateProgTitle(
+                                    e.target.value
+                                )
+                            }
+                        />
+                        </h6>
+                    ) : (
+                        <h1>{program.title}</h1>
+                    )}
                     <div className="heading-buttons">
                         <button onClick={() => editOverviewOrEnroll(false)} id="overview-button" className="tab">
                             Overview
@@ -198,9 +276,15 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-enroll-beneficiaries-container">
                             <div className="program-enroll-beneficiaries">
-                                {program.roster?.map((ben, i) => (
+                                {roster?.map((ben, i) => (
                                     <div key={i} className="beneficiary-card">
-                                        <div>
+                                        <div></div>
+                                        <div className="card-info">
+                                            <div className="tmp-photo"></div>
+                                            <h5>{ben.firstName}{" "}
+                                                {ben.lastName}</h5>
+                                        </div>
+                                        <div className="delete-button-container">
                                             <button
                                                 onClick={(e) =>
                                                     removeBen(ben._id, e)
@@ -209,58 +293,94 @@ const SingleProgram = (props) => {
                                             >
                                                 X
                                             </button>
-
-                                            <div className="card-info">
-                                                <div className="tmp-photo"></div>
-                                                <h5>{ben.firstName}{" "}
-                                                    {ben.lastName}</h5>
-                                            </div>
-
                                         </div>
                                     </div>
                                 ))}
                             </div>
+                            {editRoster ? (
+                                <div className="submit-edit-roster">
+                                    <button
+                                        onClick={updateProgramFromEnrollment}
+                                        className="submit-button"
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+
+                            ) : <></>}
+                        </div>
+                        <div className="mark-attendance-button-container">
+                            <button className="submit-button program-enroll-ben">
+                                <Link
+                                    to="/dashboard/programs/singleview/markattendance"
+                                    state={{
+                                        id: programID,
+                                    }}
+                                >
+                                    Mark Attendance
+                                </Link>
+                            </button>
                         </div>
                     </div>
                 ) : (
                     <div className="program-info-container">
                         <div className="program-info">
                             <h3>Description</h3>
-                            <h7>{program.description}</h7>
+                            {editMode ? (
+                                <h6> <textarea
+                                    rows="5"
+                                    cols="75"
+                                    type="text"
+                                    value={updateProgDesc}
+                                    name="description"
+                                    onChange={(e) =>
+                                        setUpdateProgDesc(
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                                </h6>
+                            ) : (
+                                <h6>{program.description}</h6>
+                            )}
                         </div>
                         <div className="program-info">
                             <h3>Start Date</h3>
-                            <h7>{program.startDate}</h7>
+                            <h6>{program.startDate}</h6>
                         </div>
                         <div className="program-info">
                             <h3>End Date</h3>
-                            <h7>{program.startDate}</h7>
+                            <h6>{program.startDate}</h6>
                         </div>
                         <div className="program-info">
                             <h3>Hosts</h3>
                             <div className="program-hosts">
                                 {program.hosts?.map((host, h) => (
-                                    <h7 key={host._id}>{host.firstName} </h7>
+                                    <h6 key={host._id}>{host.firstName} </h6>
                                 ))}
                             </div>
                         </div>
                         <div className="program-info">
                             <h3>Status</h3>
-                            {program.archived ? <h7>archived</h7> : <h7>active</h7>}
+                            {program.archived ? <h6>Archived</h6> : <h6>Active</h6>}
                         </div>
                         <div className="program-info">
                             <h3>Schedule</h3>
-                            <h7>TODO</h7>
+                            <h6>TODO</h6>
                         </div>
                         <div className="program-info-buttons-container">
                             {editMode ? (
-                                <div>
+                                <div className="program-buttons-inner">
                                     <button
                                         onClick={updateProgramFromOverview}
                                         className="submit-button"
                                     >
                                         Submit
                                     </button>
+                                    <div className="program-archive-delete">
+                                        <button onClick={() => archiveProgram(program._id)}>Archive</button>
+                                        <button onClick={() => deleteProgram(program._id)}>Delete</button>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="program-buttons-inner">
@@ -271,17 +391,15 @@ const SingleProgram = (props) => {
                                         {" "}
                                         Edit
                                     </button>
-                                    <div className="program-archive-delete">
-                                        <button>Archive</button>
-                                        <button>Delete</button>
-                                    </div>
+
                                 </div>
                             )}
                         </div>
                     </div>
-                )}
-            </div>
-        </div>
+                )
+                }
+            </div >
+        </div >
     );
 };
 
