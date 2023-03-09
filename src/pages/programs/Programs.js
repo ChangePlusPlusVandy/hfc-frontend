@@ -81,6 +81,7 @@ const Programs = () => {
     };
 
     const handleSubmit = async () => {
+        console.log(addUsers);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -192,6 +193,16 @@ const Programs = () => {
 
     return (
         <div className="program-list-view-container">
+            <CreateProgramPopup
+                openModal={openModal}
+                title={newProgTitle}
+                titleChange={handleTitleChange}
+                description={newProgDesc}
+                descChange={handleDescChange}
+                userOptions={userOptions}
+                onChange={handleAddUser}
+                submit={createProgramFromModal}
+            />
             <h1>Program Overview</h1>
             <div className="program-sort-options-container">
                 <div className="sort-options">
@@ -284,16 +295,6 @@ const Programs = () => {
                         onChange={(e) => handleSearchChange(e)}
                     />
                     <button onClick={() => setOpenModal(true)} className="submit-button">Create Program</button>
-                    <CreateProgramPopup
-                        openModal={openModal}
-                        title={newProgTitle}
-                        titleChange={handleTitleChange}
-                        description={newProgDesc}
-                        descChange={handleDescChange}
-                        userOptions={userOptions}
-                        onChange={handleAddUser}
-                        submit={createProgramFromModal}
-                    />
                 </div>
             </div>
             <div className="program-list-header">

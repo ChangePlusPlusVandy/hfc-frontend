@@ -15,6 +15,7 @@
 }
 
 .program-list-view-container {
+    position: relative;
     box-sizing: border-box;
     border: 0;
     height: 100%;
@@ -83,7 +84,7 @@
 }
 
 #middle-sort-option {
-    margin: 12px 0;
+    margin: 10px 0;
 }
 
 .status-options-sub,
@@ -130,7 +131,7 @@
     width: auto;
 }
 
-#sort-dropdown input:checked+label {
+#sort-dropdown input:hover+label {
     background-color: var(--mid-color);
 }
 
