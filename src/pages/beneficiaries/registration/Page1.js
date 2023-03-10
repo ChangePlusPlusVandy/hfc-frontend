@@ -75,23 +75,23 @@ const Page1 = ({
 };
 
 const languageOpts = [
-    { value: "english", label: "English" },
-    { value: "mandarin", label: "Mandarin" },
-    { value: "french", label: "French" },
+    { value: "English", label: "English" },
+    { value: "Mandarin", label: "Mandarin" },
+    { value: "French", label: "French" },
 ];
 
 const nationalityOpts = [
-    { value: "canada", label: "Canada" },
-    { value: "india", label: "India" },
-    { value: "usa", label: "United States" },
-    { value: "nepal", label: "Nepal" },
+    { value: "Canada", label: "Canada" },
+    { value: "India", label: "India" },
+    { value: "United States", label: "United States" },
+    { value: "Nepal", label: "Nepal" },
 ];
 
 const eduOpts = [
-    { value: "elementary", label: "Elementary School" },
-    { value: "middle", label: "Middle School" },
-    { value: "secondary", label: "Secondary School" },
-    { value: "postSecondary", label: "Post Secondary" },
+    { value: "Elementary", label: "Elementary School" },
+    { value: "Middle", label: "Middle School" },
+    { value: "Secondary", label: "Secondary School" },
+    { value: "Post Secondary", label: "Post Secondary" },
 ];
 
 export default Page1;

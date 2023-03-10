@@ -118,7 +118,7 @@ const BeneficiaryRegistration = () => {
             body: JSON.stringify({
                 firstName: firstName,
                 lastName: lastName,
-                id: "2222345", // TODO
+                id: "2222333", // TODO
                 bday: birthDate,
                 age: age,
                 gender: gender.value,
@@ -141,12 +141,12 @@ const BeneficiaryRegistration = () => {
         console.log(response.json());
     };
 
-    useEffect(() => {
-        const endpoint = "http://localhost:3000/programs"; // edit to programs
-        fetch(endpoint)
-            .then((res) => res.json())
-            .then((data) => setPrograms(data));
-    }, []);
+    // useEffect(() => {
+    //     const endpoint = "http://localhost:3000/programs"; // edit to programs
+    //     fetch(endpoint)
+    //         .then((res) => res.json())
+    //         .then((data) => setPrograms(data));
+    // }, []);
 
     return (
         <div className="form-container">

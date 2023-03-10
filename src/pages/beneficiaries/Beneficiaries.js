@@ -16,20 +16,21 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 const Beneficiaries = () => {
     const [beneficiaries, setBeneficiaries] = useState([]);
+    const [displayedBeneficiaries, setDisplayedBeneficiaries] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("Active");
     const [activeFilter, setActiveFilter] = useState(true);
     const [archivedFilter, setArchivedFilter] = useState(false);
     const [interestsFilter, setInterestsFilter] = useState(false);
-
-    const filterList = FILTER_NAMES.map((name) => (
-        <FilterButton
-            key={name}
-            name={name}
-            isPressed={name === filter}
-            setFilter={setFilter}
-        />
-    ));
+    const [computers, setComputers] = useState(false);
+    const [spokenEnglish, setSpokenEnglish] = useState(false);
+    const [literacy, setLiteracy] = useState(false);
+    const [math, setMath] = useState(false);
+    const [bengali, setBengali] = useState(false);
+    const [arts, setArts] = useState(false);
+    const [bakery, setBakery] = useState(false);
+    const [counseling, setCounseling] = useState(false);
+    const [numInterests, setNumInterests] = useState(0);
 
     const deleteBfc = (id) => {
         console.log(id);
@@ -40,7 +41,7 @@ const Beneficiaries = () => {
                 let data = await fetch("http://localhost:3000/beneficiaries");
                 data = await data.json();
                 setBeneficiaries(data);
-                console.log(beneficiaries);
+                console.log("beneficiaries: " + beneficiaries);
             } catch (error) {
                 console.error(error);
             }
@@ -62,14 +63,12 @@ const Beneficiaries = () => {
     const sortByLastName = () => {
         let data = [...beneficiaries];
         data.sort((a, b) => a.lastName.localeCompare(b.lastName));
-        console.log(data);
         setBeneficiaries(data);
     };
 
     const sortBackwardsByLastName = () => {
         let data = [...beneficiaries];
         data.sort((a, b) => b.lastName.localeCompare(a.lastName));
-        console.log(data);
         setBeneficiaries(data);
     };
 
@@ -95,16 +94,76 @@ const Beneficiaries = () => {
 
     const handleClickArchive = () => {
         setArchivedFilter((prev) => !prev);
-        console.log("archived = " + archivedFilter);
     };
 
     const handleClickActive = () => {
         setActiveFilter((prev) => !prev);
-        console.log("active = " + activeFilter); // this maybe is outputting the wrong value??
     };
 
-    const handleChangeInterests = () => {
-        console.log("test");
+    const handleSelectInterest = (selectedValues, selectedItem) => {
+        setNumInterests((prev) => prev + 1);
+        setInterestsFilter(true);
+        switch (selectedItem.id) {
+            case 1:
+                setComputers((prev) => !prev);
+                break;
+            case 2:
+                setSpokenEnglish((prev) => !prev);
+                break;
+            case 3:
+                setLiteracy((prev) => !prev);
+                break;
+            case 4:
+                setMath((prev) => !prev);
+                break;
+            case 5:
+                setBengali((prev) => !prev);
+                break;
+            case 6:
+                setComputers((prev) => !prev);
+                break;
+            case 7:
+                setArts((prev) => !prev);
+                break;
+            case 8:
+                setCounseling((prev) => !prev);
+                break;
+        }
+    };
+
+    const handleRemoveInterest = (selectedValues, selectedItem) => {
+        setNumInterests((prev) => prev - 1);
+        console.log("numInterests in the handle: " + numInterests);
+        if (numInterests === 0) {
+            console.log("this is working yay!");
+            setInterestsFilter(false);
+        }
+        switch (selectedItem.id) {
+            case 1:
+                setComputers((prev) => !prev);
+                break;
+            case 2:
+                setSpokenEnglish((prev) => !prev);
+                break;
+            case 3:
+                setLiteracy((prev) => !prev);
+                break;
+            case 4:
+                setMath((prev) => !prev);
+                break;
+            case 5:
+                setBengali((prev) => !prev);
+                break;
+            case 6:
+                setComputers((prev) => !prev);
+                break;
+            case 7:
+                setArts((prev) => !prev);
+                break;
+            case 8:
+                setCounseling((prev) => !prev);
+                break;
+        }
     };
 
     const handleChangeSort = (selectedOptions) => {
@@ -158,23 +217,15 @@ const Beneficiaries = () => {
     ];
 
     const interestOptions = [
-        { name: "Interest1", id: 1 },
-        { name: "Interest2", id: 2 },
+        { name: "Computers", id: 1 },
+        { name: "Spoken English", id: 2 },
+        { name: "Literacy", id: 3 },
+        { name: "Math", id: 4 },
+        { name: "Bengali", id: 5 },
+        { name: "Arts", id: 6 },
+        { name: "Bakery/Cafe", id: 7 },
+        { name: "Counseling/Life Skills", id: 8 },
     ];
-
-    /*
-    beneficiaries.filter((beneficiary) => (
-        beneficiary.archived === archivedFilter
-    ))
-
-    if (activeFilter && !archivedFilter && !interestsFilter) {
-        return true; 
-    } 
-    return (
-        beneficiary.archived === archivedFilter || "" === !activeFilter
-        set(beneficiary.interests).intersection(set(interestsF))
-    )
-    */
 
     useEffect(() => {
         const getBeneficiaries = async () => {
@@ -183,9 +234,9 @@ const Beneficiaries = () => {
                 data = await data.json();
                 let dataCopy = [...data];
                 dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));
+                console.log("data copy:", dataCopy);
                 setBeneficiaries(dataCopy);
-                console.log(data);
-                console.log(beneficiaries);
+                setDisplayedBeneficiaries(dataCopy);
             } catch (error) {
                 console.error(error);
             }
@@ -195,20 +246,47 @@ const Beneficiaries = () => {
     }, []);
 
     useEffect(() => {
-        let beneficiariesCopy = [...beneficiaries];
-        beneficiariesCopy.filter(
+        console.log("interest filter: " + interestsFilter);
+        console.log("numInterests" + numInterests);
+        console.log("computers: " + computers);
+        if (numInterests === 0) {
+            setInterestsFilter(false);
+        }
+        let beneficiariesCopy = beneficiaries.filter(
             (beneficiary) =>
-                (!activeFilter && !archivedFilter && !interestsFilter) ||
-                beneficiary.archived === archivedFilter ||
-                !beneficiary.archived === activeFilter ||
-                !interestsFilter // ||
-            // beneficiary.interests.filter((interest) =>
-            // interestsFilter.includes(interest)
-            // )
+                (beneficiary.archived === archivedFilter ||
+                    beneficiary.archived !== activeFilter) &&
+                (!interestsFilter ||
+                    (computers &&
+                        beneficiary.interests.includes("Computers")) ||
+                    (spokenEnglish &&
+                        beneficiary.interests.includes("English")) ||
+                    (arts && beneficiary.interests.includes("Arts")) ||
+                    (literacy && beneficiary.interests.includes("Literacy")) ||
+                    (bengali && beneficiary.interests.includes("Bengali")) ||
+                    (bakery && beneficiary.interests.includes("Bakery")) ||
+                    (counseling &&
+                        beneficiary.interests.includes("Counseling")) ||
+                    (literacy && beneficiary.interests.includes("Literacy")) ||
+                    (math && beneficiary.interests.includes("Math")))
         );
-        setBeneficiaries(beneficiariesCopy);
-        console.log("finished use effect");
-    }, [activeFilter, archivedFilter, interestsFilter]);
+        setDisplayedBeneficiaries(beneficiariesCopy);
+        console.log(beneficiariesCopy);
+    }, [
+        beneficiaries,
+        activeFilter,
+        archivedFilter,
+        numInterests,
+        interestsFilter,
+    ]);
+
+    useEffect(() => {
+        console.log("active changed to: " + activeFilter);
+    }, [activeFilter]);
+
+    useEffect(() => {
+        console.log("archived changed to: " + archivedFilter);
+    }, [archivedFilter]);
 
     return (
         <div className="beneficiaries-page-container">
@@ -234,91 +312,74 @@ const Beneficiaries = () => {
                             displayValue="name"
                             placeholder="Interests"
                             options={interestOptions}
-                            onChange={handleChangeInterests}
+                            onSelect={handleSelectInterest}
+                            onRemove={handleRemoveInterest}
                             showCheckbox
                         />
                     </div>
                 </div>
-                <div className="sort-dropdown">
+                <div className="sort">
                     <Select
                         placeholder="Sort"
+                        className="sort-dropdown"
                         options={sortOptions}
                         onChange={handleChangeSort} // FIX THIS PASSING THE NEW VAL AS PARAM
                     />
                 </div>
-                <div className="search-bar">
+                <div className="search">
                     <input
                         onChange={(e) => setSearch(e.target.value)}
-                        className="del-form"
+                        className="search-bar"
                         type="text"
                         placeholder="Search..."
                     />
                 </div>
-                {/*}
-                <div className="sort-btn-group">
-                    <div className="sort-by-first-name">
-                        <button onClick={sortByFirstName}>
-                            Sort by First Name
-                        </button>
-                    </div>
-                    <div className="sort-by-last-name">
-                        <button onClick={sortByLastName}>
-                            {" "}
-                            Sort by Last Name
-                        </button>
-                    </div>
-                    <div className="sort-by-date">
-                        <button onClick={sortByDate}>Sort by Date</button>
-                    </div>
-                </div>
-                
-                <div className="filter-btn">{filterList}</div>
-                */}
                 <div className="register-beneficiary-btn">
-                    <NavLink to="../beneficiaries/register">
-                        <button> New </button>
+                    <NavLink
+                        to="../beneficiaries/register"
+                        className="new-button"
+                    >
+                        <button id="register-btn"> New </button>
                     </NavLink>
                 </div>
             </div>
-            <div className="beneficiaries-container"></div>
-            <ul
-                role="list"
-                className="bfc-list stack"
-                aria-labelledby="list-heading"
-            >
-                {beneficiaries
-                    .filter(FILTER_MAP[filter])
-                    .filter((value) => {
-                        if (search == "") {
-                            return value;
-                        } else if (
-                            value.firstName
-                                .toLowerCase()
-                                .includes(search.toLowerCase()) ||
-                            value.lastName
-                                .toLowerCase()
-                                .includes(search.toLowerCase()) ||
-                            value.id.toString().includes(search)
-                        ) {
-                            return value;
-                        }
-                    })
-                    .map((item) => (
-                        <SingleBenficiary
-                            id={item.id}
-                            firstName={item.firstName}
-                            lastName={item.lastName}
-                            gender={item.gender}
-                            phone={item.phone}
-                            email={item.email}
-                            bday={item.bday}
-                            archived={item.archived}
-                            key={item.id}
-                            mongoKey={item._id}
-                            deleteBfc={deleteBfc}
-                        />
-                    ))}
-            </ul>
+            <div className="beneficiaries-container">
+                <div className="beneficiaries-mapped-container">
+                    {/* TODO: make each one pretty */}
+                    {displayedBeneficiaries
+
+                        .filter((value) => {
+                            if (search == "") {
+                                return value;
+                            } else if (
+                                value.firstName
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase()) ||
+                                value.lastName
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase()) ||
+                                value.id.toString().includes(search)
+                            ) {
+                                return value;
+                            }
+                        })
+                        .map((item) => (
+                            <SingleBenficiary
+                                id={item.id}
+                                firstName={item.firstName}
+                                lastName={item.lastName}
+                                gender={item.gender}
+                                phone={item.phone}
+                                email={item.email}
+                                bday={item.bday}
+                                archived={item.archived}
+                                key={item.id}
+                                mongoKey={item._id}
+                                deleteBfc={deleteBfc}
+                            />
+                        ))}
+                </div>
+            </div>
         </div>
     );
 };
