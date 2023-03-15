@@ -293,6 +293,7 @@ const Programs = () => {
                         name="search-bar"
                         placeholder="Search Program"
                         onChange={(e) => handleSearchChange(e)}
+
                     />
                     <button onClick={() => setOpenModal(true)} className="submit-button">Create Program</button>
                 </div>

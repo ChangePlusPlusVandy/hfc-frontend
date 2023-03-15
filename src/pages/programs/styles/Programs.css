@@ -174,12 +174,13 @@
 }
 
 .search-and-create>input {
-    margin-right: 15px;
+    margin: 0px 15px 0px 0px;
     border-radius: 10px;
     border: none;
     background-color: var(--button-color);
     padding: 0 10px;
     width: 35%;
+    height: 100%;
 }
 
 
