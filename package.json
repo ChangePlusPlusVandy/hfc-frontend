@@ -64,8 +64,6 @@
         "react-modal": "^3.16.1",
         "react-router-dom": "^6.7.0",
         "react-select": "^5.7.0",
-        "react-step-progress-bar": "^1.0.3",
-        "react-tabs": "^6.0.0",
-        "rsuite": "^5.26.0"
+        "react-tabs": "^6.0.0"
     }
 }
