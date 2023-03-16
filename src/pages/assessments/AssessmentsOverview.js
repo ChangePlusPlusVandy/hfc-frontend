@@ -31,8 +31,6 @@ const AssesssmentsOverview = () => {
             let data = await fetch("http://localhost:3000/assessments");
             data = await data.json();
             setAssessments(data);
-            console.log(data);
-            console.log(assessments);
         } catch (err) {
             console.log(err);
         }
@@ -98,7 +96,8 @@ const AssesssmentsOverview = () => {
                             educationScore={item.educationScore}
                             vocationScore={item.vocationScore}
                             totalScore={item.totalScore}
-                            mongoKey={item._id}
+                            // mongoKey={item._id}
+                            key={item._id}
                         />
                     ))}
             </ul>

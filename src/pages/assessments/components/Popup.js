@@ -11,7 +11,7 @@ const Popup = (props) => {
                             className="close-btn"
                             onClick={() => props.setTrigger(false)}
                         >
-                            close
+                            {props.closeBtnName}
                         </button>
                     }
                     {props.children}

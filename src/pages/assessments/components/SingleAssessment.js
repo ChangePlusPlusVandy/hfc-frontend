@@ -58,7 +58,11 @@ const SingleAssessment = (props) => {
                 <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>
 
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <Popup
+                trigger={buttonPopup}
+                setTrigger={setButtonPopup}
+                closeBtnName="close"
+            >
                 <ViewComponent />
             </Popup>
         </div>

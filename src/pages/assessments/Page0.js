@@ -11,6 +11,7 @@ const Page0 = ({ questions, setQuestions }) => {
             {questions.map((obj, i) => {
                 return (
                     <Question
+                        key={i}
                         questionNum={i + 1}
                         question={obj.question}
                         answer={obj.answer}

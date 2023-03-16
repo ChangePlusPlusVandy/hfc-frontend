@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Assessments.css";
@@ -7,11 +7,16 @@ import Page0 from "./Page0";
 import PageReview from "./PageReview";
 import FormProgressBar from "../../components/FormProgressBar";
 import FormNavBar from "../../components/FormNavBar";
+import Popup from "./components/Popup";
 
 const Assessments = () => {
     const [pageNum, setPageNum] = useState(0);
 
     const navigate = useNavigate();
+
+    const [popup, setPopup] = useState(true);
+
+    const [id, setID] = useState(""); // This is mongo id
 
     const [mentalHealthQs, setMentalHealthQs] = useState([
         {
@@ -189,6 +194,14 @@ const Assessments = () => {
         setPageNum(index);
     };
 
+    /* TODO: probably need to change bfc backend to add a GET method to get a beneficiary by id (ours) method for convenience
+    Then I could use useEffect to set id to the _id of that beneficary got
+    */
+    const handleChangeID = (e) => {
+        // useEffect()
+        setID(e.target.value);
+    };
+
     const handleSubmit = async () => {
         const response = await fetch("http://localhost:3000/assessments", {
             method: "POST",
@@ -205,58 +218,65 @@ const Assessments = () => {
                 educationScore: educationScore,
                 vocationScore: vocationScore,
                 totalScore: totalScore,
+                beneficiary: id,
             }),
         });
-        console.log("Successful.");
-        console.log(response.json());
+        const thisAssessment = await response.json();
+        console.log("this assessment's id: ", thisAssessment._id);
+
+        // FIXME: This keeps returning message: "Request Requires Assessment Field"
+        const bfcResponse = await fetch(
+            `http://localhost:3000/beneficiaries/${id}/assessment`,
+            {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    $push: { assessments: thisAssessment._id },
+                }),
+            }
+        );
+        console.log("bfc doc: ", bfcResponse.json());
+
         navigate(-1); // to the overview page
     };
 
     return (
-        <div className="assessments-page-container">
-            <FormProgressBar
-                stepNames={PAGES.map((page) => page.shortName)}
-                activeStepIndex={pageNum}
-                onStepClick={handleStepClick}
-            />
-            <h2 className="page-title">{PAGES[pageNum].title}</h2>
-            <div className="page-container">{PAGES[pageNum].component}</div>
-            <FormNavBar
-                pageNum={pageNum}
-                setPageNum={setPageNum}
-                numPages={PAGES.length}
-                onSubmit={handleSubmit}
-            />
+        <div className="assessments-container">
+            <div className="view-popup">
+                <Popup
+                    trigger={popup}
+                    setTrigger={setPopup}
+                    closeBtnName="Begin"
+                >
+                    <h1>Assessment Requirement</h1>
+                    <h4>Enter beneficiary ID number to enroll:</h4>
+                    <div className="id-input">
+                        <input
+                            type="text"
+                            onChange={handleChangeID}
+                            value={id}
+                            placeholder="input mongo ID for now"
+                        />
+                    </div>
+                </Popup>
+            </div>
+            <div className="assessments-page-container">
+                <FormProgressBar
+                    stepNames={PAGES.map((page) => page.shortName)}
+                    activeStepIndex={pageNum}
+                    onStepClick={handleStepClick}
+                />
+                <h2 className="page-title">{PAGES[pageNum].title}</h2>
+                <div className="page-container">{PAGES[pageNum].component}</div>
+                <FormNavBar
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                    numPages={PAGES.length}
+                    onSubmit={handleSubmit}
+                />
+            </div>
         </div>
     );
 };
-
-/* export const mentalHealthQs = [
-    "How hopeful and positive do you feel about your future?",
-    "How much do you experience happy, positive feelings in your daily life?",
-    "How often do you feel depressed?",
-    "How much are you able to relax and enjoy yourself?",
-];
-
-export const lifeSkillsQs = [
-    "How much do you value yourself?",
-    "How well do you manage your stress and anxiety?",
-    "How strong are you in solving problems and making decisions for yourself?",
-];
-
-export const socialSkillsQs = [
-    "How much do you feel that loneliness is a problem for you?",
-    "Are you able to get the kind of support from others that you need?",
-];
-
-export const educationQs = [
-    "How satisfied are you with your skills and abilities?",
-];
-
-export const vocationQs = [
-    "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
-    "How often/much do you worry about your or your family's financial difficulties?",
-    "How satisfied are you with your skills and abilities?",
-]; */
 
 export default Assessments;
