@@ -10,69 +10,48 @@ const Page3 = ({
     staffNotes,
     setStaffNotes,
 }) => {
-    const handleReferralSelect = (event) => {
+    const handleReferralChange = (event) => {
         setReferrals(event.target.value);
     };
 
-    const handleChangeSponsorInfo = (event) => {
+    const handleSponsorInfoChange = (event) => {
         setSponsorInfo(event.target.value);
     };
 
-    const handleChangeStaffNotes = (event) => {
+    const handleStaffNotesChange = (event) => {
         setStaffNotes(event.target.value);
     };
 
     return (
-        <div className="Page3">
-            <h3> Basic info: Other </h3>
-            <form>
-                <div className="dropdown-container">
-                    <label>
-                        Referred by Partner Organization
-                        <br />
-                        <textarea
-                            rows="5"
-                            cols="80"
-                            onChange={handleReferralSelect}
-                            value={referrals}
-                        >
-                            {" "}
-                        </textarea>
-                        {/* 
-                        <Select
-                            options={referrals}
-                            placeholder="Select Referrals"
-                            value={formSelectedReferrals}
-                            onChange={handleReferralSelect}
-                            isSearchable={true}
-                            isMulti
-                        />
-                        */}
-                    </label>
-                </div>
-                <br />
-                <label>
-                    Sponsorship information
-                    <br />
-                    <textarea
-                        rows="5"
-                        cols="80"
-                        onChange={handleChangeSponsorInfo}
-                        value={sponsorInfo}
-                    />
+        <div className="page-content">
+            <div className="section-container">
+                <label className="section-label">
+                    Partner Organization Referrals
                 </label>
-                <br />
-                <label>
-                    Staff notes
-                    <br />
-                    <textarea
-                        rows="5"
-                        cols="80"
-                        onChange={handleChangeStaffNotes}
-                        value={staffNotes}
-                    ></textarea>
-                </label>
-            </form>
+                <textarea
+                    value={referrals}
+                    onChange={handleReferralChange}
+                    placeholder="Start here..."
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Sponsorship Information</label>
+                <textarea
+                    value={sponsorInfo}
+                    onChange={handleSponsorInfoChange}
+                    placeholder="Start here..."
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Staff Notes</label>
+                <textarea
+                    value={staffNotes}
+                    onChange={handleStaffNotesChange}
+                    placeholder="Start here..."
+                />
+            </div>
         </div>
     );
 };

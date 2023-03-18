@@ -1,5 +1,4 @@
 import React from "react";
-import CreatableSelect from "react-select/creatable";
 
 import "./BeneficiaryRegistration.css";
 
@@ -21,132 +20,170 @@ const Page0 = ({
     birthDate,
     setBirthDate,
 }) => {
-    const handleChangeFirstName = (event) => {
+    const handleFirstNameChange = (event) => {
         setFirstName(event.target.value);
-        console.log(firstName);
     };
 
-    const handleChangeLastName = (event) => {
+    const handleLastNameChange = (event) => {
         setLastName(event.target.value);
     };
 
-    const handleGenderSelect = (data) => {
-        setGender(data);
+    const handleGenderChange = (event) => {
+        setGender(event.target.value);
     };
 
-    const handleChangePhoneNumber = (event) => {
+    const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
     };
 
-    const handleChangeEmail = (event) => {
+    const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
 
-    const handleChangeAddress = (event) => {
+    const handleAddressChange = (event) => {
         setAddress(event.target.value);
     };
 
     const handleChangeBirthDate = (event) => {
-        const birthDate = new Date(event.target.value);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const month = today.getMonth() - birthDate.getMonth();
-        if (
-            month < 0 ||
-            (month === 0 && today.getDate() < birthDate.getDate())
-        ) {
-            age -= 1;
+        const value = event.target.value;
+
+        // If the user clears the input, we need to set the age to an empty string
+        if (value === "") {
+            setAge("");
+        } else {
+            // Otherwise, we need to calculate the age
+            const birthDate = new Date(value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const month = today.getMonth() - birthDate.getMonth();
+            if (
+                month < 0 ||
+                (month === 0 && today.getDate() < birthDate.getDate())
+            ) {
+                age -= 1;
+            }
+            setAge(age);
         }
-        setBirthDate(event.target.value);
-        setAge(age);
+
+        setBirthDate(value);
     };
 
     return (
-        <div className="form-container">
-            <h3> Basic Info: Fill In</h3>
-            <p> Please Upload a Profile Photo of the User </p>
-
-            {/* TO DO: must find out how to support this image type and how to best store it */}
-            <input type="image" id="profile-photo" />
-            <br></br>
-
-            <br></br>
-            <p> Basic Information </p>
-            <input
-                type="text"
-                id="first-name"
-                onChange={handleChangeFirstName}
-                value={firstName}
-                placeholder="First Name *"
-            />
-            <input
-                type="text"
-                id="last-name"
-                onChange={handleChangeLastName}
-                value={lastName}
-                placeholder="Last Name *"
-            />
-            <br></br>
-
-            <br></br>
-            <label>
-                Gender *
-                <CreatableSelect
-                    options={genderOpts}
-                    value={gender}
-                    onChange={handleGenderSelect}
-                    name="gender"
-                    className="creatable-single-select"
-                    classNamePrefix="select"
+        <div className="page-content">
+            <div className="upload-container">
+                <label className="section-label">
+                    Please upload an profile photo for the beneficiary.
+                </label>
+                {/* TODO: <input type="file" id="profile-photo" /> */}
+                <button
+                    className="upload-button"
+                    onClick={() => alert("TODO: this lol")}
+                >
+                    Click here to upload
+                </button>
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Basic Information</label>
+                <div className="basic-info-input-container">
+                    <div className="name-input-container">
+                        <input
+                            type="text"
+                            id="first-name"
+                            onChange={handleFirstNameChange}
+                            value={firstName}
+                            placeholder="First Name *"
+                        />
+                        <input
+                            type="text"
+                            id="last-name"
+                            onChange={handleLastNameChange}
+                            value={lastName}
+                            placeholder="Last Name *"
+                        />
+                    </div>
+                    <div className="birthdate-input-container">
+                        <label className="birthdate" htmlFor="birthdate">
+                            Birthday:
+                        </label>
+                        <input
+                            type="date"
+                            id="birthdate"
+                            onChange={handleChangeBirthDate}
+                            value={birthDate}
+                            placeholder="Birth Date *"
+                        />
+                        {age !== "" && (
+                            <div className="age">({age} years old)</div>
+                        )}
+                    </div>
+                    <div className="gender-input-container">
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="female"
+                                name="gender"
+                                checked={gender === "female"}
+                                value="female"
+                                onChange={handleGenderChange}
+                            />
+                            Female
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="male"
+                                name="gender"
+                                checked={gender === "male"}
+                                value="male"
+                                onChange={handleGenderChange}
+                            />
+                            Male
+                        </label>
+                        <label>
+                            Other:{" "}
+                            <input
+                                type="text"
+                                id="other"
+                                name="gender"
+                                value={gender}
+                                onChange={handleGenderChange}
+                            />
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Contact</label>
+                <input
+                    type="text"
+                    onChange={handlePhoneNumberChange}
+                    id="phone-number"
+                    placeholder="Phone number"
+                    value={phoneNumber}
                 />
-            </label>
-            <br></br>
-
-            <p>Birth Date *</p>
-            <input
-                type="date"
-                id="birthdate"
-                onChange={handleChangeBirthDate}
-                value={birthDate}
-            />
-
-            <p> Age: {age} </p>
-            <br></br>
-
-            <p>Contact Information</p>
-            <input
-                type="number"
-                onChange={handleChangePhoneNumber}
-                id="phone-number"
-                placeholder="Phone Number"
-                value={phoneNumber}
-            />
-            <input
-                type="email"
-                onChange={handleChangeEmail}
-                id="email-address"
-                placeholder="Email Address"
-                value={email}
-            />
-            <br></br>
-
-            <br></br>
-            <p>Address</p>
-            <input
-                type="text"
-                onChange={handleChangeAddress}
-                id="address"
-                placeholder="Address"
-                value={address}
-            />
-            <br></br>
+                <input
+                    type="email"
+                    onChange={handleEmailChange}
+                    id="email-address"
+                    placeholder="Email address"
+                    value={email}
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Address</label>
+                <input
+                    type="text"
+                    onChange={handleAddressChange}
+                    id="street-address"
+                    placeholder="Street address"
+                    value={address}
+                />
+            </div>
         </div>
     );
 };
-
-const genderOpts = [
-    { value: "female", label: "Female" },
-    { value: "male", label: "Male" },
-];
 
 export default Page0;

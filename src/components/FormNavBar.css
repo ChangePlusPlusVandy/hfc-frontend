@@ -1,0 +1,109 @@
+.form-nav-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+    padding-bottom: 35px;
+    justify-self: end;
+}
+
+.form-nav-bar-container .form-nav-bar {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+}
+
+.form-nav-bar-container .form-nav-bar-previous-button {
+    justify-self: start;
+    transform: rotate(180deg);
+}
+
+.form-nav-bar-container .form-nav-bar-cancel-link {
+    all: unset;
+    color: #a8a8a8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.form-nav-bar-container .form-nav-bar-cancel-link,
+.form-nav-bar-container .form-nav-bar-submit-button {
+    justify-self: center;
+    grid-column: 2;
+}
+
+.form-nav-bar-container .form-nav-bar-submit-button {
+    all: unset;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 16px 24px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.form-nav-bar-container .form-nav-bar-submit-button:hover,
+.form-nav-bar-container .form-nav-bar-submit-button:focus {
+    background: black;
+    color: white;
+}
+
+.form-nav-bar-container .form-nav-bar-next-button {
+    justify-self: end;
+}
+
+.form-nav-bar-container .form-nav-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.form-nav-bar-container .form-nav-button-container .arrow-container {
+    position: relative;
+    height: 0;
+}
+
+.form-nav-bar-container .form-nav-button-container .arrow-center {
+    width: 30px;
+    height: 2px;
+    background: black;
+    border-radius: 1px;
+}
+
+.form-nav-bar-container .form-nav-button-container .arrow-top,
+.form-nav-bar-container .form-nav-button-container .arrow-bottom {
+    width: 20px;
+    height: 2px;
+    background: black;
+    border-radius: 1px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.form-nav-bar-container .form-nav-button-container .arrow-top {
+    transform-origin: right 50%;
+    transform: rotate(45deg);
+}
+
+.form-nav-bar-container .form-nav-button-container .arrow-bottom {
+    transform-origin: right 50%;
+    transform: rotate(-45deg);
+}
+
+.form-nav-bar-container .form-nav-button-container:hover,
+.form-nav-bar-container .form-nav-button-container:focus {
+    background: black;
+}
+
+.form-nav-bar-container .form-nav-button-container:hover * {
+    background: white;
+}
