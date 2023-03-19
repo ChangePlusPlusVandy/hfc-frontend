@@ -10,7 +10,7 @@ const Programs = () => {
 
     const [newProgram, setNewProgram] = useState({
         title: "",
-        //hosts: "",
+        // hosts: "",
         description: "",
         archived: false,
     });
@@ -133,8 +133,7 @@ const Programs = () => {
 
     return (
         <div className="programs-page-container">
-            <h1>Programs: 6386ba96c71942148162a7b2</h1>
-            <h1>63cc4f1d38c9a5e3ceb66e3d</h1>
+            <h1>Programs:</h1>
             <div className="sort-and-search">
                 <div
                     className="sort-indicator"
@@ -170,8 +169,8 @@ const Programs = () => {
                 <div className="programs-list-container">
                     {programsFiltered.map((item, i) => (
                         <div key={i} className="program-card">
-                            <h4># {i}</h4>
-                            <h4>Title: {item.title}</h4>
+                            {/* <h4># {i}</h4> */}
+                            <h4>{item.title}</h4>
 
                             <Link
                                 to="singleview"
@@ -182,12 +181,14 @@ const Programs = () => {
                                 View Program
                             </Link>
 
-                            <h5>id: {item._id}</h5>
-                            <h5>hosts: {item.hosts}</h5>
+                            {/* <h5>id: {item._id}</h5> */}
+                            {/* <h5>hosts: {item.hosts}</h5> */}
 
-                            <h5>description: {item.description}</h5>
-                            <h5>attendance: {item.attendance}</h5>
-                            <h5>Days Of Week: {item.daysOfWeek}</h5>
+                            <h5>
+                                <h4>description:</h4> {item.description}
+                            </h5>
+                            {/* <h5>attendance: {item.attendance}</h5>
+                            <h5>Days Of Week: {item.daysOfWeek}</h5> */}
                             <h5>Date Added: {item.dateAdded}</h5>
                             <h5>
                                 {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}
