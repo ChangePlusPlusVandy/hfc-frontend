@@ -12,25 +12,25 @@ export const WorkshopAttendance = () => {
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [registered, setRegistered] = useState(0);
     const [ratingPoints, setRatingPoints] = useState(0);
-    const [benIDs, setBenIds]=useState([])
-    const [message, setMessage]=useState("")
+    const [benIDs, setBenIds] = useState([]);
+    const [message, setMessage] = useState("");
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
         setTotalAttendees(totalAttendees + 1);
         setidMode(true);
     };
     const handleIDNumber = (event) => {
-        console.log(id)
-        console.log(benIDs)
-        if(benIDs.includes(id)){
+        console.log(id);
+        console.log(benIDs);
+        if (benIDs.includes(id)) {
             setRegistered(registered + 1);
             setidMode(false);
-            setMessage("")
+            setMessage("");
+        } else {
+            setMessage(
+                "ID number is not valid. Please try again, or click skip."
+            );
         }
-        else{
-            setMessage("ID number is not valid. Please try again, or click skip.")
-        }
-        
     };
     const submitAttendance = () => {
         if (totalAttendees > 0) {
@@ -68,9 +68,9 @@ export const WorkshopAttendance = () => {
                 }
             });
         fetch("http://localhost:3000/beneficiaries")
-        .then((response) => response.json())
+            .then((response) => response.json())
             .then((data) => {
-                setBenIds(data.map(item=>Number(item.id)));
+                setBenIds(data.map((item) => Number(item.id)));
             });
     }, []);
     return (
@@ -107,17 +107,18 @@ export const WorkshopAttendance = () => {
                         3
                     </button>
                     <br></br>
-                    <Link to="../singleview"   
+                    <Link
+                        to="../singleview"
                         state={{
-                                id: workshopID,
-                            }}>
-                    <button onClick={submitAttendance} className="button">
-                Submit
-            </button>
-            </Link>
+                            id: workshopID,
+                        }}
+                    >
+                        <button onClick={submitAttendance} className="button">
+                            Submit
+                        </button>
+                    </Link>
                 </div>
             )}
-
         </div>
     );
 };

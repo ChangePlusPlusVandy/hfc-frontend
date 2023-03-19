@@ -6,17 +6,17 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: black;
-  }
-  
-  /* MODAL */
-  /* Background effect. It covers the entire site */
-  .modal {
+}
+
+/* MODAL */
+/* Background effect. It covers the entire site */
+.modal {
     background-color: rgb(0, 0, 0); /* Fallback color */
     background-color: rgba(
-      0,
-      0,
-      0,
-      0.7
+        0,
+        0,
+        0,
+        0.7
     ); /* Overlay effect: translucent background: black w/ partial opacity */
     z-index: 1; /* Overlay effect: positioned over other containers */
     width: 100%; /* Full width */
@@ -26,9 +26,9 @@
     left: 0;
     overflow: auto; /* Enable scroll if needed */
     padding-top: 80px; /* Location of the content container */
-  }
-  /* Modal content */
-  .modal-content {
+}
+/* Modal content */
+.modal-content {
     position: relative;
     background-color: white;
     width: 70%; /* Width in proportion to its parent container*/
@@ -38,9 +38,9 @@
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px; /* Optional. Rounds container corners */
-  }
-  /* Close button */
-  .close {
+}
+/* Close button */
+.close {
     color: #fff;
     background-color: #999;
     position: absolute;
@@ -49,16 +49,14 @@
     font-size: 15px;
     border-radius: 50%;
     border: 2px solid #333;
-  }
-  .close:hover,
-  .close:focus {
+}
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
     outline: none;
-  }
-
-
+}
 
 .workshops-page-container {
     padding: 30px;
@@ -75,9 +73,7 @@
     margin: 1rem;
     text-decoration: none;
     color: black;
-    width: 100%
-
-    
+    width: 100%;
 }
 .close {
     background-color: #999;
@@ -89,11 +85,8 @@
     border: 2px solid #333;
     padding: 0.5rem 1rem;
     margin: 1rem;
-
-    
-  }
-.workshops-page-container
-.workshops-page-container .workshops-list-container {
+}
+.workshops-page-container .workshops-page-container .workshops-list-container {
     border: 3px solid black;
     flex-wrap: wrap;
     justify-content: center;
@@ -102,7 +95,7 @@
 .workshops-page-container .workshops-card {
     color: black;
     display: table-cell;
-    border-bottom: 1px solid black ;
+    border-bottom: 1px solid black;
     padding: 5px;
     padding: 0.5rem 1rem;
     margin: 1rem;
@@ -111,18 +104,18 @@
     width: 80rem;
 }
 
-.workshops-page-container .workshops-card > h3{
+.workshops-page-container .workshops-card > h3 {
     color: black;
-    font-weight:bold;
+    font-weight: bold;
     width: 15rem;
     display: inline-block;
     height: 5%;
     align-items: top;
 }
 .workshops-page-container .workshops-card > h4,
-.workshops-page-container .workshops-card > h5{
+.workshops-page-container .workshops-card > h5 {
     color: black;
-    font-weight:normal;
+    font-weight: normal;
     width: 15rem;
     display: inline-block;
     height: 5%;
@@ -148,13 +141,11 @@
     font-weight: 500;
 }
 
-.delete-button{
+.delete-button {
     border-radius: 10px;
     color: black;
     padding: 5px 25px 5px 25px;
     font-size: 18px;
     font-weight: 500;
     float: right;
-
 }
-
