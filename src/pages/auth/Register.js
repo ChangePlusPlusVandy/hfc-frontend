@@ -16,8 +16,6 @@ const Register = () => {
     };
 
     const checkInputs = () => {
-        
-
         if (!isEmail(email)) {
             setError("Please enter a valid email");
             return false;
@@ -51,7 +49,12 @@ const Register = () => {
         return password.length >= 6;
     }
 
-    const addUserToMongo = async (firebaseUid, firstName, lastName, level = 0) => {
+    const addUserToMongo = async (
+        firebaseUid,
+        firstName,
+        lastName,
+        level = 0
+    ) => {
         const response = await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -91,7 +94,9 @@ const Register = () => {
                 console.log(res);
             } catch (err) {
                 // If MongoDB user creation failed, delete Firebase user to keep consistency
-                console.log("Error adding user to MongoBD, deleting from Firebase");
+                console.log(
+                    "Error adding user to MongoBD, deleting from Firebase"
+                );
                 console.log(err);
                 console.log(err.message);
                 deleteUser(userCrediential.user).then(() =>
@@ -110,7 +115,7 @@ const Register = () => {
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-        setError("")
+        setError("");
     };
 
     const handleFirstNameChange = (e) => {
@@ -131,13 +136,12 @@ const Register = () => {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         setError("");
-    }
+    };
 
     const handlePasswordConfirmChange = (e) => {
         setPasswordConfirm(e.target.value);
         setError("");
-    } 
-
+    };
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");

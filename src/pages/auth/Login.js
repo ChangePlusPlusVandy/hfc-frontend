@@ -50,12 +50,12 @@ const Login = () => {
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
         setError("");
-    }
+    };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         setError("");
-    }
+    };
 
     const handlePasswordReset = async (e) => {
         console.log("email being sent to", email);
@@ -71,43 +71,43 @@ const Login = () => {
     };
 
     return (
-            <div className="login-container">
-                <div className="left">
-                    <img className="logo" src={HFCLogo} />
-                </div>
-                <div className="right">
-                    {error && error.length ? <h1>{error}</h1> : ""}
-                    <form className="form" onSubmit={(e) => handleSubmit(e)}>
-                        <div className="title">Logging you in 🫶🏽</div>
-                        <input
-                            onChange={handleEmailChange}
-                            value={email}
-                            type="text"
-                            placeholder="Email"
-                        />
-                        <input
-                            onChange={handlePasswordChange}
-                            value={password}
-                            type="password"
-                            placeholder="Password"
-                        />
-                        <div className="forgot-password">Forgot password?</div>
-                        <div className="alt-login">Or log in with</div>
-                        <hr className="divider" />
-                        <div className="login-icons">
-                            <RiGoogleLine />
-                            <RiFacebookCircleLine />
-                            <RiInstagramLine />
-                            <RiAppleLine />
-                        </div>
-                        <input
-                            className="submit-btn"
-                            type="submit"
-                            value="Log In"
-                        />
-                    </form>
-                </div>
+        <div className="login-container">
+            <div className="left">
+                <img className="logo" src={HFCLogo} />
             </div>
+            <div className="right">
+                {error && error.length ? <h1>{error}</h1> : ""}
+                <form className="form" onSubmit={(e) => handleSubmit(e)}>
+                    <div className="title">Logging you in 🫶🏽</div>
+                    <input
+                        onChange={handleEmailChange}
+                        value={email}
+                        type="text"
+                        placeholder="Email"
+                    />
+                    <input
+                        onChange={handlePasswordChange}
+                        value={password}
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <div className="forgot-password">Forgot password?</div>
+                    <div className="alt-login">Or log in with</div>
+                    <hr className="divider" />
+                    <div className="login-icons">
+                        <RiGoogleLine />
+                        <RiFacebookCircleLine />
+                        <RiInstagramLine />
+                        <RiAppleLine />
+                    </div>
+                    <input
+                        className="submit-btn"
+                        type="submit"
+                        value="Log In"
+                    />
+                </form>
+            </div>
+        </div>
     );
 };
 

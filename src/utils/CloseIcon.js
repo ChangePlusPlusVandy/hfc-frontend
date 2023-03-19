@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const CloseIcon = () => {
     return (
@@ -8,4 +8,4 @@ const CloseIcon = () => {
     );
 };
 
-export default CloseIcon
+export default CloseIcon;

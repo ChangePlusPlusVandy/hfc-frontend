@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Icon = () => {
     return (
@@ -8,4 +8,4 @@ const Icon = () => {
     );
 };
 
-export default Icon
+export default Icon;

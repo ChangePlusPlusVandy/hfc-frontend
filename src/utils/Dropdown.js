@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import CloseIcon from './CloseIcon';
-import Icon from './Icon';
+import CloseIcon from "./CloseIcon";
+import Icon from "./Icon";
 
 import "./Dropdown.css";
-
 
 const Dropdown = ({
     placeHolder,
