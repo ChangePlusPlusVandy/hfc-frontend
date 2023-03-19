@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase";
 import { onAuthStateChanged, updatePassword } from "firebase/auth";
@@ -15,11 +15,15 @@ const SingleUser = () => {
         joinDate: "",
         level: 0,
         fbUid: "",
+        phoneNum: '',
+        _id: ""
     });
     const [isCurrentUser, setisCurrentUser] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [newPass, setnewPass] = useState("");
+    const [editing, setEditing] = useState(false);
     const { fbId } = useParams();
+
 
     const handleUpdatePassword = async () => {
         const fbuser = auth.currentUser;
@@ -31,6 +35,33 @@ const SingleUser = () => {
                 console.log(err.message);
             });
     };
+
+    const saveUser = async () => {
+        try {
+            console.log(user._id);
+            const res = await fetch(`http://localhost:3000/users?id=${user._id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    level: parseInt(user.level),
+                    phoneNumber: user.phoneNum,
+                    joinDate: user.joinDate,
+                }),
+            });
+            return res.json();
+        } catch (err) {
+            console.log(err);
+            console.log(err.message);
+        }
+    }
+
+    const toggleEdit = async () => {
+        if (editing) {
+            const res = await saveUser();
+            getMongoUser(fbId);
+        }
+        setEditing(!editing);
+    }
 
     const checkAdminStatus = async (fbId) => {
         try {
@@ -52,13 +83,16 @@ const SingleUser = () => {
             );
             const mongoUser = await res.json();
             console.log(mongoUser);
+            const { firstName, lastName, languages, joinDate, level, firebaseUID, _id, phoneNumber } = mongoUser[0];
             setUser({
-                firstName: mongoUser[0].firstName,
-                lastName: mongoUser[0].lastName,
-                languages: mongoUser[0].languages,
-                joinDate: mongoUser[0].joinDate,
-                level: mongoUser[0].level,
-                fbUid: mongoUser[0].firebaseUID,
+                firstName: firstName,
+                lastName: lastName,
+                languages: languages,
+                joinDate: joinDate,
+                level: level,
+                fbUid: firebaseUID,
+                _id: _id,
+                phoneNum: phoneNumber,
             });
         } catch (err) {
             console.error(err);
@@ -66,12 +100,12 @@ const SingleUser = () => {
         }
     };
 
-    onAuthStateChanged(auth, (fbuser) => {
-        if (fbuser) {
+    onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
             if (!isCurrentUser) {
-                console.log(fbuser.uid, "g", user.fbUid);
-                checkAdminStatus(fbuser.uid);
-                setisCurrentUser(fbuser.uid == user.fbUid || isAdmin);
+                console.log(currentUser.uid, "g", user.fbUid);
+                checkAdminStatus(currentUser.uid);
+                setisCurrentUser(currentUser.uid == user.fbUid || isAdmin);
             }
         } else {
             navigate("../login");
@@ -93,47 +127,64 @@ const SingleUser = () => {
                 <img className="pfp" src={DefaultUser}></img>
                 <div className="staff-content">
                     <div className="staff-header">
-                        <p className="staff-name">Raj Chopra</p>
-                        <p className="staff-role">Organization Position</p>
+                        <p className="staff-name">{user.firstName} {user.lastName}</p>
+                        <p className="staff-role">{LEVELTITLES[user.level]}</p>
                     </div>
                     <div className="content-main">
                         <p className="content-row">
                             <span className="content-row-key">
                                 Staff ID Number:
                             </span>
-                            <span className="content-row-val">
-                                XXXXXXXXXXXX
-                            </span>
+                            {editing ? <input className='user-edit' type='text' disabled value={user.fbUid}></input> : (
+                                <span className="content-row-val">
+                                    {user.fbUid}
+                                </span>
+                            )}
+                            
                         </p>
                         <p className="content-row">
                             <span className="content-row-key">
                                 Phone Number:
                             </span>
-                            <span className="content-row-val">
-                                XXXXXXXXXXXX
-                            </span>
-                        </p>
-                        <p className="content-row">
-                            <span className="content-row-key">Email:</span>
-                            <span className="content-row-val">
-                                XXXXXXXXXXXX
-                            </span>
-                        </p>
+                            {editing ? <input onChange={(e) => setUser({...user,phoneNum:e.target.value})} className='user-edit' type='text' value={user.phoneNum}></input> : (
+                                <span className="content-row-val">
+                                    {user.phoneNum}
+                                </span>
+                            )}
+                        </p>    
                         <p className="content-row">
                             <span className="content-row-key">Join Date:</span>
-                            <span className="content-row-val">
-                                XXXXXXXXXXXX
+                            {editing ? <input disabled className='user-edit' type='text' value={user.joinDate.substring(0,10)}></input> : (
+                                <span className="content-row-val">
+                                    {user.joinDate.split('T')[0]}
+                                </span>
+                            )}
+                        </p>
+                        <p className="content-row">
+                            <span className="content-row-key">
+                                Level:
                             </span>
+                            {editing ? <input onChange={e => setUser({...user,level:parseInt(e.target.value)})}className='user-edit' type='number' value={user.level} disabled={!isAdmin}></input> : (
+                                <span className="content-row-val">
+                                    {user.level}
+                                </span>
+                            )}
                         </p>
                         <p className="content-row">
                             <span className="content-row-key">
                                 Fluent Languages:
                             </span>
+                            {editing ? <input className='user-edit' readOnly type='text'></input> : (
+                                <span className="content-row-val">
+                                    {user.languages}
+                                </span>
+                            )}
                         </p>
                     </div>
                     {isCurrentUser ? (
                         <div className="btn-container">
-                            <button className="edit-btn">Edit</button>
+                            <button onClick={toggleEdit} className="edit-btn">{editing ? "Save" : "Edit"}</button>
+                            <button onClick={handleUpdatePassword} disabled className='edit-btn'>Update Password</button>
                         </div>
                     ) : (
                         ""
@@ -161,3 +212,11 @@ export default SingleUser;
 // ) : (
 //     "false"
 // )}
+
+
+const LEVELTITLES = {
+    0: "HFC Volunteer",
+    1: "HFC Worker",
+    2: "HFC Manager",
+    3: "HFC Admin"
+}

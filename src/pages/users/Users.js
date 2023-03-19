@@ -47,6 +47,9 @@ const Users = () => {
     const [filter, setFilter] = useState([]);
     const navigate = useNavigate();
     const handleOnboarding = () => {
+        // fetch("http://localhost:3000/users/firebase",{
+        //     method: "POST"
+        // })
         navigate("../onboard");
     };
 
@@ -58,14 +61,14 @@ const Users = () => {
         return res;
     };
 
-    const sortByName = (first, az) => {
+    const sortByName = (first, isReversed) => {
         let data = [...users];
         if (first) {
             data.sort((a, b) => a.firstName.localeCompare(b.firstName));
         } else {
             data.sort((a, b) => a.lastName.localeCompare(b.lastName));
         }
-        if (az) {
+        if (isReversed) {
             setUsers(data);
         } else {
             setUsers(data.reverse());
@@ -148,7 +151,7 @@ const Users = () => {
             <div className="users-container">
                 {users
                     .filter((value) => {
-                        if (search == "") {
+                        if (!search) {
                             return value;
                         } else if (
                             value.firstName
@@ -162,7 +165,7 @@ const Users = () => {
                         }
                     })
                     .filter((value) => {
-                        if (filter.length == 0) {
+                        if (!filter) {
                             return value;
                         } else if (filter.includes(parseInt(value.level))) {
                             return value;

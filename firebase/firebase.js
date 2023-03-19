@@ -8,14 +8,13 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: "her-future-coalition.firebaseapp.com",
-    projectId: "her-future-coalition",
-    storageBucket: "her-future-coalition.appspot.com",
-    messagingSenderId: "233674517173",
-    appId: "1:233674517173:web:876249f63add9f8fe1ecfc",
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-export { app, auth };
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

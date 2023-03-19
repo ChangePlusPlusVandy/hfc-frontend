@@ -16,6 +16,8 @@ const Register = () => {
     };
 
     const checkInputs = () => {
+        
+
         if (!isEmail(email)) {
             setError("Please enter a valid email");
             return false;
@@ -49,14 +51,14 @@ const Register = () => {
         return password.length >= 6;
     }
 
-    const addUserToMongo = async (uid, fn, ln, level = 0) => {
+    const addUserToMongo = async (firebaseUid, firstName, lastName, level = 0) => {
         const response = await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                firebaseUID: uid,
-                firstName: fn,
-                lastName: ln,
+                firebaseUID: firebaseUid,
+                firstName: firstName,
+                lastName: lastName,
                 level: parseInt(level),
                 languages: languages.map((option) => option.value),
             }),
@@ -66,17 +68,19 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Validate Inputs
         if (!checkInputs()) {
             console.log("error");
             return;
         }
-        console.log(email, password);
         try {
+            // Create Firebase User
             const userCrediential = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
+            // Create MongoDB User
             try {
                 const res = await addUserToMongo(
                     userCrediential.user.uid,
@@ -85,11 +89,9 @@ const Register = () => {
                     level
                 );
                 console.log(res);
-                //navigate("/dashboard");
             } catch (err) {
-                console.log(
-                    "Error adding user to MongoBD, deleting from Firebase"
-                );
+                // If MongoDB user creation failed, delete Firebase user to keep consistency
+                console.log("Error adding user to MongoBD, deleting from Firebase");
                 console.log(err);
                 console.log(err.message);
                 deleteUser(userCrediential.user).then(() =>
@@ -97,6 +99,7 @@ const Register = () => {
                 );
             }
         } catch (err) {
+            // Show error message
             console.log(err);
             console.log(err.message);
             if (err.message in ERRORS) {
@@ -104,6 +107,37 @@ const Register = () => {
             }
         }
     };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        setError("")
+    };
+
+    const handleFirstNameChange = (e) => {
+        setFirstName(e.target.value);
+        setError("");
+    };
+
+    const handleLastNameChange = (e) => {
+        setLastName(e.target.value);
+        setError("");
+    };
+
+    const handleLevelChange = (e) => {
+        setLevel(e.target.value);
+        setError("");
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        setError("");
+    }
+
+    const handlePasswordConfirmChange = (e) => {
+        setPasswordConfirm(e.target.value);
+        setError("");
+    } 
+
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -124,28 +158,19 @@ const Register = () => {
             {error && error.length ? <h1>{error}</h1> : ""}
             <form className="form" onSubmit={(e) => handleSubmit(e)}>
                 <input
-                    onChange={(e) => {
-                        setFirstName(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handleFirstNameChange}
                     value={firstName}
                     type="text"
                     placeholder="First Name"
                 />
                 <input
-                    onChange={(e) => {
-                        setLastName(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handleLastNameChange}
                     value={lastName}
                     type="text"
                     placeholder="Last Name"
                 />
                 <input
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handleEmailChange}
                     value={email}
                     type="text"
                     placeholder="Email"
@@ -163,28 +188,19 @@ const Register = () => {
                 />
                 Level
                 <input
-                    onChange={(e) => {
-                        setLevel(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handleLevelChange}
                     value={level}
                     type="number"
                     placeholder="Level"
                 />
                 <input
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handlePasswordChange}
                     value={password}
                     type="password"
                     placeholder="Password"
                 />
                 <input
-                    onChange={(e) => {
-                        setPasswordConfirm(e.target.value);
-                        setError("");
-                    }}
+                    onChange={handlePasswordConfirmChange}
                     value={passwordConfirm}
                     type="password"
                     placeholder="Confirm Password"

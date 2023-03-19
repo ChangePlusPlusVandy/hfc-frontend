@@ -69,11 +69,16 @@
     padding-right: 3rem;
 }
 
+.content-row-val {
+    padding: .5rem;
+}
+
 .btn-container {
     display: flex;
     padding-top: 2rem;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+
 }
 
 .edit-btn {
@@ -93,3 +98,12 @@
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+.user-edit {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    padding: .5rem;
+    margin: 0;
+    min-width: 300px;
+}
+

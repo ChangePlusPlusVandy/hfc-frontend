@@ -47,6 +47,16 @@ const Login = () => {
         }
     };
 
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        setError("");
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+        setError("");
+    }
+
     const handlePasswordReset = async (e) => {
         console.log("email being sent to", email);
         sendPasswordResetEmail(auth, email)
@@ -61,8 +71,7 @@ const Login = () => {
     };
 
     return (
-        <>
-            <div className="container">
+            <div className="login-container">
                 <div className="left">
                     <img className="logo" src={HFCLogo} />
                 </div>
@@ -71,19 +80,13 @@ const Login = () => {
                     <form className="form" onSubmit={(e) => handleSubmit(e)}>
                         <div className="title">Logging you in 🫶🏽</div>
                         <input
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                                setError("");
-                            }}
+                            onChange={handleEmailChange}
                             value={email}
                             type="text"
                             placeholder="Email"
                         />
                         <input
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setError("");
-                            }}
+                            onChange={handlePasswordChange}
                             value={password}
                             type="password"
                             placeholder="Password"
@@ -105,7 +108,6 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </>
     );
 };
 
