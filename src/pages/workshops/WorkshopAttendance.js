@@ -107,9 +107,14 @@ export const WorkshopAttendance = () => {
                         3
                     </button>
                     <br></br>
+                    <Link to="../singleview"   
+                        state={{
+                                id: workshopID,
+                            }}>
                     <button onClick={submitAttendance} className="button">
                 Submit
             </button>
+            </Link>
                 </div>
             )}
 

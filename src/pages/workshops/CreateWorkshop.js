@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { json, Link } from "react-router-dom";
 import Select from "react-select";
 import "./Workshops.css";
@@ -13,6 +12,9 @@ export const WorkshopCreateForm = (props) => {
     const [date, setDate] = useState(new Date());
     const [hosts, setHosts] = useState([]);
     const [hostOptions, setHostOptions] = useState([]);
+    const closeModal=()=>{
+        props.onClose();
+    }
     useEffect(() => {
         fetch("http://localhost:3000/users/users")
             .then((response) => response.json())
@@ -93,6 +95,11 @@ export const WorkshopCreateForm = (props) => {
         <div className="modal-container">
             <div className="modal-body">
             <div>Workshop Title</div>
+            <button
+                className="close"
+                onClick={closeModal}
+                aria-label="Close"
+              >X</button>
             <input
                 type="text"
                 id="Workshop Title"

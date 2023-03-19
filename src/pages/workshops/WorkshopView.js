@@ -171,7 +171,7 @@ export const WorkshopsList = () => {
                         >
                         <h4> {item.title}</h4>
 
-                        <h4> {item.date}</h4>
+                        <h4> {new Date(item.date).toString().substring(0,10)}</h4>
                         <h4>
                             {" "}
                             {item.hosts.length > 0 ? (
