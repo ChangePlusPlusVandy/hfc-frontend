@@ -280,14 +280,6 @@ const Beneficiaries = () => {
         interestsFilter,
     ]);
 
-    useEffect(() => {
-        console.log("active changed to: " + activeFilter);
-    }, [activeFilter]);
-
-    useEffect(() => {
-        console.log("archived changed to: " + archivedFilter);
-    }, [archivedFilter]);
-
     return (
         <div className="beneficiaries-page-container">
             <div className="beneficiaries-page-title">
