@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import EnrollPopup from "./EnrollPopup";
 import "./styles/SingleProgram.css";
 
 const SingleProgram = (props) => {
-    const programID = useLocation().state.id;
+    const { programID } = useParams();
     const navigate = useNavigate();
 
     const [program, setProgram] = useState({});
@@ -26,8 +26,10 @@ const SingleProgram = (props) => {
         getProgramFromID();
         getBeneficiaries();
 
-        document.getElementById("overview-button").style.backgroundColor = "#888b8f";
-        document.getElementById("enrollment-button").style.backgroundColor = "#e8e9eb";
+        document.getElementById("overview-button").style.backgroundColor =
+            "#888b8f";
+        document.getElementById("enrollment-button").style.backgroundColor =
+            "#e8e9eb";
     }, []);
 
     useEffect(() => {
@@ -88,7 +90,7 @@ const SingleProgram = (props) => {
         let benCards = document.getElementsByClassName("beneficiary-card");
         console.log(benCards);
         for (let i = 0; i < benCards.length; i++) {
-            benCards[i].style.backgroundColor = '#d0d0d1';
+            benCards[i].style.backgroundColor = "#d0d0d1";
         }
 
         setEditRoster(false);
@@ -146,8 +148,8 @@ const SingleProgram = (props) => {
             }),
         };
         await fetch("http://localhost:3000/programs", requestOptions);
-        navigate("../");
-    }
+        navigate("../../");
+    };
 
     const deleteProgram = async (e) => {
         try {
@@ -184,21 +186,19 @@ const SingleProgram = (props) => {
         setEditBeneficiaries((current) => !current);
     };
 
-
     const handleAddBen = (e) => {
         let addBenFiltered = e.map((event, i) => event.value);
         setAddBeneficiary(addBenFiltered);
     };
 
     const removeBen = (ben, e) => {
-        if (!program.roster.find(obj => obj._id === ben)) {
-            program.roster.push(roster.find(obj => obj._id === ben));
+        if (!program.roster.find((obj) => obj._id === ben)) {
+            program.roster.push(roster.find((obj) => obj._id === ben));
             console.log("adding back ben");
             let parent = e.target.parentElement.parentElement;
             parent.style.backgroundColor = "#d0d0d1";
 
-            if (program.roster.length === roster.length)
-                setEditRoster(false);
+            if (program.roster.length === roster.length) setEditRoster(false);
         } else {
             program.roster = program.roster.filter((item) => {
                 return item._id !== ben;
@@ -212,42 +212,51 @@ const SingleProgram = (props) => {
     const editOverviewOrEnroll = (bool) => {
         setOverviewOrEnroll(bool);
         if (bool) {
-            document.getElementById("overview-button").style.backgroundColor = "#e8e9eb";
-            document.getElementById("enrollment-button").style.backgroundColor = "#888b8f";
+            document.getElementById("overview-button").style.backgroundColor =
+                "#e8e9eb";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#888b8f";
         } else {
-            document.getElementById("overview-button").style.backgroundColor = "#888b8f";
-            document.getElementById("enrollment-button").style.backgroundColor = "#e8e9eb";
+            document.getElementById("overview-button").style.backgroundColor =
+                "#888b8f";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#e8e9eb";
         }
-
-    }
+    };
 
     return (
         <div className="single-program-container">
-            <Link to="/dashboard/programs" >
-                &lt;  back to program list
-            </Link>
+            <Link to="/dashboard/programs">&lt; back to program list</Link>
             <div className="single-program">
                 <div className="single-program-heading">
                     {editMode ? (
-                        <h6>  <input
-                            type="text"
-                            value={updateProgTitle}
-                            name="title"
-                            onChange={(e) =>
-                                setUpdateProgTitle(
-                                    e.target.value
-                                )
-                            }
-                        />
+                        <h6>
+                            {" "}
+                            <input
+                                type="text"
+                                value={updateProgTitle}
+                                name="title"
+                                onChange={(e) =>
+                                    setUpdateProgTitle(e.target.value)
+                                }
+                            />
                         </h6>
                     ) : (
                         <h1>{program.title}</h1>
                     )}
                     <div className="heading-buttons">
-                        <button onClick={() => editOverviewOrEnroll(false)} id="overview-button" className="tab">
+                        <button
+                            onClick={() => editOverviewOrEnroll(false)}
+                            id="overview-button"
+                            className="tab"
+                        >
                             Overview
                         </button>
-                        <button onClick={() => editOverviewOrEnroll(true)} id="enrollment-button" className="tab">
+                        <button
+                            onClick={() => editOverviewOrEnroll(true)}
+                            id="enrollment-button"
+                            className="tab"
+                        >
                             Enrollment
                         </button>
                     </div>
@@ -269,7 +278,10 @@ const SingleProgram = (props) => {
                                     onChange={handleAddBen}
                                     submit={updateProgramFromEnrollment}
                                 />
-                                <button onClick={() => setOpenModal(true)} className="submit-button program-enroll-ben">
+                                <button
+                                    onClick={() => setOpenModal(true)}
+                                    className="submit-button program-enroll-ben"
+                                >
                                     Add Beneficiaries
                                 </button>
                             </div>
@@ -281,8 +293,9 @@ const SingleProgram = (props) => {
                                         <div></div>
                                         <div className="card-info">
                                             <div className="tmp-photo"></div>
-                                            <h5>{ben.firstName}{" "}
-                                                {ben.lastName}</h5>
+                                            <h5>
+                                                {ben.firstName} {ben.lastName}
+                                            </h5>
                                         </div>
                                         <div className="delete-button-container">
                                             <button
@@ -306,16 +319,14 @@ const SingleProgram = (props) => {
                                         Submit
                                     </button>
                                 </div>
-
-                            ) : <></>}
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         <div className="mark-attendance-button-container">
                             <button className="submit-button program-enroll-ben">
                                 <Link
-                                    to="/dashboard/programs/singleview/markattendance"
-                                    state={{
-                                        id: programID,
-                                    }}
+                                    to={`/dashboard/programs/singleview/attendance/${programID}`}
                                 >
                                     Mark Attendance
                                 </Link>
@@ -327,18 +338,18 @@ const SingleProgram = (props) => {
                         <div className="program-info">
                             <h3>Description</h3>
                             {editMode ? (
-                                <h6> <textarea
-                                    rows="5"
-                                    cols="75"
-                                    type="text"
-                                    value={updateProgDesc}
-                                    name="description"
-                                    onChange={(e) =>
-                                        setUpdateProgDesc(
-                                            e.target.value
-                                        )
-                                    }
-                                />
+                                <h6>
+                                    {" "}
+                                    <textarea
+                                        rows="5"
+                                        cols="75"
+                                        type="text"
+                                        value={updateProgDesc}
+                                        name="description"
+                                        onChange={(e) =>
+                                            setUpdateProgDesc(e.target.value)
+                                        }
+                                    />
                                 </h6>
                             ) : (
                                 <h6>{program.description}</h6>
@@ -362,7 +373,11 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-info">
                             <h3>Status</h3>
-                            {program.archived ? <h6>Archived</h6> : <h6>Active</h6>}
+                            {program.archived ? (
+                                <h6>Archived</h6>
+                            ) : (
+                                <h6>Active</h6>
+                            )}
                         </div>
                         <div className="program-info">
                             <h3>Schedule</h3>
@@ -378,8 +393,20 @@ const SingleProgram = (props) => {
                                         Submit
                                     </button>
                                     <div className="program-archive-delete">
-                                        <button onClick={() => archiveProgram(program._id)}>Archive</button>
-                                        <button onClick={() => deleteProgram(program._id)}>Delete</button>
+                                        <button
+                                            onClick={() =>
+                                                archiveProgram(program._id)
+                                            }
+                                        >
+                                            Archive
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                deleteProgram(program._id)
+                                            }
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             ) : (
@@ -391,197 +418,14 @@ const SingleProgram = (props) => {
                                         {" "}
                                         Edit
                                     </button>
-
                                 </div>
                             )}
                         </div>
                     </div>
-                )
-                }
-            </div >
-        </div >
+                )}
+            </div>
+        </div>
     );
 };
 
 export default SingleProgram;
-
-
-
-
-
-// return (
-//     <div className="single-program-container">
-//         <button onClick={() => setOverviewOrEnroll(false)}>Overview</button>
-//         <button onClick={() => setOverviewOrEnroll(true)}>
-//             Enrollment
-//         </button>
-//         {overviewOrEnroll ? (
-//             <div>
-//                 {editBeneficiaries ? (
-//                     <div>
-//                         <EnrollPopup
-//                             openModal={openModal}
-//                             options={benOptions}
-//                             onChange={handleAddBen}
-//                             submit={updateProgramFromEnrollment}
-//                         />
-//                         <div>
-//                             <div className="enrolled-ben-title">
-//                                 <h3>Current Beneficiaries:</h3>
-//                                 <button
-//                                     onClick={() => setOpenModal(true)}
-//                                     className="submit-button"
-//                                 >
-//                                     Add Beneficiaries
-//                                 </button>
-//                             </div>
-//                             {program.roster?.map((ben, i) => (
-//                                 <div key={i}>
-//                                     <h5 id="beneficiary-name">
-//                                         {i + 1}: {ben.firstName}{" "}
-//                                         {ben.lastName}
-//                                         <button
-//                                             onClick={(e) =>
-//                                                 removeBen(ben._id, e)
-//                                             }
-//                                         >
-//                                             X
-//                                         </button>
-//                                     </h5>
-//                                 </div>
-//                             ))}
-//                         </div>
-//                         <button
-//                             onClick={updateProgramFromEnrollment}
-//                             className="submit-button"
-//                         >
-//                             Submit
-//                         </button>
-//                     </div>
-//                 ) : (
-//                     <div>
-//                         <div className="enrolled-ben-title">
-//                             <h3>Enrolled Beneficiaries: </h3>
-//                             <button
-//                                 onClick={editBenMode}
-//                                 className="submit-button"
-//                             >
-//                                 {" "}
-//                                 Edit Enrollment
-//                             </button>
-//                         </div>
-//                         {program.roster?.map((benn, i) => (
-//                             <div key={i}>
-//                                 <h4>
-//                                     {i + 1}: {benn.firstName}{" "}
-//                                     {benn.lastName}
-//                                 </h4>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 )}
-//                 <Link
-//                     to="/dashboard/programs/singleview/markattendance"
-//                     state={{
-//                         id: programID,
-//                     }}
-//                 >
-//                     Mark Attendance
-//                 </Link>
-//             </div>
-//         ) : (
-//             <div>
-//                 <h1>Title: {program.title}</h1>
-//                 {editMode ? (
-//                     <div>
-//                         <div>
-//                             <label>
-//                                 <h3>
-//                                     Title:
-//                                     <input
-//                                         type="text"
-//                                         value={updateProgTitle}
-//                                         name="title"
-//                                         onChange={(e) =>
-//                                             setUpdateProgTitle(
-//                                                 e.target.value
-//                                             )
-//                                         }
-//                                     />
-//                                 </h3>
-//                             </label>
-//                         </div>
-//                         <div>
-//                             <h3>
-//                                 <label>
-//                                     Description:
-//                                     <input
-//                                         type="text"
-//                                         value={updateProgDesc}
-//                                         name="description"
-//                                         onChange={(e) =>
-//                                             setUpdateProgDesc(
-//                                                 e.target.value
-//                                             )
-//                                         }
-//                                     />
-//                                 </label>
-//                             </h3>
-//                         </div>
-//                         <h3>id: {program._id}</h3>
-//                         <h3>Start Date: {program.startDate}</h3>
-//                         <h3>End Date: {program.endDate}</h3>
-//                         <h3>Date Created: {program.dateAdded}</h3>
-//                         <div>
-//                             <h3>
-//                                 <label>
-//                                     Hosts:
-//                                     <input
-//                                         type="text"
-//                                         value={updateProgHosts}
-//                                         name="description"
-//                                         onChange={(e) =>
-//                                             setUpdateProgHosts(
-//                                                 e.target.value
-//                                             )
-//                                         }
-//                                     />
-//                                 </label>
-//                             </h3>
-//                         </div>
-//                     </div>
-//                 ) : (
-//                     <div>
-//                         <h3>Description: {program.description}</h3>
-//                         <h3>id: {program._id}</h3>
-//                         <h3>Start Date: {program.startDate}</h3>
-//                         <h3>End Date: {program.endDate}</h3>
-//                         <h3>Date Created: {program.dateAdded}</h3>
-//                         <h3>Hosts: {program.hosts}</h3>
-//                         <h3>
-//                             Status:{" "}
-//                             {program.archived ? <>archived</> : <>active</>}
-//                         </h3>
-//                     </div>
-//                 )}
-
-//                 {editMode ? (
-//                     <button
-//                         onClick={updateProgramFromOverview}
-//                         className="submit-button"
-//                     >
-//                         Submit
-//                     </button>
-//                 ) : (
-//                     <button
-//                         onClick={editUpdateMode}
-//                         className="submit-button"
-//                     >
-//                         {" "}
-//                         Edit Program
-//                     </button>
-//                 )}
-//             </div>
-//         )}
-//     </div>
-// );

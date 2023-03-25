@@ -90,8 +90,7 @@ const Programs = () => {
                 title: newProgTitle,
                 description: newProgDesc,
                 hosts: addUsers,
-            }
-            ),
+            }),
         };
         await fetch("http://localhost:3000/programs", requestOptions);
         getPrograms();
@@ -139,15 +138,12 @@ const Programs = () => {
         setNewProgDesc("");
     };
 
-    const handleTitleChange = e => {
+    const handleTitleChange = (e) => {
         setNewProgTitle(e);
-    }
-    const handleDescChange = e => {
+    };
+    const handleDescChange = (e) => {
         setNewProgDesc(e);
-    }
-
-
-
+    };
 
     const sortDropdown = () => {
         let click = document.getElementById("sort-dropdown");
@@ -157,18 +153,17 @@ const Programs = () => {
         } else {
             click.style.display = "none";
         }
-    }
+    };
     const sortOptionsDropdown = () => {
         let click = document.getElementById("sort-options-dropdown");
 
         if (click.style.display === "none") {
             click.style.display = "flex";
             click.style.flexDirection = "column";
-
         } else {
             click.style.display = "none";
         }
-    }
+    };
 
     const filterDropdown = () => {
         let click = document.getElementById("filter-dropdown");
@@ -178,18 +173,17 @@ const Programs = () => {
         } else {
             click.style.display = "none";
         }
-    }
+    };
     const statusOptionsDropdown = () => {
         let click = document.getElementById("status-options-dropdown");
 
         if (click.style.display === "none") {
             click.style.display = "flex";
             click.style.flexDirection = "column";
-
         } else {
             click.style.display = "none";
         }
-    }
+    };
 
     return (
         <div className="program-list-view-container">
@@ -207,10 +201,16 @@ const Programs = () => {
             <div className="program-sort-options-container">
                 <div className="sort-options">
                     <div className="dropdown">
-                        <button onClick={filterDropdown} className="filter-options">
+                        <button
+                            onClick={filterDropdown}
+                            className="filter-options"
+                        >
                             Filter
                         </button>
-                        <div className="two-dropdown-container" onClick={statusOptionsDropdown}>
+                        <div
+                            className="two-dropdown-container"
+                            onClick={statusOptionsDropdown}
+                        >
                             <div id="filter-dropdown">
                                 <div className="status-options-container">
                                     <div className="status-options-sub">
@@ -220,42 +220,71 @@ const Programs = () => {
                                             <h5>&gt;</h5>
                                         </div>
                                     </div>
-                                    <div id="status-options-dropdown" onChange={(e) => handleSortArchivedChange(e)}>
-                                        <input type="radio" value="Archived" name="sortVal" id="radio1" className="sort-radio-button" />
-                                        <label for='radio1'>Archived</label>
+                                    <div
+                                        id="status-options-dropdown"
+                                        onChange={(e) =>
+                                            handleSortArchivedChange(e)
+                                        }
+                                    >
+                                        <input
+                                            type="radio"
+                                            value="Archived"
+                                            name="sortVal"
+                                            id="radio1"
+                                            className="sort-radio-button"
+                                        />
+                                        <label for="radio1">Archived</label>
 
-                                        <input type="radio" value="Active" name="sortVal" id="radio2" className="sort-radio-button" />
-                                        <label for='radio2'>Active</label>
+                                        <input
+                                            type="radio"
+                                            value="Active"
+                                            name="sortVal"
+                                            id="radio2"
+                                            className="sort-radio-button"
+                                        />
+                                        <label for="radio2">Active</label>
 
-                                        <input type="radio" value="All" name="sortVal" id="radio3" className="sort-radio-button" />
-                                        <label for='radio3'>All</label>
+                                        <input
+                                            type="radio"
+                                            value="All"
+                                            name="sortVal"
+                                            id="radio3"
+                                            className="sort-radio-button"
+                                        />
+                                        <label for="radio3">All</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    {/* //                    <div
-//             className="sort-indicator"
-//             onChange={(e) => handleSortValChange(e)}
-//         >
-//             <h3>Sort By:</h3>
-//             <input type="radio" value="dateAdded" name="sortVal" />
-//             Alphabetical
-//             <input type="radio" value="alphabetical" name="sortVal" />
-//             Date
-//         </div> */}
-
                     <div className="dropdown">
-                        <button onClick={sortDropdown} className="sort-to-options">
+                        <button
+                            onClick={sortDropdown}
+                            className="sort-to-options"
+                        >
                             Sort
                         </button>
-                        <div className="sort-dropdown-container" onClick={sortOptionsDropdown}>
+                        <div
+                            className="sort-dropdown-container"
+                            onClick={sortOptionsDropdown}
+                        >
                             <div id="sort-dropdown">
-                                <div className="sort-options-container" onChange={(e) => handleSortValChange(e)}>
-                                    <input type="radio" value="dateAdded" id="sort1" name="sortVal" className="sort-radio-button" />
-                                    <label for='sort1' className="sort-options-sub">
+                                <div
+                                    className="sort-options-container"
+                                    onChange={(e) => handleSortValChange(e)}
+                                >
+                                    <input
+                                        type="radio"
+                                        value="dateAdded"
+                                        id="sort1"
+                                        name="sortVal"
+                                        className="sort-radio-button"
+                                    />
+                                    <label
+                                        for="sort1"
+                                        className="sort-options-sub"
+                                    >
                                         <h6>FIRST NAME</h6>
                                         <div className="sort-options-main">
                                             <h5>A-Z</h5>
@@ -263,8 +292,18 @@ const Programs = () => {
                                         </div>
                                     </label>
 
-                                    <input type="radio" value="alphabetical" id="sort2" name="sortVal" className="sort-radio-button" />
-                                    <label for='sort2' className="sort-options-sub" id="middle-sort-option">
+                                    <input
+                                        type="radio"
+                                        value="alphabetical"
+                                        id="sort2"
+                                        name="sortVal"
+                                        className="sort-radio-button"
+                                    />
+                                    <label
+                                        for="sort2"
+                                        className="sort-options-sub"
+                                        id="middle-sort-option"
+                                    >
                                         <h6>START DATE</h6>
                                         <div className="sort-options-main">
                                             <h5>Newest-Oldest</h5>
@@ -272,8 +311,18 @@ const Programs = () => {
                                         </div>
                                     </label>
 
-                                    <input type="radio" value="reverseDate" id="sort3" name="sortVal" className="sort-radio-button" />
-                                    <label for='sort3' className="sort-options-sub" id="middle-sort-option">
+                                    <input
+                                        type="radio"
+                                        value="reverseDate"
+                                        id="sort3"
+                                        name="sortVal"
+                                        className="sort-radio-button"
+                                    />
+                                    <label
+                                        for="sort3"
+                                        className="sort-options-sub"
+                                        id="middle-sort-option"
+                                    >
                                         <div className="sort-options-sub">
                                             <h6>JOIN DATE</h6>
                                             <div className="sort-options-main">
@@ -293,9 +342,13 @@ const Programs = () => {
                         name="search-bar"
                         placeholder="Search Program"
                         onChange={(e) => handleSearchChange(e)}
-
                     />
-                    <button onClick={() => setOpenModal(true)} className="submit-button">Create Program</button>
+                    <button
+                        onClick={() => setOpenModal(true)}
+                        className="submit-button"
+                    >
+                        Create Program
+                    </button>
                 </div>
             </div>
             <div className="program-list-header">
@@ -310,108 +363,26 @@ const Programs = () => {
                     <div key={i} className="program-card">
                         <h4 className="program-title">
                             <Link
-                                to="/dashboard/programs/singleview"
-                                state={{
-                                    id: item._id,
-                                }}
-                            >{item.title}
+                                to={`/dashboard/programs/singleview/${item._id}`}
+                            >
+                                {item.title}
                             </Link>
                         </h4>
                         <h4 className="program-id">{item._id}</h4>
                         <h4 className="program-start-date">None</h4>
-                        <h4 className="program-date-added">{item.dateAdded.split("T")[0]}</h4>
+                        <h4 className="program-date-added">
+                            {item.dateAdded.split("T")[0]}
+                        </h4>
                         {item.archived ? (
                             <h4 className="program-status">Archived</h4>
                         ) : (
                             <h4 className="program-status">Active</h4>
                         )}
-
                     </div>
                 ))}
-
             </div>
-        </div >
+        </div>
     );
 };
 
 export default Programs;
-
-
-
-
-
-// <div className="programs">
-//     <h1>Programs:</h1>
-//     <button onClick={() => setOpenModal(true)}>Create Program</button>
-
-
-
-
-//     <div className="sort-and-search">
-//         <div
-//             className="sort-indicator"
-//             onChange={(e) => handleSortValChange(e)}
-//         >
-//             <h3>Sort By:</h3>
-//             <input type="radio" value="dateAdded" name="sortVal" />
-//             Alphabetical
-//             <input type="radio" value="alphabetical" name="sortVal" />
-//             Date
-//         </div>
-//         <div className="single-search">
-//             <input
-//                 type="text"
-//                 name="search-bar"
-//                 placeholder="Search..."
-//                 onChange={(e) => handleSearchChange(e)}
-//             />
-//         </div>
-//         <div
-//             className="archived-sort"
-//             onChange={(e) => handleSortArchivedChange(e)}
-//         >
-//             <input type="radio" value="archived" name="sortVal" />
-//             Archived
-//             <input type="radio" value="active" name="sortVal" />
-//             Active
-//             <input type="radio" value="all" name="sortVal" />
-//             All
-//         </div>
-//     </div>
-//     <div>
-//         <div className="programs-list-container">
-//             {programsFiltered.map((item, i) => (
-//                 <div key={i} className="program-card">
-//                     <h4># {i}</h4>
-//                     <h4>Title: {item.title}</h4>
-
-//                     <Link
-//                         to="/dashboard/programs/singleview"
-//                         state={{
-//                             id: item._id,
-//                         }}
-//                     >
-//                         View Program
-//                     </Link>
-
-//                     <h5>id: {item._id}</h5>
-//                     HOSTS:
-//                     {item.hosts.map((host, h) => (
-//                         <h5 key={host._id}>{host.firstName}</h5>
-//                     ))}
-
-//                     <h5>description: {item.description}</h5>
-//                     {/* <h5>attendance: {item.attendance}</h5> */}
-//                     <h5>Days Of Week: {item.daysOfWeek}</h5>
-//                     <h5>Date Added: {item.dateAdded}</h5>
-//                     <h5>
-//                         {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}
-//                     </h5>
-//                     <button onClick={() => deleteProgram(item._id)}>
-//                         Delete Program
-//                     </button>
-//                 </div>
-//             ))}
-//         </div>
-//     </div>
-// </div>
