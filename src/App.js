@@ -41,7 +41,10 @@ const router = createBrowserRouter(
                 <Route path="singleview">
                     <Route path=":programID" element={<SingleProgram />} />
                     {/* <Route index element={<SingleProgram />} /> */}
-                    <Route path="attendance/:programID" element={<MarkAttendance />} />
+                    <Route
+                        path="attendance/:programID"
+                        element={<MarkAttendance />}
+                    />
                 </Route>
             </Route>
             <Route path="workshops">

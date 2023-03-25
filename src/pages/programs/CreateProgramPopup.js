@@ -39,7 +39,7 @@ const CreateProgramPopup = (props) => {
                         //name="description"
                         placeholder="Start (MM-DD-YYYY)"
                         className="modal-input-text"
-                    //onChange={e => props.descChange(e.target.value)}
+                        //onChange={e => props.descChange(e.target.value)}
                     />
 
                     <input
@@ -48,7 +48,7 @@ const CreateProgramPopup = (props) => {
                         //name="description"
                         placeholder="End (MM-DD-YYYY)"
                         className="modal-input-text"
-                    //onChange={e => props.descChange(e.target.value)}
+                        //onChange={e => props.descChange(e.target.value)}
                     />
                 </div>
                 <div className="add-hosts">
@@ -64,7 +64,6 @@ const CreateProgramPopup = (props) => {
                         classNamePrefix="react-select"
                         onChange={props.onChange}
                         placeholder="Add hosts"
-
                         theme={(theme) => ({
                             ...theme,
                             borderRadius: 15,
@@ -85,7 +84,6 @@ const CreateProgramPopup = (props) => {
                 </button>
             </div>
         </div>
-
     );
 };
 

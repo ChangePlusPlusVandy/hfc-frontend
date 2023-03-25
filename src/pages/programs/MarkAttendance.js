@@ -101,7 +101,9 @@ const MarkAttendance = (props) => {
 
     return (
         <div className="mark-attendance-container">
-            <Link to={`/dashboard/programs/singleview/${programID}`}>&lt; back to program</Link>
+            <Link to={`/dashboard/programs/singleview/${programID}`}>
+                &lt; back to program
+            </Link>
             <div className="mark-attendance">
                 <div className="attendance-header">
                     <h1>Mark Program Attendance</h1>

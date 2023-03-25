@@ -17,7 +17,7 @@
     padding: 30px 50px;
 }
 
-.program-list-view-container>h1 {
+.program-list-view-container > h1 {
     margin: 0;
 }
 
@@ -112,7 +112,7 @@
     display: none;
 }
 
-#status-options-dropdown input:hover+label {
+#status-options-dropdown input:hover + label {
     background-color: var(--darkest-color);
 }
 
@@ -123,7 +123,7 @@
     width: auto;
 }
 
-#sort-dropdown input:hover+label {
+#sort-dropdown input:hover + label {
     background-color: var(--mid-color);
 }
 
@@ -161,7 +161,7 @@
     flex: 1;
 }
 
-.search-and-create>input {
+.search-and-create > input {
     margin: 0px 15px 0px 0px;
     border-radius: 10px;
     border: none;
@@ -185,13 +185,13 @@
     height: 100%;
 }
 
-.program-list-header>h4 {
+.program-list-header > h4 {
     font-size: 15px;
     font-weight: 500;
     margin: 0;
 }
 
-.program-card>h4 {
+.program-card > h4 {
     font-size: 14px;
     font-weight: 400;
     margin: 0;
