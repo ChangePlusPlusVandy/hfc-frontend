@@ -20,7 +20,7 @@
 }
 
 .popup-inner.close-btn {
-    position: absolute;
+    position: relative;
     top: 16px;
     right: 16px;
 }

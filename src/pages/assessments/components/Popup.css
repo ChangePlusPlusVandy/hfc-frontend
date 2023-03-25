@@ -1,5 +1,5 @@
 .popup-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -21,7 +21,12 @@
 }
 
 .popup-content .close-btn {
-    position: sticky;
+    position: relative;
     top: 0;
-    right: 16px;
+}
+
+.popup-content .begin-btn {
+    position: relative;
+    left: 45%;
+    vertical-align: bottom;
 }

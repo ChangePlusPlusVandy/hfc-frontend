@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "./Popup";
 import Table from "./Table";
 
 const SingleAssessment = (props) => {
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [beneficiary, setBeneficiary] = useState({});
+
+    const getBeneficiaryByID = async (mongoId) => {
+        try {
+            let data = await fetch(
+                `http://localhost:3000/beneficiaries/?id=${mongoId}`
+            );
+            //console.log("get bfc ID: ", mongoId);
+            data = await data.json();
+            setBeneficiary(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getBeneficiaryByID(props.bfcMongoId);
+    }, []);
 
     const ViewComponent = () => (
         <div className="assessment-view">
             <div className="assessment-info">
-                <h3 id="assessment-date">{`Date taken: ${props.dateTaken}`}</h3>
+                <h2>{`${beneficiary.firstName} ${beneficiary.lastName}`}</h2>
+                <h3>{`Date Taken: ${props.dateTaken}`}</h3>
 
                 <Table
                     dataName="Mental Health"
@@ -43,7 +62,7 @@ const SingleAssessment = (props) => {
                 <button
                     type="button"
                     className="btn btn__danger"
-                    onClick={() => props.deleteBfc(props.mongoKey.toString())}
+                    onClick={() => deleteBfc(mongoKey.toString())}
                 >
                     Delete
                 </button>
@@ -53,7 +72,7 @@ const SingleAssessment = (props) => {
 
     return (
         <div className="view-popup">
-            <li className="assessment-label">{`${props.dateTaken}`}</li>
+            <li className="assessment-label">{`${beneficiary.firstName} ${beneficiary.lastName} @ ${props.dateTaken}`}</li>
             <main>
                 <button onClick={() => setButtonPopup(true)}> Expand </button>
             </main>
@@ -62,9 +81,8 @@ const SingleAssessment = (props) => {
                 trigger={buttonPopup}
                 setTrigger={setButtonPopup}
                 closeBtnName="close"
-            >
-                <ViewComponent />
-            </Popup>
+                content={<ViewComponent />}
+            ></Popup>
         </div>
     );
 };

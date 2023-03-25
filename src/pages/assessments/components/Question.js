@@ -10,7 +10,7 @@ const Question = ({
     setText,
 }) => {
     return (
-        <div>
+        <div className="question-container">
             <h4> Question {questionNum}</h4>
             <div className="rating-answer">
                 <p>{question}</p>

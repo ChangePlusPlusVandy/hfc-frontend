@@ -1,7 +1,7 @@
 import React from "react";
 import Question from "./components/question";
 
-const Page0 = ({ questions, setQuestions }) => {
+const Page = ({ questions, setQuestions }) => {
     return (
         <div className="form-container">
             <p>
@@ -37,4 +37,4 @@ const Page0 = ({ questions, setQuestions }) => {
     );
 };
 
-export default Page0;
+export default Page;

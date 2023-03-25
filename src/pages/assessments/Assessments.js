@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import "./Assessments.css";
 
-import Page0 from "./Page0";
+import Page from "./Page";
 import PageReview from "./PageReview";
 import FormProgressBar from "../../components/FormProgressBar";
 import FormNavBar from "../../components/FormNavBar";
-import Popup from "./components/Popup";
+import PopupBfc from "./components/PopupBfc";
 
 const Assessments = () => {
     const [pageNum, setPageNum] = useState(0);
@@ -16,7 +16,8 @@ const Assessments = () => {
 
     const [popup, setPopup] = useState(true);
 
-    const [id, setID] = useState(""); // This is mongo id
+    const [beneficiaryId, setBeneficiaryId] = useState(""); // This is mongo id for now, but should be readable id
+    const [beneficiary, setBeneficiary] = useState();
 
     const [mentalHealthQs, setMentalHealthQs] = useState([
         {
@@ -123,7 +124,7 @@ const Assessments = () => {
             title: "Mental Health Questionnaire",
             shortName: "Mental Health",
             component: (
-                <Page0
+                <Page
                     questions={mentalHealthQs}
                     setQuestions={setMentalHealthQs}
                 />
@@ -133,17 +134,14 @@ const Assessments = () => {
             title: "Life Skills Questionnaire",
             shortName: "Life Skills",
             component: (
-                <Page0
-                    questions={lifeSkillsQs}
-                    setQuestions={setLifeSkillsQs}
-                />
+                <Page questions={lifeSkillsQs} setQuestions={setLifeSkillsQs} />
             ),
         },
         {
             title: "Social Skills Questionnaire",
             shortName: "Social Skills",
             component: (
-                <Page0
+                <Page
                     questions={socialSkillsQs}
                     setQuestions={setSocialSkillsQs}
                 />
@@ -153,14 +151,14 @@ const Assessments = () => {
             title: "Education Questionnaire",
             shortName: "Education",
             component: (
-                <Page0 questions={educationQs} setQuestions={setEducationQs} />
+                <Page questions={educationQs} setQuestions={setEducationQs} />
             ),
         },
         {
             title: "Vocation Questionnaire",
             shortName: "Vocation",
             component: (
-                <Page0 questions={vocationQs} setQuestions={setVocationQs} />
+                <Page questions={vocationQs} setQuestions={setVocationQs} />
             ),
         },
         {
@@ -190,19 +188,45 @@ const Assessments = () => {
         },
     ];
 
+    const PopupContent = () => (
+        <div className="popup-content">
+            <h1>Assessment Requirement</h1>
+            <h4>Enter beneficiary ID number to enroll:</h4>
+            <div className="id-input">
+                <input
+                    type="text"
+                    onChange={handleChangeId}
+                    value={beneficiaryId}
+                    placeholder="enter readable ID"
+                />
+            </div>
+        </div>
+    );
+
     const handleStepClick = (index) => {
         setPageNum(index);
     };
 
-    /* TODO: probably need to change bfc backend to add a GET method to get a beneficiary by id (ours) method for convenience
-    Then I could use useEffect to set id to the _id of that beneficary got
-    */
-    const handleChangeID = (e) => {
-        // useEffect()
-        setID(e.target.value);
+    const handleChangeId = (e) => {
+        setBeneficiaryId(e.target.value);
+    };
+
+    const getBeneficiary = async () => {
+        try {
+            let data = await fetch(
+                `http://localhost:3000/beneficiaries/?idNum=${beneficiaryId}`
+            );
+            //console.log("bfc ID: ", beneficiaryId);
+            data = await data.json();
+            setBeneficiary(data);
+            console.log("beneficiary: ", data);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleSubmit = async () => {
+        //console.log("beneficiary's Mongo Id: ", beneficiary._id);
         const response = await fetch("http://localhost:3000/assessments", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -218,24 +242,30 @@ const Assessments = () => {
                 educationScore: educationScore,
                 vocationScore: vocationScore,
                 totalScore: totalScore,
-                beneficiary: id,
+                beneficiary: beneficiary._id,
             }),
         });
         const thisAssessment = await response.json();
-        console.log("this assessment's id: ", thisAssessment._id);
+        // console.log("this assessment's id: ", thisAssessment._id);
 
-        // FIXME: This keeps returning message: "Request Requires Assessment Field"
+        // add this assessment to current beneficiary's assessments
+        const updatedAssessments = [
+            ...beneficiary.assessments,
+            thisAssessment._id,
+        ];
+        // console.log("assessments: ", updatedAssessments);
+
         const bfcResponse = await fetch(
-            `http://localhost:3000/beneficiaries/${id}/assessment`,
+            `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
             {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    $push: { assessments: thisAssessment._id },
+                    assessments: updatedAssessments,
                 }),
             }
         );
-        console.log("bfc doc: ", bfcResponse.json());
+        // console.log("bfc doc: ", bfcResponse.json());
 
         navigate(-1); // to the overview page
     };
@@ -243,22 +273,13 @@ const Assessments = () => {
     return (
         <div className="assessments-container">
             <div className="view-popup">
-                <Popup
+                <PopupBfc
                     trigger={popup}
                     setTrigger={setPopup}
-                    closeBtnName="Begin"
-                >
-                    <h1>Assessment Requirement</h1>
-                    <h4>Enter beneficiary ID number to enroll:</h4>
-                    <div className="id-input">
-                        <input
-                            type="text"
-                            onChange={handleChangeID}
-                            value={id}
-                            placeholder="input mongo ID for now"
-                        />
-                    </div>
-                </Popup>
+                    getBeneficiary={getBeneficiary}
+                    navigate={navigate}
+                    content={<PopupContent />}
+                ></PopupBfc>
             </div>
             <div className="assessments-page-container">
                 <FormProgressBar

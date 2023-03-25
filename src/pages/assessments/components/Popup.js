@@ -1,20 +1,20 @@
 import React from "react";
 import "./Popup.css";
 
-const Popup = (props) => {
+const Popup = ({ trigger, setTrigger, closeBtnName, content }) => {
     return (
-        props.trigger && (
+        trigger && (
             <div className="popup-container">
                 <div className="popup-content">
                     {
                         <button
                             className="close-btn"
-                            onClick={() => props.setTrigger(false)}
+                            onClick={() => setTrigger(false)}
                         >
-                            {props.closeBtnName}
+                            {closeBtnName}
                         </button>
                     }
-                    {props.children}
+                    {content}
                 </div>
             </div>
         )
