@@ -39,14 +39,13 @@ const router = createBrowserRouter(
             <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
             <Route path="programs">
                 <Route index element={<Programs />} />
-                {/* TODO: Make dynamic routes for each program */}
-
                 <Route path="singleview">
-                    <Route index element={<SingleProgram />} />
+                    <Route path=":programID" element={<SingleProgram />} />
+                    {/* <Route index element={<SingleProgram />} /> */}
                     <Route
-                        path="markattendance"
+                        path="attendance/:programID"
                         element={<MarkAttendance />}
-                    ></Route>
+                    />
                 </Route>
             </Route>
             <Route path="workshops">
