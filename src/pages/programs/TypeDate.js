@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./styles/Modal.css";
 
 const DateInput = (props) => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
 
     const keyPressFunc = (e) => {
         if (e.which === 8) {
@@ -17,21 +17,17 @@ const DateInput = (props) => {
     const handleChange = (e) => {
         let val = e.target.value;
         if (val.length === 2 || val.length === 5) {
-            val += '-';
+            val += "-";
         }
         if (val.length <= 10) {
-
             setValue(val);
-            props.onChange(val)
-        }
-        else {
+            props.onChange(val);
+        } else {
             checkdate(val);
         }
     };
 
-    const checkDate = (val) => {
-
-    }
+    const checkDate = (val) => {};
 
     return (
         <input
@@ -43,6 +39,6 @@ const DateInput = (props) => {
             onKeyDown={keyPressFunc}
         />
     );
-}
+};
 
 export default DateInput;

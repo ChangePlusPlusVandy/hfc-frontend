@@ -7,7 +7,7 @@
     padding: 2em 3em;
 }
 
-.mark-attendance-container>a {
+.mark-attendance-container > a {
     width: fit-content;
     margin-bottom: 20px;
     font-size: 12pt;
@@ -29,7 +29,7 @@
     justify-content: space-between;
 }
 
-.attendance-header>input {
+.attendance-header > input {
     height: fit-content;
     margin: auto 0;
 }
@@ -68,7 +68,7 @@
     border-radius: 50%;
 }
 
-.ben-card>h3 {
+.ben-card > h3 {
     width: fit-content;
     margin: auto;
 }
@@ -82,7 +82,6 @@
     display: flex;
     justify-content: end;
 }
-
 
 .highlight {
     background-color: yellow;

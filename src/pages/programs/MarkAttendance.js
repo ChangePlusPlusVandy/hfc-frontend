@@ -40,9 +40,7 @@ const MarkAttendance = (props) => {
         }
     };
 
-    const getDatesWithAttendance = () => {
-
-    }
+    const getDatesWithAttendance = () => {};
 
     const updateProgram = async (e) => {
         setAttendance([
@@ -118,11 +116,18 @@ const MarkAttendance = (props) => {
                         value={date}
                         className="calendar"
                         ref={(input) => {
-                            if (input && input.shadowRoot) { // check if input and its shadowRoot are defined
-                                const calendar = input.shadowRoot.querySelector("table");
+                            if (input && input.shadowRoot) {
+                                // check if input and its shadowRoot are defined
+                                const calendar =
+                                    input.shadowRoot.querySelector("table");
                                 if (calendar) {
-                                    const targetTds = calendar.querySelectorAll('td[data-date="15"]');
-                                    targetTds.forEach((td) => td.classList.add("highlight"));
+                                    const targetTds =
+                                        calendar.querySelectorAll(
+                                            'td[data-date="15"]'
+                                        );
+                                    targetTds.forEach((td) =>
+                                        td.classList.add("highlight")
+                                    );
                                 }
                             }
                         }}

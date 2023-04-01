@@ -15,15 +15,13 @@ const CreateProgramPopup = (props) => {
     const [userOptions, setUserOptions] = useState([]);
     const [addUsers, setAddUsers] = useState([]);
 
-
     useEffect(() => {
         getUsers();
     }, []);
 
-
     const closeSchedule = () => {
         setOpenModal(false);
-    }
+    };
 
     const createProgramFromModal = (e) => {
         handleSubmit();
@@ -38,7 +36,7 @@ const CreateProgramPopup = (props) => {
         setNewProgStartDate("");
         setNewProgEndDate("");
         setAddUsers([]);
-    }
+    };
 
     const handleSubmit = async () => {
         console.log(newProgTitle);
@@ -83,13 +81,13 @@ const CreateProgramPopup = (props) => {
     const handleExitModal = () => {
         resetAllVals();
         props.closeModal();
-    }
+    };
 
     const submitSchedule = () => {
         console.log(tmp);
         console.log("kdjf");
         setOpenModal(false);
-    }
+    };
 
     if (!props.openModal) return;
     return (
@@ -148,12 +146,14 @@ const CreateProgramPopup = (props) => {
                             borderRadius: 15,
                             border: "#d0d0d1",
                         })}
-
                     />
                 </div>
                 <div className="add-schedule">
                     <h6>Time/Schedule</h6>
-                    <button className="submit-button add-schedule-button" onClick={() => setOpenModal(true)}>
+                    <button
+                        className="submit-button add-schedule-button"
+                        onClick={() => setOpenModal(true)}
+                    >
                         add schedule
                     </button>
 
@@ -161,7 +161,6 @@ const CreateProgramPopup = (props) => {
                         openModal={openModal}
                         closeModal={closeSchedule}
                         submitSchedule={submitSchedule}
-
                     />
                 </div>
 

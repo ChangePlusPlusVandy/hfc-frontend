@@ -6,12 +6,10 @@ import CreateProgramPopup from "./CreateProgramPopup";
 const Programs = () => {
     const [programs, setPrograms] = useState([]);
 
-
     const [openModal, setOpenModal] = useState(false);
     const [sortBy, setSortBy] = useState("alphabetical");
     const [archivedSort, setArchivedSort] = useState("All");
     const [searchProgram, setSearchProgram] = useState("");
-
 
     useEffect(() => {
         getPrograms();
@@ -50,18 +48,20 @@ const Programs = () => {
         return arr;
     };
 
-    const programsFiltered = sortPrograms(programs
-        .filter((item) => {
-            return searchProgram !== ""
-                ? item.title.includes(searchProgram)
-                : item;
-        })
-        .filter((item) => {
-            if (archivedSort.localeCompare("All") == 0) return item;
-            if (archivedSort.localeCompare("Active") == 0)
-                return item.archived === false;
-            else return item.archived === true;
-        }));
+    const programsFiltered = sortPrograms(
+        programs
+            .filter((item) => {
+                return searchProgram !== ""
+                    ? item.title.includes(searchProgram)
+                    : item;
+            })
+            .filter((item) => {
+                if (archivedSort.localeCompare("All") == 0) return item;
+                if (archivedSort.localeCompare("Active") == 0)
+                    return item.archived === false;
+                else return item.archived === true;
+            })
+    );
 
     const getPrograms = async () => {
         try {
@@ -76,7 +76,7 @@ const Programs = () => {
     const handleSortValChange = (e) => {
         setSortBy(e);
         resetSortDropdown();
-    }
+    };
 
     const resetSortDropdown = () => {
         if (document.getElementById("sort-dropdown"))
@@ -84,17 +84,20 @@ const Programs = () => {
         if (document.getElementById("sort-option-AtoZ"))
             document.getElementById("sort-option-AtoZ").style.display = "none";
         if (document.getElementById("sort-option-start-date"))
-            document.getElementById("sort-option-start-date").style.display = "none";
+            document.getElementById("sort-option-start-date").style.display =
+                "none";
         if (document.getElementById("sort-option-date-added"))
-            document.getElementById("sort-option-date-added").style.display = "none";
-    }
+            document.getElementById("sort-option-date-added").style.display =
+                "none";
+    };
 
     const resetFilterDropdown = () => {
         if (document.getElementById("filter-dropdown"))
             document.getElementById("filter-dropdown").style.display = "none";
         if (document.getElementById("status-options-dropdown"))
-            document.getElementById("status-options-dropdown").style.display = "none";
-    }
+            document.getElementById("status-options-dropdown").style.display =
+                "none";
+    };
 
     const handleSearchChange = (e) => {
         setSearchProgram(e.target.value);
@@ -106,7 +109,6 @@ const Programs = () => {
         statusOptionsDropdown();
         filterDropdown();
     };
-
 
     const sortDropdown = () => {
         resetFilterDropdown();
@@ -136,9 +138,11 @@ const Programs = () => {
     const sortOptionAToZ = () => {
         let click = document.getElementById("sort-option-AtoZ");
         if (document.getElementById("sort-option-start-date"))
-            document.getElementById("sort-option-start-date").style.display = "none";
+            document.getElementById("sort-option-start-date").style.display =
+                "none";
         if (document.getElementById("sort-option-date-added"))
-            document.getElementById("sort-option-date-added").style.display = "none";
+            document.getElementById("sort-option-date-added").style.display =
+                "none";
 
         if (click) {
             if (click.style.display === "none") {
@@ -148,13 +152,14 @@ const Programs = () => {
                 click.style.display = "none";
             }
         }
-    }
+    };
     const sortOptionStartDate = () => {
         let click = document.getElementById("sort-option-start-date");
         if (document.getElementById("sort-option-AtoZ"))
             document.getElementById("sort-option-AtoZ").style.display = "none";
         if (document.getElementById("sort-option-date-added"))
-            document.getElementById("sort-option-date-added").style.display = "none";
+            document.getElementById("sort-option-date-added").style.display =
+                "none";
 
         if (click) {
             if (click.style.display === "none") {
@@ -164,15 +169,15 @@ const Programs = () => {
                 click.style.display = "none";
             }
         }
-    }
+    };
     const sortOptionDateAdded = () => {
         let click = document.getElementById("sort-option-date-added");
 
         if (document.getElementById("sort-option-AtoZ"))
             document.getElementById("sort-option-AtoZ").style.display = "none";
         if (document.getElementById("sort-option-start-date"))
-            document.getElementById("sort-option-start-date").style.display = "none";
-
+            document.getElementById("sort-option-start-date").style.display =
+                "none";
 
         if (click) {
             if (click.style.display === "none") {
@@ -182,7 +187,7 @@ const Programs = () => {
                 click.style.display = "none";
             }
         }
-    }
+    };
 
     const filterDropdown = () => {
         resetSortDropdown();
@@ -197,7 +202,6 @@ const Programs = () => {
         }
     };
 
-
     const statusOptionsDropdown = () => {
         let click = document.getElementById("status-options-dropdown");
         if (click) {
@@ -209,7 +213,6 @@ const Programs = () => {
             }
         }
     };
-
 
     return (
         <div className="program-list-view-container">
@@ -232,7 +235,10 @@ const Programs = () => {
                             className="two-dropdown-container"
                             onClick={statusOptionsDropdown}
                         >
-                            <div id="filter-dropdown" style={{ display: "none" }}>
+                            <div
+                                id="filter-dropdown"
+                                style={{ display: "none" }}
+                            >
                                 <div className="status-options-container">
                                     <div className="status-options-sub">
                                         <h6>STATUS</h6>
@@ -292,10 +298,11 @@ const Programs = () => {
                             onClick={sortOptionsDropdown}
                         >
                             <div id="sort-dropdown" style={{ display: "none" }}>
-
                                 <div
                                     className="sort-options-container"
-                                    onChange={(e) => handleSortValChange(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSortValChange(e.target.value)
+                                    }
                                 >
                                     <input
                                         type="radio"
@@ -341,7 +348,6 @@ const Programs = () => {
                                             </label>
                                         </div>
                                     </div>
-
 
                                     <input
                                         type="radio"
@@ -390,8 +396,6 @@ const Programs = () => {
                                             </label>
                                         </div>
                                     </div>
-
-
 
                                     <input
                                         type="radio"
@@ -478,7 +482,9 @@ const Programs = () => {
                             </Link>
                         </h4>
                         <h4 className="program-id">{item._id}</h4>
-                        <h4 className="program-start-date">{item.startDate?.split("T")[0]}</h4>
+                        <h4 className="program-start-date">
+                            {item.startDate?.split("T")[0]}
+                        </h4>
                         <h4 className="program-date-added">
                             {item.dateAdded.split("T")[0]}
                         </h4>
