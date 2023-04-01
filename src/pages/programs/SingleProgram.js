@@ -357,12 +357,13 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-info">
                             <h3>Start Date</h3>
-                            <h6>{program.startDate}</h6>
+                            <h6>{program.startDate?.split("T")[0]}</h6>
                         </div>
                         <div className="program-info">
                             <h3>End Date</h3>
-                            <h6>{program.startDate}</h6>
+                            <h6>{program.endDate?.split("T")[0]}</h6>
                         </div>
+
                         <div className="program-info">
                             <h3>Hosts</h3>
                             <div className="program-hosts">
