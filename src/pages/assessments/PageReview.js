@@ -2,21 +2,18 @@ import React, { useEffect } from "react";
 import Table from "./components/Table";
 
 const PageReview = ({
+    eduVocQs,
     mentalHealthQs,
     lifeSkillsQs,
     socialSkillsQs,
-    educationQs,
-    vocationQs,
     mentalHealthScore,
     setMentalHealthScore,
     lifeSkillsScore,
     setLifeSkillsScore,
     socialSkillsScore,
     setSocialSkillsScore,
-    educationScore,
-    setEducationScore,
-    vocationScore,
-    setVocationScore,
+    eduVocScore,
+    setEduVocScore,
     totalScore,
     setTotalScore,
 }) => {
@@ -33,51 +30,46 @@ const PageReview = ({
     };
 
     useEffect(() => {
+        setEduVocScore(getAvgScore(eduVocQs.slice(5), -1));
         setMentalHealthScore(getAvgScore(mentalHealthQs, 2));
         setLifeSkillsScore(getAvgScore(lifeSkillsQs, -1));
         setSocialSkillsScore(getAvgScore(socialSkillsQs, 0));
-        setEducationScore(getAvgScore(educationQs, -1));
-        setVocationScore(getAvgScore(vocationQs, 1));
     }, []);
 
     useEffect(() => {
         setTotalScore(
-            (mentalHealthScore +
+            (eduVocScore +
+                mentalHealthScore +
                 lifeSkillsScore +
-                socialSkillsScore +
-                educationScore +
-                vocationScore) *
-                4 // percentage (since /25*100 = *4)
+                socialSkillsScore) *
+                5 // percentage (since /20*100 = *4)
         );
     });
 
     return (
         <div className="review-form-container">
             <Table
-                dataName="Mental Health"
+                dataName="Education / Vocation"
+                dataArr={eduVocQs}
+                dataScore={eduVocScore}
+                hasOnlyTextQs={true}
+            />
+            <Table
+                dataName="Emotional / Mental Health"
                 dataArr={mentalHealthQs}
                 dataScore={mentalHealthScore}
             />
             <Table
-                dataName="Life Skills"
+                dataName="Life Skills / Confidence / Self-esteem"
                 dataArr={lifeSkillsQs}
                 dataScore={lifeSkillsScore}
             />
             <Table
-                dataName="Social Skills"
+                dataName="Social Skills / Connectedness"
                 dataArr={socialSkillsQs}
                 dataScore={socialSkillsScore}
             />
-            <Table
-                dataName="Education"
-                dataArr={educationQs}
-                dataScore={educationScore}
-            />
-            <Table
-                dataName="Vocation"
-                dataArr={vocationQs}
-                dataScore={vocationScore}
-            />
+
             <h4> Total Score: {totalScore}% </h4>
         </div>
     );

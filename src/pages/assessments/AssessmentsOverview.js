@@ -1,72 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SingleAssessment from "./components/SingleAssessment";
+import Dropdown from "../../utils/DropDown";
+import AssessmentRow from "./components/AssessmentRow";
+import "./AssessmentOverview.css";
+
+const SORT_OPTIONS = [
+    { value: "NewToOld", label: "Newest to Oldest" },
+    { value: "OldToNew", label: "Oldest to Newest" },
+];
 
 const AssesssmentsOverview = () => {
     const [assessments, setAssessments] = useState([]);
     const [search, setSearch] = useState("");
-    //const [beneficiary, setBeneficiary] = useState({});
-
-    const getBeneficiaryById = async (mongoId) => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?id=${mongoId}`
-            );
-            console.log("get bfc ID: ", mongoId);
-            data = await data.json();
-            //setBeneficiary(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const sortByFirstName = (isFirstName, isReversed) => {
-        let data = [...assessments];
-        if (data.length != 0) {
-            // if (isFirstName) {
-            //     sortNameBy(data, "firstName");
-            // } else {
-            //     sortNameBy(data, "lastName");
-            // }
-            // if (!isReversed) {
-            //     setAssessments(data);
-            // } else {
-            //     setAssessments(data.reverse());
-            // }
-            // console.log(
-            //     "bfc first name: ",
-            //     getBeneficiary(data[0].beneficiary).firstName
-            // );
-            // getBeneficiaryByID(data[0].beneficiary);
-            // console.log("first assessment bfc: ", beneficiary);
-        }
-    };
-
-    const sortNameBy = (data, attr) => {
-        return data.sort(function (a, b) {
-            let nameA = getBeneficiaryById(a.beneficiary)[attr];
-            let nameB = getBeneficiaryById(b.beneficiary)[attr];
-            return nameA.localeCompare(nameB);
-        });
-    };
-
-    const sortByDate = () => {
-        let data = [...assessments];
-        sortNewToOld(data);
-        setAssessments(data);
-    };
-
-    const sortNewToOld = (data) => {
-        return data.sort(function (a, b) {
-            const dateA = new Date(a.dateTaken);
-            const dateB = new Date(b.dateTaken);
-            return dateB - dateA;
-        });
-    };
-
-    useEffect(() => {
-        getAssessments();
-    }, []);
+    const [beneficiary, setBeneficiary] = useState();
 
     const getAssessments = async () => {
         try {
@@ -78,67 +24,121 @@ const AssesssmentsOverview = () => {
         }
     };
 
+    useEffect(() => {
+        getAssessments();
+    }, []);
+
+    const getBeneficiaryById = async (mongoId) => {
+        try {
+            let data = await fetch(
+                `http://localhost:3000/beneficiaries/?id=${mongoId}`
+            );
+            console.log("get bfc ID: ", mongoId);
+            data = await data.json();
+            setBeneficiary(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // Called by filterFromSearch
+    const getBfcFromAssessment = (assessment) => {
+        // useEffect(() => {
+        if (assessments && assessment) {
+            console.log("assessment's bfc: ", assessment.beneficiary);
+            getBeneficiaryById(assessment.beneficiary);
+            if (beneficiary) {
+                console.log("bfc got: ", beneficiary);
+                return beneficiary;
+            }
+        }
+        // }, assessments);
+    };
+
+    const sortByDate = (oldToNew = false) => {
+        let data = [...assessments];
+        data.sort((a, b) => {
+            const dateA = new Date(a.dateTaken);
+            const dateB = new Date(b.dateTaken);
+            return oldToNew ? dateA - dateB : dateB - dateA;
+        });
+        setAssessments(data);
+    };
+
+    const filterFromSearch = () => {
+        // assessments exist and we typed something in search
+        if (assessments && search) {
+            return assessments.filter((obj) => {
+                let searchStr = search.toLowerCase();
+                let bfc = getBfcFromAssessment(obj);
+                return (
+                    bfc.firstName.toLowerCase().includes(searchStr) ||
+                    bfc.lastName.toLowerCase().includes(searchStr) ||
+                    bfc.id.toString().includes(searchStr)
+                );
+            });
+            // assessments exist, typed nothing
+        } else if (assessments) {
+            return assessments;
+        } else {
+            console.log("assessments undefined");
+        }
+    };
+
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
+    };
+
+    const handleSortChange = (e) => {
+        if (e.value === "NewToOld") {
+            sortByDate(); // default
+        } else {
+            sortByDate(true); // oldest to newest
+        }
     };
 
     return (
         <div className="assessments-page-container">
             <h1>Assessments Overview </h1>
-            <input
-                onChange={handleSearchChange}
-                className="del-form"
-                type="text"
-                placeholder="Search..."
-            />
-
-            <Link to="assessment">
-                <button>Launch Assessment</button>
-            </Link>
-
-            <br></br>
-
-            <button onClick={sortByDate}>Sort by Date</button>
-            <button onClick={sortByFirstName(true, false)}>
-                Sort by First Name
-            </button>
-            {/* <button onClick={sortByFirstName(false, false)}>
-                Sort by Last Name
-            </button> */}
+            <div className="query-container">
+                <Dropdown
+                    placeHolder="Sort"
+                    options={SORT_OPTIONS}
+                    onChange={handleSortChange}
+                />
+                <input
+                    onChange={handleSearchChange}
+                    className="search"
+                    type="text"
+                    placeholder="Search beneficiary"
+                />
+                <Link to="assessment">
+                    <button className="launch-btn">Launch Assessment</button>
+                </Link>
+            </div>
+            <div className="assessment-list-header">
+                <h4 className="bfc-name">Beneficiary Name</h4>
+                <h4 className="bfc-id">ID Number</h4>
+                <h4 className="assessment-date">Date Administered</h4>
+            </div>
 
             <ul className="assessment-list-stack">
-                {sortNewToOld(assessments)
-                    // .filter((value) => {
-                    //     if (search == "") {
-                    //         return value;
-                    //     } else if (
-                    //         value.firstName
-                    //             .toLowerCase()
-                    //             .includes(search.toLowerCase()) ||
-                    //         value.lastName
-                    //             .toLowerCase()
-                    //             .includes(search.toLowerCase()) ||
-                    //         value.id.toString().includes(search)
-                    //     ) {
-                    //         return value;
-                    //     }
-                    // })
-                    .map((item) => (
-                        <SingleAssessment
+                {assessments &&
+                    filterFromSearch().map((item, i) => (
+                        <AssessmentRow
+                            key={i}
                             dateTaken={item.dateTaken}
+                            eduVocQs={item.educationVocationQs}
                             mentalHealthQs={item.mentalHealthQs}
                             lifeSkillsQs={item.lifeSkillsQs}
                             socialSkillsQs={item.socialSkillsQs}
-                            educationQs={item.educationQs}
-                            vocationQs={item.vocationQs}
+                            eduVocScore={item.educationVocationScore}
                             mentalHealthScore={item.mentalHealthScore}
                             lifeSkillsScore={item.lifeSkillsScore}
                             socialSkillsScore={item.socialSkillsScore}
-                            educationScore={item.educationScore}
-                            vocationScore={item.vocationScore}
                             totalScore={item.totalScore}
                             bfcMongoId={item.beneficiary}
-                            key={item._id}
+                            assessmentId={item._id}
                         />
                     ))}
             </ul>

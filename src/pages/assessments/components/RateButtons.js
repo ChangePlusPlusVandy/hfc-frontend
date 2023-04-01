@@ -1,15 +1,7 @@
 import React from "react";
 import "./RateButtons.css";
 
-const RateButtons = ({ activeRatingIndex, onBtnClick }) => {
-    const buttonNames = [
-        "Not at all",
-        "Slightly",
-        "Moderately",
-        "Very much",
-        "Extremely",
-    ];
-
+const RateButtons = ({ activeRatingIndex, onBtnClick, buttonNames }) => {
     return (
         <div className="form-rate-btns-container">
             <div className="form-rate-btns">

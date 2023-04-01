@@ -1,7 +1,7 @@
 import React from "react";
 import "./Table.css";
 
-const Table = ({ dataName, dataArr, dataScore }) => {
+const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
     return (
         <div className="data-table">
             <h3>{`${dataName} Questionnaire`}</h3>
@@ -19,7 +19,9 @@ const Table = ({ dataName, dataArr, dataScore }) => {
                         <tr key={i}>
                             <td>{i + 1}</td>
                             <td>{obj.question}</td>
-                            <td>{obj.answer}</td>
+                            <td>
+                                {hasOnlyTextQs && i < 5 ? "N/A" : obj.answer}
+                            </td>
                             <td>{obj.text}</td>
                         </tr>
                     ))}

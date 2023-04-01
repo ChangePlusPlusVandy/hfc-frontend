@@ -19,6 +19,47 @@ const Assessments = () => {
     const [beneficiaryId, setBeneficiaryId] = useState(""); // This is mongo id for now, but should be readable id
     const [beneficiary, setBeneficiary] = useState();
 
+    const [eduVocQs, setEduVocQs] = useState([
+        {
+            question:
+                "Did the student advance a grade in the past year? If not, why not?",
+            text: "",
+        },
+        {
+            question: "What is the student’s plan for future education?",
+            text: "",
+        },
+        {
+            question: "What are her/his educational/professional goals?",
+            text: "",
+        },
+        {
+            question:
+                "Are there barriers to the student continuing in her/his education?",
+            text: "",
+        },
+        {
+            question:
+                "What are the student’s strengths (academic subjects, ability to focus, passion for education etc.)?",
+            text: "",
+        },
+        {
+            question: "Academic ability level - rate 1-5",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "Skill level in computers - rate 1-5",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "Skill level in Spoken English - rate 1-5",
+            answer: null,
+            text: "",
+        },
+    ]);
+
     const [mentalHealthQs, setMentalHealthQs] = useState([
         {
             question: "How hopeful and positive do you feel about your future?",
@@ -60,6 +101,11 @@ const Assessments = () => {
             answer: null,
             text: "",
         },
+        {
+            question: "Do you believe you have useful skills and abilities?",
+            answer: null,
+            text: "",
+        },
     ]);
 
     const [socialSkillsQs, setSocialSkillsQs] = useState([
@@ -77,52 +123,28 @@ const Assessments = () => {
         },
     ]);
 
-    const [educationQs, setEducationQs] = useState([
-        {
-            question: "How satisfied are you with your skills and abilities?",
-            answer: null,
-            text: "",
-        },
-        {
-            question:
-                "How good will you rate your academic performance/success at school 1-5?", // TODO: need to change the wording?
-            answer: null,
-            text: "",
-        },
-    ]);
-
-    const [vocationQs, setVocationQs] = useState([
-        {
-            question:
-                "How confident you feel about your skills, and ability to find work or earning money using your vocational skills?",
-            answer: null,
-            text: "",
-        },
-        {
-            question:
-                "How often/much do you worry about your or your family's financial difficulties?",
-            answer: null,
-            text: "",
-        },
-        {
-            question: "How satisfied are you with your skills and abilities?",
-            answer: null,
-            text: "",
-        },
-    ]);
-
     // For Review Page
+    const [eduVocScore, setEduVocScore] = useState(0);
     const [mentalHealthScore, setMentalHealthScore] = useState(0);
     const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
     const [socialSkillsScore, setSocialSkillsScore] = useState(0);
-    const [educationScore, setEductionScore] = useState(0);
-    const [vocationScore, setVocationScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
 
     const PAGES = [
         {
-            title: "Mental Health Questionnaire",
-            shortName: "Mental Health",
+            title: "Education / Vocation",
+            shortName: "Education & Vocation",
+            component: (
+                <Page
+                    questions={eduVocQs}
+                    setQuestions={setEduVocQs}
+                    hasOnlyTextQs={true}
+                />
+            ),
+        },
+        {
+            title: "Emotional / Mental",
+            shortName: "Emotional & Mental",
             component: (
                 <Page
                     questions={mentalHealthQs}
@@ -131,14 +153,14 @@ const Assessments = () => {
             ),
         },
         {
-            title: "Life Skills Questionnaire",
-            shortName: "Life Skills",
+            title: "Life skills / Confidence / Self-esteem",
+            shortName: "Life Skills & Confidence",
             component: (
                 <Page questions={lifeSkillsQs} setQuestions={setLifeSkillsQs} />
             ),
         },
         {
-            title: "Social Skills Questionnaire",
+            title: "Social skills / Connectedness",
             shortName: "Social Skills",
             component: (
                 <Page
@@ -148,60 +170,28 @@ const Assessments = () => {
             ),
         },
         {
-            title: "Education Questionnaire",
-            shortName: "Education",
-            component: (
-                <Page questions={educationQs} setQuestions={setEducationQs} />
-            ),
-        },
-        {
-            title: "Vocation Questionnaire",
-            shortName: "Vocation",
-            component: (
-                <Page questions={vocationQs} setQuestions={setVocationQs} />
-            ),
-        },
-        {
             title: "Review",
             shortName: "Review",
             component: (
                 <PageReview
+                    eduVocQs={eduVocQs}
                     mentalHealthQs={mentalHealthQs}
                     lifeSkillsQs={lifeSkillsQs}
                     socialSkillsQs={socialSkillsQs}
-                    educationQs={educationQs}
-                    vocationQs={vocationQs}
                     mentalHealthScore={mentalHealthScore}
                     setMentalHealthScore={setMentalHealthScore}
                     lifeSkillsScore={lifeSkillsScore}
                     setLifeSkillsScore={setLifeSkillsScore}
                     socialSkillsScore={socialSkillsScore}
                     setSocialSkillsScore={setSocialSkillsScore}
-                    educationScore={educationScore}
-                    setEducationScore={setEductionScore}
-                    vocationScore={vocationScore}
-                    setVocationScore={setVocationScore}
+                    eduVocScore={eduVocScore}
+                    setEduVocScore={setEduVocScore}
                     totalScore={totalScore}
                     setTotalScore={setTotalScore}
                 />
             ),
         },
     ];
-
-    const PopupContent = () => (
-        <div className="popup-content">
-            <h1>Assessment Requirement</h1>
-            <h4>Enter beneficiary ID number to enroll:</h4>
-            <div className="id-input">
-                <input
-                    type="text"
-                    onChange={handleChangeId}
-                    value={beneficiaryId}
-                    placeholder="enter readable ID"
-                />
-            </div>
-        </div>
-    );
 
     const handleStepClick = (index) => {
         setPageNum(index);
@@ -226,7 +216,6 @@ const Assessments = () => {
     };
 
     const handleSubmit = async () => {
-        //console.log("beneficiary's Mongo Id: ", beneficiary._id);
         const response = await fetch("http://localhost:3000/assessments", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -234,26 +223,22 @@ const Assessments = () => {
                 mentalHealthQs: mentalHealthQs,
                 lifeSkillsQs: lifeSkillsQs,
                 socialSkillsQs: socialSkillsQs,
-                educationQs: educationQs,
-                vocationQs: vocationQs,
+                educationVocationQs: eduVocQs,
                 mentalHealthScore: mentalHealthScore,
                 lifeSkillsScore: lifeSkillsScore,
                 socialSkillsScore: socialSkillsScore,
-                educationScore: educationScore,
-                vocationScore: vocationScore,
+                educationVocationScore: eduVocScore,
                 totalScore: totalScore,
                 beneficiary: beneficiary._id,
             }),
         });
         const thisAssessment = await response.json();
-        // console.log("this assessment's id: ", thisAssessment._id);
 
         // add this assessment to current beneficiary's assessments
         const updatedAssessments = [
             ...beneficiary.assessments,
             thisAssessment._id,
         ];
-        // console.log("assessments: ", updatedAssessments);
 
         const bfcResponse = await fetch(
             `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
@@ -265,7 +250,6 @@ const Assessments = () => {
                 }),
             }
         );
-        // console.log("bfc doc: ", bfcResponse.json());
 
         navigate(-1); // to the overview page
     };
@@ -278,7 +262,20 @@ const Assessments = () => {
                     setTrigger={setPopup}
                     getBeneficiary={getBeneficiary}
                     navigate={navigate}
-                    content={<PopupContent />}
+                    content={
+                        <div className="popup-content">
+                            <h1>Assessment Requirement</h1>
+                            <h4>Enter beneficiary ID number to enroll:</h4>
+                            <div className="id-input">
+                                <input
+                                    type="text"
+                                    onChange={handleChangeId}
+                                    value={beneficiaryId}
+                                    placeholder="enter readable ID"
+                                />
+                            </div>
+                        </div>
+                    }
                 ></PopupBfc>
             </div>
             <div className="assessments-page-container">
