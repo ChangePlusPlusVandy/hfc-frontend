@@ -1,0 +1,182 @@
+.modal-container {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    color: black;
+    width: 35%;
+    background-color: white;
+    padding: 3em 8em 3em 10em;
+    font-size: 20px;
+}
+
+.cancel-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    right: 3em;
+    top: 3em;
+}
+
+.modal-submit-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    right: 3em;
+    bottom: 1em;
+}
+
+.submit-button {
+    border-radius: 10px;
+    color: black;
+    padding: 5px 25px 5px 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modal-body > h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 0.5em 0;
+    font-family: "Helvetica", Arial, Lucida Grande, sans-serif !important;
+}
+
+input,
+textarea,
+.start-end-date,
+.add-hosts,
+.add-schedule {
+    margin: 0.5em 0;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.modal-body > h6 {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0 0 0.2em 0;
+}
+
+.add-hosts > h6,
+.add-schedule > h6 {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.modal-input-text {
+    border: 0;
+    border-bottom: 1px solid var(--mid-color);
+    color: var(--text-color);
+    text-decoration: none;
+    width: auto;
+    box-sizing: border-box;
+    padding: 0 0.1em;
+}
+
+.modal-input-text:focus {
+    outline: none;
+}
+
+.modal-input-text::placeholder {
+    color: var(--text-color);
+    font-weight: 300;
+}
+
+.modal-text-area {
+    width: 100%;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 0.5em;
+    color: var(--text-color);
+    border: 1px solid var(--mid-color);
+    resize: none;
+}
+
+.modal-text-area:focus {
+    outline: none;
+}
+
+.modal-text-area::placeholder {
+    color: var(--text-color);
+    font-weight: 300;
+}
+
+.start-end-date {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .react-select-container {
+    margin: 25px 0px;
+} */
+
+.react-select__menu-list {
+    color: black;
+    font-size: 15px;
+}
+
+.react-select__value-container {
+    font-size: 15px;
+    padding: 0 10px;
+}
+
+.react-select__indicators {
+    padding: 0 15px;
+}
+
+.react-select__option {
+    border: none;
+    border-radius: 15px;
+    padding: 0 10px;
+}
+
+/* 
+.modal-container {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-body {
+    margin: auto;
+    color: black;
+    width: 50%;
+    background-color: white;
+    padding: 10px;
+}
+
+.react-select-container {
+    margin: 25px 0px;
+}
+
+.react-select__menu-list {
+    color: black;
+    font-size: 20px;
+}
+
+.react-select__value-container {
+    font-size: 25px;
+} */

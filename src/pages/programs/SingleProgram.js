@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Select from "react-select";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import Modal from "react-modal";
-import "react-tabs/style/react-tabs.css";
-import "./Programs.css";
-//TODO fix bug where you delete ben then add and it automatically updates
+import { Link, useNavigate, useParams } from "react-router-dom";
+import EnrollPopup from "./EnrollPopup";
+import "./styles/SingleProgram.css";
 
 const SingleProgram = (props) => {
-    const programID = useLocation().state.id;
+    const { programID } = useParams();
+    const navigate = useNavigate();
+
     const [program, setProgram] = useState({});
+    const [roster, setRoster] = useState([]);
     const [allBeneficiaries, setAllBeneficiaries] = useState([]);
     const [benOptions, setBenOptions] = useState([]);
     const [addBeneficiary, setAddBeneficiary] = useState([]);
@@ -17,26 +16,25 @@ const SingleProgram = (props) => {
     const [updateProgTitle, setUpdateProgTitle] = useState("");
     const [updateProgDesc, setUpdateProgDesc] = useState("");
 
-    const [updateProgStart, setUpdateProgStart] = useState("");
-    const [updateProgEnd, setUpdateProgEnd] = useState("");
-    const [updateProgHosts, setUpdateProgHosts] = useState("");
-    const [updateProgStatus, setUpdateProgStatus] = useState("");
-    const [updateProgSchedule, setUpdateProgSchedule] = useState("");
-
     const [editMode, setEditMode] = useState(false);
-    const [editBeneficiaries, setEditBeneficiaries] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [overviewOrEnroll, setOverviewOrEnroll] = useState(false);
+    const [editRoster, setEditRoster] = useState(false);
+    const [editBeneficiaries, setEditBeneficiaries] = useState(false);
 
     useEffect(() => {
         getProgramFromID();
         getBeneficiaries();
+
+        document.getElementById("overview-button").style.backgroundColor =
+            "#888b8f";
+        document.getElementById("enrollment-button").style.backgroundColor =
+            "#e8e9eb";
     }, []);
 
-    // const colourStyles = {
-    //     multiValue: {
-    //         color: 'green'
-    //     }
-    // };
+    useEffect(() => {
+        setRoster(program.roster);
+    }, [program]);
 
     const getProgramFromID = async (e) => {
         try {
@@ -56,10 +54,9 @@ const SingleProgram = (props) => {
             let data = await fetch("http://localhost:3000/beneficiaries");
             data = await data.json();
             setAllBeneficiaries(data);
-
             let tmp = data.map((e) => ({
                 value: e._id,
-                label: e.firstName,
+                label: e.id,
                 color: "black",
             }));
 
@@ -87,15 +84,23 @@ const SingleProgram = (props) => {
         editUpdateMode();
     };
     const updateProgramFromEnrollment = (e) => {
-        updateProgram();
+        updateProgramRoster();
         editBenMode();
         setOpenModal(false);
+        let benCards = document.getElementsByClassName("beneficiary-card");
+        console.log(benCards);
+        for (let i = 0; i < benCards.length; i++) {
+            benCards[i].style.backgroundColor = "#d0d0d1";
+        }
+
+        setEditRoster(false);
     };
 
-    const updateProgram = async (e) => {
+    const updateProgramRoster = async (e) => {
         const combinedBenificiers = uniq(
             program.roster.map((event, i) => event._id).concat(addBeneficiary)
         );
+
         setAddBeneficiary(combinedBenificiers);
 
         const requestOptions = {
@@ -104,10 +109,25 @@ const SingleProgram = (props) => {
             body: JSON.stringify({
                 _id: { programID },
                 content: {
+                    roster: combinedBenificiers,
+                },
+            }),
+        };
+
+        await fetch("http://localhost:3000/programs", requestOptions);
+        getProgramFromID();
+        resetNewProgram();
+    };
+
+    const updateProgram = async (e) => {
+        const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                _id: { programID },
+                content: {
                     description: updateProgDesc,
                     title: updateProgTitle,
-                    roster: combinedBenificiers,
-                    //TODO: add rest of fields
                 },
             }),
         };
@@ -116,15 +136,39 @@ const SingleProgram = (props) => {
         resetNewProgram();
     };
 
+    const archiveProgram = async (id) => {
+        const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                _id: { programID },
+                content: {
+                    archived: true,
+                },
+            }),
+        };
+        await fetch("http://localhost:3000/programs", requestOptions);
+        navigate("../../");
+    };
+
+    const deleteProgram = async (e) => {
+        try {
+            const requestOptions = {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ _id: e }),
+            };
+            await fetch("http://localhost:3000/programs", requestOptions);
+            navigate("/dashboard/programs");
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     const resetNewProgram = () => {
         setUpdateProgTitle(program.title);
         setUpdateProgDesc(program.description);
         setAddBeneficiary([]);
-        // setUpdateProgStart("");
-        // setUpdateProgEnd("");
-        //setUpdateProgHosts("");
-        // setUpdateProgStatus("");
-        // setUpdateProgSchedule("");
     };
 
     const editUpdateMode = () => {
@@ -142,78 +186,132 @@ const SingleProgram = (props) => {
         setEditBeneficiaries((current) => !current);
     };
 
-    const customStyles = {
-        content: {
-            width: "40%",
-            height: "20%",
-            margin: "auto",
-            top: "20%",
-            bottom: "auto",
-        },
-        overlay: {
-            backgroundColor: "transparent",
-        },
-    };
-
-    // const selectStyling = {
-    //     overlay: {
-    //         backgroundColor: 'green'
-    //     },
-    //     color: 'black',
-    //     backgroundColor: 'green'
-    // }
-
     const handleAddBen = (e) => {
         let addBenFiltered = e.map((event, i) => event.value);
         setAddBeneficiary(addBenFiltered);
     };
 
     const removeBen = (ben, e) => {
-        program.roster = program.roster.filter((item) => {
-            return item._id !== ben;
-        });
-        let parent = e.target.parentElement;
-        parent.style.color = "red";
+        if (!program.roster.find((obj) => obj._id === ben)) {
+            program.roster.push(roster.find((obj) => obj._id === ben));
+            console.log("adding back ben");
+            let parent = e.target.parentElement.parentElement;
+            parent.style.backgroundColor = "#d0d0d1";
+
+            if (program.roster.length === roster.length) setEditRoster(false);
+        } else {
+            program.roster = program.roster.filter((item) => {
+                return item._id !== ben;
+            });
+            setEditRoster(true);
+            let parent = e.target.parentElement.parentElement;
+            parent.style.backgroundColor = "red";
+        }
     };
 
-    Modal.setAppElement("#root");
+    const editOverviewOrEnroll = (bool) => {
+        setOverviewOrEnroll(bool);
+        if (bool) {
+            document.getElementById("overview-button").style.backgroundColor =
+                "#e8e9eb";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#888b8f";
+        } else {
+            document.getElementById("overview-button").style.backgroundColor =
+                "#888b8f";
+            document.getElementById("enrollment-button").style.backgroundColor =
+                "#e8e9eb";
+        }
+    };
 
     return (
         <div className="single-program-container">
-            <Tabs defaultIndex={1}>
-                <TabList className="program-tabs">
-                    <h1>{program.title}</h1>
-                    <div dir="rtl">
-                        <Tab>
-                            <h5>Enrollment</h5>
-                        </Tab>
-                        <Tab>
-                            <h5>Overview</h5>
-                        </Tab>
+            <Link to="/dashboard/programs">&lt; back to program list</Link>
+            <div className="single-program">
+                <div className="single-program-heading">
+                    {editMode ? (
+                        <h6>
+                            {" "}
+                            <input
+                                type="text"
+                                value={updateProgTitle}
+                                name="title"
+                                onChange={(e) =>
+                                    setUpdateProgTitle(e.target.value)
+                                }
+                            />
+                        </h6>
+                    ) : (
+                        <h1>{program.title}</h1>
+                    )}
+                    <div className="heading-buttons">
+                        <button
+                            onClick={() => editOverviewOrEnroll(false)}
+                            id="overview-button"
+                            className="tab"
+                        >
+                            Overview
+                        </button>
+                        <button
+                            onClick={() => editOverviewOrEnroll(true)}
+                            id="enrollment-button"
+                            className="tab"
+                        >
+                            Enrollment
+                        </button>
                     </div>
-                </TabList>
-
-                <TabPanel className="tab-panel">
-                    {editBeneficiaries ? (
-                        <div>
-                            <Modal
-                                onClose={updateProgramFromEnrollment}
-                                isOpen={openModal}
-                                style={customStyles}
-                            >
-                                <div className="modal-body">
-                                    <h2>Enroll Beneficiary</h2>
-                                    <Select
-                                        isMulti
-                                        name="colors"
-                                        isClearable
-                                        isSearchable
-                                        menuPortalTarget={document.body}
-                                        options={benOptions}
-                                        className="react-select-container"
-                                        classNamePrefix="react-select"
-                                        onChange={handleAddBen}
-                                    />
+                </div>
+                {overviewOrEnroll ? (
+                    <div className="program-enroll-container">
+                        <div className="program-enroll-subheading">
+                            <h3>Enrolled Beneficiaries</h3>
+                            <div className="program-enroll-options">
+                                <input
+                                    type="text"
+                                    name="search-bar"
+                                    className="ben-search-bar"
+                                    placeholder="Search Beneficiary"
+                                />
+                                <EnrollPopup
+                                    openModal={openModal}
+                                    options={benOptions}
+                                    onChange={handleAddBen}
+                                    submit={updateProgramFromEnrollment}
+                                />
+                                <button
+                                    onClick={() => setOpenModal(true)}
+                                    className="submit-button program-enroll-ben"
+                                >
+                                    Add Beneficiaries
+                                </button>
+                            </div>
+                        </div>
+                        <div className="program-enroll-beneficiaries-container">
+                            <div className="program-enroll-beneficiaries">
+                                {roster?.map((ben, i) => (
+                                    <div key={i} className="beneficiary-card">
+                                        <div></div>
+                                        <div className="card-info">
+                                            <div className="tmp-photo"></div>
+                                            <h5>
+                                                {ben.firstName} {ben.lastName}
+                                            </h5>
+                                        </div>
+                                        <div className="delete-button-container">
+                                            <button
+                                                onClick={(e) =>
+                                                    removeBen(ben._id, e)
+                                                }
+                                                className="delete-ben-button"
+                                            >
+                                                X
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            {editRoster ? (
+                                <div className="submit-edit-roster">
                                     <button
                                         onClick={updateProgramFromEnrollment}
                                         className="submit-button"
@@ -221,168 +319,113 @@ const SingleProgram = (props) => {
                                         Submit
                                     </button>
                                 </div>
-                            </Modal>
-
-                            <div>
-                                <div className="enrolled-ben-title">
-                                    <h3>Current Beneficiaries:</h3>
-                                    <button
-                                        onClick={() => setOpenModal(true)}
-                                        className="submit-button"
-                                    >
-                                        Add Beneficiaries
-                                    </button>
-                                </div>
-                                {program.roster?.map((ben, i) => (
-                                    <div key={i}>
-                                        <h5 id="beneficiary-name">
-                                            {i + 1}: {ben.firstName}{" "}
-                                            {ben.lastName}
-                                            <button
-                                                onClick={(e) =>
-                                                    removeBen(ben._id, e)
-                                                }
-                                            >
-                                                X
-                                            </button>
-                                        </h5>
-                                    </div>
-                                ))}
-                            </div>
-                            <button
-                                onClick={updateProgramFromEnrollment}
-                                className="submit-button"
-                            >
-                                Submit
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                        <div className="mark-attendance-button-container">
+                            <button className="submit-button program-enroll-ben">
+                                <Link
+                                    to={`/dashboard/programs/singleview/attendance/${programID}`}
+                                >
+                                    Mark Attendance
+                                </Link>
                             </button>
                         </div>
-                    ) : (
-                        <div>
-                            <div className="enrolled-ben-title">
-                                <h3>Enrolled Beneficiaries: </h3>
-                                <button
-                                    onClick={editBenMode}
-                                    className="submit-button"
-                                >
+                    </div>
+                ) : (
+                    <div className="program-info-container">
+                        <div className="program-info">
+                            <h3>Description</h3>
+                            {editMode ? (
+                                <h6>
                                     {" "}
-                                    Edit Enrollment
-                                </button>
+                                    <textarea
+                                        rows="5"
+                                        cols="75"
+                                        type="text"
+                                        value={updateProgDesc}
+                                        name="description"
+                                        onChange={(e) =>
+                                            setUpdateProgDesc(e.target.value)
+                                        }
+                                    />
+                                </h6>
+                            ) : (
+                                <h6>{program.description}</h6>
+                            )}
+                        </div>
+                        <div className="program-info">
+                            <h3>Start Date</h3>
+                            <h6>{program.startDate}</h6>
+                        </div>
+                        <div className="program-info">
+                            <h3>End Date</h3>
+                            <h6>{program.startDate}</h6>
+                        </div>
+                        <div className="program-info">
+                            <h3>Hosts</h3>
+                            <div className="program-hosts">
+                                {program.hosts?.map((host, h) => (
+                                    <h6 key={host._id}>{host.firstName} </h6>
+                                ))}
                             </div>
-                            {program.roster?.map((benn, i) => (
-                                <div key={i}>
-                                    <h4>
-                                        {i + 1}: {benn.firstName}{" "}
-                                        {benn.lastName}
-                                    </h4>
+                        </div>
+                        <div className="program-info">
+                            <h3>Status</h3>
+                            {program.archived ? (
+                                <h6>Archived</h6>
+                            ) : (
+                                <h6>Active</h6>
+                            )}
+                        </div>
+                        <div className="program-info">
+                            <h3>Schedule</h3>
+                            <h6>TODO</h6>
+                        </div>
+                        <div className="program-info-buttons-container">
+                            {editMode ? (
+                                <div className="program-buttons-inner">
+                                    <button
+                                        onClick={updateProgramFromOverview}
+                                        className="submit-button"
+                                    >
+                                        Submit
+                                    </button>
+                                    <div className="program-archive-delete">
+                                        <button
+                                            onClick={() =>
+                                                archiveProgram(program._id)
+                                            }
+                                        >
+                                            Archive
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                deleteProgram(program._id)
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
-                            ))}
+                            ) : (
+                                <div className="program-buttons-inner">
+                                    <button
+                                        onClick={editUpdateMode}
+                                        className="submit-button"
+                                    >
+                                        {" "}
+                                        Edit
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    )}
-                </TabPanel>
-                <TabPanel className="tab-panel">
-                    {editMode ? (
-                        <div>
-                            <div>
-                                <label>
-                                    <h3>
-                                        Title:
-                                        <input
-                                            type="text"
-                                            value={updateProgTitle}
-                                            name="title"
-                                            onChange={(e) =>
-                                                setUpdateProgTitle(
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                    </h3>
-                                </label>
-                            </div>
-                            <div>
-                                <h3>
-                                    <label>
-                                        Description:
-                                        <input
-                                            type="text"
-                                            value={updateProgDesc}
-                                            name="description"
-                                            onChange={(e) =>
-                                                setUpdateProgDesc(
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                    </label>
-                                </h3>
-                            </div>
-                            <h3>id: {program._id}</h3>
-                            <h3>Start Date: {program.startDate}</h3>
-                            <h3>End Date: {program.endDate}</h3>
-                            <h3>Date Created: {program.dateAdded}</h3>
-                            <div>
-                                <h3>
-                                    <label>
-                                        Hosts:
-                                        <input
-                                            type="text"
-                                            value={updateProgHosts}
-                                            name="description"
-                                            onChange={(e) =>
-                                                setUpdateProgHosts(
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                    </label>
-                                </h3>
-                            </div>
-                        </div>
-                    ) : (
-                        <div>
-                            <h3>Description: {program.description}</h3>
-                            <h3>id: {program._id}</h3>
-                            <h3>Start Date: {program.startDate}</h3>
-                            <h3>End Date: {program.endDate}</h3>
-                            <h3>Date Created: {program.dateAdded}</h3>
-                            <h3>Hosts: {program.hosts}</h3>
-                            <h3>
-                                Status:{" "}
-                                {program.archived ? <>archived</> : <>active</>}
-                            </h3>
-                        </div>
-                    )}
-                    {editMode ? (
-                        <button
-                            onClick={updateProgramFromOverview}
-                            className="submit-button"
-                        >
-                            Submit
-                        </button>
-                    ) : (
-                        <button
-                            onClick={editUpdateMode}
-                            className="submit-button"
-                        >
-                            {" "}
-                            Edit Program
-                        </button>
-                    )}
-                </TabPanel>
-            </Tabs>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
 
 export default SingleProgram;
-
-{
-    /* <Select
-            isMulti
-            name="colors"
-            options={benOptions}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={handleAddBen}
-        /> */
-}

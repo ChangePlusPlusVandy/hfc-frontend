@@ -17,13 +17,13 @@ import Beneficiary from "./pages/beneficiaries/Beneficiary";
 // Programs Page
 import Programs from "./pages/programs/Programs";
 import SingleProgram from "./pages/programs/SingleProgram";
+import MarkAttendance from "./pages/programs/MarkAttendance";
 
 // Workshops Page
-import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
 import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
-import { WorkshopSingle } from "./pages/workshops/singleView";
-
+import { WorkshopSingle } from "./pages/workshops/WorkshopSingle";
+import { WorkshopAttendance } from "./pages/workshops/WorkshopAttendance";
 // Assessments Page
 import AssessmentsOverview from "./pages/assessments/AssessmentsOverview";
 import Assessments from "./pages/assessments/Assessments";
@@ -41,16 +41,21 @@ const router = createBrowserRouter(
             <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
             <Route path="programs">
                 <Route index element={<Programs />} />
-                {/* TODO: Make dynamic routes for each program */}
-                <Route path="singleview" element={<SingleProgram />} />
+                <Route path="singleview">
+                    <Route path=":programID" element={<SingleProgram />} />
+                    {/* <Route index element={<SingleProgram />} /> */}
+                    <Route
+                        path="attendance/:programID"
+                        element={<MarkAttendance />}
+                    />
+                </Route>
             </Route>
             <Route path="workshops">
-                <Route index element={<Workshops />} />
+                <Route index element={<WorkshopsList />} />
                 <Route path="create" element={<WorkshopCreateForm />} />
-                <Route path="all" element={<WorkshopsList />} />
-                <Route path="delete" element={<WorkshopDeleteForm />} />
                 {/* TODO: Make dynamic routes for each workshop */}
                 <Route path="singleview" element={<WorkshopSingle />} />
+                <Route path="attendance" element={<WorkshopAttendance />} />
             </Route>
             <Route path="assessments">
                 <Route index element={<AssessmentsOverview />} />
