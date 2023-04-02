@@ -1,46 +1,11 @@
-.App {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-}
 .sortAndSearch {
     display: flex;
     flex-direction: row;
     height: 50px;
     align-items: bottom;
 }
-/* MODAL */
-/* Background effect. It covers the entire site */
-.modal {
-    background-color: rgb(0, 0, 0); /* Fallback color */
-
-    z-index: 1; /* Overlay effect: positioned over other containers */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    position: fixed; /* Fix position on the top-left corner*/
-    top: 0;
-    left: 0;
-    overflow: auto; /* Enable scroll if needed */
-    padding-top: 80px; /* Location of the content container */
-}
-/* Modal content */
-.modal-content {
-    position: relative;
-    background-color: white;
-    width: 70%; /* Width in proportion to its parent container*/
-    max-width: 640px; /* Max width where it stops expanding */
-    height: auto; /* Height in proportion to its parent container */
-    margin: auto; /* Auto margin according to the element width */
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px; /* Optional. Rounds container corners */
-}
 /* Close button */
-.close {
+.workshop-close {
     color: #fff;
     background-color: #999;
     position: absolute;
@@ -50,8 +15,8 @@
     border-radius: 50%;
     border: 2px solid #333;
 }
-.close:hover,
-.close:focus {
+.workshop-close:hover,
+.workshop-close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -146,7 +111,7 @@
     margin: 0px 10px;
 }
 
-.sortAndSearch .dropdown {
+.sort-and-search .dropdown {
     flex: 1;
     margin: 10px;
 }

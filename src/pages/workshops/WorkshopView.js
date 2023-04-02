@@ -11,20 +11,21 @@ export const WorkshopsList = () => {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
     const [hostOptions, setHostOptions] = useState([]);
-    const [reload, setReload] = useState(0);
     // Fetch workshops
     const handleCreate = () => {
         setShowPopup(true);
     };
     const handleClosePopup = () => {
         setShowPopup(false);
-        setReload(reload + 1);
+        getWorkshops();
     };
     const getWorkshops = () => {
+        //TODO: Error handling
         fetch("http://localhost:3000/workshops")
             .then((response) => response.json())
             .then((data) => {
                 console.log("Fetched workshops:");
+                //TODO: Use map, and do in backend. populate
                 fetch("http://localhost:3000/users/users")
                     .then((response2) => response2.json())
                     .then((data2) => {
@@ -58,7 +59,7 @@ export const WorkshopsList = () => {
 
     useEffect(() => {
         getWorkshops();
-    }, [reload]);
+    }, []);
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -116,7 +117,7 @@ export const WorkshopsList = () => {
 
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
 
-            <div className="sortAndSearch">
+            <div className="sort-and-search">
                 <div className="dropdown">
                     <Select
                         className="workshop-input"

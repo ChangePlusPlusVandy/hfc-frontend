@@ -95,7 +95,7 @@ export const WorkshopCreateForm = (props) => {
             <div className="modal-body">
                 <div>Workshop Title</div>
                 <button
-                    className="close"
+                    className="workshop-close"
                     onClick={closeModal}
                     aria-label="Close"
                 >
