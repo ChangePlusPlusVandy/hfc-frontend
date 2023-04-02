@@ -12,13 +12,13 @@ export const AttendancePopup = (props) => {
             .then((data) => {
                 setBenIds(data.map((item) => Number(item.id)));
             });
-    });
+    },[]);
     const submit = () => {
         console.log(benIDs);
         console.log(id);
         console.log(benIDs.includes(id));
         if (benIDs.includes(id)) {
-            localStorage.setItem("hasID", true);
+            props.setRegistered((previous)=>previous+1);
             props.onClose();
         } else {
             setMessage(
@@ -27,7 +27,6 @@ export const AttendancePopup = (props) => {
         }
     };
     const close = () => {
-        localStorage.setItem("hasID", false);
         props.onClose();
     };
     return (
