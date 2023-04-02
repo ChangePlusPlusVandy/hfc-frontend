@@ -1,0 +1,58 @@
+.form-rate-btns-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0; /*FIXME*/
+}
+
+.form-rate-btns-container .form-rate-btns {
+    display: flex;
+}
+
+.form-rate-btns-container .form-rate-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-rate-btns-container .form-rate-btn {
+    all: unset;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+/*FIXME*/
+.form-rate-btns-container .form-rate-btn-circle {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid black;
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.form-rate-btns-container .form-rate-btn.active .form-rate-btn-circle,
+.form-rate-btns-container .form-rate-btn:hover .form-rate-btn-circle {
+    background: black;
+    color: white;
+}
+
+.form-rate-btns-container .form-rate-btn-name {
+    font-size: 16px; /*FIXME*/
+}
+
+.form-rate-btns-container .form-rate-btn-delimiter {
+    width: 3vw; /*FIXME*/
+    height: 1px;
+    background: black;
+    margin: 0 1vw;
+}
+
+.form-rate-btns-container
+    .form-rate-btn-container:last-child
+    .form-rate-btn-delimiter {
+    display: none;
+}

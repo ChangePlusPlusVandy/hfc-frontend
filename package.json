@@ -61,9 +61,9 @@
         "eslint": "^8.28.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-modal": "^3.16.1",
         "react-router-dom": "^6.7.0",
         "react-select": "^5.7.0",
-        "react-modal": "^3.16.1",
         "react-tabs": "^6.0.0"
     }
 }
