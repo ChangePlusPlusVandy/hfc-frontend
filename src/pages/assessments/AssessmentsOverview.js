@@ -55,6 +55,7 @@ const AssesssmentsOverview = () => {
         // }, assessments);
     };
 
+    // TODO: make this change displayedAssessments
     const sortByDate = (oldToNew = false) => {
         let data = [...assessments];
         data.sort((a, b) => {
@@ -65,6 +66,7 @@ const AssesssmentsOverview = () => {
         setAssessments(data);
     };
 
+    // TODO: make this change displayedAssessments
     const filterFromSearch = () => {
         // assessments exist and we typed something in search
         if (assessments && search) {
