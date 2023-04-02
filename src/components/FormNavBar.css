@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 35px;
+    margin-top: 35px;
+    padding-bottom: 35px;
     justify-self: end;
 }
 
@@ -67,6 +68,7 @@
 
 .form-nav-bar-container .form-nav-button-container .arrow-container {
     position: relative;
+    height: 0;
 }
 
 .form-nav-bar-container .form-nav-button-container .arrow-center {

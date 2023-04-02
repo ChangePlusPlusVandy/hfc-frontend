@@ -1,0 +1,199 @@
+.beneficiary-registration-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}
+
+.beneficiary-registration-container .page-title {
+    text-align: center;
+    margin-top: 0;
+}
+
+.beneficiary-registration-container .page-container {
+    flex: 1;
+    width: 50%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.beneficiary-registration-container .page-content {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.beneficiary-registration-container input[type="text"],
+.beneficiary-registration-container input[type="email"] {
+    all: unset;
+    border-bottom: 1px solid #c1c1c1;
+}
+
+.beneficiary-registration-container .section-container {
+    margin-bottom: 20px;
+}
+
+.beneficiary-registration-container .section-label {
+    display: block;
+    margin-bottom: 10px;
+    /* font-weight: bold; */
+}
+
+.beneficiary-registration-container .upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+
+.beneficiary-registration-container .upload-container > .section-label {
+    text-align: center;
+}
+
+.beneficiary-registration-container .upload-button {
+    all: unset;
+    background: white;
+    border: 1px solid #6d6d6d;
+    color: #6d6d6d;
+    padding: 10px 60px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.beneficiary-registration-container .upload-button:hover,
+.beneficiary-registration-container .upload-button:focus {
+    background: #6d6d6d;
+    color: white;
+}
+
+.beneficiary-registration-container .name-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.beneficiary-registration-container input#last-name {
+    margin-left: 20px;
+}
+
+.beneficiary-registration-container input#first-name,
+.beneficiary-registration-container input#last-name {
+    flex: 1;
+}
+
+.beneficiary-registration-container label.birthdate {
+    margin-right: 10px;
+}
+
+.beneficiary-registration-container .birthdate-input-container {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.beneficiary-registration-container input[type="date"] {
+    color: #a4a4a4;
+    font-family: inherit;
+    font-size: 18px;
+    border: 1px solid #a4a4a4;
+    background: #dadada;
+    padding: 5px;
+}
+
+.beneficiary-registration-container .age {
+    /* display: inline;
+    border: 1px solid #c1c1c1;
+    border-radius: 20px;
+    text-align: center;
+    padding: 5px 10px; */
+    margin-left: 20px;
+    color: #c1c1c1;
+}
+
+.beneficiary-registration-container .gender-input-container {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.beneficiary-registration-container input#other {
+    cursor: text;
+}
+
+.beneficiary-registration-container input#phone-number,
+.beneficiary-registration-container input#email-address,
+.beneficiary-registration-container input#street-address {
+    display: block;
+    width: 100%;
+}
+
+.beneficiary-registration-container input#phone-number {
+    margin-bottom: 15px;
+}
+
+.beneficiary-registration-container textarea {
+    width: 100%;
+    height: 100px;
+    font-family: inherit;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.beneficiary-registration-container .review-container {
+    border: 1px solid black;
+    overflow-y: scroll;
+    border-radius: 10px;
+    padding: 20px;
+    height: 550px;
+    width: 700px;
+}
+
+.beneficiary-registration-container .review-container .review-info-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.beneficiary-registration-container .review-container .beneficiary-profile-pic {
+    width: 140px;
+    height: 140px;
+    margin-right: 35px;
+}
+
+.beneficiary-registration-container .review-container .basic-info > p {
+    margin: 3px 0;
+}
+
+.beneficiary-registration-container .review-container .section-label {
+    font-weight: bold;
+}
+
+.beneficiary-registration-container .review-container .section-contents {
+    font-size: 16px;
+}
+
+.beneficiary-registration-container .review-container .section-contents > p {
+    margin: 3px 0;
+}
+
+.beneficiary-registration-container .review-container .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.beneficiary-registration-container .review-container .tag {
+    display: inline;
+    background: #d9d9d9;
+    border-radius: 2px;
+    padding: 2px 5px;
+    margin: 0 5px;
+}
