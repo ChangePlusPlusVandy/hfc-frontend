@@ -3,9 +3,11 @@ import { json, Link, useLocation } from "react-router-dom";
 import Select from "react-select";
 import "./Workshops.css";
 import "./SingleWorkshop.css";
-import SmileyFace from "../../assets/images/Smiley-face.png";
 import { AttendancePopup } from "./AttendancePopup";
-
+import Sad from "../../assets/images/Emojis/Sad.png"
+import Okay from "../../assets/images/Emojis/Okay.png"
+import Happy from "../../assets/images/Emojis/Happy.png"
+import Happiest from "../../assets/images/Emojis/Happiest.png"
 export const WorkshopAttendance = () => {
     const workshopID = useLocation().state.id;
     const [workshop, setWorkshop] = useState({});
@@ -108,25 +110,25 @@ export const WorkshopAttendance = () => {
                         onClick={(e) => handleRating(0)}
                         className="attendance-button"
                     >
-                        <img src={SmileyFace}></img>
+                        <img src={Sad}></img>
                     </button>
                     <button
                         onClick={(e) => handleRating(1)}
                         className="attendance-button"
                     >
-                        <img src={SmileyFace}></img>
+                        <img src={Okay}></img>
                     </button>
                     <button
                         onClick={(e) => handleRating(2)}
                         className="attendance-button"
                     >
-                        <img src={SmileyFace}></img>
+                        <img src={Happy}></img>
                     </button>
                     <button
                         onClick={(e) => handleRating(3)}
                         className="attendance-button"
                     >
-                        <img src={SmileyFace}></img>
+                        <img src={Happiest}></img>
                     </button>
                 </div>
                 <br></br>

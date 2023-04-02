@@ -303,6 +303,7 @@ export const WorkshopSingle = () => {
                                 </div>
                             </>
                         ) : (
+                            //TODO: Change this to say XX for each item
                             <>
                                 Registration not taken yet<br></br>
                                 <br></br>
