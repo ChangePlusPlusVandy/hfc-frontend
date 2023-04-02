@@ -5,13 +5,20 @@ import CreatableSelect from "react-select/creatable";
 import "./BeneficiaryRegistration.css";
 
 const needOpts = [
-    { value: "need1", label: "need 1" },
-    { value: "need2", label: "need 2" },
+    { value: "Need 1", label: "Need 1" },
+    { value: "Need 2", label: "Need 2" },
 ];
 
 const interestOpts = [
-    { value: "interest1", label: "interest 1" },
-    { value: "interest2", label: "interest 2" },
+    { value: "Computers", label: "Computers" },
+    { value: "English", label: "Spoken English" },
+    { value: "Literacy", label: "Literacy" },
+    { value: "Math", label: "Math" },
+    { value: "Bengali", label: "Bengali" },
+    { value: "Arts", label: "Arts" },
+    { value: "Bakery", label: "Bakery/Cafe" },
+    { value: "Counseling", label: "Counseling" },
+    // TODO: change counseling label to whatever they asked
 ];
 
 const Page2 = ({

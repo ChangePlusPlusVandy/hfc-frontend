@@ -12,6 +12,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 // Beneficiaries Page
 import Beneficiaries from "./pages/beneficiaries/Beneficiaries";
 import BeneficiaryRegistration from "./pages/beneficiaries/registration/BeneficiaryRegistration";
+import Beneficiary from "./pages/beneficiaries/Beneficiary";
 
 // Programs Page
 import Programs from "./pages/programs/Programs";
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
             <Route path="beneficiaries">
                 <Route index element={<Beneficiaries />} />
                 <Route path="register" element={<BeneficiaryRegistration />} />
+                <Route path=":beneficiaryId" element={<Beneficiary />} />
             </Route>
             <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
             <Route path="programs">
