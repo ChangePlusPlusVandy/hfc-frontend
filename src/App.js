@@ -25,7 +25,9 @@ import { WorkshopsList } from "./pages/workshops/WorkshopView";
 import { WorkshopSingle } from "./pages/workshops/singleView";
 
 // Assessments Page
+import AssessmentsOverview from "./pages/assessments/AssessmentsOverview";
 import Assessments from "./pages/assessments/Assessments";
+import SingleAssessment from "./pages/assessments/components/SingleAssessment";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -51,7 +53,9 @@ const router = createBrowserRouter(
                 <Route path="singleview" element={<WorkshopSingle />} />
             </Route>
             <Route path="assessments">
-                <Route index element={<Assessments />} />
+                <Route index element={<AssessmentsOverview />} />
+                <Route path=":assessmentId" element={<SingleAssessment />} />
+                <Route path="assessment" element={<Assessments />} />
             </Route>
         </Route>
     )
