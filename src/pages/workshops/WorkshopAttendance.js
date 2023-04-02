@@ -4,10 +4,10 @@ import Select from "react-select";
 import "./Workshops.css";
 import "./SingleWorkshop.css";
 import { AttendancePopup } from "./AttendancePopup";
-import Sad from "../../assets/images/Emojis/Sad.png"
-import Okay from "../../assets/images/Emojis/Okay.png"
-import Happy from "../../assets/images/Emojis/Happy.png"
-import Happiest from "../../assets/images/Emojis/Happiest.png"
+import Sad from "../../assets/images/Emojis/Sad.png";
+import Okay from "../../assets/images/Emojis/Okay.png";
+import Happy from "../../assets/images/Emojis/Happy.png";
+import Happiest from "../../assets/images/Emojis/Happiest.png";
 export const WorkshopAttendance = () => {
     const workshopID = useLocation().state.id;
     const [workshop, setWorkshop] = useState({});
@@ -102,7 +102,13 @@ export const WorkshopAttendance = () => {
                         </button>
                     </div>
                 </div>
-                {idMode && <AttendancePopup onClose={handleIDNumber} setRegistered={setRegistered} registered={registered}/>}
+                {idMode && (
+                    <AttendancePopup
+                        onClose={handleIDNumber}
+                        setRegistered={setRegistered}
+                        registered={registered}
+                    />
+                )}
                 <h3>How did the workshop make you feel?</h3>
                 <div className="attendance-button-container">
                     <button

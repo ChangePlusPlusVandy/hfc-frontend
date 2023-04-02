@@ -12,13 +12,13 @@ export const AttendancePopup = (props) => {
             .then((data) => {
                 setBenIds(data.map((item) => Number(item.id)));
             });
-    },[]);
+    }, []);
     const submit = () => {
         console.log(benIDs);
         console.log(id);
         console.log(benIDs.includes(id));
         if (benIDs.includes(id)) {
-            props.setRegistered((previous)=>previous+1);
+            props.setRegistered((previous) => previous + 1);
             props.onClose();
         } else {
             setMessage(
