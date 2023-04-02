@@ -1,0 +1,51 @@
+:root {
+    --text-link: #888b8f;
+    --button-color: #e8e9eb;
+    --mid-color: #d0d0d1;
+}
+
+.beneficiary-page-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+.beneficiary-identification-info,
+.beneficiary-registration-info,
+.archive-delete-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.needs-interests-sponsor-buttons {
+    display: flex;
+}
+
+button {
+    padding: 5px 40px;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    border: none;
+    cursor: pointer;
+    font-size: 12pt;
+    margin: 2px;
+    width: 200px;
+    height: 30px;
+}
+
+.program-workshops-list .needs-interests-sponsor-list .assessment-list {
+    height: 100%;
+    margin-top: 20px;
+    background-color: var(--button-color);
+    border-radius: 10px;
+    border-color: #888b8f;
+}
+
+.list-container {
+    height: 100%;
+    margin-top: 20px;
+    background-color: var(--button-color);
+    border-radius: 10px;
+    border-color: #888b8f;
+}
