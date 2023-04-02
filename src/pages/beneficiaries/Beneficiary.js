@@ -21,6 +21,10 @@ const Beneficiary = () => {
     const [programsWorkshops, setProgramsWorkshops] = useState(0);
     const [needsInterestsSponsors, setNeedsInterestsSponsors] = useState(0);
     const [recentHistory, setRecentHistory] = useState(0);
+    const [assessments, setAssessments] = useState([]);
+    const [programs, setPrograms] = useState([]);
+    const [workshops, setWorkshops] = useState([]);
+    const [assessmentObjects, setAssessmentObjects] = useState([]);
 
     const handleToggleEditMode = () => {
         setEditing((prev) => !prev);
@@ -88,8 +92,57 @@ const Beneficiary = () => {
         setRecentHistory(1);
     };
 
+    // added this
+    const getAssessmentFromId = async (e) => {
+        console.log("state assessments", assessments);
+        console.log("state phone", phone);
+        // the state just hasn't been updated yet!!!!
+        const assessmentId = beneficiary.assessments?.assessments[0];
+        console.log("ASSESSMENTID", assessmentId);
+        // right now problem is gathering the assessment ID
+        if (assessmentId) {
+            console.log("BENEFICIARY HAS ASSESSMENTID");
+            try {
+                let data = await fetch(
+                    `http://localhost:3000/assessments?id=${assessmentId}`
+                );
+                data = await data.json();
+                setAssessmentObjects(data);
+                console.log("assessment object", assessmentObjects);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    };
+
+    const getPrograms = async () => {
+        try {
+            let data = await fetch(
+                "http://localhost:3000/programs/beneficiary?id=" + beneficiaryId
+            );
+            data = await data.json();
+            console.log("json data", data);
+            setPrograms(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getWorkshops = async () => {
+        try {
+            let data = await fetch(
+                "http://localhost:3000/workshops/beneficiary?id=" +
+                    beneficiaryId
+            );
+            data = await data.json();
+            console.log("json workshop data", data);
+            setWorkshops(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     const handleDelete = (id) => {
-        console.log("id is" + id);
         fetch("http://localhost:3000/beneficiaries?id=" + beneficiaryId, {
             method: "DELETE",
         }).then(async () => {
@@ -104,7 +157,6 @@ const Beneficiary = () => {
 
     const handleToggleArchive = () => {
         setArchived((prev) => !prev);
-        console.log(archived);
     };
 
     const languageOpts = [
@@ -124,8 +176,8 @@ const Beneficiary = () => {
             archived,
             bday,
             address,
+            assessments,
         });
-        console.log(body);
         fetch(`http://localhost:3000/beneficiaries/${beneficiaryId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -141,6 +193,11 @@ const Beneficiary = () => {
         fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`)
             .then((response) => response.json())
             .then((data) => {
+                data.assessments.sort(function (a, b) {
+                    const dateA = new Date(a.dateTaken);
+                    const dateB = new Date(b.dateTaken);
+                    return dateB - dateA;
+                });
                 setBeneficiary(data);
                 setFirstName(data.firstName);
                 setLastName(data.lastName);
@@ -156,14 +213,12 @@ const Beneficiary = () => {
                 setBday(data.bday);
                 setArchived(data.archived);
                 setId(data._id);
-                console.log(data._id);
-                console.log(data);
-                console.log(data.languages);
+                setAssessments(data.assessments);
             })
             .catch((error) => console.log(error));
+        getPrograms();
+        getWorkshops();
     }, []);
-
-    console.log(beneficiary);
 
     return (
         <div className="beneficiary-page-container">
@@ -173,6 +228,7 @@ const Beneficiary = () => {
                 </div>
                 <div className="beneficiary-photo">
                     {" "}
+                    {/* TODO: include avatar*/}
                     <p> insert photo here </p>
                 </div>
                 <div className="beneficiary-name">
@@ -275,9 +331,11 @@ const Beneficiary = () => {
                             {editing ? "Cancel Edits" : "Edit Beneficiary"}
                         </button>
                     </div>
-                    <button onClick={handleSubmit} id="submit-button">
-                        Submit
-                    </button>
+                    <div className="submit-button">
+                        {editing && (
+                            <button onClick={handleSubmit}>Submit</button>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -295,19 +353,27 @@ const Beneficiary = () => {
                     </div>
                     <div className="list-container">
                         <h5>
-                            {" "}
-                            {programsWorkshops === 0 && (
-                                <p>
-                                    {/* TODO: Add program data */}
-                                    Programs Here{" "}
-                                </p>
-                            )}
-                            {programsWorkshops === 1 && (
-                                <p>
-                                    {/* TODO: Add workshop data */}
-                                    Workshops Here{" "}
-                                </p>
-                            )}
+                            {programsWorkshops === 0 &&
+                                programs.map((program) => (
+                                    <p>
+                                        {program.title +
+                                            " " +
+                                            program.startDate +
+                                            " " +
+                                            program.active}
+                                    </p>
+                                ))}
+
+                            {programsWorkshops === 1 &&
+                                workshops.map((workshop) => (
+                                    <p>
+                                        {workshop.title +
+                                            " " +
+                                            workshop.date +
+                                            " " +
+                                            workshop.archived}
+                                    </p>
+                                ))}
                         </h5>
                     </div>
                 </div>
@@ -351,19 +417,29 @@ const Beneficiary = () => {
                     </div>
                     <div className="list-container">
                         <h5>
-                            {" "}
-                            {recentHistory === 0 && (
+                            {recentHistory === 0 && assessments && (
                                 <p>
-                                    {/* TODO: Add recent assessment data */}
-                                    Recent Assessment Here{" "}
+                                    Overall Score: {assessments[0]?.totalScore}{" "}
+                                    Mental Health Summary:{" "}
+                                    {assessments[0]?.mentalHealthScore} Life
+                                    Skills Summary:{" "}
+                                    {assessments[0]?.lifeSkillsScore} Social
+                                    Skills Summary:{" "}
+                                    {assessments[0]?.socialSkillScore} Education
+                                    Vocational Summary:{" "}
+                                    {assessments[0]?.educationVocationScore}{" "}
                                 </p>
                             )}
-                            {recentHistory === 1 && (
-                                <p>
-                                    {/* TODO: Add past assessment data */}
-                                    Past Assessment Here{" "}
-                                </p>
-                            )}
+                            {/* TODO: make assessments clickable links*/}
+                            {recentHistory === 1 &&
+                                assessments.map((assessment) => (
+                                    <p>
+                                        {assessment._id +
+                                            " " +
+                                            assessment.dateTaken +
+                                            " "}
+                                    </p>
+                                ))}
                         </h5>
                     </div>
                 </div>

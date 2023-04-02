@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SingleBenficiary from "./components/SingleBfc";
 import FilterButton from "./components/FilterButton";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
 import Select from "react-dropdown-select";
+import DefaultUser from "../../../src/assets/images/default-user.png";
 
 import "./Beneficiaries.css";
 
@@ -13,6 +14,32 @@ const FILTER_MAP = {
     Archived: (item) => item.archived,
 };
 const FILTER_NAMES = Object.keys(FILTER_MAP);
+
+const Beneficiary = ({
+    id,
+    firstName,
+    lastName,
+    gender,
+    phone,
+    email,
+    bday,
+    archived,
+    onClick,
+    _id,
+}) => {
+    return (
+        <div className="beneficiary-container">
+            <img
+                className="beneficiary-pfp"
+                src={DefaultUser}
+                onClick={onClick}
+            ></img>
+            <p className="user-name">
+                {firstName} {lastName}
+            </p>
+        </div>
+    );
+};
 
 const Beneficiaries = () => {
     const [beneficiaries, setBeneficiaries] = useState([]);
@@ -31,6 +58,7 @@ const Beneficiaries = () => {
     const [bakery, setBakery] = useState(false);
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
+    const navigate = useNavigate();
 
     const deleteBfc = (id) => {
         console.log(id);
@@ -356,7 +384,8 @@ const Beneficiaries = () => {
                             }
                         })
                         .map((item) => (
-                            <SingleBenficiary
+                            <Beneficiary
+                                onClick={(e) => navigate(`${item._id}`)}
                                 id={item.id}
                                 firstName={item.firstName}
                                 lastName={item.lastName}
