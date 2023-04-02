@@ -9,7 +9,7 @@
 }
 .sortAndSearch {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     height: 50px;
     align-items: bottom;
 }
@@ -152,6 +152,6 @@
 }
 
 .sortAndSearch .dropdown {
-    flex:1;
-    margin: 10px
+    flex: 1;
+    margin: 10px;
 }

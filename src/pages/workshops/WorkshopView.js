@@ -84,7 +84,7 @@ export const WorkshopsList = () => {
             ws.sort((item1, item2) => {
                 return item1._id.localeCompare(item2._id);
             });
-        } else if (sort == "workDate"){
+        } else if (sort == "workDate") {
             ws.sort((item1, item2) => {
                 return item1.date.localeCompare(item2.date);
             });
@@ -113,17 +113,20 @@ export const WorkshopsList = () => {
     return (
         <div className="workshops-page-container">
             <h1>Workshop Overview</h1>
-            
+
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
 
             <div className="sortAndSearch">
-            <div className="dropdown">
+                <div className="dropdown">
                     <Select
                         className="workshop-input"
                         options={[
                             { value: "alphabetical", label: "Alphabetical" },
-                            { value: "dateAdded", label: "Date Added (earliest first)" },
-                            { value: "workDate", label: "Workshop Date"}
+                            {
+                                value: "dateAdded",
+                                label: "Date Added (earliest first)",
+                            },
+                            { value: "workDate", label: "Workshop Date" },
                         ]}
                         placeholder="Sort"
                         onChange={handleSortValChange}
@@ -142,16 +145,18 @@ export const WorkshopsList = () => {
                         value={filter}
                     />
                 </div>
-                    <input
-                        type="text"
-                        className="workshop-input"
-                        placeholder="Search..."
-                        onChange={(e) => handleSearchChange(e)}
-                    />
+                <input
+                    type="text"
+                    className="workshop-input"
+                    placeholder="Search..."
+                    onChange={(e) => handleSearchChange(e)}
+                />
 
-                <div className="dropdown"><button onClick={handleCreate} className="submit-button">Create Workshop</button></div>
-                
-
+                <div className="dropdown">
+                    <button onClick={handleCreate} className="submit-button">
+                        Create Workshop
+                    </button>
+                </div>
             </div>
             <br></br>
             <div className="workshops-list-container">
@@ -194,13 +199,11 @@ export const WorkshopsList = () => {
                                 &emsp;
                             </h4>
                         </Link>
-                        
                     </div>
                 ))}
             </div>
             <br></br>
             <br></br>
-
         </div>
     );
 };

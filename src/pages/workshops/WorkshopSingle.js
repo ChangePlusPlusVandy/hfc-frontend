@@ -218,36 +218,34 @@ export const WorkshopSingle = () => {
                 </div>
             ) : (
                 <div className="single-workshop">
-                                        <div className="single-workshop-heading">
-                                        <h1>{workshop.title}</h1>
+                    <div className="single-workshop-heading">
+                        <h1>{workshop.title}</h1>
 
-                                        <div className="heading-buttons">
-
-                        <button
-                            onClick={() => editOverviewOrEnroll(false)}
-                            id="overview-button"
-                            className="tab"
-                            style={{backgroundColor: "darkgray"}}
-                        >
-                            Overview
-                        </button>
-                        <Link to="../attendance"
-                            state={{
-                                id: workshopID,
-                            }}>
-                        <button
-                            onClick={() => editOverviewOrEnroll(true)}
-                            id="enrollment-button"
-                            className="tab"
-                        >
-                            Attendance
-                        </button>
-                        </Link>
-
+                        <div className="heading-buttons">
+                            <button
+                                onClick={() => editOverviewOrEnroll(false)}
+                                id="overview-button"
+                                className="tab"
+                                style={{ backgroundColor: "darkgray" }}
+                            >
+                                Overview
+                            </button>
+                            <Link
+                                to="../attendance"
+                                state={{
+                                    id: workshopID,
+                                }}
+                            >
+                                <button
+                                    onClick={() => editOverviewOrEnroll(true)}
+                                    id="enrollment-button"
+                                    className="tab"
+                                >
+                                    Attendance
+                                </button>
+                            </Link>
+                        </div>
                     </div>
-
-                    </div>
-
 
                     <div className="workshop-info-container">
                         <div className="workshop-info">
@@ -305,9 +303,10 @@ export const WorkshopSingle = () => {
                                 </div>
                             </>
                         ) : (
-                            
                             <>
-                            Registration not taken yet<br></br><br></br></> 
+                                Registration not taken yet<br></br>
+                                <br></br>
+                            </>
                         )}
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
                             <button
