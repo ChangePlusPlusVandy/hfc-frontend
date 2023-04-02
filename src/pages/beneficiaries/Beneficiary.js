@@ -28,8 +28,6 @@ const Beneficiary = () => {
 
     const handleToggleEditMode = () => {
         setEditing((prev) => !prev);
-        if (!editing) {
-        }
     };
 
     const handleChangeFirstName = (event) => {
@@ -93,27 +91,27 @@ const Beneficiary = () => {
     };
 
     // added this
-    const getAssessmentFromId = async (e) => {
-        console.log("state assessments", assessments);
-        console.log("state phone", phone);
-        // the state just hasn't been updated yet!!!!
-        const assessmentId = beneficiary.assessments?.assessments[0];
-        console.log("ASSESSMENTID", assessmentId);
-        // right now problem is gathering the assessment ID
-        if (assessmentId) {
-            console.log("BENEFICIARY HAS ASSESSMENTID");
-            try {
-                let data = await fetch(
-                    `http://localhost:3000/assessments?id=${assessmentId}`
-                );
-                data = await data.json();
-                setAssessmentObjects(data);
-                console.log("assessment object", assessmentObjects);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-    };
+    // const getAssessmentFromId = async (e) => {
+    //     console.log("state assessments", assessments);
+    //     console.log("state phone", phone);
+    //     // the state just hasn't been updated yet!!!!
+    //     const assessmentId = beneficiary.assessments?.assessments[0];
+    //     console.log("ASSESSMENTID", assessmentId);
+    //     // right now problem is gathering the assessment ID
+    //     if (assessmentId) {
+    //         console.log("BENEFICIARY HAS ASSESSMENTID");
+    //         try {
+    //             let data = await fetch(
+    //                 `http://localhost:3000/assessments?id=${assessmentId}`
+    //             );
+    //             data = await data.json();
+    //             setAssessmentObjects(data);
+    //             console.log("assessment object", assessmentObjects);
+    //         } catch (err) {
+    //             console.log(err);
+    //         }
+    //     }
+    // };
 
     const getPrograms = async () => {
         try {
@@ -159,6 +157,7 @@ const Beneficiary = () => {
         setArchived((prev) => !prev);
     };
 
+    // TODO: extract outside of component
     const languageOpts = [
         { value: "English", label: "English" },
         { value: "Mandarin", label: "Mandarin" },
@@ -193,7 +192,7 @@ const Beneficiary = () => {
         fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`)
             .then((response) => response.json())
             .then((data) => {
-                data.assessments.sort(function (a, b) {
+                data.assessments.sort((a, b) => {
                     const dateA = new Date(a.dateTaken);
                     const dateB = new Date(b.dateTaken);
                     return dateB - dateA;

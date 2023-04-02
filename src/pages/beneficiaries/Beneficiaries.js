@@ -59,6 +59,7 @@ const Beneficiaries = () => {
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
     const navigate = useNavigate();
+    // TODO: make these an array of states check if the interests intersect with the desired interests
 
     const deleteBfc = (id) => {
         console.log(id);
@@ -128,6 +129,7 @@ const Beneficiaries = () => {
         setActiveFilter((prev) => !prev);
     };
 
+    // TODO: this will change with updated state
     const handleSelectInterest = (selectedValues, selectedItem) => {
         setNumInterests((prev) => prev + 1);
         setInterestsFilter(true);
@@ -217,6 +219,7 @@ const Beneficiaries = () => {
         }
     };
 
+    // TODO: move the options above beneficiary component
     const sortOptions = [
         {
             value: 1,
@@ -244,6 +247,7 @@ const Beneficiaries = () => {
         },
     ];
 
+    // TODO: move the options above beneficiary component
     const interestOptions = [
         { name: "Computers", id: 1 },
         { name: "Spoken English", id: 2 },
@@ -273,6 +277,7 @@ const Beneficiaries = () => {
         getBeneficiaries();
     }, []);
 
+    // TODO: change this with updated state
     useEffect(() => {
         console.log("interest filter: " + interestsFilter);
         console.log("numInterests" + numInterests);
@@ -365,7 +370,6 @@ const Beneficiaries = () => {
             </div>
             <div className="beneficiaries-container">
                 <div className="beneficiaries-mapped-container">
-                    {/* TODO: make each one pretty */}
                     {displayedBeneficiaries
 
                         .filter((value) => {

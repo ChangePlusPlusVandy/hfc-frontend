@@ -11,16 +11,8 @@
     margin: 20px;
 }
 
-.beneficiary-identification-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.beneficiary-registration-info {
-    display: flex;
-    flex-direction: column;
-}
-
+.beneficiary-identification-info,
+.beneficiary-registration-info,
 .archive-delete-buttons {
     display: flex;
     flex-direction: column;
