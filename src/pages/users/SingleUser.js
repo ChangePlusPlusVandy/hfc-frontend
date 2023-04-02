@@ -5,6 +5,7 @@ import { auth } from "../../../firebase/firebase";
 import { onAuthStateChanged, updatePassword } from "firebase/auth";
 import { IoIosArrowBack } from "react-icons/Io";
 import DefaultUser from "../../../src/assets/images/default-user.png";
+import ChangePasswordModal from './ChangePasswordModal'
 import "./SingleUser.css";
 const SingleUser = () => {
     const navigate = useNavigate();
@@ -23,33 +24,31 @@ const SingleUser = () => {
     const [newPass, setnewPass] = useState("");
     const [editing, setEditing] = useState(false);
     const { fbId } = useParams();
+    const [showModal, setShowModal] = useState(false);
 
     const handleUpdatePassword = async () => {
-        const fbuser = auth.currentUser;
-        updatePassword(fbuser, newPass)
-            .then(() => {
-                console.log("Update password successful", newPass);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        setShowModal(true);
+
     };
 
     const saveUser = async () => {
         try {
-            console.log(user._id);
-            const res = await fetch(
-                `http://localhost:3000/users?id=${user._id}`,
-                {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        level: parseInt(user.level),
-                        phoneNumber: user.phoneNum,
-                        joinDate: user.joinDate,
-                    }),
-                }
-            );
+            console.log(user.joinDate)
+            const currUser = user._id
+            const res = await fetch(`http://localhost:3000/users?id=${currUser}`,{
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    languages: user.languages,
+                    joinDate: user.joinDate,
+                    level: user.level,
+                    fbUid: user.firebaseUID,
+                    phoneNum: user.phoneNumber,
+                    archived: user.archived
+                })
+            })
             return res.json();
         } catch (err) {
             console.log(err);
@@ -57,9 +56,30 @@ const SingleUser = () => {
         }
     };
 
-    const toggleEdit = async () => {
+    const handleArchiveToggle = async () => {
+        const currUser = user._id;
+        const newArchived = !user.archived
+        console.log(currUser);
+        fetch(`http://localhost:3000/users?id=${currUser}`,{
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                languages: user.languages,
+                joinDate: user.joinDate,
+                level: user.level,
+                fbUid: user.firebaseUID,
+                phoneNum: user.phoneNumber,
+                archived: newArchived
+            })
+        })
+    }
+
+    const handleEdit = async () => {
         if (editing) {
             const res = await saveUser();
+            console.log('Check user')
             getMongoUser(fbId);
         }
         setEditing(!editing);
@@ -78,13 +98,13 @@ const SingleUser = () => {
         }
     };
 
-    const getMongoUser = async (fbId) => {
+    const getMongoUser = async (mongoId) => {
         try {
             const res = await fetch(
-                `http://localhost:3000/users?firebaseUID=${fbId}`
+                `http://localhost:3000/users/user?userId=${mongoId}`
             );
             const mongoUser = await res.json();
-            console.log(mongoUser);
+            console.log('mongoUser',mongoUser);
             const {
                 firstName,
                 lastName,
@@ -94,7 +114,8 @@ const SingleUser = () => {
                 firebaseUID,
                 _id,
                 phoneNumber,
-            } = mongoUser[0];
+                archived
+            } = mongoUser;
             setUser({
                 firstName: firstName,
                 lastName: lastName,
@@ -104,27 +125,30 @@ const SingleUser = () => {
                 fbUid: firebaseUID,
                 _id: _id,
                 phoneNum: phoneNumber,
+                archived: archived
             });
+            
         } catch (err) {
             console.error(err);
             console.log(err.message);
         }
     };
 
-    onAuthStateChanged(auth, (currentUser) => {
-        if (currentUser) {
-            if (!isCurrentUser) {
-                console.log(currentUser.uid, "g", user.fbUid);
-                checkAdminStatus(currentUser.uid);
-                setisCurrentUser(currentUser.uid == user.fbUid || isAdmin);
-            }
-        } else {
-            navigate("../login");
-        }
-    });
 
     useEffect(() => {
+        console.log('params',fbId);
         getMongoUser(fbId);
+        onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                if (!isCurrentUser) {
+                    console.log(currentUser.uid, "g", user.fbUid);
+                    checkAdminStatus(currentUser.uid);
+                    setisCurrentUser(currentUser.uid == user.fbUid); // || isAdmin
+                }
+            } else {
+                navigate("../login");
+            }
+        });
     }, []);
     return (
         <div className="container">
@@ -139,7 +163,32 @@ const SingleUser = () => {
                 <div className="staff-content">
                     <div className="staff-header">
                         <p className="staff-name">
-                            {user.firstName} {user.lastName}
+                            {editing ? (
+                                <input
+                                    className="user-edit-2"
+                                    type="text"
+                                    onChange={(e) =>
+                                        setUser({
+                                            ...user,
+                                            firstName: e.target.value,
+                                        })
+                                    }
+                                    value={user.firstName}
+                                ></input>) : user.firstName}
+                        </p>
+                        <p className="staff-name">
+                            {editing ? (
+                                <input
+                                    className="user-edit-2"
+                                    type="text"
+                                    onChange={(e) =>
+                                        setUser({
+                                            ...user,
+                                            lastName: e.target.value,
+                                        })
+                                    }
+                                    value={user.lastName}
+                                ></input>) : user.lastName}
                         </p>
                         <p className="staff-role">{LEVELTITLES[user.level]}</p>
                     </div>
@@ -187,10 +236,15 @@ const SingleUser = () => {
                             <span className="content-row-key">Join Date:</span>
                             {editing ? (
                                 <input
-                                    disabled
                                     className="user-edit"
-                                    type="text"
+                                    type="date"
                                     value={user.joinDate.substring(0, 10)}
+                                    onChange={(e) => {
+                                        setUser({
+                                            ...user,
+                                            joinDate: e.target.value
+                                        })
+                                    }}
                                 ></input>
                             ) : (
                                 <span className="content-row-val">
@@ -236,45 +290,36 @@ const SingleUser = () => {
                             )}
                         </p>
                     </div>
-                    {isCurrentUser ? (
+                    {isCurrentUser || isAdmin ? (
                         <div className="btn-container">
-                            <button onClick={toggleEdit} className="edit-btn">
+                            <button onClick={handleEdit} className="edit-btn">
                                 {editing ? "Save" : "Edit"}
                             </button>
                             <button
                                 onClick={handleUpdatePassword}
-                                disabled
                                 className="edit-btn"
+                                disabled={isCurrentUser == false}
                             >
                                 Update Password
                             </button>
+                            {isAdmin ? (
+                                <button onClick={handleArchiveToggle} className="edit-btn">
+                                    🤣🫱 boi ur fired
+                                </button> 
+                            ) : ""}
                         </div>
                     ) : (
                         ""
                     )}
                 </div>
             </div>
+            {showModal ? <ChangePasswordModal showModal={setShowModal}/> : ""}
+            
         </div>
     );
 };
 
 export default SingleUser;
-
-// {isCurrentUser ? (
-//     <div>
-//         <input
-//             placeholder="New Password"
-//             type="password"
-//             value={newPass}
-//             onChange={(e) => setnewPass(e.target.value)}
-//         />
-//         <button onClick={handleUpdatePassword}>
-//             Change Password
-//         </button>
-//     </div>
-// ) : (
-//     "false"
-// )}
 
 const LEVELTITLES = {
     0: "HFC Volunteer",

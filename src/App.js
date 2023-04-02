@@ -9,6 +9,7 @@ import {
 //Auth Layout
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import PasswordReset from './pages/auth/PasswordReset'
 
 // Dashboard Layout
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/login" element={<Login />}></Route>
+            <Route path='/forgot-password' element={<PasswordReset/>}></Route>
             <Route>
                 <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route index element={<h1>TODO: Index</h1>} />

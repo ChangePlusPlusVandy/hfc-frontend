@@ -78,15 +78,19 @@ const Register = () => {
         }
         try {
             // Create Firebase User
-            const userCrediential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+            const userCrediential = await fetch('http://localhost:3000/users/firebase',{
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+            const user = await userCrediential.json();
             // Create MongoDB User
             try {
                 const res = await addUserToMongo(
-                    userCrediential.user.uid,
+                    user.uid,
                     firstName,
                     lastName,
                     level

@@ -5,7 +5,7 @@
     flex-direction: row;
 }
 
-.left {
+.login-container-left {
     width: 50%;
     height: 100vh;
     background-color: rgb(191, 191, 191);
@@ -13,6 +13,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.logo {
+    width: 70%; 
 }
 
 .right {

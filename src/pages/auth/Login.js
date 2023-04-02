@@ -57,22 +57,11 @@ const Login = () => {
         setError("");
     };
 
-    const handlePasswordReset = async (e) => {
-        console.log("email being sent to", email);
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                console.log("Password reset email sent");
-            })
-            .catch((err) => {
-                const errorCode = err.code;
-                const errorMessage = err.message;
-                console.log(errorCode, errorMessage);
-            });
-    };
+    
 
     return (
         <div className="login-container">
-            <div className="left">
+            <div className="login-container-left">
                 <img className="logo" src={HFCLogo} />
             </div>
             <div className="right">
@@ -91,15 +80,15 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                     />
-                    <div className="forgot-password">Forgot password?</div>
-                    <div className="alt-login">Or log in with</div>
+                    <div onClick={(e) => {navigate("../forgot-password")}}className="forgot-password">Forgot password?</div>
+                    {/* <div className="alt-login">Or log in with</div>
                     <hr className="divider" />
                     <div className="login-icons">
                         <RiGoogleLine />
                         <RiFacebookCircleLine />
                         <RiInstagramLine />
                         <RiAppleLine />
-                    </div>
+                    </div> */}
                     <input
                         className="submit-btn"
                         type="submit"

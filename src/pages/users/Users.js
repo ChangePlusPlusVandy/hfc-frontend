@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import Dropdown from "../../utils/Dropdown";
 import { auth } from "../../../firebase/firebase";
+import {onAuthStateChanged} from 'firebase/auth';
 import "./Users.css";
 import DefaultUser from "../../../src/assets/images/default-user.png";
 
@@ -18,6 +19,8 @@ const FILTER_OPTIONS = [
     { value: 1, label: "1" },
     { value: 2, label: "2" },
     { value: 3, label: "3" },
+    {value: 5, label: "Archived"},
+    {value: 6, label: 'Active'}
 ];
 
 const User = ({
@@ -41,16 +44,19 @@ const User = ({
     );
 };
 
+
+
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState([]);
+    const [isAdmin,setIsAdmin] = useState(false);
+    const [fbId,setfbId] = useState('');
     const navigate = useNavigate();
     const handleOnboarding = () => {
-        // fetch("http://localhost:3000/users/firebase",{
-        //     method: "POST"
-        // })
-        navigate("../onboard");
+        if (isAdmin) {
+            navigate("../onboard");
+        }
     };
 
     const parseValueAndSetFilter = (value) => {
@@ -114,6 +120,15 @@ const Users = () => {
             }
         };
         getUsers();
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const res = await fetch(
+                    `http://localhost:3000/users?firebaseUID=${user.uid}`
+                );
+                const mongoUser = await res.json();
+                setIsAdmin(parseInt(mongoUser[0].level) == 3);
+            }
+        });
     }, []);
 
     return (
@@ -133,7 +148,7 @@ const Users = () => {
                     onChange={(value) => handleSortChange(value)}
                 />
                 <Dropdown
-                    placeHolder="Filter Level"
+                    placeHolder="Filter Level/Archived"
                     options={FILTER_OPTIONS}
                     isMulti
                     onChange={(value) => {
@@ -145,6 +160,7 @@ const Users = () => {
                     onClick={handleOnboarding}
                     className="onboarding-btn"
                     value="Onboarding"
+                    disabled={!isAdmin}
                     type="button"
                 />
             </div>
@@ -165,15 +181,23 @@ const Users = () => {
                         }
                     })
                     .filter((value) => {
-                        if (!filter) {
+                        if (filter == '') {
                             return value;
                         } else if (filter.includes(parseInt(value.level))) {
                             return value;
+                        } else if (filter == 5) {
+                            if (value.archived) {
+                                return value;
+                            }
+                        } else if (filter == 6) {
+                            if (!value.archived) {
+                                return value;
+                            }
                         }
                     })
                     .map((item) => (
                         <User
-                            onClick={(e) => navigate(`${item.firebaseUID}`)}
+                            onClick={(e) => navigate(`${item._id}`)}
                             key={item.firebaseUID}
                             uid={item.firebaseUID}
                             fname={item.firstName}
@@ -181,6 +205,7 @@ const Users = () => {
                             langs={item.languages}
                             level={item.level}
                             joinDate={item.joinDate}
+                            _id={item._id}
                         />
                     ))}
             </div>
