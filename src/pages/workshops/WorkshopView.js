@@ -162,7 +162,7 @@ export const WorkshopsList = () => {
             <div className="workshops-list-container">
                 <div className="workshops-card">
                     <h3> TITLE</h3>
-                    
+
                     <h3> DATE</h3>
                     <h3>HOSTS</h3>
                     <h3>STATUS</h3>
@@ -182,9 +182,10 @@ export const WorkshopsList = () => {
 
                             <h4>
                                 {" "}
-                                {new Date(item.date)
-                                    .toString()
-                                    .substring(0, 10)
+                                {
+                                    new Date(item.date)
+                                        .toString()
+                                        .substring(0, 10)
                                     //todo: dates are off by one
                                 }
                             </h4>
