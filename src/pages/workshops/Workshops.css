@@ -17,12 +17,7 @@
 /* Background effect. It covers the entire site */
 .modal {
     background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(
-        0,
-        0,
-        0,
-        0.7
-    ); /* Overlay effect: translucent background: black w/ partial opacity */
+
     z-index: 1; /* Overlay effect: positioned over other containers */
     width: 100%; /* Full width */
     height: 100%; /* Full height */
@@ -136,7 +131,7 @@
 .delete-button {
     border-radius: 10px;
     color: black;
-    padding: 5px 25px 5px 25px;
+    padding: 5px 25px;
     font-size: 18px;
     font-weight: 500;
     float: right;
