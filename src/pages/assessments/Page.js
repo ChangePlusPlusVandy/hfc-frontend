@@ -2,6 +2,7 @@ import React from "react";
 import Question from "./components/question";
 
 const Page = ({ questions, setQuestions, hasOnlyTextQs = false }) => {
+    // TODO: Rethink, not hard code the number of text Qs
     const numTextQs = hasOnlyTextQs ? 5 : 0;
     const textQs = questions.slice(0, numTextQs);
     const rateQs = hasOnlyTextQs ? questions.slice(5) : questions;
@@ -40,6 +41,7 @@ const Page = ({ questions, setQuestions, hasOnlyTextQs = false }) => {
             )}
             <div className="rate-questions">
                 {rateQs.map((obj, i) => {
+                    // TODO: Add variable for numTextQs + i
                     return (
                         <Question
                             key={numTextQs + i}

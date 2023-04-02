@@ -20,6 +20,7 @@ const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
                             <td>{i + 1}</td>
                             <td>{obj.question}</td>
                             <td>
+                                {/* TODO: rethink how to not hard code */}
                                 {hasOnlyTextQs && i < 5 ? "N/A" : obj.answer}
                             </td>
                             <td>{obj.text}</td>

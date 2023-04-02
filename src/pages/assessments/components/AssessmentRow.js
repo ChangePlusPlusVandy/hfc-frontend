@@ -5,6 +5,7 @@ import "./AssessmentRow.css";
 const AssessmentRow = (props) => {
     const [beneficiary, setBeneficiary] = useState({});
 
+    // TODO: Use backend's beneficiary object
     const getBeneficiaryByID = async (mongoId) => {
         try {
             let data = await fetch(

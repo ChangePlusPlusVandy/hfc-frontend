@@ -10,6 +10,7 @@ const Question = ({
     setText,
 }) => {
     let buttonNames = [];
+    // TODO: buttonNames make them all the same in RateButtons.js
     switch (question) {
         case "How much do you feel that loneliness is a problem for you?":
         case "How much do you experience happy, positive feelings in your daily life?":

@@ -16,7 +16,7 @@ const Assessments = () => {
 
     const [popup, setPopup] = useState(true);
 
-    const [beneficiaryId, setBeneficiaryId] = useState(""); // This is mongo id for now, but should be readable id
+    const [beneficiaryId, setBeneficiaryId] = useState("");
     const [beneficiary, setBeneficiary] = useState();
 
     const [eduVocQs, setEduVocQs] = useState([
@@ -215,6 +215,7 @@ const Assessments = () => {
         }
     };
 
+    // TODO: add error handling for both responses (create assessment & update bfc)
     const handleSubmit = async () => {
         const response = await fetch("http://localhost:3000/assessments", {
             method: "POST",

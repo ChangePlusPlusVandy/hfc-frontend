@@ -127,6 +127,7 @@ const AssesssmentsOverview = () => {
             <ul className="assessment-list-stack">
                 {assessments &&
                     filterFromSearch().map((item, i) => (
+                        // TODO: delete unnecessary parameters
                         <AssessmentRow
                             key={i}
                             dateTaken={item.dateTaken}

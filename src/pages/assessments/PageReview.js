@@ -19,6 +19,7 @@ const PageReview = ({
 }) => {
     // qArr: array of question objs
     // reverseIndex: question index whose score should be reversed
+    // TODO: rethink how to not hard code this
     const getAvgScore = (qArr, reverseIndex) => {
         let sum = 0;
         for (let i = 0; i < qArr.length; ++i) {
@@ -29,6 +30,7 @@ const PageReview = ({
         return sum / qArr.length;
     };
 
+    // TODO: maybe use states to make this more readable
     useEffect(() => {
         setEduVocScore(getAvgScore(eduVocQs.slice(5), -1));
         setMentalHealthScore(getAvgScore(mentalHealthQs, 2));
@@ -42,9 +44,9 @@ const PageReview = ({
                 mentalHealthScore +
                 lifeSkillsScore +
                 socialSkillsScore) *
-                5 // percentage (since /20*100 = *4)
+                5 // percentage (since /20*100 = *5)
         );
-    });
+    }, [eduVocScore, mentalHealthScore, lifeSkillsScore, socialSkillsScore]);
 
     return (
         <div className="review-form-container">

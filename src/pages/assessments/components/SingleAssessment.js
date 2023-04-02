@@ -46,6 +46,8 @@ const SingleAssessment = () => {
         }
     }, [assessment]);
 
+    // TODO: add delete
+
     return (
         beneficiary && (
             <div className="assessment-info">
