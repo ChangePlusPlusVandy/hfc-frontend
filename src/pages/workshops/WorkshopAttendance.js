@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { json, Link, useLocation } from "react-router-dom";
-import Select from "react-select";
+import { Link, useLocation } from "react-router-dom";
 import "./Workshops.css";
 import "./SingleWorkshop.css";
 import { AttendancePopup } from "./AttendancePopup";
@@ -8,16 +7,14 @@ import Sad from "../../assets/images/Emojis/Sad.png";
 import Okay from "../../assets/images/Emojis/Okay.png";
 import Happy from "../../assets/images/Emojis/Happy.png";
 import Happiest from "../../assets/images/Emojis/Happiest.png";
+
 export const WorkshopAttendance = () => {
     const workshopID = useLocation().state.id;
     const [workshop, setWorkshop] = useState({});
     const [idMode, setidMode] = useState(false);
-    const [id, setID] = useState(0);
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [registered, setRegistered] = useState(0);
     const [ratingPoints, setRatingPoints] = useState(0);
-    const [benIDs, setBenIds] = useState([]);
-    const [message, setMessage] = useState("");
 
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
@@ -45,29 +42,32 @@ export const WorkshopAttendance = () => {
                 }),
             };
             console.log(requestOptions);
-            fetch("http://localhost:3000/workshops", requestOptions);
+            try {
+                fetch("http://localhost:3000/workshops", requestOptions);
+            } catch (err) {
+                console.log("couldn't update attendance:", err);
+            }
         }
     };
     useEffect(() => {
-        fetch("http://localhost:3000/workshops?_id=" + workshopID)
-            .then((response) => response.json())
-            .then((data) => {
-                setWorkshop(data[0]);
-                if (data[0].numAttendees) {
-                    setTotalAttendees(data[0].numAttendees);
-                }
-                if (data[0].numRegistered) {
-                    setRegistered(data[0].numRegistered);
-                }
-                if (data[0].rating) {
-                    setRatingPoints(data[0].rating * data[0].numAttendees);
-                }
-            });
-        fetch("http://localhost:3000/beneficiaries")
-            .then((response) => response.json())
-            .then((data) => {
-                setBenIds(data.map((item) => Number(item.id)));
-            });
+        try {
+            fetch("http://localhost:3000/workshops?_id=" + workshopID)
+                .then((response) => response.json())
+                .then((data) => {
+                    setWorkshop(data[0]);
+                    if (data[0].numAttendees) {
+                        setTotalAttendees(data[0].numAttendees);
+                    }
+                    if (data[0].numRegistered) {
+                        setRegistered(data[0].numRegistered);
+                    }
+                    if (data[0].rating) {
+                        setRatingPoints(data[0].rating * data[0].numAttendees);
+                    }
+                });
+        } catch (err) {
+            console.log(err);
+        }
     }, []);
     //TODO: Instructions Page
     return (

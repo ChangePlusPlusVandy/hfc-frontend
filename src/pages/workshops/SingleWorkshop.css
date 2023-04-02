@@ -1,9 +1,3 @@
-:root {
-    --text-link: #888b8f;
-    --button-color: #e8e9eb;
-    --mid-color: #d0d0d1;
-}
-
 .single-workshop-container {
     box-sizing: border-box;
     height: 100%;
