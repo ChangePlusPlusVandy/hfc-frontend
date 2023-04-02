@@ -5,7 +5,7 @@ import { auth } from "../../../firebase/firebase";
 import { onAuthStateChanged, updatePassword } from "firebase/auth";
 import { IoIosArrowBack } from "react-icons/Io";
 import DefaultUser from "../../../src/assets/images/default-user.png";
-import ChangePasswordModal from './ChangePasswordModal'
+import ChangePasswordModal from "./ChangePasswordModal";
 import "./SingleUser.css";
 const SingleUser = () => {
     const navigate = useNavigate();
@@ -28,27 +28,29 @@ const SingleUser = () => {
 
     const handleUpdatePassword = async () => {
         setShowModal(true);
-
     };
 
     const saveUser = async () => {
         try {
-            console.log(user.joinDate)
-            const currUser = user._id
-            const res = await fetch(`http://localhost:3000/users?id=${currUser}`,{
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    languages: user.languages,
-                    joinDate: user.joinDate,
-                    level: user.level,
-                    fbUid: user.firebaseUID,
-                    phoneNum: user.phoneNumber,
-                    archived: user.archived
-                })
-            })
+            console.log(user.joinDate);
+            const currUser = user._id;
+            const res = await fetch(
+                `http://localhost:3000/users?id=${currUser}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        languages: user.languages,
+                        joinDate: user.joinDate,
+                        level: user.level,
+                        fbUid: user.firebaseUID,
+                        phoneNum: user.phoneNumber,
+                        archived: user.archived,
+                    }),
+                }
+            );
             return res.json();
         } catch (err) {
             console.log(err);
@@ -58,11 +60,11 @@ const SingleUser = () => {
 
     const handleArchiveToggle = async () => {
         const currUser = user._id;
-        const newArchived = !user.archived
+        const newArchived = !user.archived;
         console.log(currUser);
-        fetch(`http://localhost:3000/users?id=${currUser}`,{
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+        fetch(`http://localhost:3000/users?id=${currUser}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -71,15 +73,15 @@ const SingleUser = () => {
                 level: user.level,
                 fbUid: user.firebaseUID,
                 phoneNum: user.phoneNumber,
-                archived: newArchived
-            })
-        })
-    }
+                archived: newArchived,
+            }),
+        });
+    };
 
     const handleEdit = async () => {
         if (editing) {
             const res = await saveUser();
-            console.log('Check user')
+            console.log("Check user");
             getMongoUser(fbId);
         }
         setEditing(!editing);
@@ -104,7 +106,7 @@ const SingleUser = () => {
                 `http://localhost:3000/users/user?userId=${mongoId}`
             );
             const mongoUser = await res.json();
-            console.log('mongoUser',mongoUser);
+            console.log("mongoUser", mongoUser);
             const {
                 firstName,
                 lastName,
@@ -114,7 +116,7 @@ const SingleUser = () => {
                 firebaseUID,
                 _id,
                 phoneNumber,
-                archived
+                archived,
             } = mongoUser;
             setUser({
                 firstName: firstName,
@@ -125,18 +127,16 @@ const SingleUser = () => {
                 fbUid: firebaseUID,
                 _id: _id,
                 phoneNum: phoneNumber,
-                archived: archived
+                archived: archived,
             });
-            
         } catch (err) {
             console.error(err);
             console.log(err.message);
         }
     };
 
-
     useEffect(() => {
-        console.log('params',fbId);
+        console.log("params", fbId);
         getMongoUser(fbId);
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
@@ -174,7 +174,10 @@ const SingleUser = () => {
                                         })
                                     }
                                     value={user.firstName}
-                                ></input>) : user.firstName}
+                                ></input>
+                            ) : (
+                                user.firstName
+                            )}
                         </p>
                         <p className="staff-name">
                             {editing ? (
@@ -188,7 +191,10 @@ const SingleUser = () => {
                                         })
                                     }
                                     value={user.lastName}
-                                ></input>) : user.lastName}
+                                ></input>
+                            ) : (
+                                user.lastName
+                            )}
                         </p>
                         <p className="staff-role">{LEVELTITLES[user.level]}</p>
                     </div>
@@ -242,8 +248,8 @@ const SingleUser = () => {
                                     onChange={(e) => {
                                         setUser({
                                             ...user,
-                                            joinDate: e.target.value
-                                        })
+                                            joinDate: e.target.value,
+                                        });
                                     }}
                                 ></input>
                             ) : (
@@ -303,18 +309,22 @@ const SingleUser = () => {
                                 Update Password
                             </button>
                             {isAdmin ? (
-                                <button onClick={handleArchiveToggle} className="edit-btn">
+                                <button
+                                    onClick={handleArchiveToggle}
+                                    className="edit-btn"
+                                >
                                     🤣🫱 boi ur fired
-                                </button> 
-                            ) : ""}
+                                </button>
+                            ) : (
+                                ""
+                            )}
                         </div>
                     ) : (
                         ""
                     )}
                 </div>
             </div>
-            {showModal ? <ChangePasswordModal showModal={setShowModal}/> : ""}
-            
+            {showModal ? <ChangePasswordModal showModal={setShowModal} /> : ""}
         </div>
     );
 };

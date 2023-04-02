@@ -57,8 +57,6 @@ const Login = () => {
         setError("");
     };
 
-    
-
     return (
         <div className="login-container">
             <div className="login-container-left">
@@ -80,7 +78,14 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                     />
-                    <div onClick={(e) => {navigate("../forgot-password")}}className="forgot-password">Forgot password?</div>
+                    <div
+                        onClick={(e) => {
+                            navigate("../forgot-password");
+                        }}
+                        className="forgot-password"
+                    >
+                        Forgot password?
+                    </div>
                     {/* <div className="alt-login">Or log in with</div>
                     <hr className="divider" />
                     <div className="login-icons">

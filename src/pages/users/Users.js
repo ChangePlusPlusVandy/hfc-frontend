@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import Dropdown from "../../utils/Dropdown";
 import { auth } from "../../../firebase/firebase";
-import {onAuthStateChanged} from 'firebase/auth';
+import { onAuthStateChanged } from "firebase/auth";
 import "./Users.css";
 import DefaultUser from "../../../src/assets/images/default-user.png";
 
@@ -19,8 +19,8 @@ const FILTER_OPTIONS = [
     { value: 1, label: "1" },
     { value: 2, label: "2" },
     { value: 3, label: "3" },
-    {value: 5, label: "Archived"},
-    {value: 6, label: 'Active'}
+    { value: 5, label: "Archived" },
+    { value: 6, label: "Active" },
 ];
 
 const User = ({
@@ -44,14 +44,12 @@ const User = ({
     );
 };
 
-
-
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState([]);
-    const [isAdmin,setIsAdmin] = useState(false);
-    const [fbId,setfbId] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [fbId, setfbId] = useState("");
     const navigate = useNavigate();
     const handleOnboarding = () => {
         if (isAdmin) {
@@ -181,7 +179,7 @@ const Users = () => {
                         }
                     })
                     .filter((value) => {
-                        if (filter == '') {
+                        if (filter == "") {
                             return value;
                         } else if (filter.includes(parseInt(value.level))) {
                             return value;
