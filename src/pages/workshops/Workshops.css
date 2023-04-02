@@ -7,7 +7,12 @@
     font-size: calc(10px + 2vmin);
     color: black;
 }
-
+.sortAndSearch {
+    display: flex;
+    flex-direction:row;
+    height: 50px;
+    align-items: bottom;
+}
 /* MODAL */
 /* Background effect. It covers the entire site */
 .modal {
@@ -63,7 +68,7 @@
 }
 
 .workshops-page-container .dropdown-container {
-    width: 10rem;
+    width: 100%;
     color: black;
 }
 .workshops-page-container .button {
@@ -75,6 +80,7 @@
     color: black;
     width: 100%;
 }
+
 .close {
     background-color: #999;
     position: absolute;
@@ -94,21 +100,16 @@
 
 .workshops-page-container .workshops-card {
     color: black;
-    display: table-cell;
+    display: flex;
     border-bottom: 1px solid black;
-    padding: 5px;
-    padding: 0.5rem 1rem;
-    margin: 1rem;
     text-decoration: none;
     color: black;
-    width: 80rem;
 }
 
 .workshops-page-container .workshops-card > h3 {
     color: black;
     font-weight: bold;
-    width: 15rem;
-    display: inline-block;
+    flex: 1;
     height: 5%;
     align-items: top;
 }
@@ -116,10 +117,10 @@
 .workshops-page-container .workshops-card > h5 {
     color: black;
     font-weight: normal;
-    width: 15rem;
     display: inline-block;
     height: 5%;
     align-items: top;
+    flex: 1;
 }
 
 .workshops-page-container .workshops-card > button {
@@ -132,15 +133,6 @@
     background-color: black;
     color: white;
 }
-
-.submit-button {
-    border-radius: 10px;
-    color: black;
-    padding: 5px 25px 5px 25px;
-    font-size: 18px;
-    font-weight: 500;
-}
-
 .delete-button {
     border-radius: 10px;
     color: black;
@@ -148,4 +140,18 @@
     font-size: 18px;
     font-weight: 500;
     float: right;
+}
+
+.sortAndSearch .workshop-input {
+    border-radius: 10px;
+    border: none;
+    background-color: var(--button-color);
+    flex: 1;
+    height: 70%;
+    margin: 0px 10px;
+}
+
+.sortAndSearch .dropdown {
+    flex:1;
+    margin: 10px
 }

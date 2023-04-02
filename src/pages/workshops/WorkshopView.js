@@ -66,8 +66,8 @@ export const WorkshopsList = () => {
     };
 
     const handleSortValChange = (e) => {
-        setSortBy(e.target.value);
-        sortWorkshops(e.target.value, workshops);
+        setSortBy(e.value);
+        sortWorkshops(e.value, workshops);
     };
 
     const handleFilterChange = (e) => {
@@ -83,6 +83,10 @@ export const WorkshopsList = () => {
         } else if (sort == "dateAdded") {
             ws.sort((item1, item2) => {
                 return item1._id.localeCompare(item2._id);
+            });
+        } else if (sort == "workDate"){
+            ws.sort((item1, item2) => {
+                return item1.date.localeCompare(item2.date);
             });
         }
         setWorkshops(ws);
@@ -109,22 +113,21 @@ export const WorkshopsList = () => {
     return (
         <div className="workshops-page-container">
             <h1>Workshop Overview</h1>
-            <button onClick={handleCreate}>Create Workshop</button>
+            
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
+
             <div className="sortAndSearch">
-                <div className="sortIndicator" onChange={handleSortValChange}>
-                    <h3>Sort By:</h3>
-                    <input type="radio" value="dateAdded" name="sortVal" />
-                    Date Added
-                    <input type="radio" value="alphabetical" name="sortVal" />
-                    Alphabetical
-                </div>
-                <div className="singleSearch">
-                    <input
-                        type="text"
-                        name="search-bar"
-                        placeholder="Search..."
-                        onChange={(e) => handleSearchChange(e)}
+            <div className="dropdown">
+                    <Select
+                        className="workshop-input"
+                        options={[
+                            { value: "alphabetical", label: "Alphabetical" },
+                            { value: "dateAdded", label: "Date Added (earliest first)" },
+                            { value: "workDate", label: "Workshop Date"}
+                        ]}
+                        placeholder="Sort"
+                        onChange={handleSortValChange}
+                        value={filter}
                     />
                 </div>
                 <div className="dropdown">
@@ -134,11 +137,21 @@ export const WorkshopsList = () => {
                             { value: "active", label: "active" },
                             { value: "archived", label: "archived" },
                         ]}
-                        placeholder="Choose Filter"
+                        placeholder="Filter"
                         onChange={handleFilterChange}
                         value={filter}
                     />
                 </div>
+                    <input
+                        type="text"
+                        className="workshop-input"
+                        placeholder="Search..."
+                        onChange={(e) => handleSearchChange(e)}
+                    />
+
+                <div className="dropdown"><button onClick={handleCreate} className="submit-button">Create Workshop</button></div>
+                
+
             </div>
             <br></br>
             <div className="workshops-list-container">
@@ -181,11 +194,13 @@ export const WorkshopsList = () => {
                                 &emsp;
                             </h4>
                         </Link>
+                        
                     </div>
                 ))}
             </div>
             <br></br>
             <br></br>
+
         </div>
     );
 };

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { json, Link, useLocation } from "react-router-dom";
 import Select from "react-select";
 import "./Workshops.css";
+import "./SingleWorkshop.css"
+import SmileyFace from "../../assets/images/Smiley-face.png";
+import { AttendancePopup } from "./AttendancePopup";
 
 export const WorkshopAttendance = () => {
     const workshopID = useLocation().state.id;
-    console.log(workshopID);
     const [workshop, setWorkshop] = useState({});
     const [idMode, setidMode] = useState(false);
     const [id, setID] = useState(0);
@@ -14,27 +16,22 @@ export const WorkshopAttendance = () => {
     const [ratingPoints, setRatingPoints] = useState(0);
     const [benIDs, setBenIds] = useState([]);
     const [message, setMessage] = useState("");
+
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
         setTotalAttendees(totalAttendees + 1);
         setidMode(true);
+        console.log(totalAttendees)
     };
+
     const handleIDNumber = (event) => {
-        console.log(id);
-        console.log(benIDs);
-        if (benIDs.includes(id)) {
-            setRegistered(registered + 1);
-            setidMode(false);
-            setMessage("");
-        } else {
-            setMessage(
-                "ID number is not valid. Please try again, or click skip."
-            );
-        }
+        console.log(registered+(localStorage.getItem("hasID")?1:0))
+        setRegistered(registered+(localStorage.getItem("hasID")?1:0));
+        setidMode(false);
     };
     const submitAttendance = () => {
         if (totalAttendees > 0) {
-            console.log("editing");
+            console.log(totalAttendees, registered, ratingPoints)
             const requestOptions = {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -44,18 +41,17 @@ export const WorkshopAttendance = () => {
                         numAttendees: totalAttendees,
                         numRegistered: registered,
                         rating: ratingPoints / totalAttendees,
-                    },
+                    }
                 }),
             };
+            console.log(requestOptions);
             fetch("http://localhost:3000/workshops", requestOptions);
         }
     };
     useEffect(() => {
-        console.log("here");
         fetch("http://localhost:3000/workshops?_id=" + workshopID)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data[0]);
                 setWorkshop(data[0]);
                 if (data[0].numAttendees) {
                     setTotalAttendees(data[0].numAttendees);
@@ -74,38 +70,55 @@ export const WorkshopAttendance = () => {
             });
     }, []);
     return (
-        <div className="workshops-page-container">
-            <h1>{workshop.title}</h1>
-            {idMode ? (
-                <div>
-                    If you have an ID number, enter it. Otherwise, click skip.
-                    <input
-                        type="Number"
-                        id="BeneficiaryID"
-                        onChange={(e) => setID(Number(e.target.value))}
-                    />
-                    <button onClick={handleIDNumber} className="submit-button">
-                        Submit
-                    </button>
-                    <button onClick={(e) => setidMode(false)}>Skip</button>
-                    {message}
-                </div>
-            ) : (
-                <div className="workshops-list-container">
-                    <h1>Rate The Workshop</h1>
+        <div className="single-workshop-container">
+                        <Link to="/dashboard/workshops">&lt; back to workshop list</Link>
 
-                    <button onClick={(e) => handleRating(0)} className="button">
-                        0
+<div className="single-workshop">
+
+
+                        <div className="single-workshop-heading">
+                        <h1>{workshop.title}</h1>
+
+                                        <div className="heading-buttons">
+                                        <Link to="../singleview"
+                            state={{
+                                id: workshopID,
+                            }}>
+
+                        <button
+                            onClick={() => editOverviewOrEnroll(false)}
+                            id="overview-button"
+                            className="tab"
+                        >
+                            Overview
+                        </button>
+                        </Link>
+                        <button
+                            id="enrollment-button"
+                            className="tab"
+                            style={{backgroundColor: "darkgray"}}
+
+                        >
+                            Attendance
+                        </button></div>
+
+                    </div>
+                    {idMode && <AttendancePopup onClose={handleIDNumber} />}
+                    <h3>How did the workshop make you feel?</h3>
+                    <div className="attendance-button-container">
+                    <button onClick={(e) => handleRating(0)} className="attendance-button">
+                        <img src={SmileyFace} ></img>
                     </button>
-                    <button onClick={(e) => handleRating(1)} className="button">
-                        1
+                    <button onClick={(e) => handleRating(1)} className="attendance-button">
+                        <img src={SmileyFace}></img>
                     </button>
-                    <button onClick={(e) => handleRating(2)} className="button">
-                        2
+                    <button onClick={(e) => handleRating(2)} className="attendance-button">
+                        <img src={SmileyFace}></img>
                     </button>
-                    <button onClick={(e) => handleRating(3)} className="button">
-                        3
+                    <button onClick={(e) => handleRating(3)} className="attendance-button">
+                        <img src={SmileyFace}></img>
                     </button>
+                    </div>
                     <br></br>
                     <Link
                         to="../singleview"
@@ -113,12 +126,11 @@ export const WorkshopAttendance = () => {
                             id: workshopID,
                         }}
                     >
-                        <button onClick={submitAttendance} className="button">
-                            Submit
+                        <br></br>
+                        <button onClick={submitAttendance} className="submit-button" style={{position:"relative", top:"25%", left: "30%"}}>
+                            Done with attendance
                         </button>
                     </Link>
-                </div>
-            )}
-        </div>
+        </div></div>
     );
 };

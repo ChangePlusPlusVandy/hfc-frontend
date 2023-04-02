@@ -68,6 +68,7 @@ export const WorkshopCreateForm = (props) => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(newWorkshopData),
                 };
+                console.log(requestOptions);
                 fetch("http://localhost:3000/workshops", requestOptions)
                     .then((response) => response.json())
                     .then((data) => {

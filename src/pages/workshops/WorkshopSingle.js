@@ -47,6 +47,7 @@ export const WorkshopSingle = () => {
                 },
             }),
         };
+        console.log(requestOptions);
         fetch("http://localhost:3000/workshops", requestOptions).then(
             (response) => {
                 setEditMode(false);
@@ -212,23 +213,42 @@ export const WorkshopSingle = () => {
                                 Delete
                             </Link>
                             &emsp;&emsp;
-                            <Link
-                                style={{ textDecoration: "none" }}
-                                className="submit-button"
-                                to="../attendance"
-                                state={{
-                                    id: workshopID,
-                                }}
-                            >
-                                Take Attendance
-                            </Link>
                         </div>
                     </div>
                 </div>
             ) : (
                 <div className="single-workshop">
-                    <div className="single-workshop-heading"></div>
-                    <h1>{workshop.title}</h1>
+                                        <div className="single-workshop-heading">
+                                        <h1>{workshop.title}</h1>
+
+                                        <div className="heading-buttons">
+
+                        <button
+                            onClick={() => editOverviewOrEnroll(false)}
+                            id="overview-button"
+                            className="tab"
+                            style={{backgroundColor: "darkgray"}}
+                        >
+                            Overview
+                        </button>
+                        <Link to="../attendance"
+                            state={{
+                                id: workshopID,
+                            }}>
+                        <button
+                            onClick={() => editOverviewOrEnroll(true)}
+                            id="enrollment-button"
+                            className="tab"
+                        >
+                            Attendance
+                        </button>
+                        </Link>
+
+                    </div>
+
+                    </div>
+
+
                     <div className="workshop-info-container">
                         <div className="workshop-info">
                             <h3>Description</h3>
@@ -285,7 +305,9 @@ export const WorkshopSingle = () => {
                                 </div>
                             </>
                         ) : (
-                            <>Registration not taken yet</>
+                            
+                            <>
+                            Registration not taken yet<br></br><br></br></> 
                         )}
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
                             <button
