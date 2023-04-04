@@ -29,7 +29,7 @@ const DateInput = (props) => {
     };
 
     // TODO: check if date is valid
-    const checkDate = (val) => { };
+    const checkDate = (val) => {};
 
     return (
         <input

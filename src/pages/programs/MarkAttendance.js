@@ -41,7 +41,7 @@ const MarkAttendance = (props) => {
         }
     };
 
-    const getDatesWithAttendance = () => { };
+    const getDatesWithAttendance = () => {};
 
     const updateProgram = async (e) => {
         setAttendance([

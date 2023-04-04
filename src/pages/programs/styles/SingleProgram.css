@@ -15,7 +15,7 @@ a {
     color: black;
 }
 
-.single-program-container>a {
+.single-program-container > a {
     width: fit-content;
     margin-bottom: 20px;
     font-size: 12pt;
@@ -23,7 +23,7 @@ a {
     color: var(--text-link);
 }
 
-.single-program-container>.single-program {
+.single-program-container > .single-program {
     margin: auto;
     width: 80%;
     height: 85%;
@@ -47,7 +47,7 @@ a {
     padding: 8px 20px;
 }
 
-.single-program-heading>h1 {
+.single-program-heading > h1 {
     margin: 0;
     margin-bottom: 20px;
 }
@@ -61,7 +61,7 @@ a {
     flex-direction: column;
 }
 
-.program-info-container>.program-info {
+.program-info-container > .program-info {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -69,13 +69,13 @@ a {
     margin: 0.7em 0em;
 }
 
-.program-info>h3 {
+.program-info > h3 {
     flex: 1;
     height: fit-content;
     margin: 0;
 }
 
-.program-info>h6 {
+.program-info > h6 {
     height: 100%;
     font-size: 14px;
     align-items: center;
@@ -99,17 +99,17 @@ a {
     margin-top: 2em;
 }
 
-.program-info-buttons-container>.program-buttons-inner {
+.program-info-buttons-container > .program-buttons-inner {
     display: flex;
     justify-content: space-between;
 }
 
-.program-buttons-inner>.program-archive-delete {
+.program-buttons-inner > .program-archive-delete {
     display: flex;
     flex-direction: column;
 }
 
-.program-archive-delete>button {
+.program-archive-delete > button {
     background-color: transparent;
     border: none;
     text-decoration-line: underline;
@@ -134,7 +134,7 @@ a {
     justify-content: space-between;
 }
 
-.program-enroll-subheading>h3 {
+.program-enroll-subheading > h3 {
     margin: 0;
 }
 
@@ -144,7 +144,7 @@ a {
     gap: 10px;
 }
 
-.program-enroll-options>.ben-search-bar {
+.program-enroll-options > .ben-search-bar {
     height: 22px;
     border-radius: 5px;
     border: 0.7px solid;
@@ -179,7 +179,7 @@ a {
     justify-content: end;
 }
 
-.submit-edit-roster>.submit-button {
+.submit-edit-roster > .submit-button {
     padding: 5px 40px;
     border-radius: 5px;
     background-color: var(--text-link);
@@ -202,7 +202,7 @@ a {
     justify-content: end;
 }
 
-.beneficiary-card>.card-info {
+.beneficiary-card > .card-info {
     height: fit-content;
     display: flex;
     flex-direction: column;
