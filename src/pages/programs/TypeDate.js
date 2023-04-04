@@ -14,6 +14,7 @@ const DateInput = (props) => {
         }
     };
 
+    // TODO: only allow numbers
     const handleChange = (e) => {
         let val = e.target.value;
         if (val.length === 2 || val.length === 5) {
@@ -27,7 +28,8 @@ const DateInput = (props) => {
         }
     };
 
-    const checkDate = (val) => {};
+    // TODO: check if date is valid
+    const checkDate = (val) => { };
 
     return (
         <input

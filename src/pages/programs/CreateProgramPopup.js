@@ -23,10 +23,10 @@ const CreateProgramPopup = (props) => {
         setOpenModal(false);
     };
 
+    // TODO: remove this
     const createProgramFromModal = (e) => {
         handleSubmit();
-        resetAllVals();
-        props.closeModal();
+        handleExitModal();
     };
 
     const resetAllVals = () => {
@@ -53,6 +53,8 @@ const CreateProgramPopup = (props) => {
                 hosts: addUsers,
             }),
         };
+        // TODO: Add error handling
+        // TODO: Exit modal after successful submission
         await fetch("http://localhost:3000/programs", requestOptions);
         props.reloadList();
     };
@@ -83,6 +85,7 @@ const CreateProgramPopup = (props) => {
         props.closeModal();
     };
 
+    // TODO: implement after talking about schedule design
     const submitSchedule = () => {
         console.log(tmp);
         console.log("kdjf");
@@ -122,11 +125,11 @@ const CreateProgramPopup = (props) => {
                 <div className="start-end-date">
                     <DateInput
                         placeholder="Start (MM-DD-YYYY)"
-                        onChange={(e) => setNewProgStartDate(e)}
+                        onChange={setNewProgStartDate}
                     />
                     <DateInput
                         placeholder="End (MM-DD-YYYY)"
-                        onChange={(e) => setNewProgEndDate(e)}
+                        onChange={setNewProgEndDate}
                     />
                 </div>
                 <div className="add-hosts">

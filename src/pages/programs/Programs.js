@@ -48,6 +48,8 @@ const Programs = () => {
         return arr;
     };
 
+    // TODO: Use useEffects for filtering and sorting
+
     const programsFiltered = sortPrograms(
         programs
             .filter((item) => {
@@ -77,6 +79,8 @@ const Programs = () => {
         setSortBy(e);
         resetSortDropdown();
     };
+
+    // TODO: Instead of .style, use conditional classes (there should be no .getElementById or .style in React)
 
     const resetSortDropdown = () => {
         if (document.getElementById("sort-dropdown"))
@@ -250,9 +254,7 @@ const Programs = () => {
                                     <div
                                         id="status-options-dropdown"
                                         style={{ display: "none" }}
-                                        onChange={(e) =>
-                                            handleSortArchivedChange(e)
-                                        }
+                                        onChange={handleSortArchivedChange}
                                     >
                                         <input
                                             type="radio"

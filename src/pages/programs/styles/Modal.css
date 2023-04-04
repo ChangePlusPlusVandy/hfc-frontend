@@ -1,3 +1,5 @@
+/* Prefix selectors with parent container */
+
 .modal-container {
     display: flex;
     position: absolute;
@@ -53,7 +55,7 @@
     width: 100%;
 }
 
-.modal-body > h1 {
+.modal-body>h1 {
     font-size: 24px;
     font-weight: 600;
     margin: 0 0 0.5em 0;
@@ -69,7 +71,7 @@ textarea,
     font-weight: 400;
 }
 
-.modal-body > h6 {
+.modal-body>h6 {
     font-size: 15px;
     font-weight: 400;
     margin: 0 0 0.2em 0;
@@ -80,8 +82,8 @@ textarea,
     margin: 0.5em 0;
 }
 
-.add-hosts > h6,
-.add-schedule > h6 {
+.add-hosts>h6,
+.add-schedule>h6 {
     font-size: 15px;
     font-family: inherit;
     font-weight: 400;
@@ -131,14 +133,6 @@ textarea,
     display: flex;
     justify-content: space-between;
 }
-
-/* /* .react-select-container {
-    border: 1px solid var(--mid-color);
-    border-radius: 15px;
-    box-sizing: border-box;
-    height: 100px;
-    padding: 0 10px;
-} */
 
 .react-select__control {
     background-color: antiquewhite;
