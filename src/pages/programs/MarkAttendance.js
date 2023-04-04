@@ -8,6 +8,7 @@ const MarkAttendance = (props) => {
     const [date, setDate] = useState("");
     const [toggleAttendance, setToggleAttendance] = useState(true);
     const [arePresent, setArePresent] = useState([]);
+    const [datesWithAttendance, setDatesWithAttendance] = useState([]);
 
     const [attendance, setAttendance] = useState({});
     const [beneficiaries, setBeneficiaries] = useState([]);
@@ -38,6 +39,8 @@ const MarkAttendance = (props) => {
             console.log(err);
         }
     };
+
+    const getDatesWithAttendance = () => {};
 
     const updateProgram = async (e) => {
         setAttendance([
@@ -111,6 +114,23 @@ const MarkAttendance = (props) => {
                         type="date"
                         onChange={(e) => setDate(e.target.value)}
                         value={date}
+                        className="calendar"
+                        ref={(input) => {
+                            if (input && input.shadowRoot) {
+                                // check if input and its shadowRoot are defined
+                                const calendar =
+                                    input.shadowRoot.querySelector("table");
+                                if (calendar) {
+                                    const targetTds =
+                                        calendar.querySelectorAll(
+                                            'td[data-date="15"]'
+                                        );
+                                    targetTds.forEach((td) =>
+                                        td.classList.add("highlight")
+                                    );
+                                }
+                            }
+                        }}
                     />
                 </div>
                 <div className="mark-attendance-beneficiaries">

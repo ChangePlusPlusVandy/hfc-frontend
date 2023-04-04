@@ -49,6 +49,10 @@
     font-weight: 500;
 }
 
+.add-schedule-button {
+    width: 100%;
+}
+
 .modal-body > h1 {
     font-size: 24px;
     font-weight: 600;
@@ -58,12 +62,11 @@
 
 input,
 textarea,
-.start-end-date,
-.add-hosts,
-.add-schedule {
+.start-end-date {
     margin: 0.5em 0;
     font-size: 15px;
     font-family: inherit;
+    font-weight: 400;
 }
 
 .modal-body > h6 {
@@ -72,11 +75,17 @@ textarea,
     margin: 0 0 0.2em 0;
 }
 
+.add-hosts,
+.add-schedule {
+    margin: 0.5em 0;
+}
+
 .add-hosts > h6,
 .add-schedule > h6 {
     font-size: 15px;
+    font-family: inherit;
     font-weight: 400;
-    margin: 0;
+    margin: 0 0 5px 0;
 }
 
 .modal-input-text {
@@ -106,6 +115,7 @@ textarea,
     color: var(--text-color);
     border: 1px solid var(--mid-color);
     resize: none;
+    height: 100px;
 }
 
 .modal-text-area:focus {
@@ -122,9 +132,18 @@ textarea,
     justify-content: space-between;
 }
 
-/* .react-select-container {
-    margin: 25px 0px;
+/* /* .react-select-container {
+    border: 1px solid var(--mid-color);
+    border-radius: 15px;
+    box-sizing: border-box;
+    height: 100px;
+    padding: 0 10px;
 } */
+
+.react-select__control {
+    background-color: antiquewhite;
+    position: absolute;
+}
 
 .react-select__menu-list {
     color: black;
@@ -133,10 +152,50 @@ textarea,
 
 .react-select__value-container {
     font-size: 15px;
-    padding: 0 10px;
+    padding: 100px;
+    box-sizing: border-box;
+    height: 7em;
+    display: flex;
+    align-content: flex-start;
 }
 
-.react-select__indicators {
+.react-select__multi-value {
+    border-radius: 15px !important;
+    border: 1px solid var(--mid-color) !important;
+    padding: 2px 10px 2px 15px;
+    background-color: transparent !important;
+    margin: 5px !important;
+}
+
+.react-select__multi-value:hover {
+    border: 1px solid black !important;
+}
+
+.react-select__multi-value_label {
+    background-color: transparent;
+    margin-right: 3px !important;
+    color: var(--mid-color) !important;
+}
+
+.react-select__multi-value__remove:hover {
+    background-color: transparent !important;
+}
+
+.add-schedule-button {
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* .react-select__value-container {
+    color: aquamarine;
+    border: 5px solid blueviolet;
+    background-color: bisque;
+    height: 100px;
+    width: 100px;
+    font-size: 10pt;
+} */
+
+/* .react-select__indicators {
     padding: 0 15px;
 }
 
@@ -144,7 +203,41 @@ textarea,
     border: none;
     border-radius: 15px;
     padding: 0 10px;
-}
+} */
+/* 
+.react-select__clear-indicator:focus,
+.react-select__control:focus,
+.react-select__menu:focus,
+.react-select__menu-list:focus,
+.react-select__option:focus,
+.react-select__menu-portal:focus,
+.react-select__value-container:focus,
+.react-select__multi-value:focus,
+.react-select__placeholder:focus,
+.react-select__clear-indicator:hover,
+.react-select__control:hover,
+.react-select__menu:hover,
+.react-select__menu-list:hover,
+.react-select__option:hover,
+.react-select__menu-portal:hover,
+.react-select__value-container:hover,
+.react-select__multi-value:hover,
+.react-select__placeholder:hover {
+    outline: none !important;
+    border-color: black !important;
+} */
+
+/* 
++.react-select__clear-indicator   The X clear all button 
++.react-select__control      The x for deleting one input
++.react-select__menu         The dropdown box container that holds all the options
++.react-select__menu-list    Holds the list items
++.react-select__option       Each individual list item in dropdown
++.react-select__menu-portal   Space in between main container and dropdown options 
++.react-select__value-container   Main box that has all items in it. Doesnt include The X and dropdown arrow
++.react-select__multi-value  Each individual option box when selected and inside the main container
++.react-select__placeholder  PLaceholder text container when nothing is chosen
++*/
 
 /* 
 .modal-container {

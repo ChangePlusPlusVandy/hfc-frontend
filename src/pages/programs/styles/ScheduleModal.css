@@ -1,0 +1,88 @@
+.schedule-modal-container {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.schedule-modal-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    color: black;
+    width: 10%;
+    background-color: var(--even-midder);
+    padding: 1em 3em 3em 3em;
+    font-size: 20px;
+    min-width: 400px;
+}
+
+.schedule-cancel-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    right: 2em;
+    top: 2em;
+}
+
+.make-schedule-inner-body > h3 {
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.set-times-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-single-day {
+    display: flex;
+    justify-content: space-between;
+    margin: 3px 0;
+}
+
+.schedule-enter-time {
+    display: flex;
+    flex-direction: row;
+}
+
+.schedule-enter-time h6 {
+    margin: 0 5px;
+    font-weight: 600;
+}
+
+.schedule-enter-time h5 {
+    margin: 0 10px;
+    font-weight: 400;
+}
+
+.set-times-container h4 {
+    margin: 0;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.schedule-enter-input {
+    display: flex;
+    justify-content: center;
+    width: 20px;
+    border-radius: 10px;
+    padding: 0 10px;
+    margin: 0;
+    border: 1px solid black;
+}
+
+.schedule-submit-button {
+    width: fit-content;
+    position: absolute;
+    right: 2em;
+    bottom: 1em;
+    background-color: var(--light-button-color) !important;
+}
