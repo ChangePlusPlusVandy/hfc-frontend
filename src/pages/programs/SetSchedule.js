@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./styles/ScheduleModal.css";
 
 const SetSchedule = (props) => {
+    // TODO: Add state
+
     if (!props.openModal) return;
     return (
         <div className="schedule-modal-container">

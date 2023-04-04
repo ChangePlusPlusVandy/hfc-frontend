@@ -1,3 +1,5 @@
+/* Prefix selectors with parent container */
+
 .schedule-modal-container {
     display: flex;
     position: absolute;

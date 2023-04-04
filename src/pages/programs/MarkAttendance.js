@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, Link, useParams } from "react-router-dom";
 import "./styles/MarkAttendance.css";
 
+// TODO:
 const MarkAttendance = (props) => {
     const { programID } = useParams();
     const [program, setProgram] = useState({});
@@ -115,6 +116,7 @@ const MarkAttendance = (props) => {
                         onChange={(e) => setDate(e.target.value)}
                         value={date}
                         className="calendar"
+                        // FIXME:
                         ref={(input) => {
                             if (input && input.shadowRoot) {
                                 // check if input and its shadowRoot are defined
