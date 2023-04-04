@@ -1,51 +1,36 @@
-.workshops {
-    padding: 30px;
-    width: 50rem;
+.sortAndSearch {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    align-items: bottom;
 }
-
-.workshops .dropdown {
-    width: 10rem;
-    color: black;
+/* Close button */
+.workshop-close {
+    color: #fff;
+    background-color: #999;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 15px;
+    border-radius: 50%;
+    border: 2px solid #333;
 }
-.workshops .button {
-    border: 2px solid black;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    margin: 1rem;
+.workshop-close:hover,
+.workshop-close:focus {
+    color: #000;
     text-decoration: none;
-    color: black;
-}
-
-.workshops-page-container .button {
-    border: 2px solid black;
+    cursor: pointer;
+    outline: none;
 }
 
 .workshops-page-container {
-    border: 3px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
+    padding: 30px;
 }
 
-.workshops .card {
+.workshops-page-container .dropdown-container {
+    width: 100%;
     color: black;
-    display: flex;
-    width: auto;
-    border: 1px solid black;
-    padding: 5px;
-    text-align: center;
 }
-
-.workshops .card > h3,
-.workshops .card > h4,
-.workshops .card > h5,
-.workshops .card > button {
-    margin: 3px;
-    color: black;
-    align-items: right;
-}
-
 .workshops-page-container .button {
     border: 2px solid black;
     border-radius: 0.5rem;
@@ -53,15 +38,80 @@
     margin: 1rem;
     text-decoration: none;
     color: black;
-    align-items: center;
+    width: 100%;
+}
+
+.close {
+    background-color: #999;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 15px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+}
+.workshops-page-container .workshops-page-container .workshops-list-container {
+    border: 3px solid black;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.workshops-page-container .workshops-card {
+    color: black;
+    display: flex;
+    border-bottom: 1px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.workshops-page-container .workshops-card > h3 {
+    color: black;
+    font-weight: bold;
+    flex: 1;
+    height: 5%;
+    align-items: top;
+}
+.workshops-page-container .workshops-card > h4,
+.workshops-page-container .workshops-card > h5 {
+    color: black;
+    font-weight: normal;
+    display: inline-block;
+    height: 5%;
+    align-items: top;
+    flex: 1;
+}
+
+.workshops-page-container .workshops-card > button {
+    margin: 3px;
+    color: black;
+    display: inline-block;
 }
 
 .workshops-page-container .button:hover {
     background-color: black;
     color: white;
 }
+.delete-button {
+    border-radius: 10px;
+    color: black;
+    padding: 5px 25px;
+    font-size: 18px;
+    font-weight: 500;
+    float: right;
+}
 
-.single-workshop-container .workshop-tabs {
-    display: flex;
-    justify-content: space-between;
+.sortAndSearch .workshop-input {
+    border-radius: 10px;
+    border: none;
+    background-color: var(--button-color);
+    flex: 1;
+    height: 70%;
+    margin: 0px 10px;
+}
+
+.sort-and-search .dropdown {
+    flex: 1;
+    margin: 10px;
 }

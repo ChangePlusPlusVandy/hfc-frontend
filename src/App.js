@@ -12,6 +12,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 // Beneficiaries Page
 import Beneficiaries from "./pages/beneficiaries/Beneficiaries";
 import BeneficiaryRegistration from "./pages/beneficiaries/registration/BeneficiaryRegistration";
+import Beneficiary from "./pages/beneficiaries/Beneficiary";
 
 // Programs Page
 import Programs from "./pages/programs/Programs";
@@ -19,13 +20,14 @@ import SingleProgram from "./pages/programs/SingleProgram";
 import MarkAttendance from "./pages/programs/MarkAttendance";
 
 // Workshops Page
-import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
 import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
-import { WorkshopSingle } from "./pages/workshops/singleView";
-
+import { WorkshopSingle } from "./pages/workshops/WorkshopSingle";
+import { WorkshopAttendance } from "./pages/workshops/WorkshopAttendance";
 // Assessments Page
+import AssessmentsOverview from "./pages/assessments/AssessmentsOverview";
 import Assessments from "./pages/assessments/Assessments";
+import SingleAssessment from "./pages/assessments/components/SingleAssessment";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -34,6 +36,7 @@ const router = createBrowserRouter(
             <Route path="beneficiaries">
                 <Route index element={<Beneficiaries />} />
                 <Route path="register" element={<BeneficiaryRegistration />} />
+                <Route path=":beneficiaryId" element={<Beneficiary />} />
             </Route>
             <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
             <Route path="programs">
@@ -48,15 +51,16 @@ const router = createBrowserRouter(
                 </Route>
             </Route>
             <Route path="workshops">
-                <Route index element={<Workshops />} />
+                <Route index element={<WorkshopsList />} />
                 <Route path="create" element={<WorkshopCreateForm />} />
-                <Route path="all" element={<WorkshopsList />} />
-                <Route path="delete" element={<WorkshopDeleteForm />} />
                 {/* TODO: Make dynamic routes for each workshop */}
                 <Route path="singleview" element={<WorkshopSingle />} />
+                <Route path="attendance" element={<WorkshopAttendance />} />
             </Route>
             <Route path="assessments">
-                <Route index element={<Assessments />} />
+                <Route index element={<AssessmentsOverview />} />
+                <Route path=":assessmentId" element={<SingleAssessment />} />
+                <Route path="assessment" element={<Assessments />} />
             </Route>
         </Route>
     )

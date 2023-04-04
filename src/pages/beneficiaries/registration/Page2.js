@@ -5,13 +5,20 @@ import CreatableSelect from "react-select/creatable";
 import "./BeneficiaryRegistration.css";
 
 const needOpts = [
-    { value: "need1", label: "need 1" },
-    { value: "need2", label: "need 2" },
+    { value: "Need 1", label: "Need 1" },
+    { value: "Need 2", label: "Need 2" },
 ];
 
 const interestOpts = [
-    { value: "interest1", label: "interest 1" },
-    { value: "interest2", label: "interest 2" },
+    { value: "Computers", label: "Computers" },
+    { value: "English", label: "Spoken English" },
+    { value: "Literacy", label: "Literacy" },
+    { value: "Math", label: "Math" },
+    { value: "Bengali", label: "Bengali" },
+    { value: "Arts", label: "Arts" },
+    { value: "Bakery", label: "Bakery/Cafe" },
+    { value: "Counseling", label: "Counseling" },
+    // TODO: change counseling label to whatever they asked
 ];
 
 const Page2 = ({
@@ -37,63 +44,55 @@ const Page2 = ({
     };
 
     const handleChangeJoinDate = (event) => {
-        setJoinDate(new Date(event.target.value));
+        setJoinDate(event.target.value);
     };
 
     return (
-        <div className="Page2">
-            <h3> Basic info: Check and Fill</h3>
-            <form>
-                <label>
-                    First date of visit *
-                    <input
-                        type="date"
-                        id="joinDate"
-                        onChange={handleChangeJoinDate}
-                    />
-                </label>
+        <div className="page-content">
+            <div className="section-container">
+                <label className="section-label">Join Date *</label>
+                <input
+                    type="date"
+                    id="join-date"
+                    value={joinDate}
+                    onChange={handleChangeJoinDate}
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Reason for Visit</label>
+                <textarea
+                    onChange={handleChangeReason}
+                    value={reason}
+                    placeholder="Start here..."
+                />
+            </div>
+            <br />
+            <div className="section-container">
+                <label className="section-label">Needs</label>
+                <CreatableSelect
+                    options={needOpts}
+                    value={needs}
+                    onChange={handleNeedSelect}
+                    isMulti
+                    name="needs"
+                    className="creatable-multi-select"
+                    classNamePrefix="select"
+                />
                 <br />
-                <br />
-
-                <label>
-                    Reason for this visit
-                    <br />
-                    <textarea
-                        rows="5"
-                        cols="80"
-                        onChange={handleChangeReason}
-                        value={reason}
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Needs
-                    <CreatableSelect
-                        options={needOpts}
-                        value={needs}
-                        onChange={handleNeedSelect}
-                        isMulti
-                        name="needs"
-                        className="creatable-multi-select"
-                        classNamePrefix="select"
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Interests
-                    <CreatableSelect
-                        options={interestOpts}
-                        value={interests}
-                        onChange={handleInterestSelect}
-                        isMulti
-                        name="interests"
-                        className="creatable-multi-select"
-                        classNamePrefix="select"
-                    />
-                </label>
-            </form>
+            </div>
+            <div className="section-container">
+                <label className="section-label">Interests</label>
+                <CreatableSelect
+                    options={interestOpts}
+                    value={interests}
+                    onChange={handleInterestSelect}
+                    isMulti
+                    name="interests"
+                    className="creatable-multi-select"
+                    classNamePrefix="select"
+                />
+            </div>
         </div>
     );
 };
