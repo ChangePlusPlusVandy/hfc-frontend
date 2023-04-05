@@ -17,18 +17,20 @@ import DashboardLayout from "./layouts/DashboardLayout";
 // Beneficiaries Page
 import Beneficiaries from "./pages/beneficiaries/Beneficiaries";
 import BeneficiaryRegistration from "./pages/beneficiaries/registration/BeneficiaryRegistration";
+import Beneficiary from "./pages/beneficiaries/Beneficiary";
 
 // Programs Page
 import Programs from "./pages/programs/Programs";
 import SingleProgram from "./pages/programs/SingleProgram";
+import MarkAttendance from "./pages/programs/MarkAttendance";
 
 // Workshops Page
-import { Workshops, WorkshopDeleteForm } from "./pages/workshops/Workshops";
 import { WorkshopCreateForm } from "./pages/workshops/CreateWorkshop";
 import { WorkshopsList } from "./pages/workshops/WorkshopView";
-import { WorkshopSingle } from "./pages/workshops/singleView";
-
+import { WorkshopSingle } from "./pages/workshops/WorkshopSingle";
+import { WorkshopAttendance } from "./pages/workshops/WorkshopAttendance";
 // Assessments Page
+import AssessmentsOverview from "./pages/assessments/AssessmentsOverview";
 import Assessments from "./pages/assessments/Assessments";
 
 // Users Page

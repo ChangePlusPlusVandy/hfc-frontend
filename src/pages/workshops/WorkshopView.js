@@ -1,94 +1,137 @@
 import React, { useEffect, useState } from "react";
 import "./Workshops.css";
 import Select from "react-select";
+import { Link } from "react-router-dom";
+import { WorkshopCreateForm } from "./CreateWorkshop";
 export const WorkshopsList = () => {
+    const [showPopup, setShowPopup] = useState(false);
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
     const [filteredWorkshops, setFilteredWorkshops] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
-
+    const [hostOptions, setHostOptions] = useState([]);
     // Fetch workshops
+    const handleCreate = () => {
+        setShowPopup(true);
+    };
+    const handleClosePopup = () => {
+        setShowPopup(false);
+        getWorkshops();
+    };
     const getWorkshops = () => {
+        //TODO: Error handling
         fetch("http://localhost:3000/workshops")
             .then((response) => response.json())
             .then((data) => {
                 console.log("Fetched workshops:");
-                console.log(data);
-                setWorkshops(data);
-                filterWorkshops();
+                //TODO: Use map, and do in backend. populate
+                fetch("http://localhost:3000/users/users")
+                    .then((response2) => response2.json())
+                    .then((data2) => {
+                        let tempOptions = data2
+                            .filter((item) => item.firstName && item.lastName)
+                            .map((item) => {
+                                return {
+                                    value: item._id,
+                                    label: item.firstName + " " + item.lastName,
+                                };
+                            });
+                        console.log(tempOptions);
+                        for (let i = 0; i < data.length; i++) {
+                            for (let j = 0; j < data[i].hosts.length; j++) {
+                                for (let k = 0; k < tempOptions.length; k++) {
+                                    if (
+                                        data[i].hosts[j] == tempOptions[k].value
+                                    ) {
+                                        data[i].hosts[j] = tempOptions[k].label;
+                                    }
+                                }
+                            }
+                        }
+                        setWorkshops(data);
+                        setHostOptions(tempOptions);
+                        sortWorkshops("alphabetical", data);
+                        filterWorkshops(data, search, filter);
+                    });
             });
     };
 
     useEffect(() => {
         getWorkshops();
-        setSearch("");
     }, []);
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
-        filterWorkshops();
+        filterWorkshops(workshops, e.target.value, filter);
     };
 
     const handleSortValChange = (e) => {
-        setSortBy(e.target.value);
-        sortWorkshops();
+        setSortBy(e.value);
+        sortWorkshops(e.value, workshops);
     };
 
     const handleFilterChange = (e) => {
         setFilter(e.value);
-        filterWorkshops();
+        filterWorkshops(workshops, search, e.value);
     };
 
-    const sortWorkshops = () => {
-        if (sortBy === "alphabetical") {
-            workshops.sort((item1, item2) => {
+    const sortWorkshops = (sort, ws) => {
+        if (sort == "alphabetical") {
+            ws.sort((item1, item2) => {
                 return item1.title.localeCompare(item2.title);
             });
-        } else if (sortBy === "dateAdded") {
-            workshops.sort((item1, item2) => {
+        } else if (sort == "dateAdded") {
+            ws.sort((item1, item2) => {
                 return item1._id.localeCompare(item2._id);
             });
+        } else if (sort == "workDate") {
+            ws.sort((item1, item2) => {
+                return item1.date.localeCompare(item2.date);
+            });
         }
-        filterWorkshops();
+        setWorkshops(ws);
+        filterWorkshops(ws, search, filter);
     };
 
-    const filterWorkshops = () => {
-        let temp = workshops.filter((item) => {
-            if (filter == "archived" && !item.archived) {
+    const filterWorkshops = (ws, srch, fltr) => {
+        console.log(ws, srch, fltr);
+        let temp = ws.filter((item) => {
+            if (fltr == "archived" && !item.archived) {
                 return false;
             }
-            if (filter == "active" && item.archived) {
+            if (fltr == "active" && item.archived) {
                 return false;
             }
             return (
-                search &&
-                item.title.toLowerCase().includes(search.toLowerCase())
+                !srch || item.title.toLowerCase().includes(srch.toLowerCase())
             );
         });
+        console.log(temp);
         setFilteredWorkshops(temp);
     };
 
     return (
-        <div className="workshops">
-            <h1>Workshops:</h1>
-            <div className="sortAndSearch">
-                <div
-                    className="sortIndicator"
-                    onChange={(e) => handleSortValChange(e)}
-                >
-                    <h3>Sort By:</h3>
-                    <input type="radio" value="dateAdded" name="sortVal" />
-                    Date Added
-                    <input type="radio" value="alphabetical" name="sortVal" />
-                    Alphabetical
-                </div>
-                <div className="singleSearch">
-                    <input
-                        type="text"
-                        name="search-bar"
-                        placeholder="Search..."
-                        onChange={(e) => handleSearchChange(e)}
+        <div className="workshops-page-container">
+            <h1>Workshop Overview</h1>
+
+            {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
+
+            <div className="sort-and-search">
+                <div className="dropdown">
+                    <Select
+                        className="workshop-input"
+                        options={[
+                            { value: "alphabetical", label: "Alphabetical" },
+                            {
+                                value: "dateAdded",
+                                label: "Date Added (earliest first)",
+                            },
+                            { value: "workDate", label: "Workshop Date" },
+                        ]}
+                        placeholder="Sort"
+                        onChange={handleSortValChange}
+                        value={filter}
                     />
                 </div>
                 <div className="dropdown">
@@ -98,20 +141,73 @@ export const WorkshopsList = () => {
                             { value: "active", label: "active" },
                             { value: "archived", label: "archived" },
                         ]}
-                        placeholder="Choose Filter"
+                        placeholder="Filter"
                         onChange={handleFilterChange}
                         value={filter}
                     />
                 </div>
+                <input
+                    type="text"
+                    className="workshop-input"
+                    placeholder="Search..."
+                    onChange={(e) => handleSearchChange(e)}
+                />
+
+                <div className="dropdown">
+                    <button onClick={handleCreate} className="submit-button">
+                        Create Workshop
+                    </button>
+                </div>
             </div>
-            <div>
+            <br></br>
+            <div className="workshops-list-container">
+                <div className="workshops-card">
+                    <h3> TITLE</h3>
+
+                    <h3> DATE</h3>
+                    <h3>HOSTS</h3>
+                    <h3>STATUS</h3>
+                </div>
+            </div>
+            <div className="workshops-list-container">
                 {filteredWorkshops.map((item, i) => (
-                    <div>
-                        <h2> {item.title}</h2>
-                        <h3> {item.description}</h3>
+                    <div key={i}>
+                        <Link
+                            className="workshops-card"
+                            to="./singleview"
+                            state={{
+                                id: item._id,
+                            }}
+                        >
+                            <h4> {item.title}</h4>
+
+                            <h4>
+                                {" "}
+                                {
+                                    new Date(item.date)
+                                        .toString()
+                                        .substring(0, 10)
+                                    //todo: dates are off by one
+                                }
+                            </h4>
+                            <h4>
+                                {" "}
+                                {item.hosts.length > 0 ? (
+                                    <>{item.hosts.join(", ")}</>
+                                ) : (
+                                    <>none</>
+                                )}
+                            </h4>
+                            <h4>
+                                {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}{" "}
+                                &emsp;
+                            </h4>
+                        </Link>
                     </div>
                 ))}
             </div>
+            <br></br>
+            <br></br>
         </div>
     );
 };

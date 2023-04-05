@@ -1,3 +1,18 @@
+:root {
+    --text-link: #888b8f;
+    --darkest-color: #6f7172;
+    --even-midder: #dededf;
+    --button-color: #e8e9eb;
+    --light-button-color: #f3f5f9;
+    --mid-color: #d0d0d1;
+    --text-color: #6f7172;
+}
+
+html,
+body {
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: sans-serif;

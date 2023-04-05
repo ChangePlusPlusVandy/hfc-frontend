@@ -6,5 +6,4 @@
 # Node packages
 node_modules
 
-# Environment variables
 .env

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Popup from "./Popup";
+import { Link } from "react-router-dom";
 
 const SingleBfc = (item) => {
     const [beneficiary, setBeneficiary] = useState([]);
@@ -123,7 +124,7 @@ const SingleBfc = (item) => {
                 {`${item.firstName} ${item.lastName}`}
             </li>
             <main>
-                <button onClick={() => setButtonPopup(true)}> Expand </button>
+                <Link to={`${item.mongoKey.toString()}`}> Expand </Link>
             </main>
 
             <Popup
