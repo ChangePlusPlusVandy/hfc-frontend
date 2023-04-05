@@ -50,8 +50,8 @@ const NavSidebar = () => {
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const userToken = await user.getIdToken()
-                window.localStorage.setItem("auth",userToken);
+                const userToken = await user.getIdToken();
+                window.localStorage.setItem("auth", userToken);
                 console.log("User exists", user, user.uid);
                 const res = await fetch(
                     `http://localhost:3000/users?firebaseUID=${user.uid}`
