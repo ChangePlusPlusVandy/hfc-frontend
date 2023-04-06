@@ -47,6 +47,7 @@ const NavSidebar = () => {
 
     const navigate = useNavigate();
 
+    // TODO: refactor to use ProtectedRoutes component (see https://github.com/ethanratnofsky/Tripful/tree/main)
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
