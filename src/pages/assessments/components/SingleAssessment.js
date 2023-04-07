@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { formattedDateOptions } from "../../../utils/constants";
 import Table from "./Table";
 import "./SingleAssessment.css";
 
@@ -8,7 +9,6 @@ const SingleAssessment = () => {
     const navigate = useNavigate();
 
     const [assessment, setAssessment] = useState();
-    const [beneficiary, setBeneficiary] = useState();
 
     const getAssessmentById = async (mongoId) => {
         try {
@@ -17,20 +17,7 @@ const SingleAssessment = () => {
             );
             data = await data.json();
             setAssessment(data);
-            // console.log("assessment: ", data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getBeneficiaryByID = async (mongoId) => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?id=${mongoId}`
-            );
-            data = await data.json();
-            setBeneficiary(data);
-            //console.log("bfc: ", data);
+            console.log("assessment get: ", data);
         } catch (error) {
             console.error(error);
         }
@@ -40,19 +27,23 @@ const SingleAssessment = () => {
         getAssessmentById(assessmentId);
     }, []);
 
-    useEffect(() => {
-        if (assessment) {
-            getBeneficiaryByID(assessment.beneficiary);
-        }
-    }, [assessment]);
+    const dateTaken = assessment && new Date(assessment.dateTaken);
 
-    // TODO: add delete
+    const handleDelete = (id) => {
+        fetch(`http://localhost:3000/assessments/?id=${id}`, {
+            method: "DELETE",
+        });
+        navigate("/dashboard/assessments");
+    };
 
     return (
-        beneficiary && (
+        assessment && (
             <div className="assessment-info">
-                <h2>{`${beneficiary.firstName} ${beneficiary.lastName}`}</h2>
-                <h3>{`Date Taken: ${assessment.dateTaken}`}</h3>
+                <h2>{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}`}</h2>
+                <h3>{`Date Taken: ${dateTaken.toLocaleDateString(
+                    undefined,
+                    formattedDateOptions
+                )}`}</h3>
                 <Table
                     dataName="Education / Vocation"
                     dataArr={assessment.educationVocationQs}
@@ -76,8 +67,18 @@ const SingleAssessment = () => {
                 />
                 <h3> Total Score: {assessment.totalScore}%</h3>
 
-                <button onClick={() => navigate("/dashboard/assessments")}>
-                    go back
+                <button
+                    className="return-btn"
+                    onClick={() => navigate("/dashboard/assessments")}
+                >
+                    return
+                </button>
+
+                <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(assessmentId)}
+                >
+                    delete
                 </button>
             </div>
         )
