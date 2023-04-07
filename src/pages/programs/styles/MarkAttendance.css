@@ -15,7 +15,7 @@
     color: var(--text-link);
 }
 
-.mark-attendance {
+.mark-attendance-container .mark-attendance {
     margin: auto;
     width: 80%;
     height: 85%;
@@ -24,21 +24,21 @@
     flex-direction: column;
 }
 
-.attendance-header {
+.mark-attendance-container .attendance-header {
     display: flex;
     justify-content: space-between;
 }
 
-.attendance-header > input {
+.mark-attendance-container .attendance-header > input {
     height: fit-content;
     margin: auto 0;
 }
 
-.beneficiary-card {
+.mark-attendance-container .beneficiary-card {
     width: 100px;
 }
 
-.mark-attendance-beneficiaries {
+.mark-attendance-container .mark-attendance-beneficiaries {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -49,7 +49,7 @@
     margin: 15px 0;
 }
 
-.ben-card {
+.mark-attendance-container .ben-card {
     flex-basis: clamp(100px, 20%, 140px);
     height: 150px;
     border-radius: 16px;
@@ -60,7 +60,7 @@
     padding: 20px 0;
 }
 
-.tmp-photo {
+.mark-attendance-container .tmp-photo {
     height: 60px;
     width: 60px;
     margin: auto;
@@ -68,17 +68,21 @@
     border-radius: 50%;
 }
 
-.ben-card > h3 {
+.mark-attendance-container .ben-card > h3 {
     width: fit-content;
     margin: auto;
 }
 
-.present-absent-container {
+.mark-attendance-container .present-absent-container {
     display: flex;
     justify-content: center;
 }
 
-.submit-button-container {
+.mark-attendance-container .submit-button-container {
     display: flex;
     justify-content: end;
+}
+
+.mark-attendance-container .highlight {
+    background-color: yellow;
 }

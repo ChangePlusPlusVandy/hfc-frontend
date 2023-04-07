@@ -1,14 +1,104 @@
 import React, { useEffect, useState } from "react";
+import DateInput from "./TypeDate";
 import Select from "react-select";
+import SetSchedule from "./SetSchedule";
 import "./styles/Modal.css";
 
 const CreateProgramPopup = (props) => {
-    if (!props.openModal) return;
+    const [openModal, setOpenModal] = useState(false);
 
+    const [users, setUsers] = useState([]);
+    const [newProgTitle, setNewProgTitle] = useState("");
+    const [newProgDesc, setNewProgDesc] = useState("");
+    const [newProgStartDate, setNewProgStartDate] = useState("");
+    const [newProgEndDate, setNewProgEndDate] = useState("");
+    const [userOptions, setUserOptions] = useState([]);
+    const [addUsers, setAddUsers] = useState([]);
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    const closeSchedule = () => {
+        setOpenModal(false);
+    };
+
+    // TODO: remove this
+    const createProgramFromModal = (e) => {
+        handleSubmit();
+        handleExitModal();
+    };
+
+    const resetAllVals = () => {
+        setOpenModal(false);
+        setNewProgTitle("");
+        setNewProgDesc("");
+        setNewProgStartDate("");
+        setNewProgEndDate("");
+        setAddUsers([]);
+    };
+
+    const handleSubmit = async () => {
+        console.log(newProgTitle);
+        console.log(newProgDesc);
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            //UPDATE
+            body: JSON.stringify({
+                title: newProgTitle,
+                description: newProgDesc,
+                startDate: newProgStartDate,
+                endDate: newProgEndDate,
+                hosts: addUsers,
+            }),
+        };
+        // TODO: Add error handling
+        // TODO: Exit modal after successful submission
+        await fetch("http://localhost:3000/programs", requestOptions);
+        props.reloadList();
+    };
+
+    const handleAddUser = (e) => {
+        let addUserFiltered = e.map((event, i) => event.value);
+        setAddUsers(addUserFiltered);
+    };
+
+    const getUsers = async () => {
+        try {
+            let data = await fetch("http://localhost:3000/users/users");
+            data = await data.json();
+            setUsers(data);
+            let tmp = data.map((e) => ({
+                value: e._id,
+                label: e.firstName,
+                color: "black",
+            }));
+            setUserOptions(tmp);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const handleExitModal = () => {
+        resetAllVals();
+        props.closeModal();
+    };
+
+    // TODO: implement after talking about schedule design
+    const submitSchedule = () => {
+        console.log(tmp);
+        console.log("kdjf");
+        setOpenModal(false);
+    };
+
+    if (!props.openModal) return;
     return (
         <div className="modal-container">
             <div className="modal-body">
-                <button className="cancel-button">X</button>
+                <button className="cancel-button" onClick={handleExitModal}>
+                    X
+                </button>
 
                 <h1>Create New Program</h1>
 
@@ -16,39 +106,30 @@ const CreateProgramPopup = (props) => {
 
                 <input
                     type="text"
-                    value={props.title}
+                    value={newProgTitle}
                     name="title"
                     placeholder="Title"
                     className="modal-input-text"
-                    onChange={(e) => props.titleChange(e.target.value)}
+                    onChange={(e) => setNewProgTitle(e.target.value)}
                 />
 
                 <textarea
                     type="text"
-                    value={props.description}
+                    value={newProgDesc}
                     name="description"
                     placeholder="Description..."
                     className="modal-text-area"
-                    onChange={(e) => props.descChange(e.target.value)}
+                    onChange={(e) => setNewProgDesc(e.target.value)}
                 />
 
                 <div className="start-end-date">
-                    <input
-                        type="text"
-                        //value={props.description}
-                        //name="description"
+                    <DateInput
                         placeholder="Start (MM-DD-YYYY)"
-                        className="modal-input-text"
-                        //onChange={e => props.descChange(e.target.value)}
+                        onChange={setNewProgStartDate}
                     />
-
-                    <input
-                        type="text"
-                        //value={props.description}
-                        //name="description"
+                    <DateInput
                         placeholder="End (MM-DD-YYYY)"
-                        className="modal-input-text"
-                        //onChange={e => props.descChange(e.target.value)}
+                        onChange={setNewProgEndDate}
                     />
                 </div>
                 <div className="add-hosts">
@@ -56,13 +137,12 @@ const CreateProgramPopup = (props) => {
                     <Select
                         isMulti
                         name="colors"
-                        isClearable
                         isSearchable
                         menuPortalTarget={document.body}
-                        options={props.userOptions}
+                        options={userOptions}
                         className="react-select-container"
                         classNamePrefix="react-select"
-                        onChange={props.onChange}
+                        onChange={handleAddUser}
                         placeholder="Add hosts"
                         theme={(theme) => ({
                             ...theme,
@@ -73,12 +153,23 @@ const CreateProgramPopup = (props) => {
                 </div>
                 <div className="add-schedule">
                     <h6>Time/Schedule</h6>
-                    <button>add schedule</button>
+                    <button
+                        className="submit-button add-schedule-button"
+                        onClick={() => setOpenModal(true)}
+                    >
+                        add schedule
+                    </button>
+
+                    <SetSchedule
+                        openModal={openModal}
+                        closeModal={closeSchedule}
+                        submitSchedule={submitSchedule}
+                    />
                 </div>
 
                 <button
                     className="modal-submit-button submit-button"
-                    onClick={props.submit}
+                    onClick={createProgramFromModal}
                 >
                     Submit
                 </button>
