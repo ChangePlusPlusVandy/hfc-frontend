@@ -14,15 +14,20 @@ import {
 } from "react-icons/Ri";
 import HFCLogo from "../../assets/images/hfc-logo-peach.png";
 
+
+const ERRORS = { // use codes instead
+    "Firebase: Error (auth/wrong-password).":
+        "Incorrect username or password",
+    "Firebase: Error (auth/user-not-found).":
+        "Incorrect username or password",
+    "Firebase: Error (auth/internal-error).":
+        "Server error, please try again",
+};
+
+// TODO: npm uninstall react-icons
 const Login = () => {
-    const ERRORS = {
-        "Firebase: Error (auth/wrong-password).":
-            "Incorrect username or password",
-        "Firebase: Error (auth/user-not-found).":
-            "Incorrect username or password",
-        "Firebase: Error (auth/internal-error).":
-            "Server error, please try again",
-    };
+    
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -56,6 +61,7 @@ const Login = () => {
         setPassword(e.target.value);
         setError("");
     };
+
 
     return (
         <div className="login-container">

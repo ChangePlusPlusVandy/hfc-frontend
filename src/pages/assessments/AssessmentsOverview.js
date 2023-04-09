@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Dropdown from "../../utils/DropDown";
+import Dropdown from "../../utils/Dropdown";
 import AssessmentRow from "./components/AssessmentRow";
 import "./AssessmentOverview.css";
 

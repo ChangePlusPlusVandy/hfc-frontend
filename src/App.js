@@ -6,6 +6,9 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
+// Contexts
+import {AuthProvider} from './contexts/AuthContext'
+
 //Auth Layout
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -45,7 +48,7 @@ const router = createBrowserRouter(
         <>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/forgot-password" element={<PasswordReset />}></Route>
-            <Route>
+            <Route element={<PrivateRoutes/>}>
                 <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route index element={<h1>TODO: Index</h1>} />
                     <Route path="beneficiaries">
@@ -65,10 +68,10 @@ const router = createBrowserRouter(
                         <Route path="singleview" element={<SingleProgram />} />
                     </Route>
                     <Route path="workshops">
-                        <Route index element={<Workshops />} />
+                        {/* <Route index element={<Workshops />} /> */}
                         <Route path="create" element={<WorkshopCreateForm />} />
                         <Route path="all" element={<WorkshopsList />} />
-                        <Route path="delete" element={<WorkshopDeleteForm />} />
+                        {/* <Route path="delete" element={<WorkshopDeleteForm />} /> */}
                         {/* TODO: Make dynamic routes for each workshop */}
                         <Route path="singleview" element={<WorkshopSingle />} />
                     </Route>
@@ -85,7 +88,11 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
-    return <RouterProvider router={router} />;
+    return (
+        <AuthProvider>
+        <RouterProvider router={router} />
+        </AuthProvider>
+    );
 };
 
 export default App;

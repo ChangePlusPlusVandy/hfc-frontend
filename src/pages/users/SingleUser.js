@@ -23,7 +23,7 @@ const SingleUser = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [newPass, setnewPass] = useState("");
     const [editing, setEditing] = useState(false);
-    const { fbId } = useParams();
+    const { fbId } = useParams(); // TODO: rename param to mongoId
     const [showModal, setShowModal] = useState(false);
 
     const handleUpdatePassword = async () => {
@@ -38,7 +38,10 @@ const SingleUser = () => {
                 `http://localhost:3000/users?id=${currUser}`,
                 {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+                    },
                     body: JSON.stringify({
                         firstName: user.firstName,
                         lastName: user.lastName,

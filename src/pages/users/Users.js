@@ -109,12 +109,7 @@ const Users = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                let data = await fetch("http://localhost:3000/users/users", {
-                    headers: {
-                        Authoriztion:
-                            "Bearer " + window.localStorage.getItem("auth"),
-                    },
-                });
+                let data = await fetch("http://localhost:3000/users/users");
                 data = await data.json();
                 setUsers(data);
                 console.log(data);

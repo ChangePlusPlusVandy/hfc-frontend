@@ -88,7 +88,7 @@ const ChangePasswordModal = ({ showModal }) => {
 };
 
 export default ChangePasswordModal;
-
+// TODO: use codes
 const ERRORS = {
     "Firebase: Error (auth/wrong-password).": "Incorrect username or password",
     "Firebase: Error (auth/user-not-found).": "Incorrect username or password",

@@ -7,7 +7,7 @@ import CreatableSelect from "react-select/creatable";
 
 const Register = () => {
     const navigate = useNavigate();
-
+    // TODO: use codes, add useEffect to reset errors dependent on all input states
     const ERRORS = {
         "Firebase: Error (auth/email-already-in-use).":
             "This email is already in use",

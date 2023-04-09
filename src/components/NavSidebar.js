@@ -5,6 +5,7 @@ import "./NavSidebar.css";
 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import {useAuth} from '../contexts/AuthContext'
 
 import HFCLogo from "../assets/images/hfc-logo-peach.png";
 import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
@@ -21,7 +22,7 @@ import UserCircleIcon from "../assets/icons/user-circle-icon.png";
 const COLLAPSE_SIDEBAR_THRESHOLD = 768; // the width at which the sidebar collapses in px
 
 const NavSidebar = () => {
-    // TODO: Get first and last name from logged in user using Firebase Auth
+    const {mongoUser} = useAuth(); 
     const [user, setUser] = useState({
         firstName: "Amanda",
         lastName: "Cunningham",
@@ -48,24 +49,13 @@ const NavSidebar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userToken = await user.getIdToken();
-                window.localStorage.setItem("auth", userToken);
-                console.log("User exists", user, user.uid);
-                const res = await fetch(
-                    `http://localhost:3000/users?firebaseUID=${user.uid}`
-                );
-                const mongoUser = await res.json();
-                setUser({
-                    firstName: mongoUser[0].firstName,
-                    lastName: mongoUser[0].lastName,
-                });
-            } else {
-                navigate("../login");
-            }
-        });
-    }, []);
+        if (mongoUser) {
+            setUser({
+                firstName: mongoUser.firstName,
+                lastName: mongoUser.lastName
+            })
+        }
+    }, [mongoUser]);
 
     return (
         <div className={`nav-sidebar${isCollapsed ? " collapsed" : ""}`}>
