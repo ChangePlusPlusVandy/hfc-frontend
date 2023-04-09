@@ -5,7 +5,7 @@ import "./NavSidebar.css";
 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import {useAuth} from '../contexts/AuthContext'
+import { useAuth } from "../contexts/AuthContext";
 
 import HFCLogo from "../assets/images/hfc-logo-peach.png";
 import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
@@ -22,7 +22,7 @@ import UserCircleIcon from "../assets/icons/user-circle-icon.png";
 const COLLAPSE_SIDEBAR_THRESHOLD = 768; // the width at which the sidebar collapses in px
 
 const NavSidebar = () => {
-    const {mongoUser} = useAuth(); 
+    const { mongoUser } = useAuth();
     const [user, setUser] = useState({
         firstName: "Amanda",
         lastName: "Cunningham",
@@ -53,8 +53,8 @@ const NavSidebar = () => {
         if (mongoUser) {
             setUser({
                 firstName: mongoUser.firstName,
-                lastName: mongoUser.lastName
-            })
+                lastName: mongoUser.lastName,
+            });
         }
     }, [mongoUser]);
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { auth } from '../../firebase/firebase';
+import { auth } from "../../firebase/firebase";
 
 const PrivateRoutes = () => {
     const navigate = useNavigate();

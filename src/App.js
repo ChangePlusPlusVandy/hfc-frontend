@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 // Contexts
-import {AuthProvider} from './contexts/AuthContext'
+import { AuthProvider } from "./contexts/AuthContext";
 
 //Auth Layout
 import Login from "./pages/auth/Login";
@@ -97,7 +97,7 @@ const router = createBrowserRouter(
 const App = () => {
     return (
         <AuthProvider>
-        <RouterProvider router={router} />
+            <RouterProvider router={router} />
         </AuthProvider>
     );
 };

@@ -38,9 +38,11 @@ const SingleUser = () => {
                 `http://localhost:3000/users?id=${currUser}`,
                 {
                     method: "PUT",
-                    headers: { 
+                    headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
                     },
                     body: JSON.stringify({
                         firstName: user.firstName,
