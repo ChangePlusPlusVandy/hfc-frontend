@@ -97,10 +97,7 @@ export const WorkshopCreateForm = (props) => {
                 <button
                     className="workshop-close"
                     onClick={closeModal}
-                    aria-label="Close"
-                >
-                    X
-                </button>
+                >X</button>
                 <input
                     type="text"
                     id="Workshop Title"
@@ -116,7 +113,6 @@ export const WorkshopCreateForm = (props) => {
                     placeholder="Description"
                 />
                 <br />
-                <div className="dropdown-container">
                     <label>
                         Hosts
                         <br />
@@ -129,14 +125,13 @@ export const WorkshopCreateForm = (props) => {
                             isMulti
                         />
                     </label>
-                </div>
                 <br></br>
                 <div>Workshop Date</div>
                 <input type="date" id="Date" onChange={handleDateChange} />
                 <br />
                 <br />
                 <br />
-                <button className="button" onClick={createWorkshop}>
+                <button className="submit-button" onClick={createWorkshop}>
                     Create
                 </button>
                 <div>{message}</div>

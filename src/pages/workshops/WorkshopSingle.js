@@ -181,19 +181,20 @@ export const WorkshopSingle = () => {
                                     onChange={(e) =>
                                         setUpdateWorkStatus(e.target.value)
                                     }
-                                    value={updateWorkStatus}
                                 >
                                     <input
                                         type="radio"
                                         value={false}
                                         name="sortVal"
-                                        checked
+                                        checked={!(updateWorkStatus)}
                                     />
                                     Active
+                                    &emsp;&emsp;&emsp;
                                     <input
                                         type="radio"
                                         value={true}
                                         name="sortVal"
+                                        checked={updateWorkStatus}
                                     />
                                     Archived
                                 </div>
@@ -318,10 +319,27 @@ export const WorkshopSingle = () => {
                         ) : (
                             //TODO: Change this to say XX for each item
                             <>
-                                Registration not taken yet<br></br>
-                                <br></br>
+                                <div className="workshop-info">
+                                    <h3>Attendees</h3>
+                                    <h7>XX</h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Registered Attendees</h3>
+                                    <h7>XX</h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Unregistered Attendees</h3>
+                                    <h7>
+                                        XX
+                                    </h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Rating</h3>
+                                    <h7>XX</h7>
+                                </div>
                             </>
                         )}
+                        <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
                             <button
                                 onClick={enterUpdateMode}

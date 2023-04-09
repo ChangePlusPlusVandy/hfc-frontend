@@ -9,11 +9,11 @@
     color: #fff;
     background-color: #999;
     position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 15px;
-    border-radius: 50%;
+    top: 2px;
+    right: -10px;
+    border-radius: 100%;
     border: 2px solid #333;
+    max-width: 3px;
 }
 .workshop-close:hover,
 .workshop-close:focus {
@@ -29,7 +29,6 @@
 
 .workshops-page-container .dropdown-container {
     width: 100%;
-    color: black;
 }
 .workshops-page-container .button {
     border: 2px solid black;
@@ -50,7 +49,6 @@
     border-radius: 50%;
     border: 2px solid #333;
     padding: 0.5rem 1rem;
-    margin: 1rem;
 }
 .workshops-page-container .workshops-page-container .workshops-list-container {
     border: 3px solid black;
@@ -111,7 +109,11 @@
     margin: 0px 10px;
 }
 
-.sort-and-search .dropdown {
+.sortAndSearch .dropdown {
     flex: 1;
     margin: 10px;
+}
+
+.workshop-bottom {
+    top: 100%;
 }

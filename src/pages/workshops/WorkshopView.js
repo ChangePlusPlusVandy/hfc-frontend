@@ -117,7 +117,7 @@ export const WorkshopsList = () => {
 
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
 
-            <div className="sort-and-search">
+            <div className="sortAndSearch">
                 <div className="dropdown">
                     <Select
                         className="workshop-input"
@@ -155,7 +155,7 @@ export const WorkshopsList = () => {
 
                 <div className="dropdown">
                     <button onClick={handleCreate} className="submit-button">
-                        Create Workshop
+                        Create 
                     </button>
                 </div>
             </div>

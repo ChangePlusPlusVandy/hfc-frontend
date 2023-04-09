@@ -15,7 +15,7 @@ export const WorkshopAttendance = () => {
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [registered, setRegistered] = useState(0);
     const [ratingPoints, setRatingPoints] = useState(0);
-
+    const [instructionsScreen, setInstructions] = useState(true);
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
         setTotalAttendees(totalAttendees + 1);
@@ -102,7 +102,25 @@ export const WorkshopAttendance = () => {
                         </button>
                     </div>
                 </div>
-                {idMode && (
+                {instructionsScreen ? 
+                <div>
+                    <h3>Track Workshop Attendance</h3>
+                <div className="attendance-instructions">
+                    <p>1. Start Attendance</p>
+                    <p>2. Each attendee should select the image representing how they feel.</p>
+                    <p>3. Direct attendee to enter benficiary ID (if applicable).</p>
+                    <p>4. When all attendees have given feedback, click "done with attendance".</p>
+
+                </div>
+                <button 
+                onClick={(e)=>setInstructions(false)}
+                className= "workshop-submit"
+                style={{
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "50%"
+                }}
+                >Begin Attendance</button></div> : <div>{idMode && (
                     <AttendancePopup
                         onClose={handleIDNumber}
                         setRegistered={setRegistered}
@@ -146,17 +164,19 @@ export const WorkshopAttendance = () => {
                     <br></br>
                     <button
                         onClick={submitAttendance}
-                        className="submit-button"
+                        className="workshop-submit"
                         style={{
-                            position: "relative",
-                            top: "25%",
-                            left: "30%",
+                            position: "absolute",
+                            bottom: "10%",
+                            left: "50%",
                         }}
                     >
                         Done with attendance
                     </button>
                 </Link>
             </div>
+}
+                </div>
         </div>
     );
 };

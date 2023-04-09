@@ -96,13 +96,15 @@
     cursor: pointer;
 }
 
-.submit-button {
+.workshop-submit {
     padding: 5px 50px;
     border-radius: 3px;
     background-color: var(--button-color);
     border: none;
     cursor: pointer;
     font-size: 12pt;
+    height: fit-content;
+    width: fit-content;
 }
 
 .heading-buttons {
@@ -118,6 +120,7 @@
 .attendance-button {
     flex: 1;
     margin-right: 20px;
+    height: fit-content
 }
 
 .attendance-button > img {
@@ -126,4 +129,13 @@
 
 .modal-body {
     width: 20%;
+}
+
+.attendance-instructions {
+    margin: auto;
+    width: 80%;
+    height: 85%;
+    padding: 10px;
+    background-color: rgb(230,230,230);
+    border-radius: 5px;
 }
