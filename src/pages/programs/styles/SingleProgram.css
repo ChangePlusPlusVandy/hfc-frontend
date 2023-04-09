@@ -1,3 +1,5 @@
+/* Prefix selectors with parent container */
+
 .single-program-container {
     box-sizing: border-box;
     border: 0;
