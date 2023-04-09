@@ -39,7 +39,7 @@ const SingleAssessment = () => {
     return (
         assessment && (
             <div className="assessment-info">
-                <h2>{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}`}</h2>
+                <h2>{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h2>
                 <h3>{`Date Taken: ${dateTaken.toLocaleDateString(
                     undefined,
                     formattedDateOptions

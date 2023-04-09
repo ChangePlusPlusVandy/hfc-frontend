@@ -15,6 +15,10 @@ const Assessments = () => {
     const navigate = useNavigate();
 
     const [popup, setPopup] = useState(true);
+    const [idError, setIdError] = useState(false);
+    // const [beneficiaries, setBeneficiaries] = useState([]);
+    const [showErrorText, setShowErrorText] = useState(false);
+    const [allBfcIds, setAllBfcIds] = useState([]);
 
     const [beneficiaryId, setBeneficiaryId] = useState("");
     const [beneficiary, setBeneficiary] = useState();
@@ -123,7 +127,6 @@ const Assessments = () => {
         },
     ]);
 
-    // For Review Page
     const [eduVocScore, setEduVocScore] = useState(0);
     const [mentalHealthScore, setMentalHealthScore] = useState(0);
     const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
@@ -198,7 +201,48 @@ const Assessments = () => {
     };
 
     const handleChangeId = (e) => {
+        // if we had an error but now the entered id is correct
+        if (idError) {
+            console.log("error occured.");
+            if (allBfcIds.length > 0)
+                console.log("allbfc after error occured", allBfcIds);
+            else console.log("allBfc empty after error occured");
+            if (allBfcIds.length > 0 && allBfcIds.includes(e.target.value)) {
+                console.log("now correct");
+                setIdError(false);
+                setShowErrorText(false);
+            }
+        }
         setBeneficiaryId(e.target.value);
+    };
+
+    const handleBlur = (e) => {
+        // if we haven't typed anything before and input is invalid
+        // if (allBfcIds.length > 0) console.log("allbfc", allBfcIds);
+        // else console.log("allBfc empty");
+        if (!idError) {
+            if (
+                e.target.validity.patternMismatch ||
+                // input is none of the benefciary ids we fetched
+                (allBfcIds.length > 0 && !allBfcIds.includes(e.target.value))
+            ) {
+                console.log("includes ? ", allBfcIds.includes(e.target.value));
+                console.log("now all bfc ids: ", allBfcIds);
+
+                setIdError(true);
+                setShowErrorText(true);
+            }
+        }
+        // Turn off error message when the user blurs for the 2nd time
+        if (idError) {
+            setShowErrorText(false);
+        }
+    };
+
+    const style = () => {
+        if (idError) {
+            return { backgroundColor: "rgba(255, 0, 0, 0.2)" };
+        }
     };
 
     const getBeneficiary = async () => {
@@ -209,11 +253,32 @@ const Assessments = () => {
             //console.log("bfc ID: ", beneficiaryId);
             data = await data.json();
             setBeneficiary(data);
-            console.log("beneficiary: ", data);
         } catch (error) {
             console.error(error);
         }
     };
+
+    const getAllBeneficiaries = async () => {
+        try {
+            let data = await fetch(`http://localhost:3000/beneficiaries`);
+            data = await data.json();
+            // setBeneficiaries(data);
+            setAllBfcIds(data.map((d) => d.id));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // console.log(
+    //     [
+    //         123456789, 123456788, 123436783, 123136783, 3, 314, 2222345, 328776,
+    //         315, 31415, 123456790, 123456791, 123456792, 123456793, 123456794,
+    //     ].indexOf(3)
+    // );
+
+    useEffect(() => {
+        getAllBeneficiaries();
+    }, []);
 
     // TODO: add error handling for both responses (create assessment & update bfc)
     const handleSubmit = async () => {
@@ -273,7 +338,18 @@ const Assessments = () => {
                                     onChange={handleChangeId}
                                     value={beneficiaryId}
                                     placeholder="enter readable ID"
+                                    pattern="[0-9]*" // only allow digits
+                                    onBlur={handleBlur}
+                                    style={style()}
                                 />
+                                {showErrorText && (
+                                    <p
+                                        role="alert"
+                                        style={{ color: "rgb(255, 0, 0)" }}
+                                    >
+                                        Beneficiary ID not found.
+                                    </p>
+                                )}
                             </div>
                         </div>
                     }
