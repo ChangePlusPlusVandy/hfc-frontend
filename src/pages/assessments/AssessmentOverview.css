@@ -30,15 +30,18 @@
 .launch-btn {
     background: transparent
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'%3E%3C/path%3E%3C/svg%3E")
-        no-repeat 92% center;
+        no-repeat 95% center;
     background-color: rgb(243, 243, 243);
     min-width: 175px;
-    border: 1px solid rgb(243, 243, 243);
-    text-align: left;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+    /* TODO: debug: can't adjust this text's position in box */
+    font-size: 14px;
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
     border-radius: 12px;
     color: rgb(117, 117, 117);
 }
