@@ -7,6 +7,12 @@ const EnrollPopup = (props) => {
         props.openModal && (
             <div className="modal-container">
                 <div className="modal-body">
+                    <button
+                        className="cancel-button"
+                        onClick={props.handleExitModal}
+                    >
+                        X
+                    </button>
                     <h2>Enroll Beneficiary</h2>
                     <Select
                         isMulti

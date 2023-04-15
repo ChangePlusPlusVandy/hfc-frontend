@@ -22,7 +22,7 @@
     display: flex;
 }
 
-button {
+.beneficiary-page-container button {
     padding: 5px 40px;
     border-radius: 3px;
     background-color: var(--button-color);
@@ -34,7 +34,10 @@ button {
     height: 30px;
 }
 
-.program-workshops-list .needs-interests-sponsor-list .assessment-list {
+.beneficiary-page-container
+    .program-workshops-list
+    .needs-interests-sponsor-list
+    .assessment-list {
     height: 100%;
     margin-top: 20px;
     background-color: var(--button-color);
@@ -42,7 +45,7 @@ button {
     border-color: #888b8f;
 }
 
-.list-container {
+.beneficiary-page-container .list-container {
     height: 100%;
     margin-top: 20px;
     background-color: var(--button-color);
