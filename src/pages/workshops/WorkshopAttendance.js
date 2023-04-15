@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams} from "react-router-dom";
 import "./Workshops.css";
 import "./SingleWorkshop.css";
 import { AttendancePopup } from "./AttendancePopup";
@@ -9,12 +9,13 @@ import Happy from "../../assets/images/Emojis/Happy.png";
 import Happiest from "../../assets/images/Emojis/Happiest.png";
 
 export const WorkshopAttendance = () => {
-    const workshopID = useLocation().state.id;
+    const {workshopID} = useParams();
     const [workshop, setWorkshop] = useState({});
     const [idMode, setidMode] = useState(false);
     const [totalAttendees, setTotalAttendees] = useState(0);
-    const [registered, setRegistered] = useState(0);
+    const [attendees, setAttendees] = useState([]);
     const [ratingPoints, setRatingPoints] = useState(0);
+    const [beneficiaries, setBeneficiaries] = useState([]);
     const [instructionsScreen, setInstructions] = useState(true);
     const handleRating = (rating) => {
         setRatingPoints(ratingPoints + rating);
@@ -28,7 +29,7 @@ export const WorkshopAttendance = () => {
     };
     const submitAttendance = () => {
         if (totalAttendees > 0) {
-            console.log(totalAttendees, registered, ratingPoints);
+
             const requestOptions = {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -36,7 +37,7 @@ export const WorkshopAttendance = () => {
                     _id: workshopID,
                     content: {
                         numAttendees: totalAttendees,
-                        numRegistered: registered,
+                        attendees,
                         rating: ratingPoints / totalAttendees,
                     },
                 }),
@@ -58,12 +59,17 @@ export const WorkshopAttendance = () => {
                     if (data[0].numAttendees) {
                         setTotalAttendees(data[0].numAttendees);
                     }
-                    if (data[0].numRegistered) {
-                        setRegistered(data[0].numRegistered);
+                    if (data[0].attendees) {
+                        setAttendees([...data[0].attendees.map(item=>item._id)]);
                     }
                     if (data[0].rating) {
                         setRatingPoints(data[0].rating * data[0].numAttendees);
                     }
+                });
+                fetch("http://localhost:3000/beneficiaries")
+                .then((response) => response.json())
+                .then((data) => {
+                    setBeneficiaries(data);
                 });
         } catch (err) {
             console.log(err);
@@ -80,10 +86,7 @@ export const WorkshopAttendance = () => {
 
                     <div className="heading-buttons">
                         <Link
-                            to="../singleview"
-                            state={{
-                                id: workshopID,
-                            }}
+                            to={"../../"+workshopID}
                         >
                             <button
                                 onClick={() => editOverviewOrEnroll(false)}
@@ -123,8 +126,9 @@ export const WorkshopAttendance = () => {
                 >Begin Attendance</button></div> : <div>{idMode && (
                     <AttendancePopup
                         onClose={handleIDNumber}
-                        setRegistered={setRegistered}
-                        registered={registered}
+                        setAttendees={setAttendees}
+                        attendees={attendees}
+                        beneficiaries={beneficiaries}
                     />
                 )}
                 <h3>How did the workshop make you feel?</h3>
@@ -156,10 +160,7 @@ export const WorkshopAttendance = () => {
                 </div>
                 <br></br>
                 <Link
-                    to="../singleview"
-                    state={{
-                        id: workshopID,
-                    }}
+                    to={"../../"+workshopID}
                 >
                     <br></br>
                     <button

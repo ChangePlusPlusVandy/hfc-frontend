@@ -96,7 +96,7 @@
     cursor: pointer;
 }
 
-.workshops-page-container .submit-button {
+.workshop-submit {
     padding: 5px 50px;
     border-radius: 3px;
     background-color: var(--button-color);

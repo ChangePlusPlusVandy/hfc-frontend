@@ -118,7 +118,6 @@ export const WorkshopsList = () => {
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
 
             <div className="sortAndSearch">
-                <div className="dropdown">
                     <Select
                         className="workshop-input"
                         options={[
@@ -133,8 +132,7 @@ export const WorkshopsList = () => {
                         onChange={handleSortValChange}
                         value={filter}
                     />
-                </div>
-                <div className="dropdown">
+                <div className="workshop-input">
                     <Select
                         options={[
                             { value: "all", label: "all" },
@@ -164,8 +162,8 @@ export const WorkshopsList = () => {
                 <div className="workshops-card">
                     <h3> TITLE</h3>
 
-                    <h3> DATE</h3>
-                    <h3>HOSTS</h3>
+                    <h3> DESCRIPTION</h3>
+                    <h3>DATE</h3>
                     <h3>STATUS</h3>
                 </div>
             </div>
@@ -174,13 +172,13 @@ export const WorkshopsList = () => {
                     <div key={i}>
                         <Link
                             className="workshops-card"
-                            to="./singleview"
-                            state={{
-                                id: item._id,
-                            }}
+                            to={"./"+item._id}
                         >
                             <h4> {item.title}</h4>
-
+                            <h4>
+                                {item.description?.length<40?
+                                item.description:item.description.substring(0,40)+"..."}
+                            </h4>
                             <h4>
                                 {" "}
                                 {
@@ -190,14 +188,7 @@ export const WorkshopsList = () => {
                                     //todo: dates are off by one
                                 }
                             </h4>
-                            <h4>
-                                {" "}
-                                {item.hosts.length > 0 ? (
-                                    <>{item.hosts.join(", ")}</>
-                                ) : (
-                                    <>none</>
-                                )}
-                            </h4>
+
                             <h4>
                                 {item.archived ? <>ARCHIVED</> : <>ACTIVE</>}{" "}
                                 &emsp;

@@ -1,8 +1,7 @@
 .sortAndSearch {
     display: flex;
-    flex-direction: row;
-    height: 50px;
-    align-items: bottom;
+    justify-content: space-between;
+    margin: 20px 0;
 }
 /* Close button */
 .workshop-close {
@@ -105,14 +104,8 @@
     border: none;
     background-color: var(--button-color);
     flex: 1;
-    height: 70%;
-    margin: 0px 10px;
 }
 
-.sortAndSearch .dropdown {
-    flex: 1;
-    margin: 10px;
-}
 
 .workshop-bottom {
     top: 100%;
