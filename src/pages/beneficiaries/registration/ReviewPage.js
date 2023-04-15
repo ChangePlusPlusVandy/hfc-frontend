@@ -126,7 +126,8 @@ const ReviewPage = ({
             <div className="section-container">
                 <label className="section-label">Needs</label>
                 <div className="section-contents">
-                    <div className="tags-container">
+                    <p>{needs || "N/A"}</p>
+                    {/* <div className="tags-container">
                         {needs.length !== 0
                             ? needs.map((need, index) => (
                                   <div className="tag" key={index}>
@@ -134,7 +135,7 @@ const ReviewPage = ({
                                   </div>
                               ))
                             : "N/A"}
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="section-container">

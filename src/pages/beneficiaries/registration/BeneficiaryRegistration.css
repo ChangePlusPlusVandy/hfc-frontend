@@ -35,6 +35,11 @@
     border-bottom: 1px solid #c1c1c1;
 }
 
+.beneficiary-page-container .dropdown {
+    color: #6d6d6d;
+    height: 20px;
+}
+
 .beneficiary-registration-container .section-container {
     margin-bottom: 20px;
 }
