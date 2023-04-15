@@ -66,8 +66,8 @@ const Beneficiary = ({
     _id,
 }) => {
     return (
-        <div className="beneficiary-container">
-            <button className="beneficiary-icon" onClick={onClick}>
+        <button className="beneficiary-container" onClick={onClick}>
+            <button className="beneficiary-icon">
                 <h2 className="initals">
                     {" "}
                     {firstName.substring(0, 1) + lastName.substring(0, 1)}{" "}
@@ -78,7 +78,7 @@ const Beneficiary = ({
                     {firstName} {lastName}
                 </h4>
             </div>
-        </div>
+        </button>
     );
 };
 

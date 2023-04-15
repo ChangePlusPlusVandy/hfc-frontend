@@ -27,11 +27,6 @@ const ReviewPage = ({
     return (
         <div className="review-container">
             <div className="review-info-header">
-                <img
-                    className="beneficiary-profile-pic"
-                    src={DefaultUserProfilePic}
-                    alt={firstName + lastName}
-                />
                 <div className="basic-info">
                     <h2 className="beneficiary-name">
                         {firstName || "[No Name]"} {lastName}

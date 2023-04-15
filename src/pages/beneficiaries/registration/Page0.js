@@ -70,18 +70,6 @@ const Page0 = ({
 
     return (
         <div className="page-content">
-            <div className="upload-container">
-                <label className="section-label">
-                    Please upload an profile photo for the beneficiary.
-                </label>
-                {/* TODO: <input type="file" id="profile-photo" /> */}
-                <button
-                    className="upload-button"
-                    onClick={() => alert("TODO: this lol")}
-                >
-                    Click here to upload
-                </button>
-            </div>
             <br />
             <div className="section-container">
                 <label className="section-label">Basic Information</label>
