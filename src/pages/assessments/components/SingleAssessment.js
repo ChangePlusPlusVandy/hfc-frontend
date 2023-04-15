@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { formattedDateOptions } from "../../../utils/constants";
 import Table from "./Table";
+import TrashCanIcon from "../../../assets/icons/delete-icon.png";
 import "./SingleAssessment.css";
 
 const SingleAssessment = () => {
@@ -46,45 +47,55 @@ const SingleAssessment = () => {
     return (
         assessment && (
             <div className="assessment-info">
-                <button
-                    className="return-btn"
-                    onClick={() => navigate("/dashboard/assessments")}
-                >
-                    return
-                </button>
+                <Link to="/dashboard/assessments" id="back-arrow">
+                    {" "}
+                    &lt; back to assessment list
+                </Link>
+
                 <div className="assessment-info-header">
                     <h1 className="bfc-name">{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h1>
-                    <p className="assessment-date">{`Date Administered: ${dateTaken.toLocaleDateString(
-                        undefined,
-                        formattedDateOptions
-                    )}`}</p>
+                    <p className="assessment-date-admin">Date Administered:</p>
+                    <p className="assessment-date">
+                        {dateTaken.toLocaleDateString(
+                            undefined,
+                            formattedDateOptions
+                        )}{" "}
+                    </p>
                 </div>
-                <Table
-                    dataName="Education / Vocation"
-                    dataArr={assessment.educationVocationQs}
-                    dataScore={assessment.educationVocationScore}
-                    hasOnlyTextQs={true}
-                />
-                <Table
-                    dataName="Emotional / Mental Health"
-                    dataArr={assessment.mentalHealthQs}
-                    dataScore={assessment.mentalHealthScore}
-                />
-                <Table
-                    dataName="Life Skills / Confidence / Self-Esteem"
-                    dataArr={assessment.lifeSkillsQs}
-                    dataScore={assessment.lifeSkillsScore}
-                />
-                <Table
-                    dataName="Social Skills / Connectedness"
-                    dataArr={assessment.socialSkillsQs}
-                    dataScore={assessment.socialSkillsScore}
-                />
-                <h3> Total Score: {assessment.totalScore}%</h3>
+                <div className="section-tables">
+                    <Table
+                        dataName="Education / Vocation"
+                        dataArr={assessment.educationVocationQs}
+                        dataScore={assessment.educationVocationScore}
+                        hasOnlyTextQs={true}
+                    />
+                    <Table
+                        dataName="Emotional / Mental Health"
+                        dataArr={assessment.mentalHealthQs}
+                        dataScore={assessment.mentalHealthScore}
+                    />
+                    <Table
+                        dataName="Life Skills / Confidence / Self-Esteem"
+                        dataArr={assessment.lifeSkillsQs}
+                        dataScore={assessment.lifeSkillsScore}
+                    />
+                    <Table
+                        dataName="Social Skills / Connectedness"
+                        dataArr={assessment.socialSkillsQs}
+                        dataScore={assessment.socialSkillsScore}
+                    />
+                </div>
+                <div className="total-score-container">
+                    <h3 className="total-score"> Total Score</h3>
+                    <p className="total-score-num">{assessment.totalScore}%</p>
+                </div>
                 {!deleteClicked && (
-                    <button className="delete-btn" onClick={handleDeleteClick}>
-                        delete
-                    </button>
+                    <img
+                        src={TrashCanIcon}
+                        alt="delete assessment"
+                        className="delete-icon"
+                        onClick={handleDeleteClick}
+                    />
                 )}
                 {deleteClicked && (
                     <div className="confirm-delete-container">
