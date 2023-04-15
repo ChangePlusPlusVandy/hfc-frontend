@@ -6,23 +6,50 @@
 
 .beneficiary-page-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    margin: 20px;
+    align-items: flex-start;
+    margin: 50px;
+    margin-left: 100px;
+}
+
+.beneficiary-page-container .page-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 50px;
+    margin-left: 100px;
+    gap: 100px;
 }
 
 .beneficiary-identification-info,
-.beneficiary-registration-info,
-.archive-delete-buttons {
+.beneficiary-registration-info {
     display: flex;
     flex-direction: column;
+}
+
+.beneficiary-page-container .beneficiary-registration-info {
+    margin: 20px;
 }
 
 .needs-interests-sponsor-buttons {
     display: flex;
 }
 
-button {
+.needs-interests-sponsor-container input {
+    all: unset;
+    height: 30px;
+    border: 1px solid #c1c1c1;
+    width: 610px;
+    /* border-bottom: 1px solid #c1c1c1; */
+}
+
+.assessment-mapped-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.beneficiary-registration-info button {
     padding: 5px 40px;
     border-radius: 3px;
     background-color: var(--button-color);
@@ -44,8 +71,198 @@ button {
 
 .list-container {
     height: 100%;
-    margin-top: 20px;
+    /* margin-top: 5px; */
     background-color: var(--button-color);
     border-radius: 10px;
     border-color: #888b8f;
+}
+
+.needs-list-container {
+    height: 50px;
+
+    background-color: var(--button-color);
+    border-radius: 10px;
+    border-color: #888b8f;
+}
+
+.beneficiary-picture {
+    max-height: 50%;
+    margin-top: 2.5rem;
+    border-radius: 999px;
+    width: 184px;
+    height: 184px;
+    left: 238px;
+    top: 167px;
+}
+
+.program-workshop-header,
+.assessment-header {
+    display: flex;
+    background-color: var(--mid-color);
+    border-radius: 15px;
+    margin-bottom: 0px;
+    padding: 15px 10px;
+}
+
+.program-workshop-header > h4,
+.assessment-header > h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.mapped-list,
+.assessment-mapped-list {
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 1px solid black;
+    margin: 0px 10px;
+}
+
+.mapped-sponsors {
+    color: var(--text-link);
+    font-size: 14px;
+    font-weight: 400;
+    margin: 5px;
+}
+
+.mapped-list > h4,
+.assessment-mapped-list > * h4,
+.needs-interests-sponsors-display > * h4,
+.personal-value {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text-link);
+}
+
+.personal-label {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    width: 120px;
+}
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.personal-line {
+    display: flex;
+    margin: 10px;
+}
+
+.assessment-mapped-id {
+    flex: 2;
+}
+
+.assessment-mapped-date {
+    flex: 0.5;
+}
+
+.mapped-title {
+    flex: 3;
+}
+
+.mapped-date {
+    flex: 1.5;
+}
+
+.mapped-status {
+    flex: 1;
+}
+
+.assessment-subscore {
+    margin: 5px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px 5px;
+    display: flex;
+}
+
+.mapped-need-interest {
+    border: 1px solid #888b8f;
+    margin: 5px;
+    border-radius: 20px;
+    padding: 5px 20px;
+}
+
+.needs-interests-sponsors-display {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.beneficiary-page-container .tab {
+    border-radius: 9px 9px 0 0;
+    margin-left: 5px;
+    border: 0;
+    padding: 8px 20px;
+    background-color: transparent;
+    margin-bottom: 2px;
+}
+
+.beneficiary-page-container .active {
+    background-color: #e8e9eb;
+}
+
+.assessment-history,
+.needs-interests-sponsor-container {
+    margin-top: 20px;
+}
+
+.beneficiary-page-container .beneficiary-icon {
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+    line-height: 85px;
+    border-radius: 100px;
+    /* border: 1px solid #000000; */
+    font-size: 50px;
+    color: #000000;
+    text-align: center;
+    background: #ebb19a;
+    align-self: center;
+}
+
+.beneficiary-page-container .beneficiary-identification-info button,
+.button-header button {
+    border: 1.5px solid var(--text-link);
+    cursor: pointer;
+    font-size: 12pt;
+    background-color: transparent;
+    color: var(--text-link);
+
+    border-radius: 8px;
+    text-align: center;
+    padding: 2px 10px;
+}
+
+.button-header {
+    display: flex;
+    gap: 850px;
+}
+
+.beneficiary-page-container .edit-submit-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.archive-delete-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.beneficiary-registration-info .dropddown {
+    width: 50px;
+}
+
+.nis-inputs {
+    display: flex;
+    gap: 5px;
 }

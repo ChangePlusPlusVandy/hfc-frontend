@@ -27,11 +27,6 @@ const ReviewPage = ({
     return (
         <div className="review-container">
             <div className="review-info-header">
-                <img
-                    className="beneficiary-profile-pic"
-                    src={DefaultUserProfilePic}
-                    alt={firstName + lastName}
-                />
                 <div className="basic-info">
                     <h2 className="beneficiary-name">
                         {firstName || "[No Name]"} {lastName}
@@ -126,7 +121,8 @@ const ReviewPage = ({
             <div className="section-container">
                 <label className="section-label">Needs</label>
                 <div className="section-contents">
-                    <div className="tags-container">
+                    <p>{needs || "N/A"}</p>
+                    {/* <div className="tags-container">
                         {needs.length !== 0
                             ? needs.map((need, index) => (
                                   <div className="tag" key={index}>
@@ -134,7 +130,7 @@ const ReviewPage = ({
                                   </div>
                               ))
                             : "N/A"}
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="section-container">
