@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 import "react-tabs/style/react-tabs.css";
 import "./SingleWorkshop.css";
 import "./Workshops.css";
 export const WorkshopSingle = () => {
-    const workshopID = useLocation().state.id;
-    console.log(workshopID);
+    const { workshopID } = useParams();
+
     const [workshop, setWorkshop] = useState({});
     const [updateWorkTitle, setUpdateWorkTitle] = useState("");
     const [updateWorkDesc, setUpdateWorkDesc] = useState("");
@@ -16,7 +16,10 @@ export const WorkshopSingle = () => {
     const [updateDate, setUpdateDate] = useState(new Date());
     const [editMode, setEditMode] = useState(false);
     const [hostOptions, setHostOptions] = useState([]);
+    const [deleteClicked, setDeleteClicked] = useState(false);
+
     const navigate = useNavigate();
+
     const deleteWorkshop = () => {
         try {
             const requestOptions = {
@@ -32,6 +35,7 @@ export const WorkshopSingle = () => {
             console.log(err);
         }
     };
+
     const updateWorkshop = () => {
         console.log("editing");
         const requestOptions = {
@@ -57,13 +61,23 @@ export const WorkshopSingle = () => {
             }
         );
     };
+
     const enterUpdateMode = () => {
         setUpdateWorkDesc(workshop.description);
         setUpdateWorkTitle(workshop.title);
         setUpdateWorkStatus(workshop.archived);
         setUpdateDate(new Date(workshop.date).toISOString().substring(0, 10));
         setEditMode(true);
+        setUpdateWorkHosts(
+            workshop.hosts.map((item) => {
+                return {
+                    value: item._id,
+                    label: item.firstName + " " + item.lastName,
+                };
+            })
+        );
     };
+
     useEffect(() => {
         console.log("here");
         try {
@@ -72,48 +86,26 @@ export const WorkshopSingle = () => {
                 .then((response) => response.json())
                 .then((data) => {
                     data = data[0];
-                    fetch("http://localhost:3000/users/users")
-                        .then((response2) => response2.json())
-                        .then((data2) => {
-                            let tempOptions = data2
-                                .filter(
-                                    (item) => item.firstName && item.lastName
-                                )
-                                .map((item) => {
-                                    return {
-                                        value: item._id,
-                                        label:
-                                            item.firstName +
-                                            " " +
-                                            item.lastName,
-                                    };
-                                });
-                            if (updateWorkHosts) {
-                                setUpdateWorkHosts([]);
-                            } //because useEffect gets called twice
-                            let tempHosts = data.hosts.map((item) => {
-                                for (let k = 0; k < tempOptions.length; k++) {
-                                    if (item == tempOptions[k].value) {
-                                        setUpdateWorkHosts((oldArray) => [
-                                            ...oldArray,
-                                            tempOptions[k],
-                                        ]);
-                                        return tempOptions[k].label;
-                                    }
-                                }
-                            });
-                            console.log(tempHosts);
-                            if (tempHosts) {
-                                data.hosts = tempHosts;
-                            }
-                            setHostOptions(tempOptions);
-                            setWorkshop(data);
+                    setWorkshop(data);
+                });
+            fetch("http://localhost:3000/users/users")
+                .then((response2) => response2.json())
+                .then((data2) => {
+                    let tempOptions = data2
+                        .filter((item) => item.firstName && item.lastName)
+                        .map((item) => {
+                            return {
+                                value: item._id,
+                                label: item.firstName + " " + item.lastName,
+                            };
                         });
+                    setHostOptions(tempOptions);
                 });
         } catch (err) {
             console.log(err);
         }
     }, [editMode]);
+
     return (
         <div className="single-workshop-container">
             <Link to="/dashboard/workshops">&lt; back to workshop list</Link>
@@ -181,19 +173,19 @@ export const WorkshopSingle = () => {
                                     onChange={(e) =>
                                         setUpdateWorkStatus(e.target.value)
                                     }
-                                    value={updateWorkStatus}
                                 >
                                     <input
                                         type="radio"
                                         value={false}
                                         name="sortVal"
-                                        checked
+                                        defaultChecked={!updateWorkStatus}
                                     />
-                                    Active
+                                    Active &emsp;&emsp;&emsp;
                                     <input
                                         type="radio"
                                         value={true}
                                         name="sortVal"
+                                        defaultChecked={updateWorkStatus}
                                     />
                                     Archived
                                 </div>
@@ -214,16 +206,37 @@ export const WorkshopSingle = () => {
                             >
                                 Cancel
                             </button>
-                            <button
-                                style={{
-                                    textDecoration: "none",
-                                    float: "right",
-                                }}
-                                onClick={deleteWorkshop}
-                                className="submit-button"
-                            >
-                                Delete
-                            </button>
+                            {!deleteClicked && (
+                                <button
+                                    className="delete-btn"
+                                    onClick={handleDeleteClick}
+                                >
+                                    delete
+                                </button>
+                            )}
+                            {deleteClicked && (
+                                <div className="confirm-delete-container">
+                                    <p className="confirm-delete-text">
+                                        Delete this assessment? You cannot undo
+                                        this.
+                                    </p>
+
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() =>
+                                            handleConfirmDelete(assessmentId)
+                                        }
+                                    >
+                                        confirm delete
+                                    </button>
+                                    <button
+                                        className="cancel-btn"
+                                        onClick={() => setDeleteClicked(false)}
+                                    >
+                                        cancel
+                                    </button>
+                                </div>
+                            )}
                             &emsp;&emsp;
                         </div>
                     </div>
@@ -235,24 +248,14 @@ export const WorkshopSingle = () => {
 
                         <div className="heading-buttons">
                             <button
-                                onClick={() => editOverviewOrEnroll(false)}
                                 id="overview-button"
                                 className="tab"
                                 style={{ backgroundColor: "darkgray" }}
                             >
                                 Overview
                             </button>
-                            <Link
-                                to="../attendance"
-                                state={{
-                                    id: workshopID,
-                                }}
-                            >
-                                <button
-                                    onClick={() => editOverviewOrEnroll(true)}
-                                    id="enrollment-button"
-                                    className="tab"
-                                >
+                            <Link to={"../attendance/" + workshopID}>
+                                <button id="enrollment-button" className="tab">
                                     Attendance
                                 </button>
                             </Link>
@@ -268,7 +271,18 @@ export const WorkshopSingle = () => {
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
                                 {workshop.hosts && workshop.hosts.length > 0 ? (
-                                    <>{workshop.hosts.join(", ")}</>
+                                    <>
+                                        {workshop.hosts.map((item) => (
+                                            <Link
+                                                to={"../../users/" + item._id}
+                                            >
+                                                {item.firstName +
+                                                    " " +
+                                                    item.lastName}
+                                                <br></br>
+                                            </Link>
+                                        ))}
+                                    </>
                                 ) : (
                                     <>none</>
                                 )}
@@ -296,32 +310,64 @@ export const WorkshopSingle = () => {
                         {workshop.numAttendees > 0 ? (
                             <>
                                 <div className="workshop-info">
-                                    <h3>Attendees</h3>
+                                    <h3>Total Attendees</h3>
                                     <h7>{workshop.numAttendees}</h7>
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Registered Attendees</h3>
-                                    <h7>{workshop.numRegistered}</h7>
+                                    <h7>{workshop.attendees.length}</h7>
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Unregistered Attendees</h3>
                                     <h7>
                                         {workshop.numAttendees -
-                                            workshop.numRegistered}
+                                            workshop.attendees.length}
                                     </h7>
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Rating</h3>
                                     <h7>{workshop.rating.toFixed(2)}</h7>
                                 </div>
+                                <div className="workshop-info">
+                                    <h3>Attendees: </h3>
+                                    <h7>
+                                        {workshop.attendees.map((item) => (
+                                            <Link
+                                                to={
+                                                    "../../beneficiaries/" +
+                                                    item._id
+                                                }
+                                            >
+                                                {item.firstName +
+                                                    " " +
+                                                    item.lastName}
+                                                <br></br>
+                                            </Link>
+                                        ))}
+                                    </h7>
+                                </div>
                             </>
                         ) : (
                             //TODO: Change this to say XX for each item
                             <>
-                                Registration not taken yet<br></br>
-                                <br></br>
+                                <div className="workshop-info">
+                                    <h3>Attendees</h3>
+                                    <h7>XX</h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Unregistered Attendees</h3>
+                                    <h7>XX</h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Rating</h3>
+                                    <h7>XX</h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Attendees:</h3>
+                                </div>
                             </>
                         )}
+                        <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
                             <button
                                 onClick={enterUpdateMode}

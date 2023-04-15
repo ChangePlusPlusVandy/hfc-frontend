@@ -94,11 +94,7 @@ export const WorkshopCreateForm = (props) => {
         <div className="modal-container">
             <div className="modal-body">
                 <div>Workshop Title</div>
-                <button
-                    className="workshop-close"
-                    onClick={closeModal}
-                    aria-label="Close"
-                >
+                <button className="workshop-close" onClick={closeModal}>
                     X
                 </button>
                 <input
@@ -116,27 +112,25 @@ export const WorkshopCreateForm = (props) => {
                     placeholder="Description"
                 />
                 <br />
-                <div className="dropdown-container">
-                    <label>
-                        Hosts
-                        <br />
-                        <Select
-                            options={hostOptions}
-                            placeholder="Select Hosts"
-                            onChange={handleHostsChange}
-                            value={hosts}
-                            isSearchable={true}
-                            isMulti
-                        />
-                    </label>
-                </div>
+                <label>
+                    Hosts
+                    <br />
+                    <Select
+                        options={hostOptions}
+                        placeholder="Select Hosts"
+                        onChange={handleHostsChange}
+                        value={hosts}
+                        isSearchable={true}
+                        isMulti
+                    />
+                </label>
                 <br></br>
                 <div>Workshop Date</div>
                 <input type="date" id="Date" onChange={handleDateChange} />
                 <br />
                 <br />
                 <br />
-                <button className="button" onClick={createWorkshop}>
+                <button className="submit-button" onClick={createWorkshop}>
                     Create
                 </button>
                 <div>{message}</div>

@@ -1,8 +1,7 @@
 .sortAndSearch {
     display: flex;
-    flex-direction: row;
-    height: 50px;
-    align-items: bottom;
+    justify-content: space-between;
+    margin: 20px 0;
 }
 
 /* Close button */
@@ -10,11 +9,11 @@
     color: #fff;
     background-color: #999;
     position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 15px;
-    border-radius: 50%;
+    top: 2px;
+    right: -10px;
+    border-radius: 100%;
     border: 2px solid #333;
+    max-width: 3px;
 }
 
 .workshop-close:hover,
@@ -31,7 +30,6 @@
 
 .workshops-page-container .dropdown-container {
     width: 100%;
-    color: black;
 }
 
 .workshops-page-container .button {
@@ -53,7 +51,6 @@
     border-radius: 50%;
     border: 2px solid #333;
     padding: 0.5rem 1rem;
-    margin: 1rem;
 }
 
 .workshops-page-container .workshops-page-container .workshops-list-container {
@@ -70,7 +67,7 @@
     color: black;
 }
 
-.workshops-page-container .workshops-card > h3 {
+.workshops-page-container .workshops-card>h3 {
     color: black;
     font-weight: bold;
     flex: 1;
@@ -78,8 +75,8 @@
     align-items: top;
 }
 
-.workshops-page-container .workshops-card > h4,
-.workshops-page-container .workshops-card > h5 {
+.workshops-page-container .workshops-card>h4,
+.workshops-page-container .workshops-card>h5 {
     color: black;
     font-weight: normal;
     display: inline-block;
@@ -88,7 +85,7 @@
     flex: 1;
 }
 
-.workshops-page-container .workshops-card > button {
+.workshops-page-container .workshops-card>button {
     margin: 3px;
     color: black;
     display: inline-block;
@@ -113,11 +110,13 @@
     border: none;
     background-color: var(--button-color);
     flex: 1;
-    height: 70%;
-    margin: 0px 10px;
 }
 
 .workshops-page-container .sort-and-search .dropdown {
     flex: 1;
     margin: 10px;
+}
+
+.workshop-bottom {
+    top: 100%;
 }

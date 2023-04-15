@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { formattedDateOptions } from "../../../utils/constants";
 import Table from "./Table";
 import "./SingleAssessment.css";
 
@@ -8,7 +9,8 @@ const SingleAssessment = () => {
     const navigate = useNavigate();
 
     const [assessment, setAssessment] = useState();
-    const [beneficiary, setBeneficiary] = useState();
+    const [deleteClicked, setDeleteClicked] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
 
     const getAssessmentById = async (mongoId) => {
         try {
@@ -17,20 +19,7 @@ const SingleAssessment = () => {
             );
             data = await data.json();
             setAssessment(data);
-            // console.log("assessment: ", data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getBeneficiaryByID = async (mongoId) => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?id=${mongoId}`
-            );
-            data = await data.json();
-            setBeneficiary(data);
-            //console.log("bfc: ", data);
+            console.log("assessment get: ", data);
         } catch (error) {
             console.error(error);
         }
@@ -40,19 +29,36 @@ const SingleAssessment = () => {
         getAssessmentById(assessmentId);
     }, []);
 
-    useEffect(() => {
-        if (assessment) {
-            getBeneficiaryByID(assessment.beneficiary);
-        }
-    }, [assessment]);
+    const dateTaken = assessment && new Date(assessment.dateTaken);
 
-    // TODO: add delete
+    const handleDeleteClick = () => {
+        setDeleteClicked(true);
+        // showConfirmText(true);
+    };
+
+    const handleConfirmDelete = (id) => {
+        fetch(`http://localhost:3000/assessments/?id=${id}`, {
+            method: "DELETE",
+        });
+        navigate("/dashboard/assessments");
+    };
 
     return (
-        beneficiary && (
+        assessment && (
             <div className="assessment-info">
-                <h2>{`${beneficiary.firstName} ${beneficiary.lastName}`}</h2>
-                <h3>{`Date Taken: ${assessment.dateTaken}`}</h3>
+                <button
+                    className="return-btn"
+                    onClick={() => navigate("/dashboard/assessments")}
+                >
+                    return
+                </button>
+                <div className="assessment-info-header">
+                    <h1 className="bfc-name">{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h1>
+                    <p className="assessment-date">{`Date Administered: ${dateTaken.toLocaleDateString(
+                        undefined,
+                        formattedDateOptions
+                    )}`}</p>
+                </div>
                 <Table
                     dataName="Education / Vocation"
                     dataArr={assessment.educationVocationQs}
@@ -65,7 +71,7 @@ const SingleAssessment = () => {
                     dataScore={assessment.mentalHealthScore}
                 />
                 <Table
-                    dataName="Life Skills / Confidence / Self-esteem"
+                    dataName="Life Skills / Confidence / Self-Esteem"
                     dataArr={assessment.lifeSkillsQs}
                     dataScore={assessment.lifeSkillsScore}
                 />
@@ -75,10 +81,31 @@ const SingleAssessment = () => {
                     dataScore={assessment.socialSkillsScore}
                 />
                 <h3> Total Score: {assessment.totalScore}%</h3>
+                {!deleteClicked && (
+                    <button className="delete-btn" onClick={handleDeleteClick}>
+                        delete
+                    </button>
+                )}
+                {deleteClicked && (
+                    <div className="confirm-delete-container">
+                        <p className="confirm-delete-text">
+                            Delete this assessment? You cannot undo this.
+                        </p>
 
-                <button onClick={() => navigate("/dashboard/assessments")}>
-                    go back
-                </button>
+                        <button
+                            className="delete-btn"
+                            onClick={() => handleConfirmDelete(assessmentId)}
+                        >
+                            confirm delete
+                        </button>
+                        <button
+                            className="cancel-btn"
+                            onClick={() => setDeleteClicked(false)}
+                        >
+                            cancel
+                        </button>
+                    </div>
+                )}
             </div>
         )
     );

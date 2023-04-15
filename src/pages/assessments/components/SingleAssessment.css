@@ -1,0 +1,27 @@
+.assessment-info .assessment-info-header {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 12px 10px;
+}
+
+.bfc-name {
+    flex: 2;
+    text-align: left;
+}
+
+.assessment-date {
+    flex: 1.5;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.assessment-info .confirm-delete-text {
+    color: #ff0000;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
