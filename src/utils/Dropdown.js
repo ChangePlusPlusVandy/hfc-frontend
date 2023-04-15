@@ -1,3 +1,5 @@
+// TODO: Talk to Ethan
+
 import React, { useEffect, useRef, useState } from "react";
 import CloseIcon from "./CloseIcon";
 import Icon from "./Icon";
