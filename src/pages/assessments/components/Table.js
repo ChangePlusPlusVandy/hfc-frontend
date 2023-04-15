@@ -4,31 +4,29 @@ import "./Table.css";
 const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
     return (
         <div className="data-table">
-            <h3>{`${dataName} Questionnaire`}</h3>
+            <div className="table-header">
+                <h3>{dataName}</h3>
+                <p className="section-score">Score: </p>
+                <p className="section-score-num">{dataScore}</p>
+            </div>
             <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Remark</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <tbody className="question-list">
                     {dataArr.map((obj, i) => (
-                        <tr key={i}>
-                            <td>{i + 1}</td>
-                            <td>{obj.question}</td>
-                            <td>
-                                {/* TODO: rethink how to not hard code */}
-                                {hasOnlyTextQs && i < 5 ? "N/A" : obj.answer}
+                        <tr className="question-row" key={i}>
+                            <td className="question-index">{`Question ${
+                                i + 1
+                            }`}</td>
+                            <td className="question-content">{obj.question}</td>
+                            <td className="score">
+                                {hasOnlyTextQs && !obj.hasOwnProperty("answer")
+                                    ? "  "
+                                    : obj.answer}
                             </td>
-                            <td>{obj.text}</td>
+                            <td className="question-elaboration">{obj.text}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <h4>Score: {dataScore}</h4>
         </div>
     );
 };

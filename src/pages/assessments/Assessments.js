@@ -16,7 +16,6 @@ const Assessments = () => {
 
     const [popup, setPopup] = useState(true);
 
-    const [beneficiaryId, setBeneficiaryId] = useState("");
     const [beneficiary, setBeneficiary] = useState();
 
     const [eduVocQs, setEduVocQs] = useState([
@@ -123,7 +122,6 @@ const Assessments = () => {
         },
     ]);
 
-    // For Review Page
     const [eduVocScore, setEduVocScore] = useState(0);
     const [mentalHealthScore, setMentalHealthScore] = useState(0);
     const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
@@ -197,42 +195,28 @@ const Assessments = () => {
         setPageNum(index);
     };
 
-    const handleChangeId = (e) => {
-        setBeneficiaryId(e.target.value);
-    };
-
-    const getBeneficiary = async () => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?idNum=${beneficiaryId}`
-            );
-            //console.log("bfc ID: ", beneficiaryId);
-            data = await data.json();
-            setBeneficiary(data);
-            console.log("beneficiary: ", data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    // TODO: add error handling for both responses (create assessment & update bfc)
     const handleSubmit = async () => {
-        const response = await fetch("http://localhost:3000/assessments", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                mentalHealthQs: mentalHealthQs,
-                lifeSkillsQs: lifeSkillsQs,
-                socialSkillsQs: socialSkillsQs,
-                educationVocationQs: eduVocQs,
-                mentalHealthScore: mentalHealthScore,
-                lifeSkillsScore: lifeSkillsScore,
-                socialSkillsScore: socialSkillsScore,
-                educationVocationScore: eduVocScore,
-                totalScore: totalScore,
-                beneficiary: beneficiary._id,
-            }),
-        });
+        try {
+            const response = await fetch("http://localhost:3000/assessments", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mentalHealthQs: mentalHealthQs,
+                    lifeSkillsQs: lifeSkillsQs,
+                    socialSkillsQs: socialSkillsQs,
+                    educationVocationQs: eduVocQs,
+                    mentalHealthScore: mentalHealthScore,
+                    lifeSkillsScore: lifeSkillsScore,
+                    socialSkillsScore: socialSkillsScore,
+                    educationVocationScore: eduVocScore,
+                    totalScore: totalScore,
+                    beneficiary: beneficiary._id,
+                }),
+            });
+        } catch (err) {
+            console.error(err?.message ? err.message : err);
+        }
+
         const thisAssessment = await response.json();
 
         // add this assessment to current beneficiary's assessments
@@ -241,16 +225,20 @@ const Assessments = () => {
             thisAssessment._id,
         ];
 
-        const bfcResponse = await fetch(
-            `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
-            {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    assessments: updatedAssessments,
-                }),
-            }
-        );
+        try {
+            const bfcResponse = await fetch(
+                `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
+                {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        assessments: updatedAssessments,
+                    }),
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
 
         navigate(-1); // to the overview page
     };
@@ -258,26 +246,13 @@ const Assessments = () => {
     return (
         <div className="assessments-container">
             <div className="view-popup">
-                <PopupBfc
-                    trigger={popup}
-                    setTrigger={setPopup}
-                    getBeneficiary={getBeneficiary}
-                    navigate={navigate}
-                    content={
-                        <div className="popup-content">
-                            <h1>Assessment Requirement</h1>
-                            <h4>Enter beneficiary ID number to enroll:</h4>
-                            <div className="id-input">
-                                <input
-                                    type="text"
-                                    onChange={handleChangeId}
-                                    value={beneficiaryId}
-                                    placeholder="enter readable ID"
-                                />
-                            </div>
-                        </div>
-                    }
-                ></PopupBfc>
+                {popup && (
+                    <PopupBfc
+                        setPopup={setPopup}
+                        setBeneficiary={setBeneficiary}
+                        navigate={navigate}
+                    />
+                )}
             </div>
             <div className="assessments-page-container">
                 <FormProgressBar
