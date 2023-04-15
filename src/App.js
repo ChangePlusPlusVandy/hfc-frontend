@@ -56,8 +56,11 @@ const router = createBrowserRouter(
                 {/* TODO: Make dynamic routes for each workshop */}
                 <Route path=":workshopID" element={<WorkshopSingle />} />
                 <Route path="attendance">
-                    <Route path=":workshopID" element={<WorkshopAttendance/>} />
-                    </Route>
+                    <Route
+                        path=":workshopID"
+                        element={<WorkshopAttendance />}
+                    />
+                </Route>
             </Route>
             <Route path="assessments">
                 <Route index element={<AssessmentsOverview />} />
