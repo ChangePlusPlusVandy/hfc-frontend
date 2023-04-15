@@ -19,7 +19,6 @@ export const WorkshopSingle = () => {
     const [deleteClicked, setDeleteClicked]=useState(false);
 
     const navigate = useNavigate();
-
     const deleteWorkshop = () => {
         try {
             const requestOptions = {
@@ -50,7 +49,7 @@ export const WorkshopSingle = () => {
                     hosts: updateWorkHosts.map((item) => {
                         return item.value;
                     }),
-                    date: updateDate,
+                    date: new Date(String(updateDate)+"T12:00:00.000z"),
                 },
             }),
         };
@@ -207,7 +206,7 @@ export const WorkshopSingle = () => {
                                 Cancel
                             </button>
                             {!deleteClicked && (
-                    <button className="delete-btn" onClick={handleDeleteClick}>
+                    <button className="delete-btn" onClick={(e)=>setDeleteClicked(true)}>
                         delete
                     </button>
                 )}
@@ -219,13 +218,13 @@ export const WorkshopSingle = () => {
 
                         <button
                             className="delete-btn"
-                            onClick={() => handleConfirmDelete(assessmentId)}
+                            onClick={(e) => deleteWorkshop()}
                         >
                             confirm delete
                         </button>
                         <button
                             className="cancel-btn"
-                            onClick={() => setDeleteClicked(false)}
+                            onClick={(e) => setDeleteClicked(false)}
                         >
                             cancel
                         </button>
