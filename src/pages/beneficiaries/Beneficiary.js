@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CreatableSelect from "react-select/creatable";
-import DefaultUser from "../../../src/assets/images/default-user.png";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 
 import "./Beneficiary.css";
-import { set } from "mongoose";
 
 const languageOpts = [
     { value: "Bangla", label: "Bangla " },
@@ -346,22 +344,8 @@ const Beneficiary = () => {
             .catch((error) => console.log(error));
         getPrograms();
         getWorkshops();
+        console.log("date and new date", bday, newBday);
     }, []);
-
-    // useEffect(() => {
-    //     console.log("beneficiary", beneficiary);
-    //     console.log("eduLvl", eduLvl);
-    //     console.log("lang and nationality", languages, nationality);
-    // }, [beneficiary, eduLvl, editing, nationality]);
-    useEffect(() => {
-        console.log("languages", languages);
-        console.log("beneficiary.languages", beneficiary.languages);
-        if (beneficiary.languages) {
-            setLanguageArray(Object.entries(beneficiary.languages));
-            console.log("language array", languageArray);
-            console.log("type of language array", typeof languageArray);
-        }
-    }, [languages, beneficiary.languages]);
 
     useEffect(() => {
         if (!editing) {
@@ -458,8 +442,8 @@ const Beneficiary = () => {
                             <div className="personal-value">
                                 {editing ? (
                                     <input
-                                        placeholder="Birthday"
-                                        value={newBday}
+                                        placeholder={newBday}
+                                        value={newBday.split("T")[0]}
                                         onChange={handleChangeBday}
                                         type="date"
                                     />
