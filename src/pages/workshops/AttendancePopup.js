@@ -5,20 +5,21 @@ import "./SingleWorkshop.css";
 export const AttendancePopup = (props) => {
     const [id, setID] = useState();
     const [mess, setMessage] = useState("");
-    useEffect(() => {
-
-    }, []);
+    useEffect(() => {}, []);
     const submit = () => {
-        if ((props.beneficiaries).filter(item=>Number(item?.id)==id).length>0) {
-            const objId=((props.beneficiaries).filter(item=>Number(item?.id)==id))[0]._id;
-            if(!(props.attendees).includes(objId)){
-                props.setAttendees(prev => [...prev, objId]);
+        if (
+            props.beneficiaries.filter((item) => Number(item?.id) == id)
+                .length > 0
+        ) {
+            const objId = props.beneficiaries.filter(
+                (item) => Number(item?.id) == id
+            )[0]._id;
+            if (!props.attendees.includes(objId)) {
+                props.setAttendees((prev) => [...prev, objId]);
                 props.onClose();
-            }
-            else{
+            } else {
                 setMessage("Your attendance has already been recorded");
             }
-            
         } else {
             setMessage(
                 "ID number is not valid. Please try again, or click skip."

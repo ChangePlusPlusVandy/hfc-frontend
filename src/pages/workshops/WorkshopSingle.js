@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate,useParams } from "react-router-dom";
+import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
 import "react-tabs/style/react-tabs.css";
@@ -16,7 +16,7 @@ export const WorkshopSingle = () => {
     const [updateDate, setUpdateDate] = useState(new Date());
     const [editMode, setEditMode] = useState(false);
     const [hostOptions, setHostOptions] = useState([]);
-    const [deleteClicked, setDeleteClicked]=useState(false);
+    const [deleteClicked, setDeleteClicked] = useState(false);
 
     const navigate = useNavigate();
     const deleteWorkshop = () => {
@@ -67,7 +67,14 @@ export const WorkshopSingle = () => {
         setUpdateWorkStatus(workshop.archived);
         setUpdateDate(new Date(workshop.date).toISOString().substring(0, 10));
         setEditMode(true);
-        setUpdateWorkHosts(workshop.hosts.map((item)=>{return{value: item._id, label: item.firstName+" "+item.lastName}}));
+        setUpdateWorkHosts(
+            workshop.hosts.map((item) => {
+                return {
+                    value: item._id,
+                    label: item.firstName + " " + item.lastName,
+                };
+            })
+        );
     };
 
     useEffect(() => {
@@ -78,27 +85,21 @@ export const WorkshopSingle = () => {
                 .then((response) => response.json())
                 .then((data) => {
                     data = data[0];
-                    setWorkshop(data)
-
-            });
+                    setWorkshop(data);
+                });
             fetch("http://localhost:3000/users/users")
-            .then((response2) => response2.json())
-            .then((data2) => {
-                let tempOptions = data2
-                    .filter(
-                        (item) => item.firstName && item.lastName
-                    )
-                    .map((item) => {
-                        return {
-                            value: item._id,
-                            label:
-                                item.firstName +
-                                " " +
-                                item.lastName,
-                        };
-                    });
-                setHostOptions(tempOptions);
-            });
+                .then((response2) => response2.json())
+                .then((data2) => {
+                    let tempOptions = data2
+                        .filter((item) => item.firstName && item.lastName)
+                        .map((item) => {
+                            return {
+                                value: item._id,
+                                label: item.firstName + " " + item.lastName,
+                            };
+                        });
+                    setHostOptions(tempOptions);
+                });
         } catch (err) {
             console.log(err);
         }
@@ -178,8 +179,7 @@ export const WorkshopSingle = () => {
                                         name="sortVal"
                                         defaultChecked={!updateWorkStatus}
                                     />
-                                    Active
-                                    &emsp;&emsp;&emsp;
+                                    Active &emsp;&emsp;&emsp;
                                     <input
                                         type="radio"
                                         value={true}
@@ -206,6 +206,7 @@ export const WorkshopSingle = () => {
                                 Cancel
                             </button>
                             {!deleteClicked && (
+<<<<<<< HEAD
                     <button className="delete-btn" onClick={(e)=>setDeleteClicked(true)}>
                         delete
                     </button>
@@ -230,6 +231,38 @@ export const WorkshopSingle = () => {
                         </button>
                     </div>
                 )}
+=======
+                                <button
+                                    className="delete-btn"
+                                    onClick={handleDeleteClick}
+                                >
+                                    delete
+                                </button>
+                            )}
+                            {deleteClicked && (
+                                <div className="confirm-delete-container">
+                                    <p className="confirm-delete-text">
+                                        Delete this assessment? You cannot undo
+                                        this.
+                                    </p>
+
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() =>
+                                            handleConfirmDelete(assessmentId)
+                                        }
+                                    >
+                                        confirm delete
+                                    </button>
+                                    <button
+                                        className="cancel-btn"
+                                        onClick={() => setDeleteClicked(false)}
+                                    >
+                                        cancel
+                                    </button>
+                                </div>
+                            )}
+>>>>>>> f8f0f3145774ca405d733fbdcd0a2da484afcc75
                             &emsp;&emsp;
                         </div>
                     </div>
@@ -247,13 +280,8 @@ export const WorkshopSingle = () => {
                             >
                                 Overview
                             </button>
-                            <Link
-                                to={"../attendance/"+workshopID}
-                            >
-                                <button
-                                    id="enrollment-button"
-                                    className="tab"
-                                >
+                            <Link to={"../attendance/" + workshopID}>
+                                <button id="enrollment-button" className="tab">
                                     Attendance
                                 </button>
                             </Link>
@@ -269,11 +297,18 @@ export const WorkshopSingle = () => {
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
                                 {workshop.hosts && workshop.hosts.length > 0 ? (
-                                    <>{workshop.hosts.map(item=>
-                                        (<Link to={"../../users/"+item._id}>
-                                            {item.firstName+" "+item.lastName}<br></br>
-                                        </Link>)
-                                    )}</>
+                                    <>
+                                        {workshop.hosts.map((item) => (
+                                            <Link
+                                                to={"../../users/" + item._id}
+                                            >
+                                                {item.firstName +
+                                                    " " +
+                                                    item.lastName}
+                                                <br></br>
+                                            </Link>
+                                        ))}
+                                    </>
                                 ) : (
                                     <>none</>
                                 )}
@@ -306,7 +341,7 @@ export const WorkshopSingle = () => {
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Registered Attendees</h3>
-                                    <h7>{(workshop.attendees).length}</h7>
+                                    <h7>{workshop.attendees.length}</h7>
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Unregistered Attendees</h3>
@@ -321,11 +356,21 @@ export const WorkshopSingle = () => {
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Attendees: </h3>
-                                    <h7>{(workshop.attendees.map(item=>
-                                        <Link to={"../../beneficiaries/"+item._id}>
-                                            {item.firstName+" "+item.lastName}
-                                            <br></br>
-                                        </Link>))}</h7>
+                                    <h7>
+                                        {workshop.attendees.map((item) => (
+                                            <Link
+                                                to={
+                                                    "../../beneficiaries/" +
+                                                    item._id
+                                                }
+                                            >
+                                                {item.firstName +
+                                                    " " +
+                                                    item.lastName}
+                                                <br></br>
+                                            </Link>
+                                        ))}
+                                    </h7>
                                 </div>
                             </>
                         ) : (
@@ -337,9 +382,7 @@ export const WorkshopSingle = () => {
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Unregistered Attendees</h3>
-                                    <h7>
-                                        XX
-                                    </h7>
+                                    <h7>XX</h7>
                                 </div>
                                 <div className="workshop-info">
                                     <h3>Rating</h3>

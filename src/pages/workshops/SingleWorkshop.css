@@ -120,7 +120,7 @@
 .attendance-button {
     flex: 1;
     margin-right: 20px;
-    height: fit-content
+    height: fit-content;
 }
 
 .attendance-button > img {
@@ -136,6 +136,6 @@
     width: 80%;
     height: 85%;
     padding: 10px;
-    background-color: rgb(230,230,230);
+    background-color: rgb(230, 230, 230);
     border-radius: 5px;
 }

@@ -118,20 +118,20 @@ export const WorkshopsList = () => {
             {showPopup && <WorkshopCreateForm onClose={handleClosePopup} />}
 
             <div className="sortAndSearch">
-                    <Select
-                        className="workshop-input"
-                        options={[
-                            { value: "alphabetical", label: "Alphabetical" },
-                            {
-                                value: "dateAdded",
-                                label: "Date Added (earliest first)",
-                            },
-                            { value: "workDate", label: "Workshop Date" },
-                        ]}
-                        placeholder="Sort"
-                        onChange={handleSortValChange}
-                        value={filter}
-                    />
+                <Select
+                    className="workshop-input"
+                    options={[
+                        { value: "alphabetical", label: "Alphabetical" },
+                        {
+                            value: "dateAdded",
+                            label: "Date Added (earliest first)",
+                        },
+                        { value: "workDate", label: "Workshop Date" },
+                    ]}
+                    placeholder="Sort"
+                    onChange={handleSortValChange}
+                    value={filter}
+                />
                 <div className="workshop-input">
                     <Select
                         options={[
@@ -153,7 +153,7 @@ export const WorkshopsList = () => {
 
                 <div className="dropdown">
                     <button onClick={handleCreate} className="submit-button">
-                        Create 
+                        Create
                     </button>
                 </div>
             </div>
@@ -170,14 +170,12 @@ export const WorkshopsList = () => {
             <div className="workshops-list-container">
                 {filteredWorkshops.map((item, i) => (
                     <div key={i}>
-                        <Link
-                            className="workshops-card"
-                            to={"./"+item._id}
-                        >
+                        <Link className="workshops-card" to={"./" + item._id}>
                             <h4> {item.title}</h4>
                             <h4>
-                                {item.description?.length<40?
-                                item.description:item.description.substring(0,40)+"..."}
+                                {item.description?.length < 40
+                                    ? item.description
+                                    : item.description.substring(0, 40) + "..."}
                             </h4>
                             <h4>
                                 {" "}
