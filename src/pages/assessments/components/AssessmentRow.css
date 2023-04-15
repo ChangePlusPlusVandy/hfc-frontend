@@ -1,13 +1,12 @@
-/* TODO: convert rgb to hexcodes */
 .assessment-row {
     display: flex;
     padding: 20px 0;
-    border-bottom: 1px solid rgb(117, 117, 117);
+    border-bottom: 1px solid #757575;
 }
 
 .assessment-row > h4 {
     font-size: 14px;
     font-weight: 400;
     margin: 0;
-    color: rgb(117, 117, 117);
+    color: #757575;
 }

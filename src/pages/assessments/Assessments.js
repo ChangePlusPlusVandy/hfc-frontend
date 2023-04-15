@@ -15,12 +15,7 @@ const Assessments = () => {
     const navigate = useNavigate();
 
     const [popup, setPopup] = useState(true);
-    const [idError, setIdError] = useState(false);
-    // const [beneficiaries, setBeneficiaries] = useState([]);
-    const [showErrorText, setShowErrorText] = useState(false);
-    const [allBfcIds, setAllBfcIds] = useState([]);
 
-    const [beneficiaryId, setBeneficiaryId] = useState("");
     const [beneficiary, setBeneficiary] = useState();
 
     const [eduVocQs, setEduVocQs] = useState([
@@ -200,104 +195,28 @@ const Assessments = () => {
         setPageNum(index);
     };
 
-    const handleChangeId = (e) => {
-        // if we had an error but now the entered id is correct
-        if (idError) {
-            console.log("error occured.");
-            if (allBfcIds.length > 0)
-                console.log("allbfc after error occured", allBfcIds);
-            else console.log("allBfc empty after error occured");
-            if (allBfcIds.length > 0 && allBfcIds.includes(e.target.value)) {
-                console.log("now correct");
-                setIdError(false);
-                setShowErrorText(false);
-            }
-        }
-        setBeneficiaryId(e.target.value);
-    };
-
-    const handleBlur = (e) => {
-        // if we haven't typed anything before and input is invalid
-        // if (allBfcIds.length > 0) console.log("allbfc", allBfcIds);
-        // else console.log("allBfc empty");
-        if (!idError) {
-            if (
-                e.target.validity.patternMismatch ||
-                // input is none of the benefciary ids we fetched
-                (allBfcIds.length > 0 && !allBfcIds.includes(e.target.value))
-            ) {
-                console.log("includes ? ", allBfcIds.includes(e.target.value));
-                console.log("now all bfc ids: ", allBfcIds);
-
-                setIdError(true);
-                setShowErrorText(true);
-            }
-        }
-        // Turn off error message when the user blurs for the 2nd time
-        if (idError) {
-            setShowErrorText(false);
-        }
-    };
-
-    const style = () => {
-        if (idError) {
-            return { backgroundColor: "rgba(255, 0, 0, 0.2)" };
-        }
-    };
-
-    const getBeneficiary = async () => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?idNum=${beneficiaryId}`
-            );
-            //console.log("bfc ID: ", beneficiaryId);
-            data = await data.json();
-            setBeneficiary(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllBeneficiaries = async () => {
-        try {
-            let data = await fetch(`http://localhost:3000/beneficiaries`);
-            data = await data.json();
-            // setBeneficiaries(data);
-            setAllBfcIds(data.map((d) => d.id));
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    // console.log(
-    //     [
-    //         123456789, 123456788, 123436783, 123136783, 3, 314, 2222345, 328776,
-    //         315, 31415, 123456790, 123456791, 123456792, 123456793, 123456794,
-    //     ].indexOf(3)
-    // );
-
-    useEffect(() => {
-        getAllBeneficiaries();
-    }, []);
-
-    // TODO: add error handling for both responses (create assessment & update bfc)
     const handleSubmit = async () => {
-        const response = await fetch("http://localhost:3000/assessments", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                mentalHealthQs: mentalHealthQs,
-                lifeSkillsQs: lifeSkillsQs,
-                socialSkillsQs: socialSkillsQs,
-                educationVocationQs: eduVocQs,
-                mentalHealthScore: mentalHealthScore,
-                lifeSkillsScore: lifeSkillsScore,
-                socialSkillsScore: socialSkillsScore,
-                educationVocationScore: eduVocScore,
-                totalScore: totalScore,
-                beneficiary: beneficiary._id,
-            }),
-        });
+        try {
+            const response = await fetch("http://localhost:3000/assessments", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mentalHealthQs: mentalHealthQs,
+                    lifeSkillsQs: lifeSkillsQs,
+                    socialSkillsQs: socialSkillsQs,
+                    educationVocationQs: eduVocQs,
+                    mentalHealthScore: mentalHealthScore,
+                    lifeSkillsScore: lifeSkillsScore,
+                    socialSkillsScore: socialSkillsScore,
+                    educationVocationScore: eduVocScore,
+                    totalScore: totalScore,
+                    beneficiary: beneficiary._id,
+                }),
+            });
+        } catch (err) {
+            console.error(err?.message ? err.message : err);
+        }
+
         const thisAssessment = await response.json();
 
         // add this assessment to current beneficiary's assessments
@@ -306,16 +225,20 @@ const Assessments = () => {
             thisAssessment._id,
         ];
 
-        const bfcResponse = await fetch(
-            `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
-            {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    assessments: updatedAssessments,
-                }),
-            }
-        );
+        try {
+            const bfcResponse = await fetch(
+                `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
+                {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        assessments: updatedAssessments,
+                    }),
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
 
         navigate(-1); // to the overview page
     };
@@ -323,37 +246,13 @@ const Assessments = () => {
     return (
         <div className="assessments-container">
             <div className="view-popup">
-                <PopupBfc
-                    trigger={popup}
-                    setTrigger={setPopup}
-                    getBeneficiary={getBeneficiary}
-                    navigate={navigate}
-                    content={
-                        <div className="popup-content">
-                            <h1>Assessment Requirement</h1>
-                            <h4>Enter beneficiary ID number to enroll:</h4>
-                            <div className="id-input">
-                                <input
-                                    type="text"
-                                    onChange={handleChangeId}
-                                    value={beneficiaryId}
-                                    placeholder="enter readable ID"
-                                    pattern="[0-9]*" // only allow digits
-                                    onBlur={handleBlur}
-                                    style={style()}
-                                />
-                                {showErrorText && (
-                                    <p
-                                        role="alert"
-                                        style={{ color: "rgb(255, 0, 0)" }}
-                                    >
-                                        Beneficiary ID not found.
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    }
-                ></PopupBfc>
+                {popup && (
+                    <PopupBfc
+                        setPopup={setPopup}
+                        setBeneficiary={setBeneficiary}
+                        navigate={navigate}
+                    />
+                )}
             </div>
             <div className="assessments-page-container">
                 <FormProgressBar
