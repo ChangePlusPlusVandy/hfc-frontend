@@ -2,10 +2,18 @@ import React from "react";
 import Question from "./components/question";
 
 const Page = ({ questions, setQuestions, hasOnlyTextQs = false }) => {
-    // TODO: Rethink, not hard code the number of text Qs
-    const numTextQs = hasOnlyTextQs ? 5 : 0;
+    let numTextQs = 0;
+    if (hasOnlyTextQs) {
+        for (let i = 0; i < questions.length; ++i) {
+            if (!questions[i].hasOwnProperty("answer")) {
+                numTextQs++;
+            } else {
+                break;
+            }
+        }
+    }
     const textQs = questions.slice(0, numTextQs);
-    const rateQs = hasOnlyTextQs ? questions.slice(5) : questions;
+    const rateQs = hasOnlyTextQs ? questions.slice(numTextQs) : questions;
 
     const handleChangeTextAnswers = (e, i) => {
         setQuestions((prev) => {
@@ -41,11 +49,11 @@ const Page = ({ questions, setQuestions, hasOnlyTextQs = false }) => {
             )}
             <div className="rate-questions">
                 {rateQs.map((obj, i) => {
-                    // TODO: Add variable for numTextQs + i
+                    let questionIndex = numTextQs + i;
                     return (
                         <Question
-                            key={numTextQs + i}
-                            questionNum={numTextQs + i + 1}
+                            key={questionIndex}
+                            questionNum={questionIndex + 1}
                             question={obj.question}
                             answer={obj.answer}
                             setAnswer={(newAns) => {
