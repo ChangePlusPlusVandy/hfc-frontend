@@ -9,6 +9,8 @@ const SingleAssessment = () => {
     const navigate = useNavigate();
 
     const [assessment, setAssessment] = useState();
+    const [deleteClicked, setDeleteClicked] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
 
     const getAssessmentById = async (mongoId) => {
         try {
@@ -29,7 +31,12 @@ const SingleAssessment = () => {
 
     const dateTaken = assessment && new Date(assessment.dateTaken);
 
-    const handleDelete = (id) => {
+    const handleDeleteClick = () => {
+        setDeleteClicked(true);
+        // showConfirmText(true);
+    };
+
+    const handleConfirmDelete = (id) => {
         fetch(`http://localhost:3000/assessments/?id=${id}`, {
             method: "DELETE",
         });
@@ -39,11 +46,19 @@ const SingleAssessment = () => {
     return (
         assessment && (
             <div className="assessment-info">
-                <h2>{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h2>
-                <h3>{`Date Taken: ${dateTaken.toLocaleDateString(
-                    undefined,
-                    formattedDateOptions
-                )}`}</h3>
+                <button
+                    className="return-btn"
+                    onClick={() => navigate("/dashboard/assessments")}
+                >
+                    return
+                </button>
+                <div className="assessment-info-header">
+                    <h1 className="bfc-name">{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h1>
+                    <p className="assessment-date">{`Date Administered: ${dateTaken.toLocaleDateString(
+                        undefined,
+                        formattedDateOptions
+                    )}`}</p>
+                </div>
                 <Table
                     dataName="Education / Vocation"
                     dataArr={assessment.educationVocationQs}
@@ -56,7 +71,7 @@ const SingleAssessment = () => {
                     dataScore={assessment.mentalHealthScore}
                 />
                 <Table
-                    dataName="Life Skills / Confidence / Self-esteem"
+                    dataName="Life Skills / Confidence / Self-Esteem"
                     dataArr={assessment.lifeSkillsQs}
                     dataScore={assessment.lifeSkillsScore}
                 />
@@ -66,20 +81,31 @@ const SingleAssessment = () => {
                     dataScore={assessment.socialSkillsScore}
                 />
                 <h3> Total Score: {assessment.totalScore}%</h3>
+                {!deleteClicked && (
+                    <button className="delete-btn" onClick={handleDeleteClick}>
+                        delete
+                    </button>
+                )}
+                {deleteClicked && (
+                    <div className="confirm-delete-container">
+                        <p className="confirm-delete-text">
+                            Delete this assessment? You cannot undo this.
+                        </p>
 
-                <button
-                    className="return-btn"
-                    onClick={() => navigate("/dashboard/assessments")}
-                >
-                    return
-                </button>
-
-                <button
-                    className="delete-btn"
-                    onClick={() => handleDelete(assessmentId)}
-                >
-                    delete
-                </button>
+                        <button
+                            className="delete-btn"
+                            onClick={() => handleConfirmDelete(assessmentId)}
+                        >
+                            confirm delete
+                        </button>
+                        <button
+                            className="cancel-btn"
+                            onClick={() => setDeleteClicked(false)}
+                        >
+                            cancel
+                        </button>
+                    </div>
+                )}
             </div>
         )
     );
