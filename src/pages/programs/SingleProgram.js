@@ -250,9 +250,12 @@ const SingleProgram = (props) => {
         try {
             const requestOptions = {
                 method: "DELETE",
-                headers: { "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
-            },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
                 body: JSON.stringify({ _id: e }),
             };
             await fetch("http://localhost:3000/programs", requestOptions);

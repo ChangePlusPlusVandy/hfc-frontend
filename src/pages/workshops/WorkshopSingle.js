@@ -23,8 +23,12 @@ export const WorkshopSingle = () => {
         try {
             const requestOptions = {
                 method: "DELETE",
-                headers: { "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("auth")}` },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
                 body: JSON.stringify({
                     workshopID,
                 }),
@@ -40,8 +44,10 @@ export const WorkshopSingle = () => {
         console.log("editing");
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" ,
-            Authorization: `Bearer ${window.localStorage.getItem("auth")}`,},
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
             body: JSON.stringify({
                 _id: workshopID,
                 content: {
@@ -51,7 +57,7 @@ export const WorkshopSingle = () => {
                     hosts: updateWorkHosts.map((item) => {
                         return item.value;
                     }),
-                    date: new Date(String(updateDate)+"T12:00:00.000z"),
+                    date: new Date(String(updateDate) + "T12:00:00.000z"),
                 },
             }),
         };
@@ -124,50 +130,54 @@ export const WorkshopSingle = () => {
     return (
         <div className="single-workshop-container">
             <div className="button-header">
-            <Link to="/dashboard/workshops">&lt; back to workshop list</Link>
-            <div className = "beneficiary-page-container">
-            <div className="archive-delete-buttons">
-                    {editMode && !deleteClicked && (
-                        <button
-                            onClick={(e)=>setUpdateWorkStatus(!updateWorkStatus)}
-                            id="archive-button"
-                        >
-                            {updateWorkStatus
-                                ? "Unarchive Beneficiary"
-                                : "Archive Beneficiary"}
-                        </button>
-                    )}
-                    {editMode && !deleteClicked && (
-                        <img
-                            src={TrashIcon}
-                            alt="Delete Beneficiary"
-                            className="icon"
-                            onClick={(e)=>setDeleteClicked(true)}
-                        />
-                    )}
-                    {deleteClicked && editMode && (
-                        <div className="confirm-delete-container">
-                            <p className="confirm-delete-text">
-                                Are you sure you want to delete? This action
-                                cannot be undone.
-                            </p>
+                <Link to="/dashboard/workshops">
+                    &lt; back to workshop list
+                </Link>
+                <div className="beneficiary-page-container">
+                    <div className="archive-delete-buttons">
+                        {editMode && !deleteClicked && (
                             <button
-                                className="confirm-dlt-buttons"
-                                onClick={deleteWorkshop}
+                                onClick={(e) =>
+                                    setUpdateWorkStatus(!updateWorkStatus)
+                                }
+                                id="archive-button"
                             >
-                                Confirm Delete
+                                {updateWorkStatus
+                                    ? "Unarchive Beneficiary"
+                                    : "Archive Beneficiary"}
                             </button>
-                            <button
-                                className="confirm-dlt-buttons"
-                                onClick={(e) => setDeleteClicked(false)}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    )}
+                        )}
+                        {editMode && !deleteClicked && (
+                            <img
+                                src={TrashIcon}
+                                alt="Delete Beneficiary"
+                                className="icon"
+                                onClick={(e) => setDeleteClicked(true)}
+                            />
+                        )}
+                        {deleteClicked && editMode && (
+                            <div className="confirm-delete-container">
+                                <p className="confirm-delete-text">
+                                    Are you sure you want to delete? This action
+                                    cannot be undone.
+                                </p>
+                                <button
+                                    className="confirm-dlt-buttons"
+                                    onClick={deleteWorkshop}
+                                >
+                                    Confirm Delete
+                                </button>
+                                <button
+                                    className="confirm-dlt-buttons"
+                                    onClick={(e) => setDeleteClicked(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
-                </div>
-                </div>
+            </div>
             {editMode ? (
                 <div className="single-workshop">
                     <div className="workshop-info-container">
@@ -239,7 +249,6 @@ export const WorkshopSingle = () => {
                             >
                                 Cancel
                             </button>
-                
                             &emsp;&emsp;
                         </div>
                     </div>
@@ -273,7 +282,8 @@ export const WorkshopSingle = () => {
                         <div className="workshop-info">
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
-                                {workshop?.hosts && workshop?.hosts.length > 0 ? (
+                                {workshop?.hosts &&
+                                workshop?.hosts.length > 0 ? (
                                     <>
                                         {workshop.hosts.map((item) => (
                                             <Link
@@ -372,20 +382,24 @@ export const WorkshopSingle = () => {
                         )}
                         <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
-                            {isAdmin ?                             <button
-                                onClick={enterUpdateMode}
-                                className="submit-button"
-                            >
-                                {" "}
-                                Edit
-                            </button>:                             <button
-                                onClick={enterUpdateMode}
-                                className="submit-button" disabled
-                            >
-                                {" "}
-                                Edit
-                            </button>}
-
+                            {isAdmin ? (
+                                <button
+                                    onClick={enterUpdateMode}
+                                    className="submit-button"
+                                >
+                                    {" "}
+                                    Edit
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={enterUpdateMode}
+                                    className="submit-button"
+                                    disabled
+                                >
+                                    {" "}
+                                    Edit
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
