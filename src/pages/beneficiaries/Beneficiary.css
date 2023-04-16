@@ -277,15 +277,6 @@
 }
 
 #archive-button {
-    /* border-bottom: 1.5px solid var(--text-link);
-    cursor: pointer;
-    font-size: 12pt;
-    background-color: transparent; */
-    /* color: var(--text-link); */
-    /* border-radius: 8px;
-    text-align: center;
-    padding: 2px 10px;  */
-    height: 30px;
     background-color: transparent;
     font-size: 12pt;
     border-color: transparent;
