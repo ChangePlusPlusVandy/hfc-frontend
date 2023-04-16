@@ -77,10 +77,6 @@ const router = createBrowserRouter(
                             element={<Beneficiary />}
                         />
                     </Route>
-                    <Route
-                        path="data"
-                        element={<h1>TODO: Data Dashboard</h1>}
-                    />
                     <Route path="programs">
                         <Route index element={<Programs />} />
                         <Route path="singleview">
@@ -88,7 +84,6 @@ const router = createBrowserRouter(
                                 path=":programID"
                                 element={<SingleProgram />}
                             />
-                            {/* <Route index element={<SingleProgram />} /> */}
                             <Route
                                 path="attendance/:programID"
                                 element={<MarkAttendance />}

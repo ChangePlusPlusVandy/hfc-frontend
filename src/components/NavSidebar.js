@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import "./NavSidebar.css";
 
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -12,7 +12,6 @@ import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
 import DefaultUserProfilePic from "../assets/images/default-user.png";
 import UserListIcon from "../assets/icons/user-list-icon.png";
 import IdentificiationCardIcon from "../assets/icons/identification-card-icon.png";
-import ChartLineIcon from "../assets/icons/chart-line-icon.png";
 import TabsIcon from "../assets/icons/tabs-icon.png";
 import BookIcon from "../assets/icons/book-icon.png";
 import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
@@ -113,14 +112,6 @@ const NavSidebar = () => {
                         className="icon"
                     />
                     <span className="link-label">Staff Directory</span>
-                </NavLink>
-                <NavLink to="data">
-                    <img
-                        src={ChartLineIcon}
-                        alt="Data Dashboard"
-                        className="icon"
-                    />
-                    <span className="link-label">Data Dashboard</span>
                 </NavLink>
                 <NavLink to="programs">
                     <img src={TabsIcon} alt="Programs" className="icon" />
