@@ -9,8 +9,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    margin: 50px;
-    margin-left: 100px;
+    margin: 10px;
 }
 
 .beneficiary-page-container .page-content {
@@ -224,7 +223,6 @@
     height: 200px;
     line-height: 85px;
     border-radius: 100px;
-    /* border: 1px solid #000000; */
     font-size: 50px;
     color: #000000;
     text-align: center;

@@ -3,7 +3,6 @@
 .beneficiaries-page-container {
     display: flex;
     flex-direction: column;
-    margin: 20px;
 }
 
 .beneficiaries-page-container .beneficiaries-page-header {
