@@ -142,15 +142,13 @@ export const WorkshopSingle = () => {
                                 }
                                 id="archive-button"
                             >
-                                {updateWorkStatus
-                                    ? "Unarchive Beneficiary"
-                                    : "Archive Beneficiary"}
+                                {updateWorkStatus ? "Unarchive" : "Archive"}
                             </button>
                         )}
                         {editMode && !deleteClicked && (
                             <img
                                 src={TrashIcon}
-                                alt="Delete Beneficiary"
+                                alt="Delete Workshop"
                                 className="icon"
                                 onClick={(e) => setDeleteClicked(true)}
                             />
@@ -284,8 +282,9 @@ export const WorkshopSingle = () => {
                                 {workshop?.hosts &&
                                 workshop?.hosts.length > 0 ? (
                                     <>
-                                        {workshop.hosts.map((item) => (
+                                        {workshop.hosts.map((item, index) => (
                                             <Link
+                                                key={index}
                                                 to={"../../users/" + item._id}
                                             >
                                                 {item.firstName +
@@ -346,7 +345,7 @@ export const WorkshopSingle = () => {
                                         {workshop.attendees.map((item) => (
                                             <Link
                                                 to={
-                                                    "../../beneficiaries/" +
+                                                    "/dashboard/beneficiaries/" +
                                                     item._id
                                                 }
                                             >
