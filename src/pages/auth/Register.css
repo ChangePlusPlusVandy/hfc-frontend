@@ -1,12 +1,11 @@
-.form {
+.login-container .form,
+.form_container .form {
     display: flex;
     align-items: center;
     justify-self: center;
     flex-direction: column;
     width: 100%;
-    height: 100%;
     padding: 10px;
-    margin-top: 100px;
 }
 
 .form_container {
@@ -16,7 +15,7 @@
     align-items: center;
 }
 
-input {
+.form_container input {
     margin: 30px;
     padding: 5px;
     border-radius: 10px;
