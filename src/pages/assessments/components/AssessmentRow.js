@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { formattedDateOptions } from "../../../utils/constants";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import "./AssessmentRow.css";
 
 const AssessmentRow = (props) => {
     const dateTaken = new Date(props.dateTaken);
-    console.log("beneficiary: ", props.beneficiary);
+
+    const navigate = useNavigate();
+
+    const { isAdmin } = useAuth();
+
+    const handleClick = () => {
+        if (isAdmin) navigate(`/dashboard/assessments/${props.assessmentId}`);
+    };
 
     return (
-        <Link to={`/dashboard/assessments/${props.assessmentId}`}>
+        <div className="assessment-link" onClick={handleClick}>
             {props.beneficiary && (
                 <div className="assessment-beneficiary-info">
                     <h4 className="bfc-name">
@@ -23,7 +31,7 @@ const AssessmentRow = (props) => {
                     </h4>
                 </div>
             )}
-        </Link>
+        </div>
     );
 };
 
