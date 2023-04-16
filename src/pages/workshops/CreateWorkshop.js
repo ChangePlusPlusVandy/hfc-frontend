@@ -40,6 +40,7 @@ export const WorkshopCreateForm = (props) => {
     };
     const handleDateChange = (event) => {
         setDate(event.target.value);
+        console.log(Date(String(event.target.value)+"-12:00"))
     };
     const handleHostsChange = (event) => {
         setHosts(event);
@@ -56,7 +57,7 @@ export const WorkshopCreateForm = (props) => {
                 return item.value;
             }),
             description,
-            date,
+            date: new Date(String(date)+"T12:00:00.000z"),
             numAttendees, // TODO:
             attendees: [], // TODO:
         };

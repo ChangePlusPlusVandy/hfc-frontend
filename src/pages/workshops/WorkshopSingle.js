@@ -19,7 +19,6 @@ export const WorkshopSingle = () => {
     const [deleteClicked, setDeleteClicked] = useState(false);
 
     const navigate = useNavigate();
-
     const deleteWorkshop = () => {
         try {
             const requestOptions = {
@@ -50,7 +49,7 @@ export const WorkshopSingle = () => {
                     hosts: updateWorkHosts.map((item) => {
                         return item.value;
                     }),
-                    date: updateDate,
+                    date: new Date(String(updateDate)+"T12:00:00.000z"),
                 },
             }),
         };
@@ -207,6 +206,32 @@ export const WorkshopSingle = () => {
                                 Cancel
                             </button>
                             {!deleteClicked && (
+<<<<<<< HEAD
+                    <button className="delete-btn" onClick={(e)=>setDeleteClicked(true)}>
+                        delete
+                    </button>
+                )}
+                {deleteClicked && (
+                    <div className="confirm-delete-container">
+                        <p className="confirm-delete-text">
+                            Delete this assessment? You cannot undo this.
+                        </p>
+
+                        <button
+                            className="delete-btn"
+                            onClick={(e) => deleteWorkshop()}
+                        >
+                            confirm delete
+                        </button>
+                        <button
+                            className="cancel-btn"
+                            onClick={(e) => setDeleteClicked(false)}
+                        >
+                            cancel
+                        </button>
+                    </div>
+                )}
+=======
                                 <button
                                     className="delete-btn"
                                     onClick={handleDeleteClick}
@@ -237,6 +262,7 @@ export const WorkshopSingle = () => {
                                     </button>
                                 </div>
                             )}
+>>>>>>> f8f0f3145774ca405d733fbdcd0a2da484afcc75
                             &emsp;&emsp;
                         </div>
                     </div>
