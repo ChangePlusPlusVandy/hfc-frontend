@@ -61,9 +61,18 @@
 }
 
 .user-pfp {
-    max-height: 50%;
-    margin-top: 2.5rem;
-    border-radius: 999px;
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    line-height: 30px;
+
+    border-radius: 100px;
+    /* border: 1px solid #000000; */
+    font-size: 50px;
+    color: #000000;
+    text-align: center;
+    background: #ebb19a;
+    align-self: center; 
 }
 
 .user-container {

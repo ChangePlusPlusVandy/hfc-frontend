@@ -36,7 +36,9 @@ const User = ({
 }) => {
     return (
         <div onClick={onClick} className="user-container">
-            <img className="user-pfp" src={DefaultUser}></img>
+            <div className="user-pfp" >
+                <h2 className="initals"> {fname.substring(0, 1) + lname.substring(0, 1)} </h2>
+            </div>
             <p className="user-name">
                 {fname} {lname}
             </p>
