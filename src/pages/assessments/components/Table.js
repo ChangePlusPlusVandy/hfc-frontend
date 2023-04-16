@@ -1,34 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Table.css";
 
 const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
+    const [showText, setShowText] = useState(false);
+    const [expandedItemIndex, setExpandedItemIndex] = useState(-1);
+
+    const handleExpand = (index) => {
+        setShowText(!showText);
+        setExpandedItemIndex(index);
+    };
+
     return (
         <div className="data-table">
-            <h3>{`${dataName} Questionnaire`}</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Remark</th>
-                    </tr>
-                </thead>
+            <div className="table-header">
+                <h3>{dataName}</h3>
+                <p className="section-score">Score: </p>
+                <p className="section-score-num">{dataScore}</p>
+            </div>
+            <table className="question-list">
                 <tbody>
                     {dataArr.map((obj, i) => (
-                        <tr key={i}>
-                            <td>{i + 1}</td>
-                            <td>{obj.question}</td>
-                            <td>
-                                {/* TODO: rethink how to not hard code */}
-                                {hasOnlyTextQs && i < 5 ? "N/A" : obj.answer}
-                            </td>
-                            <td>{obj.text}</td>
-                        </tr>
+                        <div>
+                            <tr className="question-note-container" key={i}>
+                                <div className="question-row">
+                                    <td className="question-index">{`Question ${
+                                        i + 1
+                                    }`}</td>
+                                    <td className="question-content">
+                                        {obj.question}
+                                    </td>
+                                    <td
+                                        className={`score${
+                                            hasOnlyTextQs &&
+                                            !obj.hasOwnProperty("answer")
+                                                ? "inactive"
+                                                : ""
+                                        }`} // to hide the gray box
+                                    >
+                                        {hasOnlyTextQs &&
+                                        !obj.hasOwnProperty("answer")
+                                            ? "  "
+                                            : obj.answer}
+                                    </td>
+                                    <td className="question-elaboration">
+                                        <button
+                                            className="expand-btn"
+                                            onClick={() => handleExpand(i)}
+                                        ></button>
+                                    </td>
+                                </div>
+                                {showText && i === expandedItemIndex && (
+                                    <div className="notes-row">
+                                        <p className="notes-label">Notes: </p>
+                                        <p className="notes-content">
+                                            {obj.text}
+                                        </p>
+                                    </div>
+                                )}
+                            </tr>
+                        </div>
                     ))}
                 </tbody>
             </table>
-            <h4>Score: {dataScore}</h4>
         </div>
     );
 };

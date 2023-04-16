@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { formattedDateOptions } from "../../../utils/constants";
 import Table from "./Table";
+import TrashCanIcon from "../../../assets/icons/delete-icon.png";
 import "./SingleAssessment.css";
 
 const SingleAssessment = () => {
@@ -8,7 +10,8 @@ const SingleAssessment = () => {
     const navigate = useNavigate();
 
     const [assessment, setAssessment] = useState();
-    const [beneficiary, setBeneficiary] = useState();
+    const [deleteClicked, setDeleteClicked] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
 
     const getAssessmentById = async (mongoId) => {
         try {
@@ -17,20 +20,7 @@ const SingleAssessment = () => {
             );
             data = await data.json();
             setAssessment(data);
-            // console.log("assessment: ", data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getBeneficiaryByID = async (mongoId) => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?id=${mongoId}`
-            );
-            data = await data.json();
-            setBeneficiary(data);
-            //console.log("bfc: ", data);
+            console.log("assessment get: ", data);
         } catch (error) {
             console.error(error);
         }
@@ -40,45 +30,95 @@ const SingleAssessment = () => {
         getAssessmentById(assessmentId);
     }, []);
 
-    useEffect(() => {
-        if (assessment) {
-            getBeneficiaryByID(assessment.beneficiary);
-        }
-    }, [assessment]);
+    const dateTaken = assessment && new Date(assessment.dateTaken);
 
-    // TODO: add delete
+    const handleDeleteClick = () => {
+        setDeleteClicked(true);
+        // showConfirmText(true);
+    };
+
+    const handleConfirmDelete = (id) => {
+        fetch(`http://localhost:3000/assessments/?id=${id}`, {
+            method: "DELETE",
+        });
+        navigate("/dashboard/assessments");
+    };
 
     return (
-        beneficiary && (
+        assessment && (
             <div className="assessment-info">
-                <h2>{`${beneficiary.firstName} ${beneficiary.lastName}`}</h2>
-                <h3>{`Date Taken: ${assessment.dateTaken}`}</h3>
-                <Table
-                    dataName="Education / Vocation"
-                    dataArr={assessment.educationVocationQs}
-                    dataScore={assessment.educationVocationScore}
-                    hasOnlyTextQs={true}
-                />
-                <Table
-                    dataName="Emotional / Mental Health"
-                    dataArr={assessment.mentalHealthQs}
-                    dataScore={assessment.mentalHealthScore}
-                />
-                <Table
-                    dataName="Life Skills / Confidence / Self-esteem"
-                    dataArr={assessment.lifeSkillsQs}
-                    dataScore={assessment.lifeSkillsScore}
-                />
-                <Table
-                    dataName="Social Skills / Connectedness"
-                    dataArr={assessment.socialSkillsQs}
-                    dataScore={assessment.socialSkillsScore}
-                />
-                <h3> Total Score: {assessment.totalScore}%</h3>
+                <Link to="/dashboard/assessments" id="back-arrow">
+                    {" "}
+                    &lt; back to assessment list
+                </Link>
 
-                <button onClick={() => navigate("/dashboard/assessments")}>
-                    go back
-                </button>
+                <div className="assessment-info-header">
+                    <h1 className="bfc-name">{`${assessment.beneficiary.firstName} ${assessment.beneficiary.lastName}'s Assessment`}</h1>
+                    <p className="assessment-date-admin">Date Administered:</p>
+                    <p className="assessment-date">
+                        {dateTaken.toLocaleDateString(
+                            undefined,
+                            formattedDateOptions
+                        )}{" "}
+                    </p>
+                </div>
+                <div className="section-tables">
+                    <Table
+                        dataName="Education / Vocation"
+                        dataArr={assessment.educationVocationQs}
+                        dataScore={assessment.educationVocationScore}
+                        hasOnlyTextQs={true}
+                    />
+                    <Table
+                        dataName="Emotional / Mental Health"
+                        dataArr={assessment.mentalHealthQs}
+                        dataScore={assessment.mentalHealthScore}
+                    />
+                    <Table
+                        dataName="Life Skills / Confidence / Self-Esteem"
+                        dataArr={assessment.lifeSkillsQs}
+                        dataScore={assessment.lifeSkillsScore}
+                    />
+                    <Table
+                        dataName="Social Skills / Connectedness"
+                        dataArr={assessment.socialSkillsQs}
+                        dataScore={assessment.socialSkillsScore}
+                    />
+                </div>
+                <div className="total-score-container">
+                    <h3 className="total-score"> Total Score</h3>
+                    <p className="total-score-num">{assessment.totalScore}%</p>
+                </div>
+                {!deleteClicked && (
+                    <div className="delete-container">
+                        <img
+                            src={TrashCanIcon}
+                            alt="delete assessment"
+                            className="delete-icon"
+                            onClick={handleDeleteClick}
+                        />
+                    </div>
+                )}
+                {deleteClicked && (
+                    <div className="confirm-delete-container">
+                        <p className="confirm-delete-text">
+                            Delete this assessment? You cannot undo this.
+                        </p>
+
+                        <button
+                            className="delete-btn"
+                            onClick={() => handleConfirmDelete(assessmentId)}
+                        >
+                            confirm delete
+                        </button>
+                        <button
+                            className="cancel-btn"
+                            onClick={() => setDeleteClicked(false)}
+                        >
+                            cancel
+                        </button>
+                    </div>
+                )}
             </div>
         )
     );
