@@ -223,7 +223,6 @@ export const WorkshopSingle = () => {
                         <div className="workshop-info">
                             <h3>Hosts:</h3>
                             <h7>
-                                {" "}
                                 <Select
                                     options={hostOptions}
                                     type="text"
@@ -382,24 +381,15 @@ export const WorkshopSingle = () => {
                         )}
                         <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
-                            {isAdmin ? (
+                            {
                                 <button
                                     onClick={enterUpdateMode}
                                     className="submit-button"
+                                    disabled={!isAdmin}
                                 >
-                                    {" "}
                                     Edit
                                 </button>
-                            ) : (
-                                <button
-                                    onClick={enterUpdateMode}
-                                    className="submit-button"
-                                    disabled
-                                >
-                                    {" "}
-                                    Edit
-                                </button>
-                            )}
+                            }
                         </div>
                     </div>
                 </div>
