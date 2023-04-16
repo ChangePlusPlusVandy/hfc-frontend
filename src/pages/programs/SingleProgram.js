@@ -7,6 +7,8 @@ const SingleProgram = (props) => {
     const { programID } = useParams();
     const navigate = useNavigate();
 
+    const [deleteClicked, setDeleteClicked] = useState(false);
+
     const [program, setProgram] = useState({});
     const [roster, setRoster] = useState([]);
     const [allBeneficiaries, setAllBeneficiaries] = useState([]);
@@ -15,6 +17,43 @@ const SingleProgram = (props) => {
 
     const [updateProgTitle, setUpdateProgTitle] = useState("");
     const [updateProgDesc, setUpdateProgDesc] = useState("");
+    const [updateProgStartDate, setUpdateProgStartDate] = useState("");
+    const [updateProgEndDate, setUpdateProgEndDate] = useState("");
+
+    const [updateProgScheduleMondayStart, setUpdateProgScheduleMondayStart] =
+        useState("");
+    const [updateProgScheduleMondayEnd, setUpdateProgScheduleMondayEnd] =
+        useState("");
+    const [updateProgScheduleTuesdayStart, setUpdateProgScheduleTuesdayStart] =
+        useState("");
+    const [updateProgScheduleTuesdayEnd, setUpdateProgScheduleTuesdayEnd] =
+        useState("");
+    const [
+        updateProgScheduleWednesdayStart,
+        setUpdateProgScheduleWednesdayStart,
+    ] = useState("");
+    const [updateProgScheduleWednesdayEnd, setUpdateProgScheduleWednesdayEnd] =
+        useState("");
+    const [
+        updateProgScheduleThursdayStart,
+        setUpdateProgScheduleThursdayStart,
+    ] = useState("");
+    const [updateProgScheduleThursdayEnd, setUpdateProgScheduleThursdayEnd] =
+        useState("");
+    const [updateProgScheduleFridayStart, setUpdateProgScheduleFridayStart] =
+        useState("");
+    const [updateProgScheduleFridayEnd, setUpdateProgScheduleFridayEnd] =
+        useState("");
+    const [
+        updateProgScheduleSaturdayStart,
+        setUpdateProgScheduleSaturdayStart,
+    ] = useState("");
+    const [updateProgScheduleSaturdayEnd, setUpdateProgScheduleSaturdayEnd] =
+        useState("");
+    const [updateProgScheduleSundayStart, setUpdateProgScheduleSundayStart] =
+        useState("");
+    const [updateProgScheduleSundayEnd, setUpdateProgScheduleSundayEnd] =
+        useState("");
 
     const [editMode, setEditMode] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -128,6 +167,38 @@ const SingleProgram = (props) => {
                 content: {
                     description: updateProgDesc,
                     title: updateProgTitle,
+                    startDate: updateProgStartDate,
+                    endDate: updateProgEndDate,
+                    schedule: {
+                        Sunday: {
+                            startTime: updateProgScheduleSundayStart,
+                            endTime: updateProgScheduleSundayEnd,
+                        },
+                        Monday: {
+                            startTime: updateProgScheduleMondayStart,
+                            endTime: updateProgScheduleMondayEnd,
+                        },
+                        Tuesday: {
+                            startTime: updateProgScheduleTuesdayStart,
+                            endTime: updateProgScheduleTuesdayEnd,
+                        },
+                        Wednesday: {
+                            startTime: updateProgScheduleWednesdayStart,
+                            endTime: updateProgScheduleWednesdayEnd,
+                        },
+                        Thursday: {
+                            startTime: updateProgScheduleThursdayStart,
+                            endTime: updateProgScheduleThursdayEnd,
+                        },
+                        Friday: {
+                            startTime: updateProgScheduleFridayStart,
+                            endTime: updateProgScheduleFridayEnd,
+                        },
+                        Saturday: {
+                            startTime: updateProgScheduleSaturdayStart,
+                            endTime: updateProgScheduleSaturdayEnd,
+                        },
+                    },
                 },
             }),
         };
@@ -168,6 +239,35 @@ const SingleProgram = (props) => {
     const resetNewProgram = () => {
         setUpdateProgTitle(program.title);
         setUpdateProgDesc(program.description);
+        setUpdateProgStartDate(program.startDate.split("T")[0]);
+        setUpdateProgEndDate(program.endDate.split("T")[0]);
+
+        setUpdateProgScheduleMondayStart(program.schedule?.Monday?.startTime);
+        setUpdateProgScheduleMondayEnd(program.schedule?.Monday?.endTime);
+
+        setUpdateProgScheduleTuesdayStart(program.schedule?.Tuesday?.startTime);
+        setUpdateProgScheduleTuesdayEnd(program.schedule?.Tuesday?.endTime);
+
+        setUpdateProgScheduleWednesdayStart(
+            program.schedule?.Wednesday?.startTime
+        );
+        setUpdateProgScheduleWednesdayEnd(program.schedule?.Wednesday?.endTime);
+
+        setUpdateProgScheduleThursdayStart(
+            program.schedule?.Thursday?.startTime
+        );
+        setUpdateProgScheduleThursdayEnd(program.schedule?.Thursday?.endTime);
+
+        setUpdateProgScheduleFridayStart(program.schedule?.Friday?.startTime);
+        setUpdateProgScheduleFridayEnd(program.schedule?.Friday?.endTime);
+
+        setUpdateProgScheduleSaturdayStart(
+            program.schedule?.Saturday?.startTime
+        );
+        setUpdateProgScheduleSaturdayEnd(program.schedule?.Saturday?.endTime);
+
+        setUpdateProgScheduleSundayStart(program.schedule?.Sunday?.startTime);
+        setUpdateProgScheduleSundayEnd(program.schedule?.Sunday?.endTime);
         setAddBeneficiary([]);
     };
 
@@ -224,23 +324,29 @@ const SingleProgram = (props) => {
         }
     };
 
+    const handleDeleteClick = () => {
+        setDeleteClicked(true);
+        // showConfirmText(true);
+    };
+
     return (
         <div className="single-program-container">
             <Link to="/dashboard/programs">&lt; back to program list</Link>
             <div className="single-program">
                 <div className="single-program-heading">
                     {editMode ? (
-                        <h6>
+                        <h1>
                             {" "}
                             <input
                                 type="text"
                                 value={updateProgTitle}
                                 name="title"
+                                className="edit-title"
                                 onChange={(e) =>
                                     setUpdateProgTitle(e.target.value)
                                 }
                             />
-                        </h6>
+                        </h1>
                     ) : (
                         <h1>{program.title}</h1>
                     )}
@@ -264,7 +370,7 @@ const SingleProgram = (props) => {
                 {overviewOrEnroll ? (
                     <div className="program-enroll-container">
                         <div className="program-enroll-subheading">
-                            <h3>Enrolled Beneficiaries</h3>
+                            <h3>Beneficiary Roster</h3>
                             <div className="program-enroll-options">
                                 <input
                                     type="text"
@@ -277,12 +383,13 @@ const SingleProgram = (props) => {
                                     options={benOptions}
                                     onChange={handleAddBen}
                                     submit={updateProgramFromEnrollment}
+                                    handleExitModal={() => setOpenModal(false)}
                                 />
                                 <button
                                     onClick={() => setOpenModal(true)}
                                     className="submit-button program-enroll-ben"
                                 >
-                                    Add Beneficiaries
+                                    Enroll Beneficiary
                                 </button>
                             </div>
                         </div>
@@ -328,7 +435,7 @@ const SingleProgram = (props) => {
                                 <Link
                                     to={`/dashboard/programs/singleview/attendance/${programID}`}
                                 >
-                                    Mark Attendance
+                                    Attendance
                                 </Link>
                             </button>
                         </div>
@@ -341,8 +448,7 @@ const SingleProgram = (props) => {
                                 <h6>
                                     {" "}
                                     <textarea
-                                        rows="5"
-                                        cols="75"
+                                        rows="4"
                                         type="text"
                                         value={updateProgDesc}
                                         name="description"
@@ -357,13 +463,40 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-info">
                             <h3>Start Date</h3>
-                            <h6>{program.startDate?.split("T")[0]}</h6>
+                            <h6>
+                                {editMode ? (
+                                    <input
+                                        type="text"
+                                        value={updateProgStartDate}
+                                        name="startdate"
+                                        onChange={(e) =>
+                                            setUpdateProgStartDate(
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                ) : (
+                                    program.startDate?.split("T")[0]
+                                )}
+                            </h6>
                         </div>
                         <div className="program-info">
                             <h3>End Date</h3>
-                            <h6>{program.endDate?.split("T")[0]}</h6>
+                            <h6>
+                                {editMode ? (
+                                    <input
+                                        type="text"
+                                        value={updateProgEndDate}
+                                        name="enddate"
+                                        onChange={(e) =>
+                                            setUpdateProgEndDate(e.target.value)
+                                        }
+                                    />
+                                ) : (
+                                    program.endDate?.split("T")[0]
+                                )}
+                            </h6>
                         </div>
-
                         <div className="program-info">
                             <h3>Hosts</h3>
                             <div className="program-hosts">
@@ -382,32 +515,444 @@ const SingleProgram = (props) => {
                         </div>
                         <div className="program-info">
                             <h3>Schedule</h3>
-                            <h6>TODO</h6>
+                            <div className="single-prog-schedule">
+                                <div className="schedule-singleday">
+                                    <h5>Monday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleMondayStart
+                                                    }
+                                                    name="mondayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleMondayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleMondayEnd
+                                                    }
+                                                    name="mondayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleMondayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Monday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Monday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Tuesday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleTuesdayStart
+                                                    }
+                                                    name="tuesdayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleTuesdatStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleTuesdayEnd
+                                                    }
+                                                    name="tuesdayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleTuesdayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Tuesday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Tuesday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Wednesday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleWednesdayStart
+                                                    }
+                                                    name="wednesdayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleWednesdayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleWednesdayEnd
+                                                    }
+                                                    name="wednesdayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleWednesdayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Wednesday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Wednesday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Thursday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleThursdayStart
+                                                    }
+                                                    name="thursdayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleThursdayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleThursdayEnd
+                                                    }
+                                                    name="thursdayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleThursdayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Thursday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Thursday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Friday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleFridayStart
+                                                    }
+                                                    name="fridayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleFridayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleFridayEnd
+                                                    }
+                                                    name="fridayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleFridayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Friday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Friday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Saturday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleSaturdayStart
+                                                    }
+                                                    name="saturdayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleSaturdayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleSaturdayEnd
+                                                    }
+                                                    name="saturdayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleSaturdayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Saturday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Saturday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="schedule-singleday">
+                                    <h5>Sunday</h5>
+                                    {editMode ? (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleSundayStart
+                                                    }
+                                                    name="sundayStart"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleSundayStart(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                <input
+                                                    type="text"
+                                                    value={
+                                                        updateProgScheduleSundayEnd
+                                                    }
+                                                    name="sundayEnd"
+                                                    onChange={(e) =>
+                                                        setUpdateProgScheduleSundayEnd(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </h5>
+                                        </div>
+                                    ) : (
+                                        <div className="schedule-startendtimes">
+                                            <h5>
+                                                {
+                                                    program.schedule?.Sunday
+                                                        ?.startTime
+                                                }
+                                            </h5>
+                                            <h6>-</h6>
+                                            <h5>
+                                                {
+                                                    program.schedule?.Sunday
+                                                        ?.endTime
+                                                }
+                                            </h5>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                         <div className="program-info-buttons-container">
                             {editMode ? (
-                                <div className="program-buttons-inner">
-                                    <button
-                                        onClick={updateProgramFromOverview}
-                                        className="submit-button"
-                                    >
-                                        Submit
-                                    </button>
+                                <div
+                                    className={
+                                        deleteClicked
+                                            ? "program-buttons-inner center-confirm-delete"
+                                            : "program-buttons-inner"
+                                    }
+                                >
+                                    {!deleteClicked && (
+                                        <button
+                                            onClick={updateProgramFromOverview}
+                                            className="submit-button"
+                                        >
+                                            Submit
+                                        </button>
+                                    )}
+
                                     <div className="program-archive-delete">
-                                        <button
-                                            onClick={() =>
-                                                archiveProgram(program._id)
-                                            }
-                                        >
-                                            Archive
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                deleteProgram(program._id)
-                                            }
-                                        >
-                                            Delete
-                                        </button>
+                                        {!deleteClicked && (
+                                            <>
+                                                <button
+                                                    onClick={() =>
+                                                        archiveProgram(
+                                                            program._id
+                                                        )
+                                                    }
+                                                >
+                                                    Archive
+                                                </button>
+
+                                                <button
+                                                    onClick={() =>
+                                                        setDeleteClicked(true)
+                                                    }
+                                                >
+                                                    Delete
+                                                </button>
+                                            </>
+                                        )}
+
+                                        {deleteClicked && (
+                                            <div className="confirm-delete-container">
+                                                <p className="confirm-delete-text">
+                                                    Delete this program? You
+                                                    cannot undo this.
+                                                </p>
+
+                                                <div>
+                                                    <button
+                                                        onClick={() =>
+                                                            deleteProgram(
+                                                                program._id
+                                                            )
+                                                        }
+                                                    >
+                                                        Confirm Delete
+                                                    </button>
+                                                    <button
+                                                        className="delete-btn"
+                                                        onClick={() =>
+                                                            setDeleteClicked(
+                                                                false
+                                                            )
+                                                        }
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             ) : (

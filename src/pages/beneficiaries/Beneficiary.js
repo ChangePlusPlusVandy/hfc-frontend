@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Link } from "react-router-dom";
-import TrashIcon from ".//../../assets/icons/trash-icon.png";
+import TrashIcon from "../../assets/icons/trash-icon.png";
 
 import "./Beneficiary.css";
 

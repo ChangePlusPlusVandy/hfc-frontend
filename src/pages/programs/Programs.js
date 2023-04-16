@@ -468,34 +468,32 @@ const Programs = () => {
             </div>
             <div className="program-list-header">
                 <h4 className="program-title">Program Title</h4>
-                <h4 className="program-id">ID Number</h4>
+                <h4 className="program-description">Description</h4>
                 <h4 className="program-start-date">Start Date</h4>
                 <h4 className="program-date-added">Date Added</h4>
                 <h4 className="program-status">Status</h4>
             </div>
             <div className="program-list">
                 {programsFiltered.map((item, i) => (
-                    <div key={i} className="program-card">
-                        <h4 className="program-title">
-                            <Link
-                                to={`/dashboard/programs/singleview/${item._id}`}
-                            >
-                                {item.title}
-                            </Link>
-                        </h4>
-                        <h4 className="program-id">{item._id}</h4>
-                        <h4 className="program-start-date">
-                            {item.startDate?.split("T")[0]}
-                        </h4>
-                        <h4 className="program-date-added">
-                            {item.dateAdded.split("T")[0]}
-                        </h4>
-                        {item.archived ? (
-                            <h4 className="program-status">Archived</h4>
-                        ) : (
-                            <h4 className="program-status">Active</h4>
-                        )}
-                    </div>
+                    <Link to={`/dashboard/programs/singleview/${item._id}`}>
+                        <div key={i} className="program-card">
+                            <h4 className="program-title">{item.title}</h4>
+                            <h4 className="program-description">
+                                {item.description.slice(0, 50)}...
+                            </h4>
+                            <h4 className="program-start-date">
+                                {item.startDate?.split("T")[0]}
+                            </h4>
+                            <h4 className="program-date-added">
+                                {item.dateAdded.split("T")[0]}
+                            </h4>
+                            {item.archived ? (
+                                <h4 className="program-status">Archived</h4>
+                            ) : (
+                                <h4 className="program-status">Active</h4>
+                            )}
+                        </div>
+                    </Link>
                 ))}
             </div>
         </div>

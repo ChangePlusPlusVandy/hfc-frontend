@@ -15,9 +15,42 @@ const CreateProgramPopup = (props) => {
     const [userOptions, setUserOptions] = useState([]);
     const [addUsers, setAddUsers] = useState([]);
 
+    const [newProgScheduleMondayStart, setNewProgScheduleMondayStart] =
+        useState("");
+    const [newProgScheduleMondayEnd, setNewProgScheduleMondayEnd] =
+        useState("");
+    const [newProgScheduleTuesdayStart, setNewProgScheduleTuesdayStart] =
+        useState("");
+    const [newProgScheduleTuesdayEnd, setNewProgScheduleTuesdayEnd] =
+        useState("");
+    const [newProgScheduleWednesdayStart, setNewProgScheduleWednesdayStart] =
+        useState("");
+    const [newProgScheduleWednesdayEnd, setNewProgScheduleWednesdayEnd] =
+        useState("");
+    const [newProgScheduleThursdayStart, setNewProgScheduleThursdayStart] =
+        useState("");
+    const [newProgScheduleThursdayEnd, setNewProgScheduleThursdayEnd] =
+        useState("");
+    const [newProgScheduleFridayStart, setNewProgScheduleFridayStart] =
+        useState("");
+    const [newProgScheduleFridayEnd, setNewProgScheduleFridayEnd] =
+        useState("");
+    const [newProgScheduleSaturdayStart, setNewProgScheduleSaturdayStart] =
+        useState("");
+    const [newProgScheduleSaturdayEnd, setNewProgScheduleSaturdayEnd] =
+        useState("");
+    const [newProgScheduleSundayStart, setNewProgScheduleSundayStart] =
+        useState("");
+    const [newProgScheduleSundayEnd, setNewProgScheduleSundayEnd] =
+        useState("");
+
     useEffect(() => {
         getUsers();
     }, []);
+
+    // useEffect(() => {
+    //     console.log(sunday);
+    // }, [sunday]);
 
     const closeSchedule = () => {
         setOpenModal(false);
@@ -36,6 +69,20 @@ const CreateProgramPopup = (props) => {
         setNewProgStartDate("");
         setNewProgEndDate("");
         setAddUsers([]);
+        setNewProgScheduleMondayStart("");
+        setNewProgScheduleMondayEnd("");
+        setNewProgScheduleTuesdayStart("");
+        setNewProgScheduleTuesdayEnd("");
+        setNewProgScheduleWednesdayStart("");
+        setNewProgScheduleWednesdayEnd("");
+        setNewProgScheduleThursdayStart("");
+        setNewProgScheduleThursdayEnd("");
+        setNewProgScheduleFridayStart("");
+        setNewProgScheduleFridayEnd("");
+        setNewProgScheduleSaturdayStart("");
+        setNewProgScheduleSaturdayEnd("");
+        setNewProgScheduleSundayStart("");
+        setNewProgScheduleSundayEnd("");
     };
 
     const handleSubmit = async () => {
@@ -51,6 +98,36 @@ const CreateProgramPopup = (props) => {
                 startDate: newProgStartDate,
                 endDate: newProgEndDate,
                 hosts: addUsers,
+                schedule: {
+                    Sunday: {
+                        startTime: newProgScheduleSundayStart,
+                        endTime: newProgScheduleSundayEnd,
+                    },
+                    Monday: {
+                        startTime: newProgScheduleMondayStart,
+                        endTime: newProgScheduleMondayEnd,
+                    },
+                    Tuesday: {
+                        startTime: newProgScheduleTuesdayStart,
+                        endTime: newProgScheduleTuesdayEnd,
+                    },
+                    Wednesday: {
+                        startTime: newProgScheduleWednesdayStart,
+                        endTime: newProgScheduleWednesdayEnd,
+                    },
+                    Thursday: {
+                        startTime: newProgScheduleThursdayStart,
+                        endTime: newProgScheduleThursdayEnd,
+                    },
+                    Friday: {
+                        startTime: newProgScheduleFridayStart,
+                        endTime: newProgScheduleFridayEnd,
+                    },
+                    Saturday: {
+                        startTime: newProgScheduleSaturdayStart,
+                        endTime: newProgScheduleSaturdayEnd,
+                    },
+                },
             }),
         };
         // TODO: Add error handling
@@ -163,7 +240,35 @@ const CreateProgramPopup = (props) => {
                     <SetSchedule
                         openModal={openModal}
                         closeModal={closeSchedule}
-                        submitSchedule={submitSchedule}
+                        submitSchedule={closeSchedule}
+                        sundayStart={newProgScheduleSundayStart}
+                        setSundayStart={setNewProgScheduleSundayStart}
+                        sundayEnd={newProgScheduleSundayEnd}
+                        setSundayEnd={setNewProgScheduleSundayEnd}
+                        mondayStart={newProgScheduleMondayStart}
+                        setMondayStart={setNewProgScheduleMondayStart}
+                        mondayEnd={newProgScheduleMondayEnd}
+                        setMondayEnd={setNewProgScheduleMondayEnd}
+                        tuesdayStart={newProgScheduleTuesdayStart}
+                        setTuesdayStart={setNewProgScheduleTuesdayStart}
+                        tuesdayEnd={newProgScheduleTuesdayEnd}
+                        setTuesdayEnd={setNewProgScheduleTuesdayEnd}
+                        wednesdayStart={newProgScheduleWednesdayStart}
+                        setWednesdayStart={setNewProgScheduleWednesdayStart}
+                        wednesdayEnd={newProgScheduleWednesdayEnd}
+                        setWednesdayEnd={setNewProgScheduleWednesdayEnd}
+                        thursdayStart={newProgScheduleThursdayStart}
+                        setThursdayStart={setNewProgScheduleThursdayStart}
+                        thursdayEnd={newProgScheduleThursdayEnd}
+                        setThursdayEnd={setNewProgScheduleThursdayEnd}
+                        fridayStart={newProgScheduleFridayStart}
+                        setFridayStart={setNewProgScheduleFridayStart}
+                        fridayEnd={newProgScheduleFridayEnd}
+                        setFridayEnd={setNewProgScheduleFridayEnd}
+                        saturdayStart={newProgScheduleSaturdayStart}
+                        setSaturdayStart={setNewProgScheduleSaturdayStart}
+                        saturdayEnd={newProgScheduleSaturdayEnd}
+                        setSaturdayEnd={setNewProgScheduleSaturdayEnd}
                     />
                 </div>
 

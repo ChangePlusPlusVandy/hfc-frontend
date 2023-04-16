@@ -7,18 +7,20 @@ const MarkAttendance = (props) => {
     const { programID } = useParams();
     const [program, setProgram] = useState({});
     const [date, setDate] = useState("");
-    const [toggleAttendance, setToggleAttendance] = useState(true);
     const [arePresent, setArePresent] = useState([]);
-    const [datesWithAttendance, setDatesWithAttendance] = useState([]);
-
-    const [attendance, setAttendance] = useState({});
     const [beneficiaries, setBeneficiaries] = useState([]);
+    const [markedPres, setMarkedPres] = useState([]);
 
     useEffect(() => {
         getProgramFromID();
     }, []);
 
     useEffect(() => {
+        handleChooseDate();
+    }, [program]);
+
+    useEffect(() => {
+        setArePresent([]);
         handleChooseDate();
         setBeneficiaries([...beneficiaries]);
     }, [date]);
@@ -29,10 +31,8 @@ const MarkAttendance = (props) => {
                 `http://localhost:3000/programs?id=${programID}`
             );
             data = await data.json();
-            // setAttendance(data[0].roster.map((event) => event._id));
 
             setProgram(data[0]);
-            console.log(data[0]);
             setBeneficiaries(
                 data[0].roster.map((obj) => ({ ...obj, present: false }))
             );
@@ -44,13 +44,20 @@ const MarkAttendance = (props) => {
     const getDatesWithAttendance = () => {};
 
     const updateProgram = async (e) => {
-        setAttendance([
-            ...program.attendance,
-            {
-                date: date,
-                attendees: arePresent,
-            },
-        ]);
+        //  if (program.attendance.find((obj) => (obj.date === date))) {
+        let tmp = program.attendance.filter((obj) => {
+            return obj.date?.split("T")[0] !== date;
+        });
+        let c = tmp;
+        c.push({ date: date, attendees: arePresent });
+        // console.log(tmp);
+        setProgram({
+            ...program,
+            attendance: c,
+        });
+
+        console.log("ll");
+        // console.log(program);
 
         const requestOptions = {
             method: "PUT",
@@ -58,21 +65,20 @@ const MarkAttendance = (props) => {
             body: JSON.stringify({
                 _id: { programID },
                 content: {
-                    attendance: [
-                        ...program.attendance,
-                        {
-                            date: date,
-                            attendees: arePresent,
-                        },
-                    ],
+                    attendance: c,
                 },
             }),
         };
 
+        beneficiaries.forEach((element) => {
+            element.highlightGreen = false;
+            element.highlightRed = false;
+        });
         await fetch("http://localhost:3000/programs", requestOptions);
-        getProgramFromID();
-        setArePresent([]);
+        setArePresent([...arePresent]);
     };
+
+    //const highlightGreen = arePresent.filter((el) => !markedPresent?.includes(el));
 
     const handleChooseDate = (e) => {
         if (date) {
@@ -88,19 +94,44 @@ const MarkAttendance = (props) => {
                         ).present = true;
                     }
                 });
-                console.log("KSJDK");
-                console.log(beneficiaries);
             }
+            let tmpArray = [];
+            for (let i = 0; i < beneficiaries.length; i++) {
+                if (beneficiaries[i].present)
+                    tmpArray.push(beneficiaries[i]._id);
+            }
+            setArePresent(tmpArray);
+            setMarkedPres(tmpArray);
         }
     };
 
     const markPresent = (id, e) => {
-        if (!arePresent.includes(id)) setArePresent([...arePresent, id]);
-        // console.log("Present Beneficiaries (arePresent): " + arePresent);
+        if (!arePresent.includes(id)) {
+            setArePresent([...arePresent, id]);
+            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+        }
+        if (beneficiaries.find((obj) => obj._id === id).present == false) {
+            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+        }
+        if (beneficiaries.find((obj) => obj._id === id).highlightRed == true) {
+            beneficiaries.find((obj) => obj._id === id).highlightRed = false;
+            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        }
     };
 
-    const markAbsent = (e) => {
-        //console.log(attendance)
+    const markAbsent = (id, e) => {
+        let tmpPresent = arePresent.filter((element) => {
+            return element !== id;
+        });
+        if (beneficiaries.find((obj) => obj._id === id).present != false) {
+            beneficiaries.find((obj) => obj._id === id).highlightRed = true;
+        }
+        if (
+            beneficiaries.find((obj) => obj._id === id).highlightGreen == true
+        ) {
+            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        }
+        setArePresent(tmpPresent);
     };
 
     return (
@@ -135,9 +166,27 @@ const MarkAttendance = (props) => {
                         }}
                     />
                 </div>
+                <div className="mark-attendance-description">
+                    <h4>
+                        <i>
+                            Choose a date from the calendar to either view the
+                            attendance from that date, or to mark its attendance
+                        </i>
+                    </h4>
+                </div>
+
                 <div className="mark-attendance-beneficiaries">
                     {beneficiaries?.map((item, i) => (
-                        <div key={i} className="ben-card">
+                        <div
+                            key={i}
+                            className={
+                                item.highlightRed
+                                    ? "ben-card is-absent"
+                                    : item.highlightGreen
+                                    ? "ben-card is-present"
+                                    : "ben-card"
+                            }
+                        >
                             <div className="tmp-photo"></div>
                             <h3>{item.firstName}</h3>
                             {item.present ? <h3>Present</h3> : <h3>Absent</h3>}
