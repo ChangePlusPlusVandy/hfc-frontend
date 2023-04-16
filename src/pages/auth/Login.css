@@ -19,7 +19,7 @@ add prefix to all css files
     align-items: flex-start;
 }
 
-.login-container .logo {
+.login-container .left-design {
     height: 100%;
 }
 
@@ -30,6 +30,11 @@ add prefix to all css files
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.login-container .right .logo {
+    width: 300px;
+    margin-bottom: 95px;
 }
 
 .login-container .form input[type="text"] {
@@ -49,7 +54,9 @@ add prefix to all css files
 }
 
 .login-container .submit-btn {
-    background-color: rgb(217, 217, 217);
+    background: #253366;
+    color: white;
+    text-transform: uppercase;
     cursor: pointer;
     border: none !important;
     width: 30%;

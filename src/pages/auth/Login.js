@@ -4,6 +4,7 @@ import { auth } from "../../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import HFCDesign from "../../assets/images/hfc-design-1.png";
+import HFCLogo from "../../assets/images/hfc-logo-navy.jpg";
 
 const ERRORS = {
     // use codes instead
@@ -51,9 +52,14 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="login-container-left">
-                <img className="logo" src={HFCDesign} />
+                <img className="left-design" src={HFCDesign} alt="Design 1" />
             </div>
             <div className="right">
+                <img
+                    className="logo"
+                    src={HFCLogo}
+                    alt="Her Future Coalition"
+                />
                 {error && error.length ? <h1>{error}</h1> : ""}
                 <form className="form" onSubmit={(e) => handleSubmit(e)}>
                     <div className="title">Logging you in 🫶🏽</div>
