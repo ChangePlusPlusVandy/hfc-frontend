@@ -3,14 +3,14 @@
 .single-program-container {
     box-sizing: border-box;
     border: 0;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-content: center;
     padding: 2em 3em;
 }
 
-a {
+.single-program-container a {
     text-decoration: none;
     color: black;
 }
@@ -32,7 +32,7 @@ a {
     flex-direction: column;
 }
 
-.single-program-heading {
+.single-program-container .single-program-heading {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -40,28 +40,40 @@ a {
     margin-bottom: 20px;
 }
 
-.tab {
+.single-program-container .tab {
     border-radius: 9px 9px 0 0;
     margin-left: 5px;
     border: 0;
     padding: 8px 20px;
 }
 
-.single-program-heading > h1 {
+.single-program-container .single-program-heading > h1 {
     margin: 0;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
 /* OVERVIEW TAB */
 
-.program-info-container,
-.program-enroll-container {
+.single-program-container .program-info-container,
+.single-program-container .program-enroll-container {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.program-info-container > .program-info {
+.single-program-container .edit-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.single-program-container .program-info-container > .program-info {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -69,42 +81,90 @@ a {
     margin: 0.7em 0em;
 }
 
-.program-info > h3 {
+.single-program-container .program-info > h3 {
     flex: 1;
     height: fit-content;
     margin: 0;
 }
 
-.program-info > h6 {
-    height: 100%;
+.single-program-container .program-info input,
+.single-program-container .program-info textarea {
+    margin: 0;
     font-size: 14px;
-    align-items: center;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.single-program-container .program-info textarea {
+    width: 100%;
+}
+
+.single-program-container .program-info h6,
+.single-program-container .program-info > .single-prog-schedule,
+.single-program-container .schedule-singleday h5 {
+    height: 100%;
+    font-size: 15px;
+    font-weight: 400;
     display: flex;
     flex: 4;
     margin: 0;
 }
 
-.program-hosts {
+.single-program-container .single-prog-schedule {
+    flex-direction: column;
+}
+
+.single-program-container .schedule-singleday {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    min-width: 250px;
+}
+
+.single-program-container .schedule-startendtimes {
+    display: flex;
+    margin-left: 40px;
+    min-width: 130px;
+}
+
+.single-program-container .schedule-startendtimes input {
+    max-width: 50px;
+    border-radius: 10px;
+    padding: 0 5px;
+    border: 1px solid black;
+}
+
+.single-program-container .schedule-startendtimes h6 {
+    margin: 0 10px;
+}
+
+.single-program-container .program-hosts {
     display: flex;
     flex: 4;
     flex-direction: column;
 }
 
-.program-hosts h6 {
+.single-program-container .program-hosts h6 {
     margin: 2px 0px 5px 0px;
     font-size: 14px;
 }
 
-.program-info-buttons-container {
+.single-program-container .program-info-buttons-container {
     margin-top: 2em;
 }
 
-.program-info-buttons-container > .program-buttons-inner {
+.single-program-container
+    .program-info-buttons-container
+    > .program-buttons-inner {
     display: flex;
     justify-content: space-between;
 }
 
-.program-buttons-inner > .program-archive-delete {
+.single-program-container
+    .single-program-container
+    .program-buttons-inner
+    > .program-archive-delete {
     display: flex;
     flex-direction: column;
 }
@@ -118,7 +178,7 @@ a {
     cursor: pointer;
 }
 
-.submit-button {
+.single-program-container .submit-button {
     padding: 5px 40px;
     border-radius: 7px;
     background-color: var(--button-color);
@@ -129,28 +189,29 @@ a {
 
 /* ENROLL TAB */
 
-.program-enroll-subheading {
+.single-program-container .program-enroll-subheading {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-.program-enroll-subheading > h3 {
+.single-program-container .program-enroll-subheading > h3 {
     margin: 0;
 }
 
-.program-enroll-options {
+.single-program-container .program-enroll-options {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.program-enroll-options > .ben-search-bar {
+.single-program-container .program-enroll-options > .ben-search-bar {
     height: 22px;
     border-radius: 5px;
     border: 0.7px solid;
 }
 
-.program-enroll-beneficiaries-container {
+.single-program-container .program-enroll-beneficiaries-container {
     height: 100%;
     margin: 15px 0px;
     background-color: var(--button-color);
@@ -160,7 +221,7 @@ a {
     justify-content: space-between;
 }
 
-.program-enroll-beneficiaries {
+.single-program-container .program-enroll-beneficiaries {
     margin: 15px 20px;
     /* margin-right: min(1em, 15px);
     margin-left: min(1em, 15px); */
@@ -173,13 +234,13 @@ a {
     align-content: stretch;
 }
 
-.submit-edit-roster {
+.single-program-container .submit-edit-roster {
     width: 100%;
     display: flex;
     justify-content: end;
 }
 
-.submit-edit-roster > .submit-button {
+.single-program-container .submit-edit-roster > .submit-button {
     padding: 5px 40px;
     border-radius: 5px;
     background-color: var(--text-link);
@@ -189,7 +250,7 @@ a {
     margin: 15px 30px;
 }
 
-.beneficiary-card {
+.single-program-container .beneficiary-card {
     flex-basis: clamp(150px, 30%, 180px);
     height: 130px;
     border-radius: 16px;
@@ -202,7 +263,7 @@ a {
     justify-content: end;
 }
 
-.beneficiary-card > .card-info {
+.single-program-container .beneficiary-card > .card-info {
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -212,12 +273,12 @@ a {
     padding: 10px 0px;
 }
 
-.delete-button-container {
+.single-program-container .delete-button-container {
     display: flex;
     justify-content: end;
 }
 
-.delete-ben-button {
+.single-program-container .delete-ben-button {
     height: 20px;
     width: 20px;
     margin: 8px;
@@ -226,14 +287,26 @@ a {
     cursor: pointer;
 }
 
-.tmp-photo {
+.single-program-container .tmp-photo {
     height: 60px;
     width: 60px;
     background-color: var(--text-link);
     border-radius: 50%;
 }
 
-.mark-attendance-button-container {
+.single-program-container .mark-attendance-button-container {
     display: flex;
     justify-content: end;
+}
+
+.single-program-container .confirm-delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.single-program-container .center-confirm-delete {
+    display: flex;
+    justify-content: center !important;
 }

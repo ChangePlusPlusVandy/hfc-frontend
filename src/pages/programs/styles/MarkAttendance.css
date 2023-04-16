@@ -7,6 +7,33 @@
     padding: 2em 3em;
 }
 
+.mark-attendance-container .submit-button {
+    padding: 5px 40px;
+    border-radius: 7px;
+    background-color: var(--button-color);
+    border: none;
+    cursor: pointer;
+    font-size: 12pt;
+}
+
+.mark-attendance-description {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.mark-attendance-description h4 {
+    margin: 0;
+    font-weight: 400;
+    text-align: center;
+    color: var(--text-link);
+}
+
+.mark-attendance-container a {
+    text-decoration: none;
+    color: black;
+}
+
 .mark-attendance-container > a {
     width: fit-content;
     margin-bottom: 20px;
@@ -49,6 +76,14 @@
     margin: 15px 0;
 }
 
+.mark-attendance-beneficiaries .is-present {
+    background-color: rgb(144, 238, 144, 0.8) !important;
+}
+
+.mark-attendance-beneficiaries .is-absent {
+    background-color: rgb(255, 200, 198) !important;
+}
+
 .mark-attendance-container .ben-card {
     flex-basis: clamp(100px, 20%, 140px);
     height: 150px;
@@ -81,8 +116,4 @@
 .mark-attendance-container .submit-button-container {
     display: flex;
     justify-content: end;
-}
-
-.mark-attendance-container .highlight {
-    background-color: yellow;
 }

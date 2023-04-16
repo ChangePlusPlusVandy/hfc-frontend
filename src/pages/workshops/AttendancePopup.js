@@ -4,22 +4,22 @@ import "./SingleWorkshop.css";
 
 export const AttendancePopup = (props) => {
     const [id, setID] = useState();
-    const [benIDs, setBenIds] = useState([]);
     const [mess, setMessage] = useState("");
-    useEffect(() => {
-        fetch("http://localhost:3000/beneficiaries")
-            .then((response) => response.json())
-            .then((data) => {
-                setBenIds(data.map((item) => Number(item.id)));
-            });
-    }, []);
+    useEffect(() => {}, []);
     const submit = () => {
-        console.log(benIDs);
-        console.log(id);
-        console.log(benIDs.includes(id));
-        if (benIDs.includes(id)) {
-            props.setRegistered((previous) => previous + 1);
-            props.onClose();
+        if (
+            props.beneficiaries.filter((item) => Number(item?.id) == id)
+                .length > 0
+        ) {
+            const objId = props.beneficiaries.filter(
+                (item) => Number(item?.id) == id
+            )[0]._id;
+            if (!props.attendees.includes(objId)) {
+                props.setAttendees((prev) => [...prev, objId]);
+                props.onClose();
+            } else {
+                setMessage("Your attendance has already been recorded");
+            }
         } else {
             setMessage(
                 "ID number is not valid. Please try again, or click skip."
