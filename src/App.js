@@ -5,6 +5,7 @@ import {
     Outlet,
     Route,
     RouterProvider,
+    Navigate,
 } from "react-router-dom";
 
 // Contexts
@@ -60,7 +61,10 @@ const router = createBrowserRouter(
             <Route path="forgot-password" element={<PasswordReset />}></Route>
             <Route element={<PrivateRoute />}>
                 <Route path="dashboard" element={<DashboardLayout />}>
-                    <Route index element={<h1>TODO: Index</h1>} />
+                    <Route
+                        index
+                        element={<Navigate to="./beneficiaries" replace />}
+                    />
                     <Route path="beneficiaries">
                         <Route index element={<Beneficiaries />} />
                         <Route
@@ -72,10 +76,6 @@ const router = createBrowserRouter(
                             element={<Beneficiary />}
                         />
                     </Route>
-                    <Route
-                        path="data"
-                        element={<h1>TODO: Data Dashboard</h1>}
-                    />
                     <Route path="programs">
                         <Route index element={<Programs />} />
                         <Route path="singleview">
@@ -83,7 +83,6 @@ const router = createBrowserRouter(
                                 path=":programID"
                                 element={<SingleProgram />}
                             />
-                            {/* <Route index element={<SingleProgram />} /> */}
                             <Route
                                 path="attendance/:programID"
                                 element={<MarkAttendance />}
@@ -94,11 +93,16 @@ const router = createBrowserRouter(
                         <Route index element={<WorkshopsList />} />
                         <Route path="create" element={<WorkshopCreateForm />} />
                         {/* TODO: Make dynamic routes for each workshop */}
-                        <Route path="singleview" element={<WorkshopSingle />} />
                         <Route
-                            path="attendance"
-                            element={<WorkshopAttendance />}
+                            path=":workshopID"
+                            element={<WorkshopSingle />}
                         />
+                        <Route path="attendance">
+                            <Route
+                                path=":workshopID"
+                                element={<WorkshopAttendance />}
+                            />
+                        </Route>
                     </Route>
                     <Route path="assessments">
                         <Route index element={<AssessmentsOverview />} />
