@@ -58,7 +58,7 @@ const Users = () => {
     const navigate = useNavigate();
     const handleOnboarding = () => {
         if (isAdmin) {
-            navigate("../onboard");
+            navigate("/dashboard/users/onboard");
         }
     };
 

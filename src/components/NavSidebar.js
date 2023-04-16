@@ -75,7 +75,7 @@ const NavSidebar = () => {
 
             {/* TODO: refactor when auth is implemented */}
             <NavLink
-                to={`users/${mongoUser._id}`}
+                to={`/dashboard/users/${mongoUser._id}`}
                 className="profile-link-container"
             >
                 {isCollapsed ? (
