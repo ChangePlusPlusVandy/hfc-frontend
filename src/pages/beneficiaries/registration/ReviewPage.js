@@ -142,7 +142,7 @@ const ReviewPage = ({
                 </div>
             </div>
             <div className="section-container">
-                <label className="section-label">Sponsership Information</label>
+                <label className="section-label">Sponsorship Information</label>
                 <div className="section-contents">
                     <p>{sponsorInfo || "N/A"}</p>
                 </div>

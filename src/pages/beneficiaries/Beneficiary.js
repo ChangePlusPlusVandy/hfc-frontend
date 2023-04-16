@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Link } from "react-router-dom";
+import TrashIcon from ".//../../assets/icons/trash-icon.png";
 
 import "./Beneficiary.css";
 
@@ -258,6 +259,9 @@ const Beneficiary = () => {
         setInterests(newInterests);
         setSponsorInfo(newSponsorInfo);
         setInitials(newFirstName.substring(0, 1) + newLastName.substring(0, 1));
+        if (archived) {
+            navigate(-1);
+        }
     };
 
     useEffect(() => {
@@ -368,37 +372,43 @@ const Beneficiary = () => {
         <div className="beneficiary-page-container">
             <div className="button-header">
                 <div className="back">
-                    <button onClick={handleBack} id="back-button">
-                        Back
-                    </button>
+                    <Link to="/dashboard/beneficiaries" id="back-arrow">
+                        &lt; back to program list
+                    </Link>
                 </div>
                 <div className="archive-delete-buttons">
-                    {editing && (
-                        <button onClick={handleToggleArchive}>
+                    {editing && !deleteClicked && (
+                        <button
+                            onClick={handleToggleArchive}
+                            id="archive-button"
+                        >
                             {archived
                                 ? "Unarchive Beneficiary"
                                 : "Archive Beneficiary"}
                         </button>
                     )}
-                    {editing && (
-                        <button onClick={handleClickDelete}>
-                            Delete Beneficiary
-                        </button>
+                    {editing && !deleteClicked && (
+                        <img
+                            src={TrashIcon}
+                            alt="Delete Beneficiary"
+                            className="icon"
+                            onClick={handleClickDelete}
+                        />
                     )}
                     {deleteClicked && editing && (
                         <div className="confirm-delete-container">
                             <p className="confirm-delete-text">
-                                Delete this beneficiary? You cannot undo this.
+                                Are you sure you want to delete? This action
+                                cannot be undone.
                             </p>
-
                             <button
-                                className="delete-btn"
+                                className="confirm-dlt-buttons"
                                 onClick={handleDelete}
                             >
                                 Confirm Delete
                             </button>
                             <button
-                                className="cancel-btn"
+                                className="confirm-dlt-buttons"
                                 onClick={() => setDeleteClicked(false)}
                             >
                                 Cancel
@@ -550,7 +560,7 @@ const Beneficiary = () => {
                                         classNamePrefix="select"
                                     />
                                 ) : (
-                                    beneficiary.eduLvl
+                                    eduLvl.value
                                 )}
                             </div>
                         </div>
