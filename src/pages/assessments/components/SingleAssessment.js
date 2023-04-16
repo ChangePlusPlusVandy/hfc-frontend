@@ -11,7 +11,6 @@ const SingleAssessment = () => {
 
     const [assessment, setAssessment] = useState();
     const [deleteClicked, setDeleteClicked] = useState(false);
-    // const [showAlert, setShowAlert] = useState(false);
 
     const getAssessmentById = async (mongoId) => {
         try {
@@ -20,7 +19,6 @@ const SingleAssessment = () => {
             );
             data = await data.json();
             setAssessment(data);
-            console.log("assessment get: ", data);
         } catch (error) {
             console.error(error);
         }
@@ -34,7 +32,6 @@ const SingleAssessment = () => {
 
     const handleDeleteClick = () => {
         setDeleteClicked(true);
-        // showConfirmText(true);
     };
 
     const handleConfirmDelete = (id) => {
@@ -49,7 +46,7 @@ const SingleAssessment = () => {
             <div className="assessment-info">
                 <Link to="/dashboard/assessments" id="back-arrow">
                     {" "}
-                    &lt; back to assessment list
+                    &lt; BACK TO ASSESSMENT LIST
                 </Link>
 
                 <div className="assessment-info-header">

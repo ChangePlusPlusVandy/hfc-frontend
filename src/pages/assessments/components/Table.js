@@ -20,45 +20,43 @@ const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
             <table className="question-list">
                 <tbody>
                     {dataArr.map((obj, i) => (
-                        <div>
-                            <tr className="question-note-container" key={i}>
-                                <div className="question-row">
-                                    <td className="question-index">{`Question ${
-                                        i + 1
-                                    }`}</td>
-                                    <td className="question-content">
-                                        {obj.question}
-                                    </td>
-                                    <td
-                                        className={`score${
-                                            hasOnlyTextQs &&
-                                            !obj.hasOwnProperty("answer")
-                                                ? "inactive"
-                                                : ""
-                                        }`} // to hide the gray box
-                                    >
-                                        {hasOnlyTextQs &&
+                        <tr className="question-note-container" key={i}>
+                            {/* TODO: Fixed the error that td can't be child of div */}
+                            <div className="question-row">
+                                <td className="question-index">{`Question ${
+                                    i + 1
+                                }`}</td>
+                                <td className="question-content">
+                                    {obj.question}
+                                </td>
+                                <td
+                                    className={`score${
+                                        hasOnlyTextQs &&
                                         !obj.hasOwnProperty("answer")
-                                            ? "  "
-                                            : obj.answer}
-                                    </td>
-                                    <td className="question-elaboration">
-                                        <button
-                                            className="expand-btn"
-                                            onClick={() => handleExpand(i)}
-                                        ></button>
-                                    </td>
+                                            ? "inactive"
+                                            : ""
+                                    }`} // to hide the gray box
+                                >
+                                    {hasOnlyTextQs &&
+                                    !obj.hasOwnProperty("answer")
+                                        ? "  "
+                                        : obj.answer}
+                                </td>
+                                <td className="question-elaboration">
+                                    <button
+                                        className="expand-btn"
+                                        onClick={() => handleExpand(i)}
+                                    ></button>
+                                </td>
+                            </div>
+                            {/* TODO: fix the error that div can't be a child of tr */}
+                            {showText && i === expandedItemIndex && (
+                                <div className="notes-row">
+                                    <p className="notes-label">Notes: </p>
+                                    <p className="notes-content">{obj.text}</p>
                                 </div>
-                                {showText && i === expandedItemIndex && (
-                                    <div className="notes-row">
-                                        <p className="notes-label">Notes: </p>
-                                        <p className="notes-content">
-                                            {obj.text}
-                                        </p>
-                                    </div>
-                                )}
-                            </tr>
-                        </div>
+                            )}
+                        </tr>
                     ))}
                 </tbody>
             </table>

@@ -49,10 +49,12 @@ const AssesssmentsOverview = () => {
     const filterFromSearch = (data, searchStr) => {
         // data exist and we typed something in search
         if (data && searchStr) {
+            console.log("data to be filtered: ", data);
             return data.filter((obj) => {
                 let bfc = obj.beneficiary;
                 return (
-                    bfc.firstName.toLowerCase().includes(searchStr) ||
+                    (bfc != null &&
+                        bfc.firstName.toLowerCase().includes(searchStr)) ||
                     bfc.lastName.toLowerCase().includes(searchStr) ||
                     bfc.id.toString().includes(searchStr)
                 );
