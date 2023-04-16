@@ -1,18 +1,9 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { auth } from "../../../firebase/firebase";
-import {
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import {
-    RiGoogleLine,
-    RiInstagramLine,
-    RiFacebookCircleLine,
-    RiAppleLine,
-} from "react-icons/Ri";
-import HFCLogo from "../../assets/images/hfc-logo-peach.png";
+import HFCDesign from "../../assets/images/hfc-design-1.png";
 
 const ERRORS = {
     // use codes instead
@@ -60,7 +51,7 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="login-container-left">
-                <img className="logo" src={HFCLogo} />
+                <img className="logo" src={HFCDesign} />
             </div>
             <div className="right">
                 {error && error.length ? <h1>{error}</h1> : ""}
