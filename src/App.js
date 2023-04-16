@@ -5,6 +5,7 @@ import {
     Outlet,
     Route,
     RouterProvider,
+    Navigate,
 } from "react-router-dom";
 
 // Contexts
@@ -61,7 +62,10 @@ const router = createBrowserRouter(
             <Route path="forgot-password" element={<PasswordReset />}></Route>
             <Route element={<PrivateRoute />}>
                 <Route path="dashboard" element={<DashboardLayout />}>
-                    <Route index element={<h1>TODO: Index</h1>} />
+                    <Route
+                        index
+                        element={<Navigate to="./beneficiaries" replace />}
+                    />
                     <Route path="beneficiaries">
                         <Route index element={<Beneficiaries />} />
                         <Route
