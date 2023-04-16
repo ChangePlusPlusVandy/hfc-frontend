@@ -9,8 +9,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    margin: 50px;
-    margin-left: 100px;
+    margin: 10px;
 }
 
 .beneficiary-page-container .page-content {
@@ -224,7 +223,6 @@
     height: 200px;
     line-height: 85px;
     border-radius: 100px;
-    /* border: 1px solid #000000; */
     font-size: 50px;
     color: #000000;
     text-align: center;
@@ -279,15 +277,6 @@
 }
 
 #archive-button {
-    /* border-bottom: 1.5px solid var(--text-link);
-    cursor: pointer;
-    font-size: 12pt;
-    background-color: transparent; */
-    /* color: var(--text-link); */
-    /* border-radius: 8px;
-    text-align: center;
-    padding: 2px 10px;  */
-    height: 30px;
     background-color: transparent;
     font-size: 12pt;
     border-color: transparent;
