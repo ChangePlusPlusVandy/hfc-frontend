@@ -296,18 +296,8 @@
     padding-left: 15px;
 }
 
-/* 
-.workshop-close {
-    color: #fff;
-    background-color: #999;
-    position: absolute;
-    top: 2px;
-    right: -10px;
-    border-radius: 100%;
-    border: 2px solid #333;
-    max-width: 3px;
-}
 
+/*
 .workshop-close:hover,
 .workshop-close:focus {
     color: #000;
