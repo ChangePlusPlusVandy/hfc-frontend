@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-
+import TrashIcon from "../../assets/icons/trash-icon.png";
+import { useAuth } from "../../contexts/AuthContext";
 import "./SingleWorkshop.css";
 import "./Workshops.css";
 export const WorkshopSingle = () => {
     const { workshopID } = useParams();
-
+    const { isAdmin } = useAuth();
     const [workshop, setWorkshop] = useState({});
     const [updateWorkTitle, setUpdateWorkTitle] = useState("");
     const [updateWorkDesc, setUpdateWorkDesc] = useState("");
@@ -22,12 +23,8 @@ export const WorkshopSingle = () => {
         try {
             const requestOptions = {
                 method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${window.localStorage.getItem(
-                        "auth"
-                    )}`,
-                },
+                headers: { "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}` },
                 body: JSON.stringify({
                     workshopID,
                 }),
@@ -43,10 +40,8 @@ export const WorkshopSingle = () => {
         console.log("editing");
         const requestOptions = {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
-            },
+            headers: { "Content-Type": "application/json" ,
+            Authorization: `Bearer ${window.localStorage.getItem("auth")}`,},
             body: JSON.stringify({
                 _id: workshopID,
                 content: {
@@ -56,7 +51,7 @@ export const WorkshopSingle = () => {
                     hosts: updateWorkHosts.map((item) => {
                         return item.value;
                     }),
-                    date: new Date(String(updateDate) + "T12:00:00.000z"),
+                    date: new Date(String(updateDate)+"T12:00:00.000z"),
                 },
             }),
         };
@@ -128,7 +123,51 @@ export const WorkshopSingle = () => {
 
     return (
         <div className="single-workshop-container">
+            <div className="button-header">
             <Link to="/dashboard/workshops">&lt; back to workshop list</Link>
+            <div className = "beneficiary-page-container">
+            <div className="archive-delete-buttons">
+                    {editMode && !deleteClicked && (
+                        <button
+                            onClick={(e)=>setUpdateWorkStatus(!updateWorkStatus)}
+                            id="archive-button"
+                        >
+                            {updateWorkStatus
+                                ? "Unarchive Beneficiary"
+                                : "Archive Beneficiary"}
+                        </button>
+                    )}
+                    {editMode && !deleteClicked && (
+                        <img
+                            src={TrashIcon}
+                            alt="Delete Beneficiary"
+                            className="icon"
+                            onClick={(e)=>setDeleteClicked(true)}
+                        />
+                    )}
+                    {deleteClicked && editMode && (
+                        <div className="confirm-delete-container">
+                            <p className="confirm-delete-text">
+                                Are you sure you want to delete? This action
+                                cannot be undone.
+                            </p>
+                            <button
+                                className="confirm-dlt-buttons"
+                                onClick={deleteWorkshop}
+                            >
+                                Confirm Delete
+                            </button>
+                            <button
+                                className="confirm-dlt-buttons"
+                                onClick={(e) => setDeleteClicked(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    )}
+                </div>
+                </div>
+                </div>
             {editMode ? (
                 <div className="single-workshop">
                     <div className="workshop-info-container">
@@ -185,39 +224,13 @@ export const WorkshopSingle = () => {
                                 />
                             </h7>
                         </div>
-                        <div className="workshop-info">
-                            <h3>Status</h3>
-                            <h7>
-                                <div
-                                    className="sortIndicator"
-                                    onChange={(e) =>
-                                        setUpdateWorkStatus(e.target.value)
-                                    }
-                                >
-                                    <input
-                                        type="radio"
-                                        value={false}
-                                        name="sortVal"
-                                        defaultChecked={!updateWorkStatus}
-                                    />
-                                    Active &emsp;&emsp;&emsp;
-                                    <input
-                                        type="radio"
-                                        value={true}
-                                        name="sortVal"
-                                        defaultChecked={updateWorkStatus}
-                                    />
-                                    Archived
-                                </div>
-                            </h7>
-                        </div>
                         <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
                             <button
                                 onClick={updateWorkshop}
                                 className="submit-button"
                             >
-                                Submit
+                                Submit Changes
                             </button>
                             &emsp;&emsp;
                             <button
@@ -226,35 +239,7 @@ export const WorkshopSingle = () => {
                             >
                                 Cancel
                             </button>
-                            {!deleteClicked && (
-                                <button
-                                    className="delete-btn"
-                                    onClick={(e) => setDeleteClicked(true)}
-                                >
-                                    delete
-                                </button>
-                            )}
-                            {deleteClicked && (
-                                <div className="confirm-delete-container">
-                                    <p className="confirm-delete-text">
-                                        Delete this assessment? You cannot undo
-                                        this.
-                                    </p>
-
-                                    <button
-                                        className="delete-btn"
-                                        onClick={(e) => deleteWorkshop()}
-                                    >
-                                        confirm delete
-                                    </button>
-                                    <button
-                                        className="cancel-btn"
-                                        onClick={(e) => setDeleteClicked(false)}
-                                    >
-                                        cancel
-                                    </button>
-                                </div>
-                            )}
+                
                             &emsp;&emsp;
                         </div>
                     </div>
@@ -262,7 +247,7 @@ export const WorkshopSingle = () => {
             ) : (
                 <div className="single-workshop">
                     <div className="single-workshop-heading">
-                        <h1>{workshop.title}</h1>
+                        <h1>{workshop?.title}</h1>
 
                         <div className="heading-buttons">
                             <button
@@ -283,12 +268,12 @@ export const WorkshopSingle = () => {
                     <div className="workshop-info-container">
                         <div className="workshop-info">
                             <h3>Description</h3>
-                            <h7>{workshop.description}</h7>
+                            <h7>{workshop?.description}</h7>
                         </div>
                         <div className="workshop-info">
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
-                                {workshop.hosts && workshop.hosts.length > 0 ? (
+                                {workshop?.hosts && workshop?.hosts.length > 0 ? (
                                     <>
                                         {workshop.hosts.map((item) => (
                                             <Link
@@ -310,7 +295,7 @@ export const WorkshopSingle = () => {
                             <h3>Date</h3>
                             {/*use divs instead of h7*/}
                             <h7>
-                                {workshop.date
+                                {workshop?.date
                                     ? new Date(workshop.date)
                                           .toString()
                                           .substring(0, 10)
@@ -319,13 +304,13 @@ export const WorkshopSingle = () => {
                         </div>
                         <div className="workshop-info">
                             <h3>Status</h3>
-                            {workshop.archived ? (
+                            {workshop?.archived ? (
                                 <h7>ARCHIVED</h7>
                             ) : (
                                 <h7>ACTIVE</h7>
                             )}
                         </div>
-                        {workshop.numAttendees > 0 ? (
+                        {workshop?.numAttendees > 0 ? (
                             <>
                                 <div className="workshop-info">
                                     <h3>Total Attendees</h3>
@@ -387,13 +372,20 @@ export const WorkshopSingle = () => {
                         )}
                         <br></br>
                         <div className="workshop-info-buttons-container.workshop-buttons-inner">
-                            <button
+                            {isAdmin ?                             <button
                                 onClick={enterUpdateMode}
                                 className="submit-button"
                             >
                                 {" "}
                                 Edit
-                            </button>
+                            </button>:                             <button
+                                onClick={enterUpdateMode}
+                                className="submit-button" disabled
+                            >
+                                {" "}
+                                Edit
+                            </button>}
+
                         </div>
                     </div>
                 </div>
