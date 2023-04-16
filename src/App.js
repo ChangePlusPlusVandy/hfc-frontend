@@ -56,7 +56,7 @@ const Root = () => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Root />}>
-            <Route index element={<Login/>} />
+            <Route index element={<Login />} />
             <Route path="forgot-password" element={<PasswordReset />}></Route>
             <Route element={<PrivateRoute />}>
                 <Route path="dashboard" element={<DashboardLayout />}>
