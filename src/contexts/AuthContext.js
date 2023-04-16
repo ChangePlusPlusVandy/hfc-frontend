@@ -19,42 +19,20 @@ export const AuthProvider = ({ children }) => {
         phoneNumber: "",
         archived: "",
     });
+
     const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
+                // Setting firebase user state
+                console.log("[AuthContext] firebase user found");
                 setFbUser(user);
-
-                // Get mongo user
-                const res = await fetch(
-                    `http://localhost:3000/users?firebaseUID=${user.uid}`
-                );
-                const mongoUser = await res.json();
-                const {
-                    firstName,
-                    lastName,
-                    firebaseUID,
-                    joinDate,
-                    level,
-                    languages,
-                    phoneNumber,
-                    archived,
-                } = mongoUser[0];
-                setMongoUser({
-                    firstName: firstName,
-                    lastName: lastName,
-                    firebaseUID: firebaseUID,
-                    joinDate: joinDate,
-                    level: level,
-                    languages: languages,
-                    phoneNumber: phoneNumber,
-                    archived: archived,
-                });
-                setIsAdmin(parseInt(level) == 3);
+            } else {
+                console.log("[AuthContext] firebase user NOT found");
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return unsubscribe;
@@ -65,16 +43,63 @@ export const AuthProvider = ({ children }) => {
         window.localStorage.setItem("auth", userToken);
     };
 
+    const getMongoUser = async () => {
+        // Get mongo user to set mongo user state
+        try {
+            const res = await fetch(
+                `http://localhost:3000/users?firebaseUID=${fbUser.uid}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
+            const mongoUser = await res.json();
+            console.log("AuthContext got associated mongoUser");
+            const {
+                firstName,
+                lastName,
+                firebaseUID,
+                joinDate,
+                level,
+                languages,
+                phoneNumber,
+                archived,
+            } = mongoUser[0];
+            setMongoUser({
+                firstName: firstName,
+                lastName: lastName,
+                firebaseUID: firebaseUID,
+                joinDate: joinDate,
+                level: level,
+                languages: languages,
+                phoneNumber: phoneNumber,
+                archived: archived,
+            });
+            // if mongoUser is level 3 set admin state
+            setIsAdmin(parseInt(level) == 3);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // use effect that fires sets/removes auth token when isAdmin state changes
     useEffect(() => {
-        if (isAdmin) {
-            console.log("Admin user found, setting token");
-            setToken();
+        if (fbUser) {
+            console.log("User found, setting token");
+            setToken()
+                .then(() => getMongoUser())
+                .then(() => setLoading(false));
         } else {
-            console.log("Admin user not found, removing token");
+            console.log("User not found, removing token");
             window.localStorage.removeItem("auth");
         }
-    }, [isAdmin]);
+    }, [fbUser]);
 
+    // these are the states that will be available to the whole app through the useAuth hook
     const value = {
         fbUser,
         mongoUser,

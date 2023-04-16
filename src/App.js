@@ -43,51 +43,77 @@ import SingleAssessment from "./pages/assessments/components/SingleAssessment";
 import Users from "./pages/users/Users";
 import SingleUser from "./pages/users/SingleUser";
 
+import PrivateRoute from "./utils/PrivateRoutes";
+
+const Root = () => {
+    return (
+        <>
+            <Outlet />
+        </>
+    );
+};
+
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Outlet />}>
-            <Route path="login" element={<Login />}></Route>
+        <Route path="/" element={<Root />}>
+            <Route index element={<h1>hi</h1>} />
+            <Route path="login" element={<Login />} />
             <Route path="forgot-password" element={<PasswordReset />}></Route>
-            <Route path="dashboard" element={<DashboardLayout />}>
-                <Route index element={<h1>TODO: Index</h1>} />
-                <Route path="beneficiaries">
-                    <Route index element={<Beneficiaries />} />
-                    <Route
-                        path="register"
-                        element={<BeneficiaryRegistration />}
-                    />
-                    <Route path=":beneficiaryId" element={<Beneficiary />} />
-                </Route>
-                <Route path="data" element={<h1>TODO: Data Dashboard</h1>} />
-                <Route path="programs">
-                    <Route index element={<Programs />} />
-                    <Route path="singleview">
-                        <Route path=":programID" element={<SingleProgram />} />
-                        {/* <Route index element={<SingleProgram />} /> */}
+            <Route element={<PrivateRoute />}>
+                <Route path="dashboard" element={<DashboardLayout />}>
+                    <Route index element={<h1>TODO: Index</h1>} />
+                    <Route path="beneficiaries">
+                        <Route index element={<Beneficiaries />} />
                         <Route
-                            path="attendance/:programID"
-                            element={<MarkAttendance />}
+                            path="register"
+                            element={<BeneficiaryRegistration />}
+                        />
+                        <Route
+                            path=":beneficiaryId"
+                            element={<Beneficiary />}
                         />
                     </Route>
-                </Route>
-                <Route path="workshops">
-                    <Route index element={<WorkshopsList />} />
-                    <Route path="create" element={<WorkshopCreateForm />} />
-                    {/* TODO: Make dynamic routes for each workshop */}
-                    <Route path="singleview" element={<WorkshopSingle />} />
-                    <Route path="attendance" element={<WorkshopAttendance />} />
-                </Route>
-                <Route path="assessments">
-                    <Route index element={<AssessmentsOverview />} />
                     <Route
-                        path=":assessmentId"
-                        element={<SingleAssessment />}
+                        path="data"
+                        element={<h1>TODO: Data Dashboard</h1>}
                     />
-                    <Route path="assessment" element={<Assessments />} />
-                </Route>
-                <Route path="users" element={<Users />}>
-                    <Route path="onboard" element={<Register />} />
-                    <Route path=":fbId" element={<SingleUser />} />
+                    <Route path="programs">
+                        <Route index element={<Programs />} />
+                        <Route path="singleview">
+                            <Route
+                                path=":programID"
+                                element={<SingleProgram />}
+                            />
+                            {/* <Route index element={<SingleProgram />} /> */}
+                            <Route
+                                path="attendance/:programID"
+                                element={<MarkAttendance />}
+                            />
+                        </Route>
+                    </Route>
+                    <Route path="workshops">
+                        <Route index element={<WorkshopsList />} />
+                        <Route path="create" element={<WorkshopCreateForm />} />
+                        {/* TODO: Make dynamic routes for each workshop */}
+                        <Route path="singleview" element={<WorkshopSingle />} />
+                        <Route
+                            path="attendance"
+                            element={<WorkshopAttendance />}
+                        />
+                    </Route>
+                    <Route path="assessments">
+                        <Route index element={<AssessmentsOverview />} />
+                        <Route
+                            path=":assessmentId"
+                            element={<SingleAssessment />}
+                        />
+                        <Route path="assessment" element={<Assessments />} />
+                    </Route>
+                    <Route path="users">
+                        <Route index element={<Users />} />
+                        <Route path=":fbId" element={<SingleUser />} />
+                        <Route path="onboard" element={<Register />} />
+                    </Route>
                 </Route>
             </Route>
         </Route>

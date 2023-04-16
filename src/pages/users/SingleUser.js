@@ -157,7 +157,7 @@ const SingleUser = () => {
     }, []);
     return (
         <div className="container">
-            <div onClick={(e) => navigate("../users")} className="go-back">
+            <div onClick={(e) => navigate("../../users")} className="go-back">
                 <span className="go-back-text">
                     <IoIosArrowBack /> Back to Staff Directory
                 </span>
