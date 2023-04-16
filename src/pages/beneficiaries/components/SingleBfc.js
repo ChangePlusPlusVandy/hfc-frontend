@@ -62,7 +62,12 @@ const SingleBfc = (item) => {
         // update backend
         fetch(`http://localhost:3000/beneficiaries`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
             body: JSON.stringify({
                 beneficiaryID: id,
                 firstName: firstName,
@@ -75,7 +80,12 @@ const SingleBfc = (item) => {
             }),
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries");
+                let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },});
                 data = await data.json();
                 setBeneficiary(data);
                 console.log(data);

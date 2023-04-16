@@ -69,7 +69,12 @@ const SingleUser = () => {
         console.log(currUser);
         fetch(`http://localhost:3000/users?id=${currUser}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            }, 
             body: JSON.stringify({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -96,7 +101,12 @@ const SingleUser = () => {
         try {
             const res = await fetch(
                 `http://localhost:3000/users?firebaseUID=${fbId}`
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             const mongoUser = await res.json();
             setIsAdmin(parseInt(mongoUser[0].level) == 3);
         } catch (err) {
@@ -109,7 +119,12 @@ const SingleUser = () => {
         try {
             const res = await fetch(
                 `http://localhost:3000/users/user?userId=${mongoId}`
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             const mongoUser = await res.json();
             console.log("mongoUser", mongoUser);
             const {

@@ -16,7 +16,12 @@ export const WorkshopCreateForm = (props) => {
         props.onClose();
     };
     useEffect(() => {
-        fetch("http://localhost:3000/users/users")
+        fetch("http://localhost:3000/users/users",{headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem(
+                "auth"
+            )}`,
+        },})
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -66,7 +71,12 @@ export const WorkshopCreateForm = (props) => {
             try {
                 const requestOptions = {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
                     body: JSON.stringify(newWorkshopData),
                 };
                 console.log(requestOptions);

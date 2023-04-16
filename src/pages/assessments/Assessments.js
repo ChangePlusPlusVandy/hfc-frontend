@@ -195,11 +195,14 @@ const Assessments = () => {
         setPageNum(index);
     };
 
+
     const handleSubmit = async () => {
         try {
             const response = await fetch("http://localhost:3000/assessments", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,},
                 body: JSON.stringify({
                     mentalHealthQs: mentalHealthQs,
                     lifeSkillsQs: lifeSkillsQs,
@@ -230,7 +233,9 @@ const Assessments = () => {
                 `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
                 {
                     method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json", Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,},
                     body: JSON.stringify({
                         assessments: updatedAssessments,
                     }),

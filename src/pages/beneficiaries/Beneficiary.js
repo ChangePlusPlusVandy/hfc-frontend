@@ -177,7 +177,12 @@ const Beneficiary = () => {
         try {
             let data = await fetch(
                 "http://localhost:3000/programs/beneficiary?id=" + beneficiaryId
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             console.log("json data", data);
             setPrograms(data);
@@ -191,7 +196,12 @@ const Beneficiary = () => {
             let data = await fetch(
                 "http://localhost:3000/workshops/beneficiary?id=" +
                     beneficiaryId
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             console.log("json workshop data", data);
             setWorkshops(data);
@@ -202,10 +212,20 @@ const Beneficiary = () => {
 
     const handleDelete = (id) => {
         fetch("http://localhost:3000/beneficiaries?id=" + beneficiaryId, {
-            method: "DELETE",
+            method: "DELETE",headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries");
+                let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },});
                 data = await data.json();
             } catch (error) {
                 console.error(error);
@@ -239,7 +259,12 @@ const Beneficiary = () => {
         console.log("updated beneficiary", body);
         fetch(`http://localhost:3000/beneficiaries/${beneficiaryId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
             body,
         })
             .then((response) => console.log(response))
@@ -265,7 +290,12 @@ const Beneficiary = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`)
+        fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`,{headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem(
+                "auth"
+            )}`,
+        },})
             .then((response) => response.json())
             .then((data) => {
                 data.assessments.sort((a, b) => {

@@ -17,7 +17,12 @@ const SingleAssessment = () => {
         try {
             let data = await fetch(
                 `http://localhost:3000/assessments/?id=${mongoId}`
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             setAssessment(data);
             console.log("assessment get: ", data);
@@ -40,6 +45,12 @@ const SingleAssessment = () => {
     const handleConfirmDelete = (id) => {
         fetch(`http://localhost:3000/assessments/?id=${id}`, {
             method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
         });
         navigate("/dashboard/assessments");
     };

@@ -107,6 +107,12 @@ const Beneficiaries = () => {
         console.log(id);
         fetch(`http://localhost:3000/beneficiaries?id=${id}`, {
             method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
         }).then(async () => {
             try {
                 let data = await fetch("http://localhost:3000/beneficiaries");
@@ -264,7 +270,12 @@ const Beneficiaries = () => {
     useEffect(() => {
         const getBeneficiaries = async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries");
+                let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },});
                 data = await data.json();
                 let dataCopy = [...data];
                 dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));

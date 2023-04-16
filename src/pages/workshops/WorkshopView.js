@@ -72,12 +72,22 @@ export const WorkshopsList = () => {
     };
     const getWorkshops = () => {
         //TODO: Error handling
-        fetch("http://localhost:3000/workshops")
+        fetch("http://localhost:3000/workshops",{headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.localStorage.getItem(
+                "auth"
+            )}`,
+        },})
             .then((response) => response.json())
             .then((data) => {
                 console.log("Fetched workshops:");
                 //TODO: Use map, and do in backend. populate
-                fetch("http://localhost:3000/users/users")
+                fetch("http://localhost:3000/users/users",{headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },})
                     .then((response2) => response2.json())
                     .then((data2) => {
                         let tempOptions = data2

@@ -17,7 +17,14 @@ const AssesssmentsOverview = () => {
 
     const getAssessments = async () => {
         try {
-            let data = await fetch("http://localhost:3000/assessments");
+            let data = await fetch("http://localhost:3000/assessments",{
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             setAssessments(data);
         } catch (err) {

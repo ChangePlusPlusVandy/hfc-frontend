@@ -79,7 +79,12 @@ const SingleProgram = (props) => {
         try {
             let data = await fetch(
                 `http://localhost:3000/programs?id=${programID}`
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             console.log(data[0]);
             setProgram(data[0]);
@@ -90,7 +95,12 @@ const SingleProgram = (props) => {
 
     const getBeneficiaries = async () => {
         try {
-            let data = await fetch("http://localhost:3000/beneficiaries");
+            let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             setAllBeneficiaries(data);
             let tmp = data.map((e) => ({
@@ -144,7 +154,12 @@ const SingleProgram = (props) => {
 
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
             body: JSON.stringify({
                 _id: { programID },
                 content: {
@@ -161,7 +176,12 @@ const SingleProgram = (props) => {
     const updateProgram = async (e) => {
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
             body: JSON.stringify({
                 _id: { programID },
                 content: {
@@ -210,7 +230,12 @@ const SingleProgram = (props) => {
     const archiveProgram = async (id) => {
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },
             body: JSON.stringify({
                 _id: { programID },
                 content: {

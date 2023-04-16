@@ -27,7 +27,12 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
         try {
             let data = await fetch(
                 `http://localhost:3000/beneficiaries/?idNum=${inputId}`
-            );
+            ,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             //console.log("bfc ID: ", beneficiaryId);
             data = await data.json();
             setBeneficiary(data);
@@ -43,7 +48,12 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
 
     const getAllBeneficiaries = async () => {
         try {
-            let data = await fetch(`http://localhost:3000/beneficiaries`);
+            let data = await fetch(`http://localhost:3000/beneficiaries`,{headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem(
+                    "auth"
+                )}`,
+            },});
             data = await data.json();
             // setBeneficiaries(data);
             setAllBfcIds(data.map((d) => d.id));
