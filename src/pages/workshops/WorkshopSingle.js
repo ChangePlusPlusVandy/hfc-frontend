@@ -206,14 +206,18 @@ export const WorkshopSingle = () => {
                                 Cancel
                             </button>
                             {!deleteClicked && (
-                                <button className="delete-btn" onClick={(e) => setDeleteClicked(true)}>
+                                <button
+                                    className="delete-btn"
+                                    onClick={(e) => setDeleteClicked(true)}
+                                >
                                     delete
                                 </button>
                             )}
                             {deleteClicked && (
                                 <div className="confirm-delete-container">
                                     <p className="confirm-delete-text">
-                                        Delete this assessment? You cannot undo this.
+                                        Delete this assessment? You cannot undo
+                                        this.
                                     </p>
 
                                     <button
@@ -287,8 +291,8 @@ export const WorkshopSingle = () => {
                             <h7>
                                 {workshop.date
                                     ? new Date(workshop.date)
-                                        .toString()
-                                        .substring(0, 10)
+                                          .toString()
+                                          .substring(0, 10)
                                     : ""}
                             </h7>
                         </div>
@@ -376,25 +380,3 @@ export const WorkshopSingle = () => {
         </div>
     );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

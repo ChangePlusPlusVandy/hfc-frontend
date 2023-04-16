@@ -23,7 +23,7 @@
     font-size: 12pt;
 }
 
-.workshop-list-view-container .workshop-list-view-container>h1 {
+.workshop-list-view-container .workshop-list-view-container > h1 {
     margin: 0;
 }
 
@@ -32,7 +32,6 @@
     justify-content: space-between;
     margin-bottom: 10px;
 }
-
 
 .workshop-list-view-container .sort-options {
     flex: 0.5;
@@ -55,7 +54,6 @@
     width: 100%;
     cursor: pointer;
 }
-
 
 .workshop-list-view-container #filter-dropdown,
 .workshop-list-view-container #sort-dropdown {
@@ -104,7 +102,6 @@
     background-color: var(--even-midder);
 }
 
-
 .workshop-list-view-container .sort-inner-options-container h5 {
     border-radius: 10px;
     box-sizing: border-box;
@@ -128,12 +125,12 @@
     margin: 0;
 }
 
-.workshop-list-view-container .sort-inner-options-container> :first-child {
+.workshop-list-view-container .sort-inner-options-container > :first-child {
     border-right: 1px solid var(--darkest-color);
     border-radius: 10px 0px 0px 10px !important;
 }
 
-.workshop-list-view-container .sort-inner-options-container> :nth-child(2) {
+.workshop-list-view-container .sort-inner-options-container > :nth-child(2) {
     border-radius: 0px 10px 10px 0px !important;
 }
 
@@ -182,7 +179,7 @@
     display: none;
 }
 
-.workshop-list-view-container #status-options-dropdown input:hover+label {
+.workshop-list-view-container #status-options-dropdown input:hover + label {
     background-color: var(--darkest-color);
 }
 
@@ -231,7 +228,7 @@
     flex: 1;
 }
 
-.workshop-list-view-container .search-and-create>input {
+.workshop-list-view-container .search-and-create > input {
     margin: 0px 15px 0px 0px;
     border-radius: 10px;
     border: none;
@@ -240,8 +237,6 @@
     width: 35%;
     height: 100%;
 }
-
-
 
 .workshop-list-view-container .workshop-list-header {
     position: sticky;
@@ -259,15 +254,13 @@
     height: fit-content;
 }
 
-
-.workshop-list-view-container .workshop-list-header>h4 {
+.workshop-list-view-container .workshop-list-header > h4 {
     font-size: 15px;
     font-weight: 500;
     margin: 0;
 }
 
-
-.workshop-list-view-container .workshop-card>h4 {
+.workshop-list-view-container .workshop-card > h4 {
     font-size: 14px;
     font-weight: 400;
     margin: 0;
@@ -288,8 +281,6 @@
     padding-left: 15px;
 }
 
-
-
 .workshop-list-view-container .workshop-start-date {
     flex: 1;
     padding-left: 15px;
@@ -304,31 +295,6 @@
     flex: 0.5;
     padding-left: 15px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* 
 .workshop-close {

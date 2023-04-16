@@ -7,7 +7,6 @@ export const WorkshopsList = () => {
     const [searchWorkshop, setSearchWorkshop] = useState("");
     const [archivedSort, setArchivedSort] = useState("All");
 
-
     const [showPopup, setShowPopup] = useState(false);
     const [workshops, setWorkshops] = useState([]);
     const [sortBy, setSortBy] = useState("alphabetical");
@@ -18,7 +17,6 @@ export const WorkshopsList = () => {
     useEffect(() => {
         getWorkshops();
     }, []);
-
 
     const sortWorkshops = (arr) => {
         let sortByTmp = sortBy;
@@ -45,11 +43,12 @@ export const WorkshopsList = () => {
     };
 
     const FilteredWorkshops = sortWorkshops(
-        workshops.filter((item) => {
-            return searchWorkshop !== ""
-                ? item.title.includes(searchWorkshop)
-                : item;
-        })
+        workshops
+            .filter((item) => {
+                return searchWorkshop !== ""
+                    ? item.title.includes(searchWorkshop)
+                    : item;
+            })
             .filter((item) => {
                 if (archivedSort.localeCompare("All") == 0) return item;
                 if (archivedSort.localeCompare("Active") == 0)
@@ -57,7 +56,6 @@ export const WorkshopsList = () => {
                 else return item.archived === true;
             })
     );
-
 
     const handleSearchChange = (e) => {
         setSearchWorkshop(e.target.value);
@@ -110,15 +108,10 @@ export const WorkshopsList = () => {
             });
     };
 
-
-
-
     const handleSortValChange = (e) => {
         setSortBy(e);
         //reset
-
     };
-
 
     const filterDropdown = () => {
         //resetSortDropdown();
@@ -424,7 +417,6 @@ export const WorkshopsList = () => {
                                         name="sortVal"
                                         className="sort-radio-button"
                                     />
-
                                 </div>
                             </div>
                         </div>
@@ -472,22 +464,9 @@ export const WorkshopsList = () => {
                     </Link>
                 ))}
             </div>
-        </div >
+        </div>
     );
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import "./Workshops.css";
