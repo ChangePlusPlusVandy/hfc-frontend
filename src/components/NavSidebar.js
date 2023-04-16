@@ -75,7 +75,7 @@ const NavSidebar = () => {
             </NavLink>
 
             {/* TODO: refactor when auth is implemented */}
-            <NavLink to="users/me" className="profile-link-container">
+            <NavLink to={`users/${mongoUser._id}` }className="profile-link-container">
                 {isCollapsed ? (
                     <img
                         src={UserCircleIcon}
@@ -84,11 +84,12 @@ const NavSidebar = () => {
                     />
                 ) : (
                     <>
-                        <img
-                            src={DefaultUserProfilePic}
-                            alt={user.firstName + " " + user.lastName}
-                            className="user-profile-pic"
-                        />
+                        <div className="user-pfp">
+                            <h2 className="initals">
+                                {" "}
+                                {user.firstName.substring(0, 1) + user.lastName.substring(0, 1)}{" "}
+                            </h2>
+                        </div>
                         <h1 className="display-name">
                             {user.firstName}{" "}
                             {user.lastName && user.lastName.charAt(0) + "."}
