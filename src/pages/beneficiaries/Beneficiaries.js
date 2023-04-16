@@ -15,6 +15,44 @@ const FILTER_MAP = {
 };
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
+const sortOptions = [
+    {
+        value: 1,
+        label: "Sort By First Name (A-Z)",
+    },
+    {
+        value: 2,
+        label: "Sort By Last Name (A-Z)",
+    },
+    {
+        value: 3,
+        label: "Sort By Join Date (New to Old)",
+    },
+    {
+        value: 4,
+        label: "Sort By First Name (Z-A)",
+    },
+    {
+        value: 5,
+        label: "Sort By Last Name (Z-A)",
+    },
+    {
+        value: 6,
+        label: "Sort By Date (Old to New)",
+    },
+];
+
+const interestOptions = [
+    { name: "Computers", id: 1 },
+    { name: "Spoken English", id: 2 },
+    { name: "Literacy", id: 3 },
+    { name: "Math", id: 4 },
+    { name: "Bengali", id: 5 },
+    { name: "Arts", id: 6 },
+    { name: "Bakery/Cafe", id: 7 },
+    { name: "Counseling/Life Skills", id: 8 },
+];
+
 const Beneficiary = ({
     id,
     firstName,
@@ -28,16 +66,19 @@ const Beneficiary = ({
     _id,
 }) => {
     return (
-        <div className="beneficiary-container">
-            <img
-                className="beneficiary-pfp"
-                src={DefaultUser}
-                onClick={onClick}
-            ></img>
-            <p className="user-name">
-                {firstName} {lastName}
-            </p>
-        </div>
+        <button className="beneficiary-container" onClick={onClick}>
+            <button className="beneficiary-icon">
+                <h2 className="initals">
+                    {" "}
+                    {firstName.substring(0, 1) + lastName.substring(0, 1)}{" "}
+                </h2>
+            </button>
+            <div>
+                <h4 className="user-name">
+                    {firstName} {lastName}
+                </h4>
+            </div>
+        </button>
     );
 };
 
@@ -58,6 +99,7 @@ const Beneficiaries = () => {
     const [bakery, setBakery] = useState(false);
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
+    const [initials, setInitials] = useState("");
     const navigate = useNavigate();
     // TODO: make these an array of states check if the interests intersect with the desired interests
 
@@ -218,46 +260,6 @@ const Beneficiaries = () => {
                 break;
         }
     };
-
-    // TODO: move the options above beneficiary component
-    const sortOptions = [
-        {
-            value: 1,
-            label: "Sort By First Name (A-Z)",
-        },
-        {
-            value: 2,
-            label: "Sort By Last Name (A-Z)",
-        },
-        {
-            value: 3,
-            label: "Sort By Join Date (New to Old)",
-        },
-        {
-            value: 4,
-            label: "Sort By First Name (Z-A)",
-        },
-        {
-            value: 5,
-            label: "Sort By Last Name (Z-A)",
-        },
-        {
-            value: 6,
-            label: "Sort By Date (Old to New)",
-        },
-    ];
-
-    // TODO: move the options above beneficiary component
-    const interestOptions = [
-        { name: "Computers", id: 1 },
-        { name: "Spoken English", id: 2 },
-        { name: "Literacy", id: 3 },
-        { name: "Math", id: 4 },
-        { name: "Bengali", id: 5 },
-        { name: "Arts", id: 6 },
-        { name: "Bakery/Cafe", id: 7 },
-        { name: "Counseling/Life Skills", id: 8 },
-    ];
 
     useEffect(() => {
         const getBeneficiaries = async () => {

@@ -34,7 +34,7 @@ const BeneficiaryRegistration = () => {
     const [joinDate, setJoinDate] = useState(
         new Date().toISOString().split("T")[0]
     );
-    const [needs, setNeeds] = useState([]);
+    const [needs, setNeeds] = useState("");
 
     // Page 3 Data
     const [referrals, setReferrals] = useState(); // Display what Referal Orgs were Selected
@@ -157,7 +157,7 @@ const BeneficiaryRegistration = () => {
             nationality: nationalities.map((option) => option.value),
             eduLvl: education.value,
             interests: interests.map((option) => option.value),
-            needs: needs.map((option) => option.value),
+            needs,
             sponsorInfo,
             referrals,
             archived: false,
