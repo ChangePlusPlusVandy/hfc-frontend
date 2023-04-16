@@ -1,0 +1,19 @@
+.assessments-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}
+
+.assessment-page-container {
+    flex: 1;
+    flex-direction: column;
+    width: 80%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
