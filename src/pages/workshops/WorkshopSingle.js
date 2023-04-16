@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 
-import "react-tabs/style/react-tabs.css";
 import "./SingleWorkshop.css";
 import "./Workshops.css";
 export const WorkshopSingle = () => {
