@@ -4,7 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import TrashIcon from "../../assets/icons/trash-icon.png";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 import "./Beneficiary.css";
 
@@ -241,6 +241,7 @@ const Beneficiary = () => {
                 console.error(error);
             }
         });
+        navigate("/dashboard/beneficiaries");
     };
 
     const handleToggleArchive = () => {
@@ -620,6 +621,7 @@ const Beneficiary = () => {
                         <button
                             onClick={handleToggleEditMode}
                             className="edit-button"
+                            disabled={!isAdmin}
                         >
                             {editing ? "Cancel Edits" : "Edit"}
                         </button>
