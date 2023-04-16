@@ -71,10 +71,8 @@ const SingleUser = () => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            }, 
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
             body: JSON.stringify({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -100,13 +98,16 @@ const SingleUser = () => {
     const checkAdminStatus = async (fbId) => {
         try {
             const res = await fetch(
-                `http://localhost:3000/users?firebaseUID=${fbId}`
-            ,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+                `http://localhost:3000/users?firebaseUID=${fbId}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
             const mongoUser = await res.json();
             setIsAdmin(parseInt(mongoUser[0].level) == 3);
         } catch (err) {
@@ -118,13 +119,16 @@ const SingleUser = () => {
     const getMongoUser = async (mongoId) => {
         try {
             const res = await fetch(
-                `http://localhost:3000/users/user?userId=${mongoId}`
-            ,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+                `http://localhost:3000/users/user?userId=${mongoId}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
             const mongoUser = await res.json();
             console.log("mongoUser", mongoUser);
             const {

@@ -109,12 +109,14 @@ const Users = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                let data = await fetch("http://localhost:3000/users/users",{headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${window.localStorage.getItem(
-                        "auth"
-                    )}`,
-                },});
+                let data = await fetch("http://localhost:3000/users/users", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                });
                 data = await data.json();
                 setUsers(data);
                 console.log(data);
@@ -126,13 +128,16 @@ const Users = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const res = await fetch(
-                    `http://localhost:3000/users?firebaseUID=${user.uid}`
-                ,{headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${window.localStorage.getItem(
-                        "auth"
-                    )}`,
-                },});
+                    `http://localhost:3000/users?firebaseUID=${user.uid}`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${window.localStorage.getItem(
+                                "auth"
+                            )}`,
+                        },
+                    }
+                );
                 const mongoUser = await res.json();
                 setIsAdmin(parseInt(mongoUser[0].level) == 3);
             }

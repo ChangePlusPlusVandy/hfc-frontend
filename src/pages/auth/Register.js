@@ -59,9 +59,7 @@ const Register = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body: JSON.stringify({
                 firebaseUID: firebaseUid,

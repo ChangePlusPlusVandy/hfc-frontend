@@ -45,9 +45,7 @@ export const WorkshopSingle = () => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body: JSON.stringify({
                 _id: workshopID,
@@ -90,23 +88,27 @@ export const WorkshopSingle = () => {
         console.log("here");
         try {
             //TODO: better error handling
-            fetch("http://localhost:3000/workshops?_id=" + workshopID,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },})
+            fetch("http://localhost:3000/workshops?_id=" + workshopID, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     data = data[0];
                     setWorkshop(data);
                 });
-            fetch("http://localhost:3000/users/users",{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },})
+            fetch("http://localhost:3000/users/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            })
                 .then((response2) => response2.json())
                 .then((data2) => {
                     let tempOptions = data2

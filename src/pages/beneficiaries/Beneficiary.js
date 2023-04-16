@@ -176,13 +176,17 @@ const Beneficiary = () => {
     const getPrograms = async () => {
         try {
             let data = await fetch(
-                "http://localhost:3000/programs/beneficiary?id=" + beneficiaryId
-            ,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+                "http://localhost:3000/programs/beneficiary?id=" +
+                    beneficiaryId,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
             data = await data.json();
             console.log("json data", data);
             setPrograms(data);
@@ -195,13 +199,16 @@ const Beneficiary = () => {
         try {
             let data = await fetch(
                 "http://localhost:3000/workshops/beneficiary?id=" +
-                    beneficiaryId
-            ,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+                    beneficiaryId,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
             data = await data.json();
             console.log("json workshop data", data);
             setWorkshops(data);
@@ -212,20 +219,21 @@ const Beneficiary = () => {
 
     const handleDelete = (id) => {
         fetch("http://localhost:3000/beneficiaries?id=" + beneficiaryId, {
-            method: "DELETE",headers: {
+            method: "DELETE",
+            headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${window.localStorage.getItem(
-                        "auth"
-                    )}`,
-                },});
+                let data = await fetch("http://localhost:3000/beneficiaries", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                });
                 data = await data.json();
             } catch (error) {
                 console.error(error);
@@ -261,9 +269,7 @@ const Beneficiary = () => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body,
         })
@@ -290,12 +296,12 @@ const Beneficiary = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`,{headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.localStorage.getItem(
-                "auth"
-            )}`,
-        },})
+        fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 data.assessments.sort((a, b) => {

@@ -78,13 +78,16 @@ const SingleProgram = (props) => {
     const getProgramFromID = async (e) => {
         try {
             let data = await fetch(
-                `http://localhost:3000/programs?id=${programID}`
-            ,{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+                `http://localhost:3000/programs?id=${programID}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
+            );
             data = await data.json();
             console.log(data[0]);
             setProgram(data[0]);
@@ -95,12 +98,14 @@ const SingleProgram = (props) => {
 
     const getBeneficiaries = async () => {
         try {
-            let data = await fetch("http://localhost:3000/beneficiaries",{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+            let data = await fetch("http://localhost:3000/beneficiaries", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             setAllBeneficiaries(data);
             let tmp = data.map((e) => ({
@@ -156,9 +161,7 @@ const SingleProgram = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body: JSON.stringify({
                 _id: { programID },
@@ -178,9 +181,7 @@ const SingleProgram = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body: JSON.stringify({
                 _id: { programID },
@@ -232,9 +233,7 @@ const SingleProgram = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             body: JSON.stringify({
                 _id: { programID },

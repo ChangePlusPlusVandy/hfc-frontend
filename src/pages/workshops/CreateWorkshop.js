@@ -16,12 +16,12 @@ export const WorkshopCreateForm = (props) => {
         props.onClose();
     };
     useEffect(() => {
-        fetch("http://localhost:3000/users/users",{headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.localStorage.getItem(
-                "auth"
-            )}`,
-        },})
+        fetch("http://localhost:3000/users/users", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);

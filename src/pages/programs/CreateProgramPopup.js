@@ -92,9 +92,7 @@ const CreateProgramPopup = (props) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
             },
             //UPDATE
             body: JSON.stringify({
@@ -148,12 +146,14 @@ const CreateProgramPopup = (props) => {
 
     const getUsers = async () => {
         try {
-            let data = await fetch("http://localhost:3000/users/users",{headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem(
-                    "auth"
-                )}`,
-            },});
+            let data = await fetch("http://localhost:3000/users/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             setUsers(data);
             let tmp = data.map((e) => ({
