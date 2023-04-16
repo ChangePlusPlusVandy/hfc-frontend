@@ -67,7 +67,7 @@
     color: black;
 }
 
-.workshops-page-container .workshops-card>h3 {
+.workshops-page-container .workshops-card > h3 {
     color: black;
     font-weight: bold;
     flex: 1;
@@ -75,8 +75,8 @@
     align-items: top;
 }
 
-.workshops-page-container .workshops-card>h4,
-.workshops-page-container .workshops-card>h5 {
+.workshops-page-container .workshops-card > h4,
+.workshops-page-container .workshops-card > h5 {
     color: black;
     font-weight: normal;
     display: inline-block;
@@ -85,7 +85,7 @@
     flex: 1;
 }
 
-.workshops-page-container .workshops-card>button {
+.workshops-page-container .workshops-card > button {
     margin: 3px;
     color: black;
     display: inline-block;
