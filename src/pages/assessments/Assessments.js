@@ -254,7 +254,7 @@ const Assessments = () => {
                     />
                 )}
             </div>
-            <div className="assessments-page-container">
+            <div className="assessment-page-container">
                 <FormProgressBar
                     stepNames={PAGES.map((page) => page.shortName)}
                     activeStepIndex={pageNum}
