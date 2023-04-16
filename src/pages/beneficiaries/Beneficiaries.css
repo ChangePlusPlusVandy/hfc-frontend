@@ -72,10 +72,12 @@
     border: 2px solid black;
 }
 
-.beneficiary-pfp {
-    max-height: 50%;
+.beneficiary-icon {
     margin-top: 2.5rem;
-    border-radius: 999px;
+    border-radius: 50%;
+    height: 50%;
+    width: 50%;
+    border: 0px;
 }
 
 .beneficiary-container {
@@ -91,6 +93,7 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     cursor: pointer;
+    border: 0;
 }
 
 .beneficiaries-page-container .beneficiaries-mapped-container {
@@ -109,4 +112,19 @@
 
 .beneficiaries-container {
     flex-direction: row;
+}
+
+.beneficiaries-page-container .beneficiary-icon {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    line-height: 55px;
+    border-radius: 100px;
+    /* border: 1px solid #000000; */
+    font-size: 40px;
+    color: #000000;
+    text-align: center;
+    background: #ebb19a;
+    align-self: center;
+    cursor: pointer;
 }

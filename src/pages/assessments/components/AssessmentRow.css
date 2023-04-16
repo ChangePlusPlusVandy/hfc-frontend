@@ -1,10 +1,10 @@
-.assessment-row {
+.assessment-beneficiary-info {
     display: flex;
     padding: 20px 0;
     border-bottom: 1px solid #757575;
 }
 
-.assessment-row > h4 {
+.assessment-beneficiary-info > h4 {
     font-size: 14px;
     font-weight: 400;
     margin: 0;
