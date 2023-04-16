@@ -30,3 +30,11 @@
     left: 45%;
     vertical-align: bottom;
 }
+
+.popup-container .beneficiary-id-input.error {
+    background-color: #ff000020;
+}
+
+.popup-container .beneficiary-id-alert {
+    color: #ff0000;
+}

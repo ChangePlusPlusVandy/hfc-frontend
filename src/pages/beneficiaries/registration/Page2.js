@@ -35,8 +35,12 @@ const Page2 = ({
         setReason(event.target.value);
     };
 
-    const handleNeedSelect = (data) => {
-        setNeeds(data);
+    // const handleNeedSelect = (data) => {
+    //     setNeeds(data);
+    // };
+
+    const handleChangeNeeds = (event) => {
+        setNeeds(event.target.value);
     };
 
     const handleInterestSelect = (data) => {
@@ -70,7 +74,12 @@ const Page2 = ({
             <br />
             <div className="section-container">
                 <label className="section-label">Needs</label>
-                <CreatableSelect
+                <textarea
+                    onChange={handleChangeNeeds}
+                    value={needs}
+                    placeholder="Start here..."
+                />
+                {/* <CreatableSelect
                     options={needOpts}
                     value={needs}
                     onChange={handleNeedSelect}
@@ -78,7 +87,7 @@ const Page2 = ({
                     name="needs"
                     className="creatable-multi-select"
                     classNamePrefix="select"
-                />
+                /> */}
                 <br />
             </div>
             <div className="section-container">

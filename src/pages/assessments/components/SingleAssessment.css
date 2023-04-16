@@ -1,0 +1,91 @@
+.assessment-info .assessment-info-header {
+    display: flex;
+    margin: 10px 0px;
+    padding: 5px 10px;
+    /* align-items: center; */
+}
+
+.assessment-info .bfc-name {
+    flex: 5;
+    text-align: left;
+}
+
+.assessment-info .assessment-date-admin,
+.assessment-info .assessment-date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.assessment-info .assessment-date-admin {
+    flex: 1;
+    text-align: right;
+}
+
+.assessment-info .assessment-date {
+    flex: 1;
+    justify-content: left;
+    padding-left: 10px;
+    color: #757575;
+}
+
+.assessment-info .confirm-delete-text {
+    color: #ff0000;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.assessment-info .section-tables {
+    height: 650px;
+    overflow: scroll;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 12px;
+    border: 2px solid #dadada;
+}
+
+.assessment-info .total-score-container {
+    display: flex;
+    border-radius: 12px;
+    background-color: #f3f3f3;
+    height: 40px;
+    margin: 20px 5px;
+    padding: 0px 15px;
+    align-items: center;
+}
+
+.assessment-info .total-score-num {
+    flex: 1;
+    text-align: right;
+    font-size: 18px;
+    color: #646464;
+}
+
+.assessment-info #back-arrow {
+    display: flex;
+    width: fit-content;
+    padding: 5px 10px;
+    font-size: 13pt;
+    font-weight: 400;
+    color: var(--text-link);
+}
+
+.assessment-info .delete-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.assessment-info .delete-icon {
+    height: 30px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+}
+
+.assessment-info .delete-icon:hover {
+    cursor: pointer;
+}

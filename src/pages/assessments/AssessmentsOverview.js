@@ -11,8 +11,9 @@ const SORT_OPTIONS = [
 
 const AssesssmentsOverview = () => {
     const [assessments, setAssessments] = useState([]);
+    const [displayedAssessments, setDisplayedAssessments] = useState([]);
     const [search, setSearch] = useState("");
-    const [beneficiary, setBeneficiary] = useState();
+    const [sortOption, setSortOption] = useState("");
 
     const getAssessments = async () => {
         try {
@@ -28,62 +29,39 @@ const AssesssmentsOverview = () => {
         getAssessments();
     }, []);
 
-    const getBeneficiaryById = async (mongoId) => {
-        try {
-            let data = await fetch(
-                `http://localhost:3000/beneficiaries/?id=${mongoId}`
-            );
-            console.log("get bfc ID: ", mongoId);
-            data = await data.json();
-            setBeneficiary(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    useEffect(() => {
+        sortByDate(assessments, sortOption); // assessment sorted
+        let filteredAssessments = filterFromSearch(
+            assessments,
+            search.toLowerCase()
+        );
+        setDisplayedAssessments(filteredAssessments);
+    }, [assessments, search, sortOption]);
 
-    // Called by filterFromSearch
-    const getBfcFromAssessment = (assessment) => {
-        // useEffect(() => {
-        if (assessments && assessment) {
-            console.log("assessment's bfc: ", assessment.beneficiary);
-            getBeneficiaryById(assessment.beneficiary);
-            if (beneficiary) {
-                console.log("bfc got: ", beneficiary);
-                return beneficiary;
-            }
-        }
-        // }, assessments);
-    };
-
-    // TODO: make this change displayedAssessments
-    const sortByDate = (oldToNew = false) => {
-        let data = [...assessments];
+    const sortByDate = (data, sortOrder = "NewToOld") => {
         data.sort((a, b) => {
             const dateA = new Date(a.dateTaken);
             const dateB = new Date(b.dateTaken);
-            return oldToNew ? dateA - dateB : dateB - dateA;
+            return sortOrder === "NewToOld" ? dateA - dateB : dateB - dateA;
         });
-        setAssessments(data);
     };
 
-    // TODO: make this change displayedAssessments
-    const filterFromSearch = () => {
-        // assessments exist and we typed something in search
-        if (assessments && search) {
-            return assessments.filter((obj) => {
-                let searchStr = search.toLowerCase();
-                let bfc = getBfcFromAssessment(obj);
+    const filterFromSearch = (data, searchStr) => {
+        // data exist and we typed something in search
+        if (data && searchStr) {
+            return data.filter((obj) => {
+                let bfc = obj.beneficiary;
                 return (
                     bfc.firstName.toLowerCase().includes(searchStr) ||
                     bfc.lastName.toLowerCase().includes(searchStr) ||
                     bfc.id.toString().includes(searchStr)
                 );
             });
-            // assessments exist, typed nothing
-        } else if (assessments) {
-            return assessments;
+        } else if (data) {
+            // data exist, typed nothing in search
+            return data;
         } else {
-            console.log("assessments undefined");
+            console.log("data to be filtered is undefined");
         }
     };
 
@@ -92,11 +70,7 @@ const AssesssmentsOverview = () => {
     };
 
     const handleSortChange = (e) => {
-        if (e.value === "NewToOld") {
-            sortByDate(); // default
-        } else {
-            sortByDate(true); // oldest to newest
-        }
+        setSortOption(e.value);
     };
 
     return (
@@ -125,22 +99,12 @@ const AssesssmentsOverview = () => {
             </div>
 
             <ul className="assessment-list-stack">
-                {assessments &&
-                    filterFromSearch().map((item, i) => (
-                        // TODO: delete unnecessary parameters
+                {displayedAssessments &&
+                    displayedAssessments.map((item, i) => (
                         <AssessmentRow
                             key={i}
                             dateTaken={item.dateTaken}
-                            eduVocQs={item.educationVocationQs}
-                            mentalHealthQs={item.mentalHealthQs}
-                            lifeSkillsQs={item.lifeSkillsQs}
-                            socialSkillsQs={item.socialSkillsQs}
-                            eduVocScore={item.educationVocationScore}
-                            mentalHealthScore={item.mentalHealthScore}
-                            lifeSkillsScore={item.lifeSkillsScore}
-                            socialSkillsScore={item.socialSkillsScore}
-                            totalScore={item.totalScore}
-                            bfcMongoId={item.beneficiary}
+                            beneficiary={item.beneficiary}
                             assessmentId={item._id}
                         />
                     ))}

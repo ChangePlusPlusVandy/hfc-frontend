@@ -5,9 +5,9 @@ import Select from "react-select";
 import "./BeneficiaryRegistration.css";
 
 const languageOpts = [
-    { value: "English", label: "English" },
-    { value: "Mandarin", label: "Mandarin" },
-    { value: "French", label: "French" },
+    { value: "Bangla", label: "Bangla " },
+    { value: "Hindi", label: "Hindi " },
+    { value: "English", label: "English " },
 ];
 
 const nationalityOpts = [
