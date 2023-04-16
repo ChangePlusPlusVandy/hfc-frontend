@@ -292,3 +292,8 @@
 .confirm-delete-container p {
     color: var(--text-link);
 }
+
+.beneficiary-page-container .button-header button,
+.icon {
+    cursor: pointer;
+}

@@ -729,56 +729,7 @@ const Beneficiaries = () => {
                         </NavLink>
                     </div>
                 </div>
-                {/* <div className="beneficiaries-page-header">
-                <div className="filter-dropdown">
-                    <div className="active-checkbox">
-                        <input
-                            type="checkbox"
-                            onChange={handleClickActive}
-                            defaultChecked
-                        />
-                        <label for="Active"> Active </label>
-                    </div>
-                    <div className="archived-checkbox">
-                        <input type="checkbox" onChange={handleClickArchive} />
-                        <label for="Archived"> Archived </label>
-                    </div>
-                    <div className="interest-multiselect">
-                        <Multiselect
-                            displayValue="name"
-                            placeholder="Interests"
-                            options={interestOptions}
-                            onSelect={handleSelectInterest}
-                            onRemove={handleRemoveInterest}
-                            showCheckbox
-                        />
-                    </div>
-                </div>
-                <div className="sort">
-                    <Select
-                        placeholder="Sort"
-                        className="sort-dropdown"
-                        options={sortOptions}
-                        onChange={handleChangeSort} // FIX THIS PASSING THE NEW VAL AS PARAM
-                    />
-                </div>
-                <div className="search">
-                    <input
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="search-bar"
-                        type="text"
-                        placeholder="Search..."
-                    />
-                </div>
-                <div className="register-beneficiary-btn">
-                    <NavLink
-                        to="../beneficiaries/register"
-                        className="new-button"
-                    >
-                        <button id="register-btn"> New </button>
-                    </NavLink>
-                </div>
-            </div> */}
+
                 <div className="beneficiaries-container">
                     <div className="beneficiaries-mapped-container">
                         {displayedBeneficiaries

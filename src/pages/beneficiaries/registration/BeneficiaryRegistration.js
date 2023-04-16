@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./BeneficiaryRegistration.css";
 
@@ -11,6 +12,8 @@ import Page3 from "./Page3";
 import ReviewPage from "./ReviewPage";
 
 const BeneficiaryRegistration = () => {
+    const navigate = useNavigate();
+
     const [pageNum, setPageNum] = useState(0);
 
     // Page 0 Data
@@ -187,6 +190,7 @@ const BeneficiaryRegistration = () => {
             .catch((error) => {
                 console.log("Error saving a new beneficiary:", error);
             });
+        navigate("/dashboard/beneficiaries");
     };
 
     return (

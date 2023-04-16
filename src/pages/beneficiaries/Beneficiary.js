@@ -4,6 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import TrashIcon from "../../assets/icons/trash-icon.png";
+import { useAuth } from "../../contexts/AuthContext";
 
 import "./Beneficiary.css";
 
@@ -46,6 +47,7 @@ const interestOpts = [
 
 const Beneficiary = () => {
     const { beneficiaryId } = useParams();
+    const { isAdmin } = useAuth();
     const navigate = useNavigate();
     const [beneficiary, setBeneficiary] = useState({});
     const [editing, setEditing] = useState(false);
@@ -409,7 +411,7 @@ const Beneficiary = () => {
             <div className="button-header">
                 <div className="back">
                     <Link to="/dashboard/beneficiaries" id="back-arrow">
-                        &lt; back to beneficiary list
+                        &lt; Back to beneficiary list
                     </Link>
                 </div>
                 <div className="archive-delete-buttons">
@@ -418,9 +420,7 @@ const Beneficiary = () => {
                             onClick={handleToggleArchive}
                             id="archive-button"
                         >
-                            {archived
-                                ? "Unarchive Beneficiary"
-                                : "Archive Beneficiary"}
+                            {archived ? "Unarchive" : "Archive"}
                         </button>
                     )}
                     {editing && !deleteClicked && (
@@ -441,7 +441,7 @@ const Beneficiary = () => {
                                 className="confirm-dlt-buttons"
                                 onClick={handleDelete}
                             >
-                                Confirm Delete
+                                Confirm
                             </button>
                             <button
                                 className="confirm-dlt-buttons"
@@ -482,6 +482,14 @@ const Beneficiary = () => {
                         </h1>
                     </div>
                     <div className="personal-info">
+                        <div className="personal-line">
+                            <h4 className="personal-label"> ID Number </h4>
+
+                            <div className="personal-value">
+                                {" "}
+                                {beneficiary.id}{" "}
+                            </div>
+                        </div>
                         <div className="personal-line">
                             <h4 className="personal-label"> Birthday </h4>
 
@@ -602,21 +610,21 @@ const Beneficiary = () => {
                         </div>
                     </div>
                     <div className="edit-submit-buttons">
-                        <button
-                            onClick={handleToggleEditMode}
-                            className="edit-button"
-                        >
-                            {editing ? "Cancel Edits" : "Edit"}
-                        </button>
-
                         {editing && (
                             <button
                                 onClick={handleSubmit}
                                 className="submit-button"
                             >
-                                Save Edits
+                                Submit Changes
                             </button>
                         )}
+                        <button
+                            onClick={handleToggleEditMode}
+                            className="edit-button"
+                            disabled={!isAdmin}
+                        >
+                            {editing ? "Cancel Edits" : "Edit"}
+                        </button>
                     </div>
                 </div>
                 <div className="beneficiary-registration-info">
