@@ -67,7 +67,14 @@ const Programs = () => {
 
     const getPrograms = async () => {
         try {
-            let data = await fetch("http://localhost:3000/programs");
+            let data = await fetch("http://localhost:3000/programs", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             setPrograms(sortPrograms(data));
         } catch (err) {

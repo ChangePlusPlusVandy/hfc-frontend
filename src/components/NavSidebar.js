@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./NavSidebar.css";
+
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 import HFCLogo from "../assets/images/hfc-logo-peach.png";
 import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
@@ -18,7 +22,7 @@ import UserCircleIcon from "../assets/icons/user-circle-icon.png";
 const COLLAPSE_SIDEBAR_THRESHOLD = 768; // the width at which the sidebar collapses in px
 
 const NavSidebar = () => {
-    // TODO: Get first and last name from logged in user using Firebase Auth
+    const { mongoUser } = useAuth();
     const [user, setUser] = useState({
         firstName: "Amanda",
         lastName: "Cunningham",
@@ -31,9 +35,28 @@ const NavSidebar = () => {
     const toggleIsCollapsed = () => setIsCollapsed((prev) => !prev);
 
     const handleLogout = () => {
-        // TODO: Logout user using Firebase Auth
-        alert("TODO: this lol");
+        signOut(auth)
+            .then(() => {
+                console.log("signout successful");
+                navigate("../login");
+            })
+            .catch((err) => {
+                console.log("error signing out");
+                console.log(err);
+            });
     };
+
+    const navigate = useNavigate();
+
+    // TODO: refactor to use ProtectedRoutes component (see https://github.com/ethanratnofsky/Tripful/tree/main)
+    useEffect(() => {
+        if (mongoUser) {
+            setUser({
+                firstName: mongoUser.firstName,
+                lastName: mongoUser.lastName,
+            });
+        }
+    }, [mongoUser]);
 
     return (
         <div className={`nav-sidebar${isCollapsed ? " collapsed" : ""}`}>

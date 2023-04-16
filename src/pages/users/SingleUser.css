@@ -1,0 +1,119 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+}
+
+.go-back {
+    padding: 2rem;
+    padding-left: 4rem;
+    width: 100%;
+}
+
+.go-back-text {
+    cursor: pointer;
+}
+
+.staff-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    height: 85%;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.header {
+    background-color: rgb(243, 243, 243);
+    width: 100%;
+    min-height: 20%;
+    border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.staff-name {
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.7rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0;
+}
+
+.staff-role {
+    margin-top: 1rem;
+    text-align: center;
+    color: rgb(175, 175, 175);
+}
+
+.content-main {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.content-row {
+    color: rgb(175, 175, 175);
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.content-row-key {
+    color: rgb(32, 32, 32);
+    padding-right: 3rem;
+}
+
+.content-row-val {
+    padding: 0.5rem;
+}
+
+.btn-container {
+    display: flex;
+    padding-top: 0rem;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.edit-btn {
+    border: none;
+    cursor: pointer;
+    background-color: rgb(217, 217, 217);
+    padding: 0.5rem 1.5rem;
+}
+
+.pfp {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    line-height: 30px;
+    border-radius: 100px;
+    /* border: 1px solid #000000; */
+    font-size: 50px;
+    color: #000000;
+    text-align: center;
+    background: #ebb19a;
+    align-self: center;
+}
+
+.user-edit {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    padding: 0.5rem;
+    margin: 0;
+    min-width: 300px;
+}
+
+.user-edit-2 {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    padding: 0.5rem;
+    margin: 0;
+    min-width: 300px;
+    text-align: center;
+}

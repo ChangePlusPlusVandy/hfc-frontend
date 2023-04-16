@@ -28,7 +28,15 @@ const MarkAttendance = (props) => {
     const getProgramFromID = async (e) => {
         try {
             let data = await fetch(
-                `http://localhost:3000/programs?id=${programID}`
+                `http://localhost:3000/programs?id=${programID}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${window.localStorage.getItem(
+                            "auth"
+                        )}`,
+                    },
+                }
             );
             data = await data.json();
 
@@ -61,7 +69,10 @@ const MarkAttendance = (props) => {
 
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
             body: JSON.stringify({
                 _id: { programID },
                 content: {

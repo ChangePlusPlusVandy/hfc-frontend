@@ -168,7 +168,10 @@ const BeneficiaryRegistration = () => {
         console.log("New beneficiary:", newBeneficiary);
         fetch("http://localhost:3000/beneficiaries", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+            },
             body: JSON.stringify(newBeneficiary),
         })
             .then((response) => {

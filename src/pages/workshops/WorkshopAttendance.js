@@ -31,7 +31,12 @@ export const WorkshopAttendance = () => {
         if (totalAttendees > 0) {
             const requestOptions = {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
                 body: JSON.stringify({
                     _id: workshopID,
                     content: {
@@ -51,7 +56,14 @@ export const WorkshopAttendance = () => {
     };
     useEffect(() => {
         try {
-            fetch("http://localhost:3000/workshops?_id=" + workshopID)
+            fetch("http://localhost:3000/workshops?_id=" + workshopID, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     setWorkshop(data[0]);
@@ -67,7 +79,14 @@ export const WorkshopAttendance = () => {
                         setRatingPoints(data[0].rating * data[0].numAttendees);
                     }
                 });
-            fetch("http://localhost:3000/beneficiaries")
+            fetch("http://localhost:3000/beneficiaries", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     setBeneficiaries(data);

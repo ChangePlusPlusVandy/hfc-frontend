@@ -1,5 +1,3 @@
-// TODO: Talk to Ethan
-
 import React from "react";
 
 const Icon = () => {
