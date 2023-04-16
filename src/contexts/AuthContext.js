@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
                 languages,
                 phoneNumber,
                 archived,
-                _id
+                _id,
             } = mongoUser[0];
             setMongoUser({
                 firstName: firstName,
