@@ -328,6 +328,62 @@ const Beneficiaries = () => {
                 click.style.display = "flex";
                 click.style.flexDirection = "column";
             } else {
+                //click.style.display = "none";
+            }
+        }
+    };
+
+    const sortOptionAToZ = () => {
+        let click = document.getElementById("sort-option-AtoZ");
+        if (document.getElementById("sort-option-start-date"))
+            document.getElementById("sort-option-start-date").style.display =
+                "none";
+        if (document.getElementById("sort-option-date-added"))
+            document.getElementById("sort-option-date-added").style.display =
+                "none";
+
+        if (click) {
+            if (click.style.display === "none") {
+                click.style.display = "flex";
+                click.style.width = "100%";
+            } else {
+                click.style.display = "none";
+            }
+        }
+    };
+
+    const sortOptionStartDate = () => {
+        let click = document.getElementById("sort-option-start-date");
+        if (document.getElementById("sort-option-AtoZ"))
+            document.getElementById("sort-option-AtoZ").style.display = "none";
+        if (document.getElementById("sort-option-date-added"))
+            document.getElementById("sort-option-date-added").style.display =
+                "none";
+
+        if (click) {
+            if (click.style.display === "none") {
+                click.style.display = "flex";
+                click.style.width = "100%";
+            } else {
+                click.style.display = "none";
+            }
+        }
+    };
+
+    const sortOptionDateAdded = () => {
+        let click = document.getElementById("sort-option-date-added");
+
+        if (document.getElementById("sort-option-AtoZ"))
+            document.getElementById("sort-option-AtoZ").style.display = "none";
+        if (document.getElementById("sort-option-start-date"))
+            document.getElementById("sort-option-start-date").style.display =
+                "none";
+
+        if (click) {
+            if (click.style.display === "none") {
+                click.style.display = "flex";
+                click.style.width = "100%";
+            } else {
                 click.style.display = "none";
             }
         }
@@ -389,16 +445,8 @@ const Beneficiaries = () => {
 
     return (
         <div className="beneficiaries-page-container">
-            <div className="beneficiaries-page-title">
-                <h1> List of Beneficiaries </h1>
-            </div>
             <div className="program-list-view-container">
-                {/* <CreateProgramPopup
-                    closeModal={() => setOpenModal(false)}
-                    openModal={openModal}
-                    reloadList={getPrograms}
-                /> */}
-                <h1>Program Overview</h1>
+                <h1>Beneficiary List</h1>
                 <div className="program-sort-options-container">
                     <div className="sort-options">
                         <div className="dropdown">
@@ -420,7 +468,6 @@ const Beneficiaries = () => {
                                         <div className="status-options-sub">
                                             <h6>STATUS</h6>
                                             <div className="status-options-main">
-                                                {/* <h5>{archivedSort} Programs</h5> */}
                                                 <h5> Beneficiary </h5>
                                                 <h5>&gt;</h5>
                                             </div>
@@ -428,38 +475,40 @@ const Beneficiaries = () => {
                                         <div
                                             id="status-options-dropdown"
                                             style={{ display: "none" }}
-                                            // onChange={handleSortArchivedChange}
                                         >
-                                            <input
-                                                type="radio"
-                                                value="Archived"
-                                                name="sortVal"
-                                                id="radio1"
-                                                className="sort-radio-button"
-                                            />
-                                            <label htmlFor="radio1">
-                                                Archived
-                                            </label>
+                                            <div className="checkbox-option">
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={handleClickActive}
+                                                    defaultChecked
+                                                />
+                                                <label> Active </label>
+                                            </div>
 
-                                            <input
-                                                type="radio"
-                                                value="Active"
-                                                name="sortVal"
-                                                id="radio2"
-                                                className="sort-radio-button"
-                                            />
-                                            <label htmlFor="radio2">
-                                                Active
-                                            </label>
+                                            <div className="checkbox-option">
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={
+                                                        handleClickArchive
+                                                    }
+                                                />{" "}
+                                                <label> Archived </label>
+                                            </div>
 
-                                            <input
-                                                type="radio"
-                                                value="All"
-                                                name="sortVal"
-                                                id="radio3"
-                                                className="sort-radio-button"
-                                            />
-                                            <label htmlFor="radio3">All</label>
+                                            <div className="interest-multiselect">
+                                                <Multiselect
+                                                    displayValue="name"
+                                                    placeholder="Select Interests"
+                                                    options={interestOptions}
+                                                    onSelect={
+                                                        handleSelectInterest
+                                                    }
+                                                    onRemove={
+                                                        handleRemoveInterest
+                                                    }
+                                                    showCheckbox
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -503,9 +552,9 @@ const Beneficiaries = () => {
                                         />
                                         <div
                                             className="outer-label"
-                                            // onClick={sortOptionAToZ}
+                                            onClick={sortOptionAToZ}
                                         >
-                                            <h6>NAME</h6>
+                                            <h6> FIRST NAME</h6>
                                             <div className="sort-options-main">
                                                 <h5>A-Z</h5>
                                                 <h5>&gt;</h5>
@@ -517,18 +566,28 @@ const Beneficiaries = () => {
                                             style={{ display: "none" }}
                                         >
                                             <div className="sort-inner-options-container">
-                                                <label
-                                                    htmlFor="sort1"
-                                                    className="sort-options-sub"
+                                                <button
+                                                    onClick={sortByFirstName}
                                                 >
-                                                    <h5>A-Z</h5>
-                                                </label>
-                                                <label
-                                                    htmlFor="sort2"
-                                                    className="sort-options-sub"
+                                                    <label
+                                                        htmlFor="sort1"
+                                                        className="sort-options-sub"
+                                                    >
+                                                        <h5>A-Z</h5>
+                                                    </label>
+                                                </button>
+                                                <button
+                                                    onClick={
+                                                        sortBackwardsByFirstName
+                                                    }
                                                 >
-                                                    <h5>Z-A</h5>
-                                                </label>
+                                                    <label
+                                                        htmlFor="sort2"
+                                                        className="sort-options-sub"
+                                                    >
+                                                        <h5>Z-A</h5>
+                                                    </label>
+                                                </button>
                                             </div>
                                         </div>
 
@@ -548,11 +607,11 @@ const Beneficiaries = () => {
                                         />
                                         <div
                                             className="outer-label"
-                                            // onClick={sortOptionStartDate}
+                                            onClick={sortOptionStartDate}
                                         >
-                                            <h6>START DATE</h6>
+                                            <h6>LAST NAME</h6>
                                             <div className="sort-options-main">
-                                                <h5>Newest-Oldest</h5>
+                                                <h5>A-Z</h5>
                                                 <h5>&gt;</h5>
                                             </div>
                                         </div>
@@ -561,26 +620,26 @@ const Beneficiaries = () => {
                                             style={{ display: "none" }}
                                         >
                                             <div className="sort-inner-options-container">
-                                                <label
-                                                    htmlFor="sort3"
-                                                    className="sort-options-sub"
-                                                    id="middle-sort-option"
-                                                    // onClick={
-                                                    //     sortOptionStartDate
-                                                    // }
-                                                >
-                                                    <h5>Newest-Oldest</h5>
-                                                </label>
-                                                <label
-                                                    htmlFor="sort4"
-                                                    className="sort-options-sub"
-                                                    id="middle-sort-option"
-                                                    // onClick={
-                                                    //     sortOptionStartDate
-                                                    // }
-                                                >
-                                                    <h5>Oldest-Newest</h5>
-                                                </label>
+                                                <button>
+                                                    <label
+                                                        htmlFor="sort3"
+                                                        className="sort-options-sub"
+                                                        onClick={sortByLastName}
+                                                    >
+                                                        <h5>A-Z</h5>
+                                                    </label>
+                                                </button>
+                                                <button>
+                                                    <label
+                                                        htmlFor="sort4"
+                                                        className="sort-options-sub"
+                                                        onClick={
+                                                            sortBackwardsByLastName
+                                                        }
+                                                    >
+                                                        <h5>Z-A</h5>
+                                                    </label>
+                                                </button>
                                             </div>
                                         </div>
 
@@ -600,7 +659,7 @@ const Beneficiaries = () => {
                                         />
                                         <div
                                             className="outer-label"
-                                            // onClick={sortOptionDateAdded}
+                                            onClick={sortOptionDateAdded}
                                         >
                                             <div className="sort-options-sub">
                                                 <h6>DATE ADDED</h6>
@@ -615,20 +674,26 @@ const Beneficiaries = () => {
                                             style={{ display: "none" }}
                                         >
                                             <div className="sort-inner-options-container">
-                                                <label
-                                                    htmlFor="sort5"
-                                                    className="sort-options-sub"
-                                                    id="middle-sort-option"
+                                                <button onClick={sortByDate}>
+                                                    <label
+                                                        htmlFor="sort5"
+                                                        className="sort-options-sub"
+                                                    >
+                                                        <h5>Newest-Oldest</h5>
+                                                    </label>
+                                                </button>
+                                                <button
+                                                    onClick={
+                                                        sortBackwardsByDate
+                                                    }
                                                 >
-                                                    <h5>Newest-Oldest</h5>
-                                                </label>
-                                                <label
-                                                    htmlFor="sort6"
-                                                    className="sort-options-sub"
-                                                    id="middle-sort-option"
-                                                >
-                                                    <h5>Oldest-Newest</h5>
-                                                </label>
+                                                    <label
+                                                        htmlFor="sort6"
+                                                        className="sort-options-sub"
+                                                    >
+                                                        <h5>Oldest-Newest</h5>
+                                                    </label>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

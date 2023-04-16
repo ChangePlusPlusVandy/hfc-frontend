@@ -373,7 +373,7 @@ const Beneficiary = () => {
             <div className="button-header">
                 <div className="back">
                     <Link to="/dashboard/beneficiaries" id="back-arrow">
-                        &lt; back to program list
+                        &lt; back to beneficiary list
                     </Link>
                 </div>
                 <div className="archive-delete-buttons">

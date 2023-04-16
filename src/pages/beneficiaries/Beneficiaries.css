@@ -128,3 +128,23 @@
     align-self: center;
     cursor: pointer;
 }
+
+.sort-dropdown-container button {
+    background-color: transparent;
+    border: 0px;
+    height: 30px;
+}
+
+.beneficiaries-page-container .checkbox-option {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+}
+
+.beneficiaries-page-container
+    .program-list-view-container
+    #status-options-dropdown
+    input:hover
+    + label {
+    background-color: transparent !important;
+}
