@@ -73,11 +73,19 @@
     color: var(--text-link);
 }
 
+.assessment-info .delete-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+
 .assessment-info .delete-icon {
     height: 30px;
-    position: fixed;
-    margin-bottom: 30px;
-    margin-right: 50px;
-    bottom: 0;
-    right: 0;
+    margin-bottom: 20px;
+    margin-right: 30px;
 }
+
+.assessment-info .delete-icon:hover {
+    cursor: pointer;
+}   

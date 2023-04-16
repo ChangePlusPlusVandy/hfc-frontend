@@ -90,12 +90,14 @@ const SingleAssessment = () => {
                     <p className="total-score-num">{assessment.totalScore}%</p>
                 </div>
                 {!deleteClicked && (
-                    <img
-                        src={TrashCanIcon}
-                        alt="delete assessment"
-                        className="delete-icon"
-                        onClick={handleDeleteClick}
-                    />
+                    <div className="delete-container">
+                        <img
+                            src={TrashCanIcon}
+                            alt="delete assessment"
+                            className="delete-icon"
+                            onClick={handleDeleteClick}
+                        />
+                    </div>
                 )}
                 {deleteClicked && (
                     <div className="confirm-delete-container">
