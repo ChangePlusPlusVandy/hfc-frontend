@@ -38,7 +38,7 @@ const NavSidebar = () => {
         signOut(auth)
             .then(() => {
                 console.log("signout successful");
-                navigate("../login");
+                navigate("/");
             })
             .catch((err) => {
                 console.log("error signing out");

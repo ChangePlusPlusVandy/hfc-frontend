@@ -17,7 +17,7 @@ const PrivateRoute = () => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (!currentUser) {
                 console.log("User is not logged in. Redirecting...");
-                navigate("/login");
+                navigate("/");
             } else {
                 console.log("User is logged in:", currentUser);
             }
