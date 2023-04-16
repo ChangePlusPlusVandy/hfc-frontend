@@ -171,7 +171,6 @@ const SingleUser = () => {
                 }
             } else {
                 navigate("/");
-
             }
         });
     }, []);
