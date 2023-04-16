@@ -170,7 +170,7 @@ const SingleUser = () => {
                     setisCurrentUser(currentUser.uid == user.fbUid); // || isAdmin
                 }
             } else {
-                navigate("../login");
+                navigate("/");
             }
         });
     }, []);

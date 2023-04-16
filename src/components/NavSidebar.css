@@ -11,6 +11,21 @@
     display: none;
 }
 
+.nav-sidebar .user-pfp {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    line-height: 155px;
+
+    border-radius: 100px;
+    /* border: 1px solid #000000; */
+    font-size: 50px;
+    color: #000000;
+    text-align: center;
+    background: #c1c7df;
+    align-self: center;
+}
+
 .nav-sidebar .collapse-icon {
     position: absolute;
     top: 15px;

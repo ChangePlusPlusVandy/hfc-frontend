@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         joinDate: "",
         level: "",
         languages: "",
+        _id: "",
         phoneNumber: "",
         archived: "",
     });
@@ -68,6 +69,7 @@ export const AuthProvider = ({ children }) => {
                 languages,
                 phoneNumber,
                 archived,
+                _id,
             } = mongoUser[0];
             setMongoUser({
                 firstName: firstName,
@@ -75,6 +77,7 @@ export const AuthProvider = ({ children }) => {
                 firebaseUID: firebaseUID,
                 joinDate: joinDate,
                 level: level,
+                _id: _id,
                 languages: languages,
                 phoneNumber: phoneNumber,
                 archived: archived,
