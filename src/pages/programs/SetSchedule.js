@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles/ScheduleModal.css";
 
 const SetSchedule = (props) => {
-    // TODO: Add state
+    // TODO: Add state)
 
     if (!props.openModal) return;
     return (
@@ -24,24 +24,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.mondayStart}
+                                    onChange={(e) =>
+                                        props.setMondayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.mondayEnd}
+                                    onChange={(e) =>
+                                        props.setMondayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -52,24 +48,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.tuesdayStart}
+                                    onChange={(e) =>
+                                        props.setTuesdayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.tuesdayEnd}
+                                    onChange={(e) =>
+                                        props.setTuesdayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -80,24 +72,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.wednesdayStart}
+                                    onChange={(e) =>
+                                        props.setWednesdayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.wednesdayEnd}
+                                    onChange={(e) =>
+                                        props.setWednesdayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -108,24 +96,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.thursdayStart}
+                                    onChange={(e) =>
+                                        props.setThursdayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.thursdayEnd}
+                                    onChange={(e) =>
+                                        props.setThursdayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -136,24 +120,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.fridayStart}
+                                    onChange={(e) =>
+                                        props.setFridayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.fridayEnd}
+                                    onChange={(e) =>
+                                        props.setFridayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -164,24 +144,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.saturdayStart}
+                                    onChange={(e) =>
+                                        props.setSaturdayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.saturdayEnd}
+                                    onChange={(e) =>
+                                        props.setSaturdayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>
@@ -192,24 +168,20 @@ const SetSchedule = (props) => {
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.sundayStart}
+                                    onChange={(e) =>
+                                        props.setSundayStart(e.target.value)
+                                    }
                                 />
                                 <h5>-</h5>
                                 <input
                                     className="schedule-enter-input"
                                     type="text"
                                     placeholder="00"
-                                />
-                                <h6>:</h6>
-                                <input
-                                    className="schedule-enter-input"
-                                    type="text"
-                                    placeholder="00"
+                                    value={props.sundayEnd}
+                                    onChange={(e) =>
+                                        props.setSundayEnd(e.target.value)
+                                    }
                                 />
                             </div>
                         </div>

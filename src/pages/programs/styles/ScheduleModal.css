@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.schedule-modal-body {
+.schedule-modal-container .schedule-modal-body {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
     min-width: 400px;
 }
 
-.schedule-cancel-button {
+.schedule-modal-container .schedule-cancel-button {
     position: absolute;
     background-color: transparent;
     border: none;
@@ -34,54 +34,54 @@
     top: 2em;
 }
 
-.make-schedule-inner-body > h3 {
+.schedule-modal-container .make-schedule-inner-body > h3 {
     margin-bottom: 5px;
     font-weight: 400;
 }
 
-.set-times-container {
+.schedule-modal-container .set-times-container {
     display: flex;
     flex-direction: column;
 }
 
-.schedule-single-day {
+.schedule-modal-container .schedule-single-day {
     display: flex;
     justify-content: space-between;
     margin: 3px 0;
 }
 
-.schedule-enter-time {
+.schedule-modal-container .schedule-enter-time {
     display: flex;
     flex-direction: row;
 }
 
-.schedule-enter-time h6 {
+.schedule-modal-container .schedule-enter-time h6 {
     margin: 0 5px;
     font-weight: 600;
 }
 
-.schedule-enter-time h5 {
-    margin: 0 10px;
+.schedule-modal-container .schedule-enter-time h5 {
+    margin: 0 20px;
     font-weight: 400;
 }
 
-.set-times-container h4 {
+.schedule-modal-container .set-times-container h4 {
     margin: 0;
     font-weight: 400;
     color: var(--text-color);
 }
 
-.schedule-enter-input {
+.schedule-modal-container .schedule-enter-input {
     display: flex;
     justify-content: center;
-    width: 20px;
+    width: 40px;
     border-radius: 10px;
     padding: 0 10px;
     margin: 0;
     border: 1px solid black;
 }
 
-.schedule-submit-button {
+.schedule-modal-container .schedule-submit-button {
     width: fit-content;
     position: absolute;
     right: 2em;
