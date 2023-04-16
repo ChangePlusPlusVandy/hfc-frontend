@@ -104,10 +104,11 @@ export const WorkshopCreateForm = (props) => {
     return (
         <div className="modal-container">
             <div className="modal-body">
-                <div>Workshop Title</div>
-                <button className="workshop-close" onClick={closeModal}>
+                <button className="cancel-button" onClick={closeModal}>
                     X
                 </button>
+                <div>Workshop Title</div>
+
                 <input
                     type="text"
                     id="Workshop Title"
@@ -144,6 +145,7 @@ export const WorkshopCreateForm = (props) => {
                 <button className="submit-button" onClick={createWorkshop}>
                     Create
                 </button>
+
                 <div>{message}</div>
             </div>
         </div>
