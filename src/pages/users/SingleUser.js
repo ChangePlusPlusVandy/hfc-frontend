@@ -184,7 +184,11 @@ const SingleUser = () => {
             <div className="staff-view">
                 <div className="header"></div>
                 <div className="pfp">
-                    <h2 className="initals"> {user.firstName.substring(0, 1) + user.lastName.substring(0, 1)} </h2>
+                    <h2 className="initals">
+                        {" "}
+                        {user.firstName.substring(0, 1) +
+                            user.lastName.substring(0, 1)}{" "}
+                    </h2>
                 </div>
                 <div className="staff-content">
                     <div className="staff-header">
