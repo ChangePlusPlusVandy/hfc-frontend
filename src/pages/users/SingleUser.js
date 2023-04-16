@@ -339,7 +339,7 @@ const SingleUser = () => {
                                     onClick={handleArchiveToggle}
                                     className="edit-btn"
                                 >
-                                    🤣🫱 boi ur fired
+                                    Archive/Unarchive
                                 </button>
                             ) : (
                                 ""
