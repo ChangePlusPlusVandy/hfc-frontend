@@ -74,7 +74,7 @@ const AssesssmentsOverview = () => {
     };
 
     return (
-        <div className="assessments-page-container">
+        <div className="assessments-list-container">
             <h1>Assessments Overview </h1>
             <div className="query-container">
                 <Dropdown
