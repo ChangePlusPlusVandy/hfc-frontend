@@ -104,6 +104,11 @@
 
 .nav-sidebar nav a.active {
     background-color: #EBB19B;
+    color: white;
+}
+
+.nav-sidebar nav a.active img.icon {
+    filter: invert(100%);
 }
 
 .nav-sidebar nav img.icon {
