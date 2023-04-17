@@ -218,39 +218,38 @@ const Assessments = () => {
                     beneficiary: beneficiary._id,
                 }),
             });
+
+            const thisAssessment = await response.json();
+            const updatedAssessments = [
+                ...beneficiary.assessments,
+                thisAssessment._id,
+            ];
+
+            // add this assessment to current beneficiary's assessments
+
+            try {
+                const bfcResponse = await fetch(
+                    `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${window.localStorage.getItem(
+                                "auth"
+                            )}`,
+                        },
+                        body: JSON.stringify({
+                            assessments: updatedAssessments,
+                        }),
+                    }
+                );
+                navigate(-1); // to the overview page
+            } catch (err) {
+                console.log(err);
+            }
         } catch (err) {
             console.error(err?.message ? err.message : err);
         }
-
-        const thisAssessment = await response.json();
-
-        // add this assessment to current beneficiary's assessments
-        const updatedAssessments = [
-            ...beneficiary.assessments,
-            thisAssessment._id,
-        ];
-
-        try {
-            const bfcResponse = await fetch(
-                `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        assessments: updatedAssessments,
-                    }),
-                }
-            );
-        } catch (err) {
-            console.log(err);
-        }
-
-        navigate(-1); // to the overview page
     };
 
     return (
