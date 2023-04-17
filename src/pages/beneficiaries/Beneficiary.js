@@ -560,8 +560,11 @@ const Beneficiary = () => {
                                         options={languageOpts}
                                     />
                                 ) : (
-                                    languages?.map((language) => (
-                                        <div className="mapped-language-nationality">
+                                    languages?.map((language, index) => (
+                                        <div
+                                            key={index}
+                                            className="mapped-language-nationality"
+                                        >
                                             {language.value}
                                         </div>
                                     ))
@@ -580,8 +583,11 @@ const Beneficiary = () => {
                                         options={nationalityOpts}
                                     />
                                 ) : (
-                                    nationality?.map((nationality) => (
-                                        <div className="mapped-language-nationality">
+                                    nationality?.map((nationality, index) => (
+                                        <div
+                                            key={index}
+                                            className="mapped-language-nationality"
+                                        >
                                             {nationality.value}
                                         </div>
                                     ))
@@ -632,7 +638,7 @@ const Beneficiary = () => {
                         <div className="programs-workshops-buttons">
                             <button
                                 onClick={handleClickPrograms}
-                                class={`tab ${
+                                className={`tab ${
                                     programsWorkshops === 0 ? "active" : ""
                                 }`}
                                 id="programs-button"
@@ -642,7 +648,7 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickWorkshops}
-                                class={`tab ${
+                                className={`tab ${
                                     programsWorkshops === 1 ? "active" : ""
                                 }`}
                                 id="workshops-button"
@@ -658,8 +664,8 @@ const Beneficiary = () => {
                         </div>
                         <div className="list-container">
                             {programsWorkshops === 0 &&
-                                programs.map((program) => (
-                                    <div className="mapped-list">
+                                programs.map((program, index) => (
+                                    <div className="mapped-list" key={index}>
                                         <h4 className="mapped-title">
                                             {" "}
                                             {program.title}{" "}
@@ -714,7 +720,7 @@ const Beneficiary = () => {
                         <div className="needs-interests-sponsor-buttons">
                             <button
                                 onClick={handleClickNeeds}
-                                class={`tab ${
+                                className={`tab ${
                                     needsInterestsSponsors === 0 ? "active" : ""
                                 }`}
                                 id="needs-button"
@@ -724,7 +730,7 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickInterests}
-                                class={`tab ${
+                                className={`tab ${
                                     needsInterestsSponsors === 1 ? "active" : ""
                                 }`}
                                 id="interests-button"
@@ -734,7 +740,7 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickSponsors}
-                                class={`tab ${
+                                className={`tab ${
                                     needsInterestsSponsors === 2 ? "active" : ""
                                 }`}
                                 id="sponsors-button"
@@ -772,7 +778,7 @@ const Beneficiary = () => {
                                         value={newInterests}
                                         onChange={handleChangeInterests}
                                         isMulti
-                                        class="dropdown"
+                                        className="dropdown"
                                     />
                                 )}
                                 {needsInterestsSponsors === 2 && (
@@ -797,7 +803,7 @@ const Beneficiary = () => {
                         <div className="assessment-buttons">
                             <button
                                 onClick={handleClickRecent}
-                                class={`tab ${
+                                className={`tab ${
                                     recentHistory === 0 ? "active" : ""
                                 }`}
                                 id="recent-button"
@@ -807,7 +813,7 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickHistory}
-                                class={`tab ${
+                                className={`tab ${
                                     recentHistory === 1 ? "active" : ""
                                 }`}
                                 id="history-button"
@@ -901,8 +907,8 @@ const Beneficiary = () => {
                             )}
 
                             {recentHistory === 1 &&
-                                assessments.map((assessment) => (
-                                    <div className="mapped-list">
+                                assessments.map((assessment, index) => (
+                                    <div className="mapped-list" key={index}>
                                         <h4 className="assessment-mapped-id">
                                             <Link
                                                 to={`/dashboard/assessments/${assessment._id}`}
