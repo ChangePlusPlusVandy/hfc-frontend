@@ -652,10 +652,7 @@ const Beneficiaries = () => {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <NavLink to="../beneficiaries/register">
-                            <button
-                                onClick={() => setOpenModal(true)}
-                                className="submit-button"
-                            >
+                            <button className="submit-button">
                                 Create Beneficiary
                             </button>
                         </NavLink>
