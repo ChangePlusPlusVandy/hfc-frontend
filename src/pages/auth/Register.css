@@ -2,11 +2,7 @@
     padding: 10px 50px 30px 50px;
 }
 
-.login-container .form {
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
+.register-user-container label,
+.register-user-container input {
+    margin-right: 0.5rem;
 }

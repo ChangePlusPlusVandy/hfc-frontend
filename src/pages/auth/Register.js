@@ -196,24 +196,24 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    Fluent Languages
+                    <label>Fluent Languages</label>
                     <CreatableSelect
                         options={languageOpts}
                         value={languages}
                         onChange={handleLanguageSelect}
                         // defaultValue={[languageOptions[0], languageOptions[1]]}
                         isMulti
-                        name="languages"
                         className="creatable-multi-select"
                         classNamePrefix="select"
                     />
                 </div>
                 <div>
-                    Level
+                    <label htmlFor="level">Access Level</label>
                     <input
                         onChange={handleLevelChange}
                         value={level}
                         type="number"
+                        id="user-level"
                         placeholder="Level"
                     />
                 </div>
