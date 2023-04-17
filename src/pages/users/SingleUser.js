@@ -185,7 +185,6 @@ const SingleUser = () => {
                 </span>
             </div>
             <div className="staff-view">
-                <div className="header"></div>
                 <div className="pfp">
                     <h2 className="initals">
                         {" "}

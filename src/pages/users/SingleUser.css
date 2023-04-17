@@ -26,15 +26,6 @@
     border-radius: 15px;
 }
 
-.header {
-    background-color: rgb(243, 243, 243);
-    width: 100%;
-    min-height: 20%;
-    border-radius: 15px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
 .staff-name {
     font-weight: 600;
     text-align: center;
