@@ -103,7 +103,7 @@
 }
 
 .nav-sidebar nav a.active {
-    background-color: #d9d9d9;
+    background-color: #EBB19B;
 }
 
 .nav-sidebar nav img.icon {
@@ -120,11 +120,21 @@
 }
 
 .nav-sidebar button.logout-button {
-    background-color: #a8a8a8;
+    border: 2px solid #EBB19B !important;
+    border-radius: 3px;
+    background-color: white;
+    color: #EBB19B;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     margin-block: 35px;
+}
+
+.nav-sidebar button.logout-button:hover {
+    background-color: #EBB19B;
+    color: white;
 }
 
 .nav-sidebar.collapsed button.logout-button {
