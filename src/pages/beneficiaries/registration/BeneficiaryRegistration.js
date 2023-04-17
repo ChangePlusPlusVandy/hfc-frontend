@@ -179,18 +179,19 @@ const BeneficiaryRegistration = () => {
         })
             .then((response) => {
                 console.log("Response:", response);
-                if (response.ok)
+                if (response.ok) {
                     console.log("Successfully saved a new beneficiary!");
-                else
+                    navigate("/dashboard/beneficiaries");
+                } else {
                     console.log(
                         "Failed to save a new beneficiary:",
                         response.message
                     );
+                }
             })
             .catch((error) => {
                 console.log("Error saving a new beneficiary:", error);
             });
-        navigate("/dashboard/beneficiaries");
     };
 
     return (
