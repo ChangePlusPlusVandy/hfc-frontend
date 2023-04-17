@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import "./Register.css";
-import { auth } from "../../../firebase/firebase";
-import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { deleteUser } from "firebase/auth";
 import CreatableSelect from "react-select/creatable";
 
 const Register = () => {
-    const navigate = useNavigate();
     // TODO: use codes, add useEffect to reset errors dependent on all input states
     const ERRORS = {
         "Firebase: Error (auth/email-already-in-use).":
@@ -172,59 +169,69 @@ const Register = () => {
     };
 
     return (
-        <div className="form_container">
-            <h1>Register User</h1>
-            {error && error.length ? <h1>{error}</h1> : ""}
-            <form className="form" onSubmit={(e) => handleSubmit(e)}>
-                <input
-                    onChange={handleFirstNameChange}
-                    value={firstName}
-                    type="text"
-                    placeholder="First Name"
-                />
-                <input
-                    onChange={handleLastNameChange}
-                    value={lastName}
-                    type="text"
-                    placeholder="Last Name"
-                />
-                <input
-                    onChange={handleEmailChange}
-                    value={email}
-                    type="text"
-                    placeholder="Email"
-                />
-                Fluent Languages
-                <CreatableSelect
-                    options={languageOpts}
-                    value={languages}
-                    onChange={handleLanguageSelect}
-                    // defaultValue={[languageOptions[0], languageOptions[1]]}
-                    isMulti
-                    name="languages"
-                    className="creatable-multi-select"
-                    classNamePrefix="select"
-                />
-                Level
-                <input
-                    onChange={handleLevelChange}
-                    value={level}
-                    type="number"
-                    placeholder="Level"
-                />
-                <input
-                    onChange={handlePasswordChange}
-                    value={password}
-                    type="password"
-                    placeholder="Password"
-                />
-                <input
-                    onChange={handlePasswordConfirmChange}
-                    value={passwordConfirm}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
-                <input type="submit" value="Register" />
+        <div className="register-user-container">
+            <h1>Register a new user</h1>
+            {error && error.length ? <p>{error}</p> : ""}
+            <form className="form" onSubmit={handleSubmit}>
+                <div>
+                    <input
+                        onChange={handleFirstNameChange}
+                        value={firstName}
+                        type="text"
+                        placeholder="First Name"
+                    />
+                    <input
+                        onChange={handleLastNameChange}
+                        value={lastName}
+                        type="text"
+                        placeholder="Last Name"
+                    />
+                </div>
+                <div>
+                    <input
+                        onChange={handleEmailChange}
+                        value={email}
+                        type="text"
+                        placeholder="Email"
+                    />
+                </div>
+                <div>
+                    Fluent Languages
+                    <CreatableSelect
+                        options={languageOpts}
+                        value={languages}
+                        onChange={handleLanguageSelect}
+                        // defaultValue={[languageOptions[0], languageOptions[1]]}
+                        isMulti
+                        name="languages"
+                        className="creatable-multi-select"
+                        classNamePrefix="select"
+                    />
+                </div>
+                <div>
+                    Level
+                    <input
+                        onChange={handleLevelChange}
+                        value={level}
+                        type="number"
+                        placeholder="Level"
+                    />
+                </div>
+                <div>
+                    <input
+                        onChange={handlePasswordChange}
+                        value={password}
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <input
+                        onChange={handlePasswordConfirmChange}
+                        value={passwordConfirm}
+                        type="password"
+                        placeholder="Confirm Password"
+                    />
+                </div>
+                <button type="submit">Register</button>
             </form>
         </div>
     );

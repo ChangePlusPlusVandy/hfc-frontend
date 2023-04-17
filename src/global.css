@@ -20,6 +20,10 @@ body {
     margin: 0;
 }
 
+button {
+    font-family: inherit;
+}
+
 button:disabled {
     opacity: 0.25;
 }
