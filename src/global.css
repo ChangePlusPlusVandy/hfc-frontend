@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
 
 :root {
     --text-link: #888b8f;
@@ -8,7 +8,7 @@
     --light-button-color: #f3f5f9;
     --mid-color: #d0d0d1;
     --text-color: #6f7172;
-    font-family: 'Raleway', sans-serif !important;
+    font-family: "Raleway", sans-serif !important;
 }
 
 html,
