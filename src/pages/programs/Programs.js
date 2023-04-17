@@ -482,7 +482,10 @@ const Programs = () => {
             </div>
             <div className="program-list">
                 {programsFiltered.map((item, i) => (
-                    <Link to={`/dashboard/programs/singleview/${item._id}`}>
+                    <Link
+                        key={i}
+                        to={`/dashboard/programs/singleview/${item._id}`}
+                    >
                         <div key={i} className="program-card">
                             <h4 className="program-title">{item.title}</h4>
                             <h4 className="program-description">
