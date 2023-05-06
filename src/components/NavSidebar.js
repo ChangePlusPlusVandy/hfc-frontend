@@ -9,14 +9,13 @@ import { useAuth } from "../contexts/AuthContext";
 
 import HFCLogo from "../assets/images/hfc-logo-peach.png";
 import HFCLogoSmall from "../assets/images/hfc-logo-peach-small.png";
-import DefaultUserProfilePic from "../assets/images/default-user.png";
-import UserListIcon from "../assets/icons/user-list-icon.png";
-import IdentificiationCardIcon from "../assets/icons/identification-card-icon.png";
-import TabsIcon from "../assets/icons/tabs-icon.png";
-import BookIcon from "../assets/icons/book-icon.png";
-import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.png";
-import CaretDoubleRightIcon from "../assets/icons/caret-double-right-icon.png";
-import UserCircleIcon from "../assets/icons/user-circle-icon.png";
+import UserListIcon from "../assets/icons/user-list-icon.svg";
+import IdentificiationCardIcon from "../assets/icons/identification-card-icon.svg";
+import TabsIcon from "../assets/icons/tabs-icon.svg";
+import GraduationCapIcon from "../assets/icons/graduation-cap-icon.svg";
+import ClipboardTextIcon from "../assets/icons/clipboard-text-icon.svg";
+import CaretDoubleRightIcon from "../assets/icons/caret-double-right-icon.svg";
+import UserCircleIcon from "../assets/icons/user-circle-icon.svg";
 
 const COLLAPSE_SIDEBAR_THRESHOLD = 768; // the width at which the sidebar collapses in px
 
@@ -123,7 +122,11 @@ const NavSidebar = () => {
                     <span className="link-label">Programs</span>
                 </NavLink>
                 <NavLink to="workshops">
-                    <img src={BookIcon} alt="Workshops" className="icon" />
+                    <img
+                        src={GraduationCapIcon}
+                        alt="Workshops"
+                        className="icon"
+                    />
                     <span className="link-label">Workshops</span>
                 </NavLink>
                 <NavLink to="assessments">

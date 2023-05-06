@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid black;
     overflow-y: scroll;
     position: relative;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .nav-sidebar::-webkit-scrollbar {
@@ -103,7 +103,12 @@
 }
 
 .nav-sidebar nav a.active {
-    background-color: #d9d9d9;
+    background-color: #ebb19b;
+    color: white;
+}
+
+.nav-sidebar nav a.active img.icon {
+    filter: invert(100%);
 }
 
 .nav-sidebar nav img.icon {
@@ -120,11 +125,21 @@
 }
 
 .nav-sidebar button.logout-button {
-    background-color: #a8a8a8;
+    border: 2px solid #ebb19b !important;
+    border-radius: 3px;
+    background-color: white;
+    color: #ebb19b;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     margin-block: 35px;
+}
+
+.nav-sidebar button.logout-button:hover {
+    background-color: #ebb19b;
+    color: white;
 }
 
 .nav-sidebar.collapsed button.logout-button {

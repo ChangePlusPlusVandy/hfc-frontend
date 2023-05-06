@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SingleBenficiary from "./components/SingleBfc";
-import FilterButton from "./components/FilterButton";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
-import Select from "react-dropdown-select";
-import DefaultUser from "../../../src/assets/images/default-user.png";
 
 import "./Beneficiaries.css";
 
@@ -13,34 +9,6 @@ const FILTER_MAP = {
     Active: (item) => !item.archived,
     Archived: (item) => item.archived,
 };
-const FILTER_NAMES = Object.keys(FILTER_MAP);
-
-const sortOptions = [
-    {
-        value: 1,
-        label: "Sort By First Name (A-Z)",
-    },
-    {
-        value: 2,
-        label: "Sort By Last Name (A-Z)",
-    },
-    {
-        value: 3,
-        label: "Sort By Join Date (New to Old)",
-    },
-    {
-        value: 4,
-        label: "Sort By First Name (Z-A)",
-    },
-    {
-        value: 5,
-        label: "Sort By Last Name (Z-A)",
-    },
-    {
-        value: 6,
-        label: "Sort By Date (Old to New)",
-    },
-];
 
 const interestOptions = [
     { name: "Computers", id: 1 },
@@ -53,26 +21,15 @@ const interestOptions = [
     { name: "Counseling/Life Skills", id: 8 },
 ];
 
-const Beneficiary = ({
-    id,
-    firstName,
-    lastName,
-    gender,
-    phone,
-    email,
-    bday,
-    archived,
-    onClick,
-    _id,
-}) => {
+const Beneficiary = ({ firstName, lastName, onClick }) => {
     return (
         <button className="beneficiary-container" onClick={onClick}>
-            <button className="beneficiary-icon">
+            <div className="beneficiary-icon">
                 <h2 className="initals">
                     {" "}
                     {firstName.substring(0, 1) + lastName.substring(0, 1)}{" "}
                 </h2>
-            </button>
+            </div>
             <div>
                 <h4 className="user-name">
                     {firstName} {lastName}
@@ -86,7 +43,6 @@ const Beneficiaries = () => {
     const [beneficiaries, setBeneficiaries] = useState([]);
     const [displayedBeneficiaries, setDisplayedBeneficiaries] = useState([]);
     const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState("Active");
     const [activeFilter, setActiveFilter] = useState(true);
     const [archivedFilter, setArchivedFilter] = useState(false);
     const [interestsFilter, setInterestsFilter] = useState(false);
@@ -99,7 +55,6 @@ const Beneficiaries = () => {
     const [bakery, setBakery] = useState(false);
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
-    const [initials, setInitials] = useState("");
     const navigate = useNavigate();
     // TODO: make these an array of states check if the interests intersect with the desired interests
 
@@ -238,29 +193,6 @@ const Beneficiaries = () => {
                 break;
             case 8:
                 setCounseling((prev) => !prev);
-                break;
-        }
-    };
-
-    const handleChangeSort = (selectedOptions) => {
-        switch (selectedOptions[0].value) {
-            case 1:
-                sortByFirstName();
-                break;
-            case 2:
-                sortByLastName();
-                break;
-            case 3:
-                sortByDate();
-                break;
-            case 4:
-                sortBackwardsByFirstName();
-                break;
-            case 5:
-                sortBackwardsByLastName();
-                break;
-            case 6:
-                sortBackwardsByDate();
                 break;
         }
     };
@@ -720,10 +652,7 @@ const Beneficiaries = () => {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <NavLink to="../beneficiaries/register">
-                            <button
-                                onClick={() => setOpenModal(true)}
-                                className="submit-button"
-                            >
+                            <button className="submit-button">
                                 Create Beneficiary
                             </button>
                         </NavLink>

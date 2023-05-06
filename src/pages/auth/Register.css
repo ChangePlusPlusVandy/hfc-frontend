@@ -1,28 +1,8 @@
-.login-container .form,
-.form_container .form {
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
+.register-user-container {
+    padding: 10px 50px 30px 50px;
 }
 
-.form_container {
-    width: 100vw;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
-
-.form_container input {
-    margin: 30px;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.form_container .creatable-multi-select {
-    margin: 30px;
-    padding: 5px;
-    border-radius: 10px;
+.register-user-container label,
+.register-user-container input {
+    margin-right: 0.5rem;
 }

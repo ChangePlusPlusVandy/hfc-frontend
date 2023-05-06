@@ -37,6 +37,15 @@ add prefix to all css files
     margin-bottom: 95px;
 }
 
+.login-container .form {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
 .login-container .form input[type="text"] {
     border: 1px solid rgb(0, 0, 0);
     border-radius: 50px;
