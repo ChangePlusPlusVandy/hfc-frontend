@@ -50,7 +50,7 @@ const SingleUser = () => {
                         joinDate: user.joinDate,
                         level: user.level,
                         fbUid: user.firebaseUID,
-                        phoneNum: user.phoneNumber,
+                        phoneNumber: user.phoneNum,
                         archived: user.archived,
                     }),
                 }
@@ -78,7 +78,7 @@ const SingleUser = () => {
                 joinDate: user.joinDate,
                 level: user.level,
                 fbUid: user.firebaseUID,
-                phoneNum: user.phoneNumber,
+                phoneNum: user.phoneNum,
                 archived: newArchived,
             }),
         });
