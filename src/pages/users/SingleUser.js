@@ -32,7 +32,6 @@ const SingleUser = () => {
 
     const saveUser = async () => {
         try {
-            console.log(user.joinDate);
             const currUser = user._id;
             const res = await fetch(
                 `http://localhost:3000/users?id=${currUser}`,
@@ -66,7 +65,6 @@ const SingleUser = () => {
     const handleArchiveToggle = async () => {
         const currUser = user._id;
         const newArchived = !user.archived;
-        console.log(currUser);
         fetch(`http://localhost:3000/users?id=${currUser}`, {
             method: "PUT",
             headers: {
@@ -89,7 +87,6 @@ const SingleUser = () => {
     const handleEdit = async () => {
         if (editing) {
             const res = await saveUser();
-            console.log("Check user");
             getMongoUser(fbId);
         }
         setEditing(!editing);
@@ -130,7 +127,6 @@ const SingleUser = () => {
                 }
             );
             const mongoUser = await res.json();
-            console.log("mongoUser", mongoUser);
             const {
                 firstName,
                 lastName,
@@ -142,6 +138,8 @@ const SingleUser = () => {
                 phoneNumber,
                 archived,
             } = mongoUser;
+            console.log("FIREBASEUId", firebaseUID)
+
             setUser({
                 firstName: firstName,
                 lastName: lastName,
@@ -153,6 +151,7 @@ const SingleUser = () => {
                 phoneNum: phoneNumber,
                 archived: archived,
             });
+            console.log("ID", firebaseUID)
         } catch (err) {
             console.error(err);
             console.log(err.message);
@@ -160,8 +159,9 @@ const SingleUser = () => {
     };
 
     useEffect(() => {
-        console.log("params", fbId);
         getMongoUser(fbId);
+    }, []);
+    useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 if (!isCurrentUser) {
@@ -173,7 +173,8 @@ const SingleUser = () => {
                 navigate("/");
             }
         });
-    }, []);
+    }, [user])
+
     return (
         <div className="container">
             <div
@@ -336,7 +337,7 @@ const SingleUser = () => {
                             <button
                                 onClick={handleUpdatePassword}
                                 className="edit-btn"
-                                disabled={isCurrentUser == false}
+                                disabled={!isCurrentUser}
                             >
                                 Update Password
                             </button>

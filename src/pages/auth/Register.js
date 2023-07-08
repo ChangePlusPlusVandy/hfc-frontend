@@ -90,7 +90,7 @@ const Register = () => {
                     },
                     body: JSON.stringify({
                         email: email,
-                        password: password,
+                        pass: password,
                     }),
                 }
             );
