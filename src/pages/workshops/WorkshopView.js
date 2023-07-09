@@ -46,7 +46,7 @@ export const WorkshopsList = () => {
         workshops
             .filter((item) => {
                 return searchWorkshop !== ""
-                    ? item.title.includes(searchWorkshop)
+                    ? item.title.toLowerCase().includes(searchWorkshop.toLowerCase())
                     : item;
             })
             .filter((item) => {
@@ -263,7 +263,7 @@ export const WorkshopsList = () => {
                                     <div className="status-options-sub">
                                         <h6>STATUS</h6>
                                         <div className="status-options-main">
-                                            <h5>{archivedSort} Programs</h5>
+                                            <h5>{archivedSort} Workshops</h5>
                                             <h5>&gt;</h5>
                                         </div>
                                     </div>
@@ -450,7 +450,7 @@ export const WorkshopsList = () => {
                 </div>
             </div>
             <div className="workshop-list-header">
-                <h4 className="workshop-title">Program Title</h4>
+                <h4 className="workshop-title">Workshop Title</h4>
                 <h4 className="workshop-description">Description</h4>
                 <h4 className="workshop-start-date">Date</h4>
                 <h4 className="workshop-status">Status</h4>

@@ -97,16 +97,17 @@ const Users = () => {
 
     const handleSortChange = (e) => {
         if (e == [] || e.length == 0) {
-            return;
-        } else if (e[0].value == "FNAZ") {
+            return
+        }
+        if (e.value == "FNAZ") {
             sortByName(true, true);
-        } else if (e[0].value == "LNAZ") {
+        } else if (e.value == "LNAZ") {
             sortByName(false, true);
-        } else if (e[0].value == "FNZA") {
+        } else if (e.value == "FNZA") {
             sortByName(true, false);
-        } else if (e[0].value == "LNZA") {
+        } else if (e.value == "LNZA") {
             sortByName(false, false);
-        } else if (e[0].value == "DATE") {
+        } else if (e.value == "DATE") {
             sortByDate();
         }
     };
@@ -161,7 +162,6 @@ const Users = () => {
                 />
                 <Dropdown
                     placeHolder="Sort Order"
-                    isMulti
                     options={SORT_OPTIONS}
                     onChange={(value) => handleSortChange(value)}
                 />
