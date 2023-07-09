@@ -280,7 +280,7 @@ export const WorkshopSingle = () => {
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
                                 {workshop?.hosts &&
-                                workshop?.hosts.length > 0 ? (
+                                    workshop?.hosts.length > 0 ? (
                                     <>
                                         {workshop.hosts.map((item, index) => (
                                             <Link
@@ -305,8 +305,8 @@ export const WorkshopSingle = () => {
                             <h7>
                                 {workshop?.date
                                     ? new Date(workshop.date)
-                                          .toString()
-                                          .substring(0, 10)
+                                        .toString()
+                                        .substring(0, 10)
                                     : ""}
                             </h7>
                         </div>
@@ -325,22 +325,7 @@ export const WorkshopSingle = () => {
                                     <h7>{workshop.numAttendees}</h7>
                                 </div>
                                 <div className="workshop-info">
-                                    <h3>Registered Attendees</h3>
-                                    <h7>{workshop.attendees.length}</h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Unregistered Attendees</h3>
-                                    <h7>
-                                        {workshop.numAttendees -
-                                            workshop.attendees.length}
-                                    </h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Rating</h3>
-                                    <h7>{workshop.rating.toFixed(2)}</h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Attendees: </h3>
+                                    <h3>Registered Attendees: </h3>
                                     <h7>
                                         {workshop.attendees.map((item) => (
                                             <Link
@@ -356,6 +341,17 @@ export const WorkshopSingle = () => {
                                             </Link>
                                         ))}
                                     </h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Unregistered Attendees</h3>
+                                    <h7>
+                                        {workshop.numAttendees -
+                                            workshop.attendees.length}
+                                    </h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Rating</h3>
+                                    <h7>{workshop.rating.toFixed(2)}</h7>
                                 </div>
                             </>
                         ) : (

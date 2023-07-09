@@ -49,7 +49,7 @@ const MarkAttendance = (props) => {
         }
     };
 
-    const getDatesWithAttendance = () => {};
+    const getDatesWithAttendance = () => { };
 
     const updateProgram = async (e) => {
         //  if (program.attendance.find((obj) => (obj.date === date))) {
@@ -119,29 +119,33 @@ const MarkAttendance = (props) => {
     const markPresent = (id, e) => {
         if (!arePresent.includes(id)) {
             setArePresent([...arePresent, id]);
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+            // beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
         }
-        if (beneficiaries.find((obj) => obj._id === id).present == false) {
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
-        }
-        if (beneficiaries.find((obj) => obj._id === id).highlightRed == true) {
-            beneficiaries.find((obj) => obj._id === id).highlightRed = false;
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
-        }
+        beneficiaries.find((obj) => obj._id === id).highlightGreen = true
+        beneficiaries.find((obj) => obj._id === id).highlightRed = false
+        // if (beneficiaries.find((obj) => obj._id === id).present == false) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+        // }
+        // if (beneficiaries.find((obj) => obj._id === id).highlightRed == true) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightRed = false;
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // }
     };
 
     const markAbsent = (id, e) => {
         let tmpPresent = arePresent.filter((element) => {
             return element !== id;
         });
-        if (beneficiaries.find((obj) => obj._id === id).present != false) {
-            beneficiaries.find((obj) => obj._id === id).highlightRed = true;
-        }
-        if (
-            beneficiaries.find((obj) => obj._id === id).highlightGreen == true
-        ) {
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
-        }
+        beneficiaries.find((obj) => obj._id === id).highlightRed = true;
+        beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // if (beneficiaries.find((obj) => obj._id === id).present != false) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightRed = true;
+        // }
+        // if (
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen == true
+        // ) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // }
         setArePresent(tmpPresent);
     };
 
@@ -191,11 +195,9 @@ const MarkAttendance = (props) => {
                         <div
                             key={i}
                             className={
-                                item.highlightRed
-                                    ? "ben-card is-absent"
-                                    : item.highlightGreen
+                                (item.highlightGreen || (item.present && !item.highlightRed))
                                     ? "ben-card is-present"
-                                    : "ben-card"
+                                    : "ben-card is-absent"
                             }
                         >
                             <div className="tmp-photo"></div>

@@ -63,25 +63,31 @@ const SingleUser = () => {
     };
 
     const handleArchiveToggle = async () => {
-        const currUser = user._id;
-        const newArchived = !user.archived;
-        fetch(`http://localhost:3000/users?id=${currUser}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
-            },
-            body: JSON.stringify({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                languages: user.languages,
-                joinDate: user.joinDate,
-                level: user.level,
-                fbUid: user.firebaseUID,
-                phoneNum: user.phoneNum,
-                archived: newArchived,
-            }),
-        });
+        try {
+            const currUser = user._id;
+            const newArchived = !user.archived;
+            fetch(`http://localhost:3000/users?id=${currUser}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+                },
+                body: JSON.stringify({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    languages: user.languages,
+                    joinDate: user.joinDate,
+                    level: user.level,
+                    fbUid: user.firebaseUID,
+                    phoneNum: user.phoneNum,
+                    archived: newArchived,
+                }),
+            });
+        } catch (err) {
+            console.log(err)
+        }
+        navigate("../");
+
     };
 
     const handleEdit = async () => {
@@ -346,7 +352,7 @@ const SingleUser = () => {
                                     onClick={handleArchiveToggle}
                                     className="edit-btn"
                                 >
-                                    Archive/Unarchive
+                                    {user.archived ? <>Unarchive</> : <>Archive</>}
                                 </button>
                             ) : (
                                 ""

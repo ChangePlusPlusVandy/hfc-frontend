@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import "./Table.css";
 
 const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
-    const [showText, setShowText] = useState(false);
+    const [showText, setShowText] = useState(true);
     const [expandedItemIndex, setExpandedItemIndex] = useState(-1);
 
     const handleExpand = (index) => {
-        setShowText(!showText);
+        //setShowText(!showText);
+        if (index == expandedItemIndex && showText)
+            setShowText(false)
+        else
+            setShowText(true);
+
         setExpandedItemIndex(index);
     };
 
@@ -23,22 +28,20 @@ const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
                         <tr className="question-note-container" key={i}>
                             {/* TODO: Fixed the error that td can't be child of div */}
                             <div className="question-row">
-                                <td className="question-index">{`Question ${
-                                    i + 1
-                                }`}</td>
+                                <td className="question-index">{`Question ${i + 1
+                                    }`}</td>
                                 <td className="question-content">
                                     {obj.question}
                                 </td>
                                 <td
-                                    className={`score${
-                                        hasOnlyTextQs &&
+                                    className={`score${hasOnlyTextQs &&
                                         !obj.hasOwnProperty("answer")
-                                            ? "inactive"
-                                            : ""
-                                    }`} // to hide the gray box
+                                        ? "inactive"
+                                        : ""
+                                        }`} // to hide the gray box
                                 >
                                     {hasOnlyTextQs &&
-                                    !obj.hasOwnProperty("answer")
+                                        !obj.hasOwnProperty("answer")
                                         ? "  "
                                         : obj.answer}
                                 </td>
@@ -46,7 +49,7 @@ const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
                                     <button
                                         className="expand-btn"
                                         onClick={() => handleExpand(i)}
-                                    ></button>
+                                    >Expand</button>
                                 </td>
                             </div>
                             {/* TODO: fix the error that div can't be a child of tr */}
