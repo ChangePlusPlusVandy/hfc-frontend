@@ -70,7 +70,9 @@ const SingleUser = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
                 },
                 body: JSON.stringify({
                     firstName: user.firstName,
@@ -84,10 +86,9 @@ const SingleUser = () => {
                 }),
             });
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
         navigate("../");
-
     };
 
     const handleEdit = async () => {
@@ -144,7 +145,7 @@ const SingleUser = () => {
                 phoneNumber,
                 archived,
             } = mongoUser;
-            console.log("FIREBASEUId", firebaseUID)
+            console.log("FIREBASEUId", firebaseUID);
 
             setUser({
                 firstName: firstName,
@@ -157,7 +158,7 @@ const SingleUser = () => {
                 phoneNum: phoneNumber,
                 archived: archived,
             });
-            console.log("ID", firebaseUID)
+            console.log("ID", firebaseUID);
         } catch (err) {
             console.error(err);
             console.log(err.message);
@@ -179,7 +180,7 @@ const SingleUser = () => {
                 navigate("/");
             }
         });
-    }, [user])
+    }, [user]);
 
     return (
         <div className="singleuser-container">
@@ -352,7 +353,11 @@ const SingleUser = () => {
                                     onClick={handleArchiveToggle}
                                     className="edit-btn"
                                 >
-                                    {user.archived ? <>Unarchive</> : <>Archive</>}
+                                    {user.archived ? (
+                                        <>Unarchive</>
+                                    ) : (
+                                        <>Archive</>
+                                    )}
                                 </button>
                             ) : (
                                 ""

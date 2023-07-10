@@ -54,7 +54,9 @@ const Programs = () => {
         programs
             .filter((item) => {
                 return searchProgram !== ""
-                    ? item.title.toLowerCase().includes(searchProgram.toLowerCase())
+                    ? item.title
+                          .toLowerCase()
+                          .includes(searchProgram.toLowerCase())
                     : item;
             })
             .filter((item) => {

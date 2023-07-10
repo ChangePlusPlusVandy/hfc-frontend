@@ -17,7 +17,7 @@
 }
 
 .staff-content {
-    height: auto
+    height: auto;
 }
 
 .staff-view {
@@ -67,7 +67,6 @@
     color: rgb(32, 32, 32);
     padding-right: 3rem;
 }
-
 
 .btn-container {
     display: flex;

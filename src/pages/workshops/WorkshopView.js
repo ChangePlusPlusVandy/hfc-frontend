@@ -46,7 +46,9 @@ export const WorkshopsList = () => {
         workshops
             .filter((item) => {
                 return searchWorkshop !== ""
-                    ? item.title.toLowerCase().includes(searchWorkshop.toLowerCase())
+                    ? item.title
+                          .toLowerCase()
+                          .includes(searchWorkshop.toLowerCase())
                     : item;
             })
             .filter((item) => {

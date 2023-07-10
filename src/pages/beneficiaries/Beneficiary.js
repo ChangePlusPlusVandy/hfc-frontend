@@ -179,7 +179,7 @@ const Beneficiary = () => {
         try {
             let data = await fetch(
                 "http://localhost:3000/programs/beneficiary?id=" +
-                beneficiaryId,
+                    beneficiaryId,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -201,7 +201,7 @@ const Beneficiary = () => {
         try {
             let data = await fetch(
                 "http://localhost:3000/workshops/beneficiary?id=" +
-                beneficiaryId,
+                    beneficiaryId,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -380,7 +380,7 @@ const Beneficiary = () => {
                 setNewNeeds(data.needs);
                 setInitials(
                     data.firstName.substring(0, 1) +
-                    data.lastName.substring(0, 1)
+                        data.lastName.substring(0, 1)
                 );
             })
             .catch((error) => console.log(error));
@@ -638,8 +638,9 @@ const Beneficiary = () => {
                         <div className="programs-workshops-buttons">
                             <button
                                 onClick={handleClickPrograms}
-                                className={`tab ${programsWorkshops === 0 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    programsWorkshops === 0 ? "active" : ""
+                                }`}
                                 id="programs-button"
                             >
                                 {" "}
@@ -647,8 +648,9 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickWorkshops}
-                                className={`tab ${programsWorkshops === 1 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    programsWorkshops === 1 ? "active" : ""
+                                }`}
                                 id="workshops-button"
                             >
                                 {" "}
@@ -718,8 +720,9 @@ const Beneficiary = () => {
                         <div className="needs-interests-sponsor-buttons">
                             <button
                                 onClick={handleClickNeeds}
-                                className={`tab ${needsInterestsSponsors === 0 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    needsInterestsSponsors === 0 ? "active" : ""
+                                }`}
                                 id="needs-button"
                             >
                                 {" "}
@@ -727,8 +730,9 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickInterests}
-                                className={`tab ${needsInterestsSponsors === 1 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    needsInterestsSponsors === 1 ? "active" : ""
+                                }`}
                                 id="interests-button"
                             >
                                 {" "}
@@ -736,8 +740,9 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickSponsors}
-                                className={`tab ${needsInterestsSponsors === 2 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    needsInterestsSponsors === 2 ? "active" : ""
+                                }`}
                                 id="sponsors-button"
                             >
                                 {" "}
@@ -798,8 +803,9 @@ const Beneficiary = () => {
                         <div className="assessment-buttons">
                             <button
                                 onClick={handleClickRecent}
-                                className={`tab ${recentHistory === 0 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    recentHistory === 0 ? "active" : ""
+                                }`}
                                 id="recent-button"
                             >
                                 {" "}
@@ -807,8 +813,9 @@ const Beneficiary = () => {
                             </button>
                             <button
                                 onClick={handleClickHistory}
-                                className={`tab ${recentHistory === 1 ? "active" : ""
-                                    }`}
+                                className={`tab ${
+                                    recentHistory === 1 ? "active" : ""
+                                }`}
                                 id="history-button"
                             >
                                 {" "}

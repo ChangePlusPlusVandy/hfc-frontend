@@ -97,7 +97,7 @@ const Users = () => {
 
     const handleSortChange = (e) => {
         if (e == [] || e.length == 0) {
-            return
+            return;
         }
         if (e.value == "FNAZ") {
             sortByName(true, true);

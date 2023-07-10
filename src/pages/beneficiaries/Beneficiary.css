@@ -43,7 +43,7 @@
 
 .beneficiary-page-container .beneficiary-registration-info {
     margin: 20px;
-    width: 80%
+    width: 80%;
 }
 
 .needs-interests-sponsor-buttons {
@@ -78,7 +78,10 @@
     height: 30px;
 }
 
-.beneficiary-page-container .program-workshops-list .needs-interests-sponsor-list .assessment-list {
+.beneficiary-page-container
+    .program-workshops-list
+    .needs-interests-sponsor-list
+    .assessment-list {
     height: 100%;
     margin-top: 20px;
     background-color: var(--button-color);
@@ -121,8 +124,8 @@
     padding: 15px 10px;
 }
 
-.program-workshop-header>h4,
-.assessment-header>h4 {
+.program-workshop-header > h4,
+.assessment-header > h4 {
     font-size: 15px;
     font-weight: 500;
     margin: 0;
@@ -143,9 +146,9 @@
     margin: 5px;
 }
 
-.mapped-list>h4,
-.assessment-mapped-list>* h4,
-.needs-interests-sponsors-display>* h4,
+.mapped-list > h4,
+.assessment-mapped-list > * h4,
+.needs-interests-sponsors-display > * h4,
 .personal-value {
     font-size: 14px;
     font-weight: 400;
@@ -260,7 +263,6 @@
 
 .button-header {
     display: flex;
-
 }
 
 .beneficiary-page-container .edit-submit-buttons {

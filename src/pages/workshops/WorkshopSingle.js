@@ -280,7 +280,7 @@ export const WorkshopSingle = () => {
                             <h3>Hosts</h3>
                             <div className="workshop-hosts">
                                 {workshop?.hosts &&
-                                    workshop?.hosts.length > 0 ? (
+                                workshop?.hosts.length > 0 ? (
                                     <>
                                         {workshop.hosts.map((item, index) => (
                                             <Link
@@ -305,8 +305,8 @@ export const WorkshopSingle = () => {
                             <h7>
                                 {workshop?.date
                                     ? new Date(workshop.date)
-                                        .toString()
-                                        .substring(0, 10)
+                                          .toString()
+                                          .substring(0, 10)
                                     : ""}
                             </h7>
                         </div>

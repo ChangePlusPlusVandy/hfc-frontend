@@ -14,7 +14,6 @@ const Register = () => {
             "Server error, please try again",
     };
 
-
     const checkInputs = () => {
         if (!isEmail(email)) {
             setError("Please enter a valid email");
@@ -172,8 +171,8 @@ const Register = () => {
     };
 
     const cancelRegistration = () => {
-        navigate("../")
-    }
+        navigate("../");
+    };
     return (
         <div className="register-user-container">
             <h1>Register a new user</h1>
@@ -238,7 +237,9 @@ const Register = () => {
                     />
                 </div>
                 <button type="submit">Register</button>
-                <button type="submit" onClick={cancelRegistration}>Cancel</button>
+                <button type="submit" onClick={cancelRegistration}>
+                    Cancel
+                </button>
             </form>
         </div>
     );

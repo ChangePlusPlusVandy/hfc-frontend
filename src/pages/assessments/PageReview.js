@@ -44,7 +44,7 @@ const PageReview = ({
                 mentalHealthScore +
                 lifeSkillsScore +
                 socialSkillsScore) *
-            5 // percentage (since /20*100 = *5)
+                5 // percentage (since /20*100 = *5)
         );
     }, [eduVocScore, mentalHealthScore, lifeSkillsScore, socialSkillsScore]);
 
