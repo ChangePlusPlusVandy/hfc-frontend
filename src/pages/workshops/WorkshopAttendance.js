@@ -9,6 +9,8 @@ import Happy from "../../assets/images/Emojis/Happy.png";
 import Happiest from "../../assets/images/Emojis/Happiest.png";
 
 export const WorkshopAttendance = () => {
+    const API_URL = process.env.API_URL;
+
     const { workshopID } = useParams();
     const [workshop, setWorkshop] = useState({});
     const [idMode, setidMode] = useState(false);
@@ -48,7 +50,7 @@ export const WorkshopAttendance = () => {
             };
             console.log(requestOptions);
             try {
-                fetch("http://localhost:3000/workshops", requestOptions);
+                fetch(`${API_URL}/workshops`, requestOptions);
             } catch (err) {
                 console.log("couldn't update attendance:", err);
             }
@@ -56,7 +58,7 @@ export const WorkshopAttendance = () => {
     };
     useEffect(() => {
         try {
-            fetch("http://localhost:3000/workshops?_id=" + workshopID, {
+            fetch(`${API_URL}/workshops?_id=${workshopID}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(
@@ -79,7 +81,7 @@ export const WorkshopAttendance = () => {
                         setRatingPoints(data[0].rating * data[0].numAttendees);
                     }
                 });
-            fetch("http://localhost:3000/beneficiaries", {
+            fetch(`${API_URL}/beneficiaries`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(

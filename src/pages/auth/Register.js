@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     // TODO: use codes, add useEffect to reset errors dependent on all input states
+    const API_URL = process.env.API_URL;
     const navigate = useNavigate();
     const ERRORS = {
         "Firebase: Error (auth/email-already-in-use).":
@@ -54,7 +55,7 @@ const Register = () => {
         lastName,
         level = 0
     ) => {
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch(API_URL + "/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -80,22 +81,19 @@ const Register = () => {
         }
         try {
             // Create Firebase User
-            const userCrediential = await fetch(
-                "http://localhost:3000/users/firebase",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        pass: password,
-                    }),
-                }
-            );
+            const userCrediential = await fetch(API_URL + "/users/firebase", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+                body: JSON.stringify({
+                    email: email,
+                    pass: password,
+                }),
+            });
             const user = await userCrediential.json();
             // Create MongoDB User
             try {

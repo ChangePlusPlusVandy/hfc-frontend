@@ -4,6 +4,8 @@ import "./styles/Programs.css";
 import CreateProgramPopup from "./CreateProgramPopup";
 
 const Programs = () => {
+    const API_URL = process.env.API_URL;
+
     const [programs, setPrograms] = useState([]);
 
     const [openModal, setOpenModal] = useState(false);
@@ -69,7 +71,7 @@ const Programs = () => {
 
     const getPrograms = async () => {
         try {
-            let data = await fetch("http://localhost:3000/programs", {
+            let data = await fetch(`${API_URL}/programs`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(

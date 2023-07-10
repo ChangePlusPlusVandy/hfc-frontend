@@ -10,14 +10,12 @@ import FormNavBar from "../../components/FormNavBar";
 import PopupBfc from "./components/PopupBfc";
 
 const Assessments = () => {
+    const API_URL = process.env.API_URL;
+
     const [pageNum, setPageNum] = useState(0);
-
     const navigate = useNavigate();
-
     const [popup, setPopup] = useState(true);
-
     const [beneficiary, setBeneficiary] = useState();
-
     const [eduVocQs, setEduVocQs] = useState([
         {
             question:
@@ -197,7 +195,7 @@ const Assessments = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch("http://localhost:3000/assessments", {
+            const response = await fetch(`${API_URL}/assessments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -229,7 +227,7 @@ const Assessments = () => {
 
             try {
                 const bfcResponse = await fetch(
-                    `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
+                    `${API_URL}/beneficiaries/${beneficiary._id}/assessment`,
                     {
                         method: "PATCH",
                         headers: {

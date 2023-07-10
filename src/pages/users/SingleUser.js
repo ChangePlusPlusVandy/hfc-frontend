@@ -8,6 +8,8 @@ import DefaultUser from "../../../src/assets/images/default-user.png";
 import ChangePasswordModal from "./ChangePasswordModal";
 import "./SingleUser.css";
 const SingleUser = () => {
+    const API_URL = process.env.API_URL;
+
     const navigate = useNavigate();
     const [user, setUser] = useState({
         firstName: "",
@@ -33,28 +35,25 @@ const SingleUser = () => {
     const saveUser = async () => {
         try {
             const currUser = user._id;
-            const res = await fetch(
-                `http://localhost:3000/users?id=${currUser}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        languages: user.languages,
-                        joinDate: user.joinDate,
-                        level: user.level,
-                        fbUid: user.firebaseUID,
-                        phoneNumber: user.phoneNum,
-                        archived: user.archived,
-                    }),
-                }
-            );
+            const res = await fetch(`${API_URL}/users?id=${currUser}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+                body: JSON.stringify({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    languages: user.languages,
+                    joinDate: user.joinDate,
+                    level: user.level,
+                    fbUid: user.firebaseUID,
+                    phoneNumber: user.phoneNum,
+                    archived: user.archived,
+                }),
+            });
             return res.json();
         } catch (err) {
             console.log(err);
@@ -66,7 +65,7 @@ const SingleUser = () => {
         try {
             const currUser = user._id;
             const newArchived = !user.archived;
-            fetch(`http://localhost:3000/users?id=${currUser}`, {
+            fetch(`${API_URL}/users?id=${currUser}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -101,17 +100,14 @@ const SingleUser = () => {
 
     const checkAdminStatus = async (fbId) => {
         try {
-            const res = await fetch(
-                `http://localhost:3000/users?firebaseUID=${fbId}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            const res = await fetch(`${API_URL}/users?firebaseUID=${fbId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             const mongoUser = await res.json();
             setIsAdmin(parseInt(mongoUser[0].level) == 3);
         } catch (err) {
@@ -122,17 +118,14 @@ const SingleUser = () => {
 
     const getMongoUser = async (mongoId) => {
         try {
-            const res = await fetch(
-                `http://localhost:3000/users/user?userId=${mongoId}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            const res = await fetch(`${API_URL}/users/user?userId=${mongoId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             const mongoUser = await res.json();
             const {
                 firstName,

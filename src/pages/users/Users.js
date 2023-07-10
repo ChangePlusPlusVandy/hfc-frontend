@@ -50,6 +50,8 @@ const User = ({
 };
 
 const Users = () => {
+    const API_URL = process.env.API_URL;
+
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState([]);
@@ -115,7 +117,7 @@ const Users = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                let data = await fetch("http://localhost:3000/users/users", {
+                let data = await fetch(`${API_URL}/users/users`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(
@@ -134,7 +136,7 @@ const Users = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const res = await fetch(
-                    `http://localhost:3000/users?firebaseUID=${user.uid}`,
+                    `${API_URL}/users?firebaseUID=${user.uid}`,
                     {
                         headers: {
                             "Content-Type": "application/json",

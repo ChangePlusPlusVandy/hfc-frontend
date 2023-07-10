@@ -38,8 +38,9 @@ const Beneficiary = ({ firstName, lastName, onClick }) => {
         </button>
     );
 };
-
 const Beneficiaries = () => {
+    const API_URL = process.env.API_URL;
+
     const [beneficiaries, setBeneficiaries] = useState([]);
     const [displayedBeneficiaries, setDisplayedBeneficiaries] = useState([]);
     const [search, setSearch] = useState("");
@@ -56,11 +57,12 @@ const Beneficiaries = () => {
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
     const navigate = useNavigate();
+
     // TODO: make these an array of states check if the interests intersect with the desired interests
 
     const deleteBfc = (id) => {
         console.log(id);
-        fetch(`http://localhost:3000/beneficiaries?id=${id}`, {
+        fetch(`${API_URL}/beneficiaries?id=${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -68,7 +70,7 @@ const Beneficiaries = () => {
             },
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries");
+                let data = await fetch(`${API_URL}/beneficiaries`);
                 data = await data.json();
                 setBeneficiaries(data);
                 console.log("beneficiaries: " + beneficiaries);
@@ -328,7 +330,7 @@ const Beneficiaries = () => {
     useEffect(() => {
         const getBeneficiaries = async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries", {
+                let data = await fetch(`${API_URL}/beneficiaries`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(

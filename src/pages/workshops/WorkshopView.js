@@ -4,6 +4,8 @@ import Select from "react-select";
 import { Link } from "react-router-dom";
 import { WorkshopCreateForm } from "./CreateWorkshop";
 export const WorkshopsList = () => {
+    const API_URL = process.env.API_URL;
+
     const [searchWorkshop, setSearchWorkshop] = useState("");
     const [archivedSort, setArchivedSort] = useState("All");
 
@@ -74,7 +76,7 @@ export const WorkshopsList = () => {
     };
     const getWorkshops = () => {
         //TODO: Error handling
-        fetch("http://localhost:3000/workshops", {
+        fetch(`${API_URL}/workshops`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
@@ -84,7 +86,7 @@ export const WorkshopsList = () => {
             .then((data) => {
                 console.log("Fetched workshops:");
                 //TODO: Use map, and do in backend. populate
-                fetch("http://localhost:3000/users/users", {
+                fetch(`${API_URL}/users/users`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(
