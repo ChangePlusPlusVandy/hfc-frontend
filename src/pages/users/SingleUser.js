@@ -182,7 +182,7 @@ const SingleUser = () => {
     }, [user])
 
     return (
-        <div className="container">
+        <div className="singleuser-container">
             <div
                 onClick={(e) => navigate("/dashboard/users")}
                 className="go-back"

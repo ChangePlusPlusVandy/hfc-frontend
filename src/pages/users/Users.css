@@ -1,5 +1,7 @@
 .user-page-container {
     padding: 10px 50px 30px 50px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .query-container {
@@ -11,9 +13,7 @@
 }
 
 .search {
-    background: transparent
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
-        no-repeat 95% center;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 95% center;
     background-color: rgb(243, 243, 243);
     border: none;
     min-width: 270px;
@@ -25,9 +25,7 @@
 }
 
 .onboarding-btn {
-    background: transparent
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'%3E%3C/path%3E%3C/svg%3E")
-        no-repeat 92% center;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'%3E%3C/path%3E%3C/svg%3E") no-repeat 92% center;
     background-color: rgb(243, 243, 243);
     min-width: 175px;
     border: 1px solid rgb(243, 243, 243);
@@ -49,11 +47,11 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
+    align-content: start;
     flex-wrap: wrap;
-    height: 77vh;
+    height: 77%;
     border-radius: 12px;
-    padding: 0.25rem;
+    padding: 0.25em;
     overflow: auto;
 }
 
@@ -75,15 +73,15 @@
 .user-container {
     background-color: rgb(224, 224, 224);
     display: flex;
+    width: 22%;
+    max-width: 220px;
+    min-width: 180px;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 225px;
-    width: 200px;
     border-radius: 12px;
-    margin-top: 1rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin: 1rem 0.5rem 0rem 0.5rem;
     cursor: pointer;
 }
 
