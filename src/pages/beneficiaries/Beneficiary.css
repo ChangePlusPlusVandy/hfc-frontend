@@ -4,35 +4,51 @@
     --mid-color: #d0d0d1;
 }
 
+.back {
+    position: relative;
+    top: 15px;
+    left: 15px;
+}
+
 .beneficiary-page-container {
     display: flex;
+    height: 100%;
+    box-sizing: border-box;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
-    margin: 10px;
 }
 
 .beneficiary-page-container .page-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
-    margin: 50px;
-    margin-left: 100px;
-    gap: 100px;
+    margin: auto;
+    gap: 20px;
+    width: 80%;
+    max-width: 1100px;
 }
 
 .beneficiary-identification-info,
 .beneficiary-registration-info {
     display: flex;
     flex-direction: column;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.beneficiary-identification-info {
+    width: auto;
 }
 
 .beneficiary-page-container .beneficiary-registration-info {
     margin: 20px;
+    width: 80%
 }
 
 .needs-interests-sponsor-buttons {
     display: flex;
+    justify-content: stretch;
 }
 
 .needs-interests-sponsor-container input {
@@ -56,14 +72,13 @@
     cursor: pointer;
     font-size: 12pt;
     margin: 2px;
-    width: 200px;
+    min-width: 100px;
+    max-width: 200px;
+    width: 33%;
     height: 30px;
 }
 
-.beneficiary-page-container
-    .program-workshops-list
-    .needs-interests-sponsor-list
-    .assessment-list {
+.beneficiary-page-container .program-workshops-list .needs-interests-sponsor-list .assessment-list {
     height: 100%;
     margin-top: 20px;
     background-color: var(--button-color);
@@ -106,8 +121,8 @@
     padding: 15px 10px;
 }
 
-.program-workshop-header > h4,
-.assessment-header > h4 {
+.program-workshop-header>h4,
+.assessment-header>h4 {
     font-size: 15px;
     font-weight: 500;
     margin: 0;
@@ -128,9 +143,9 @@
     margin: 5px;
 }
 
-.mapped-list > h4,
-.assessment-mapped-list > * h4,
-.needs-interests-sponsors-display > * h4,
+.mapped-list>h4,
+.assessment-mapped-list>* h4,
+.needs-interests-sponsors-display>* h4,
 .personal-value {
     font-size: 14px;
     font-weight: 400;
@@ -245,7 +260,7 @@
 
 .button-header {
     display: flex;
-    gap: 850px;
+
 }
 
 .beneficiary-page-container .edit-submit-buttons {
@@ -270,6 +285,7 @@
 
 #back-arrow {
     width: fit-content;
+    min-width: 200px;
     margin-bottom: 20px;
     font-size: 12pt;
     font-weight: 400;
