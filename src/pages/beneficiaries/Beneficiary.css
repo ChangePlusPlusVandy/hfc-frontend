@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin: auto;
-    gap: 20px;
+    gap: 30px;
     width: 80%;
     max-width: 1100px;
     max-height: 90%;
@@ -50,7 +50,7 @@
 
 .beneficiary-page-container .beneficiary-registration-info {
     margin: 20px;
-    width: 80%;
+    width: 70%;
 }
 
 .beneficiary-registration-info {
