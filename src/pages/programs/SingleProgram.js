@@ -4,6 +4,8 @@ import EnrollPopup from "./EnrollPopup";
 import "./styles/SingleProgram.css";
 
 const SingleProgram = (props) => {
+    const API_URL = process.env.API_URL;
+
     const { programID } = useParams();
     const navigate = useNavigate();
 
@@ -77,17 +79,14 @@ const SingleProgram = (props) => {
 
     const getProgramFromID = async (e) => {
         try {
-            let data = await fetch(
-                `http://localhost:3000/programs?id=${programID}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            let data = await fetch(`${API_URL}/programs?id=${programID}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             console.log(data[0]);
             setProgram(data[0]);
@@ -98,7 +97,7 @@ const SingleProgram = (props) => {
 
     const getBeneficiaries = async () => {
         try {
-            let data = await fetch("http://localhost:3000/beneficiaries", {
+            let data = await fetch(`${API_URL}/beneficiaries`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(
@@ -171,7 +170,7 @@ const SingleProgram = (props) => {
             }),
         };
 
-        await fetch("http://localhost:3000/programs", requestOptions);
+        await fetch(`${API_URL}/programs`, requestOptions);
         getProgramFromID();
         resetNewProgram();
     };
@@ -223,7 +222,7 @@ const SingleProgram = (props) => {
                 },
             }),
         };
-        await fetch("http://localhost:3000/programs", requestOptions);
+        await fetch(`${API_URL}/programs`, requestOptions);
         getProgramFromID();
         resetNewProgram();
     };
@@ -242,7 +241,7 @@ const SingleProgram = (props) => {
                 },
             }),
         };
-        await fetch("http://localhost:3000/programs", requestOptions);
+        await fetch(`${API_URL}/programs`, requestOptions);
         navigate("../../");
     };
 
@@ -258,7 +257,7 @@ const SingleProgram = (props) => {
                 },
                 body: JSON.stringify({ _id: e }),
             };
-            await fetch("http://localhost:3000/programs", requestOptions);
+            await fetch(`${API_URL}/programs`, requestOptions);
             navigate("/dashboard/programs");
         } catch (err) {
             console.log(err);
@@ -609,7 +608,7 @@ const SingleProgram = (props) => {
                                                     }
                                                     name="tuesdayStart"
                                                     onChange={(e) =>
-                                                        setUpdateProgScheduleTuesdatStart(
+                                                        setUpdateProgScheduleTuesdayStart(
                                                             e.target.value
                                                         )
                                                     }

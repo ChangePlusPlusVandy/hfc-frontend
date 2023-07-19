@@ -10,6 +10,7 @@ const SORT_OPTIONS = [
 ];
 
 const AssesssmentsOverview = () => {
+    const API_URL = process.env.API_URL;
     const [assessments, setAssessments] = useState([]);
     const [displayedAssessments, setDisplayedAssessments] = useState([]);
     const [search, setSearch] = useState("");
@@ -17,7 +18,7 @@ const AssesssmentsOverview = () => {
 
     const getAssessments = async () => {
         try {
-            let data = await fetch("http://localhost:3000/assessments", {
+            let data = await fetch(`${API_URL}/assessments`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(

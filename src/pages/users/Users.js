@@ -50,6 +50,8 @@ const User = ({
 };
 
 const Users = () => {
+    const API_URL = process.env.API_URL;
+
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState([]);
@@ -98,15 +100,16 @@ const Users = () => {
     const handleSortChange = (e) => {
         if (e == [] || e.length == 0) {
             return;
-        } else if (e[0].value == "FNAZ") {
+        }
+        if (e.value == "FNAZ") {
             sortByName(true, true);
-        } else if (e[0].value == "LNAZ") {
+        } else if (e.value == "LNAZ") {
             sortByName(false, true);
-        } else if (e[0].value == "FNZA") {
+        } else if (e.value == "FNZA") {
             sortByName(true, false);
-        } else if (e[0].value == "LNZA") {
+        } else if (e.value == "LNZA") {
             sortByName(false, false);
-        } else if (e[0].value == "DATE") {
+        } else if (e.value == "DATE") {
             sortByDate();
         }
     };
@@ -114,7 +117,7 @@ const Users = () => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                let data = await fetch("http://localhost:3000/users/users", {
+                let data = await fetch(`${API_URL}/users/users`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(
@@ -133,7 +136,7 @@ const Users = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const res = await fetch(
-                    `http://localhost:3000/users?firebaseUID=${user.uid}`,
+                    `${API_URL}/users?firebaseUID=${user.uid}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -161,7 +164,6 @@ const Users = () => {
                 />
                 <Dropdown
                     placeHolder="Sort Order"
-                    isMulti
                     options={SORT_OPTIONS}
                     onChange={(value) => handleSortChange(value)}
                 />

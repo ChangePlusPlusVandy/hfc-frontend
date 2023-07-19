@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Popup.css";
 
 const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
+    const API_URL = process.env.API_URL;
     const [idError, setIdError] = useState(false);
     const [showErrorText, setShowErrorText] = useState(false);
     const [allBfcIds, setAllBfcIds] = useState([]);
@@ -26,7 +27,7 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
     const getBeneficiary = async (inputId) => {
         try {
             let data = await fetch(
-                `http://localhost:3000/beneficiaries/?idNum=${inputId}`,
+                `${API_URL}/beneficiaries/?idNum=${inputId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
 
     const getAllBeneficiaries = async () => {
         try {
-            let data = await fetch(`http://localhost:3000/beneficiaries`, {
+            let data = await fetch(`${API_URL}/beneficiaries`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(

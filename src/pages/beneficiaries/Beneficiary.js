@@ -46,6 +46,8 @@ const interestOpts = [
 ];
 
 const Beneficiary = () => {
+    const API_URL = process.env.API_URL;
+
     const { beneficiaryId } = useParams();
     const { isAdmin } = useAuth();
     const navigate = useNavigate();
@@ -178,8 +180,7 @@ const Beneficiary = () => {
     const getPrograms = async () => {
         try {
             let data = await fetch(
-                "http://localhost:3000/programs/beneficiary?id=" +
-                    beneficiaryId,
+                `${API_URL}/programs/beneficiary?id=${beneficiaryId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -200,8 +201,7 @@ const Beneficiary = () => {
     const getWorkshops = async () => {
         try {
             let data = await fetch(
-                "http://localhost:3000/workshops/beneficiary?id=" +
-                    beneficiaryId,
+                `${API_URL}/workshops/beneficiary?id=${beneficiaryId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -220,7 +220,7 @@ const Beneficiary = () => {
     };
 
     const handleDelete = (id) => {
-        fetch("http://localhost:3000/beneficiaries?id=" + beneficiaryId, {
+        fetch(`${API_URL}/beneficiaries?id=${beneficiaryId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -228,7 +228,7 @@ const Beneficiary = () => {
             },
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries", {
+                let data = await fetch(`${API_URL}/beneficiaries`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(
@@ -267,7 +267,7 @@ const Beneficiary = () => {
             sponsorInfo: newSponsorInfo,
         });
         console.log("updated beneficiary", body);
-        fetch(`http://localhost:3000/beneficiaries/${beneficiaryId}`, {
+        fetch(`${API_URL}/beneficiaries/${beneficiaryId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -298,7 +298,7 @@ const Beneficiary = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3000/beneficiaries/?id=${beneficiaryId}`, {
+        fetch(`${API_URL}/beneficiaries/?id=${beneficiaryId}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
@@ -662,7 +662,7 @@ const Beneficiary = () => {
                             <h4 className="mapped-date">Start Date</h4>
                             <h4 className="mapped-status">Status</h4>
                         </div>
-                        <div className="list-container">
+                        <div className="list-container programs-workshops">
                             {programsWorkshops === 0 &&
                                 programs.map((program, index) => (
                                     <div className="mapped-list" key={index}>

@@ -6,6 +6,7 @@ import TrashCanIcon from "../../../assets/icons/delete-icon.png";
 import "./SingleAssessment.css";
 
 const SingleAssessment = () => {
+    const API_URL = process.env.API_URL;
     const { assessmentId } = useParams();
     const navigate = useNavigate();
 
@@ -14,17 +15,14 @@ const SingleAssessment = () => {
 
     const getAssessmentById = async (mongoId) => {
         try {
-            let data = await fetch(
-                `http://localhost:3000/assessments/?id=${mongoId}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            let data = await fetch(`${API_URL}/assessments/?id=${mongoId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
             setAssessment(data);
         } catch (error) {
@@ -43,7 +41,7 @@ const SingleAssessment = () => {
     };
 
     const handleConfirmDelete = (id) => {
-        fetch(`http://localhost:3000/assessments/?id=${id}`, {
+        fetch(`${API_URL}/assessments/?id=${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

@@ -8,6 +8,8 @@ import DefaultUser from "../../../src/assets/images/default-user.png";
 import ChangePasswordModal from "./ChangePasswordModal";
 import "./SingleUser.css";
 const SingleUser = () => {
+    const API_URL = process.env.API_URL;
+
     const navigate = useNavigate();
     const [user, setUser] = useState({
         firstName: "",
@@ -32,30 +34,26 @@ const SingleUser = () => {
 
     const saveUser = async () => {
         try {
-            console.log(user.joinDate);
             const currUser = user._id;
-            const res = await fetch(
-                `http://localhost:3000/users?id=${currUser}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        languages: user.languages,
-                        joinDate: user.joinDate,
-                        level: user.level,
-                        fbUid: user.firebaseUID,
-                        phoneNum: user.phoneNumber,
-                        archived: user.archived,
-                    }),
-                }
-            );
+            const res = await fetch(`${API_URL}/users?id=${currUser}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+                body: JSON.stringify({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    languages: user.languages,
+                    joinDate: user.joinDate,
+                    level: user.level,
+                    fbUid: user.firebaseUID,
+                    phoneNumber: user.phoneNum,
+                    archived: user.archived,
+                }),
+            });
             return res.json();
         } catch (err) {
             console.log(err);
@@ -64,32 +62,37 @@ const SingleUser = () => {
     };
 
     const handleArchiveToggle = async () => {
-        const currUser = user._id;
-        const newArchived = !user.archived;
-        console.log(currUser);
-        fetch(`http://localhost:3000/users?id=${currUser}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
-            },
-            body: JSON.stringify({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                languages: user.languages,
-                joinDate: user.joinDate,
-                level: user.level,
-                fbUid: user.firebaseUID,
-                phoneNum: user.phoneNumber,
-                archived: newArchived,
-            }),
-        });
+        try {
+            const currUser = user._id;
+            const newArchived = !user.archived;
+            fetch(`${API_URL}/users?id=${currUser}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+                body: JSON.stringify({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    languages: user.languages,
+                    joinDate: user.joinDate,
+                    level: user.level,
+                    fbUid: user.firebaseUID,
+                    phoneNum: user.phoneNum,
+                    archived: newArchived,
+                }),
+            });
+        } catch (err) {
+            console.log(err);
+        }
+        navigate("../");
     };
 
     const handleEdit = async () => {
         if (editing) {
             const res = await saveUser();
-            console.log("Check user");
             getMongoUser(fbId);
         }
         setEditing(!editing);
@@ -97,17 +100,14 @@ const SingleUser = () => {
 
     const checkAdminStatus = async (fbId) => {
         try {
-            const res = await fetch(
-                `http://localhost:3000/users?firebaseUID=${fbId}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            const res = await fetch(`${API_URL}/users?firebaseUID=${fbId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             const mongoUser = await res.json();
             setIsAdmin(parseInt(mongoUser[0].level) == 3);
         } catch (err) {
@@ -118,19 +118,15 @@ const SingleUser = () => {
 
     const getMongoUser = async (mongoId) => {
         try {
-            const res = await fetch(
-                `http://localhost:3000/users/user?userId=${mongoId}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            const res = await fetch(`${API_URL}/users/user?userId=${mongoId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             const mongoUser = await res.json();
-            console.log("mongoUser", mongoUser);
             const {
                 firstName,
                 lastName,
@@ -142,6 +138,8 @@ const SingleUser = () => {
                 phoneNumber,
                 archived,
             } = mongoUser;
+            console.log("FIREBASEUId", firebaseUID);
+
             setUser({
                 firstName: firstName,
                 lastName: lastName,
@@ -153,6 +151,7 @@ const SingleUser = () => {
                 phoneNum: phoneNumber,
                 archived: archived,
             });
+            console.log("ID", firebaseUID);
         } catch (err) {
             console.error(err);
             console.log(err.message);
@@ -160,8 +159,9 @@ const SingleUser = () => {
     };
 
     useEffect(() => {
-        console.log("params", fbId);
         getMongoUser(fbId);
+    }, []);
+    useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 if (!isCurrentUser) {
@@ -173,9 +173,10 @@ const SingleUser = () => {
                 navigate("/");
             }
         });
-    }, []);
+    }, [user]);
+
     return (
-        <div className="container">
+        <div className="singleuser-container">
             <div
                 onClick={(e) => navigate("/dashboard/users")}
                 className="go-back"
@@ -336,7 +337,7 @@ const SingleUser = () => {
                             <button
                                 onClick={handleUpdatePassword}
                                 className="edit-btn"
-                                disabled={isCurrentUser == false}
+                                disabled={!isCurrentUser}
                             >
                                 Update Password
                             </button>
@@ -345,7 +346,11 @@ const SingleUser = () => {
                                     onClick={handleArchiveToggle}
                                     className="edit-btn"
                                 >
-                                    Archive/Unarchive
+                                    {user.archived ? (
+                                        <>Unarchive</>
+                                    ) : (
+                                        <>Archive</>
+                                    )}
                                 </button>
                             ) : (
                                 ""

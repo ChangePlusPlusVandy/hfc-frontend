@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import "./Register.css";
 import { deleteUser } from "firebase/auth";
 import CreatableSelect from "react-select/creatable";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     // TODO: use codes, add useEffect to reset errors dependent on all input states
+    const API_URL = process.env.API_URL;
+    const navigate = useNavigate();
     const ERRORS = {
         "Firebase: Error (auth/email-already-in-use).":
             "This email is already in use",
@@ -52,7 +55,7 @@ const Register = () => {
         lastName,
         level = 0
     ) => {
-        const response = await fetch("http://localhost:3000/users", {
+        const response = await fetch(API_URL + "/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -78,22 +81,19 @@ const Register = () => {
         }
         try {
             // Create Firebase User
-            const userCrediential = await fetch(
-                "http://localhost:3000/users/firebase",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                    }),
-                }
-            );
+            const userCrediential = await fetch(API_URL + "/users/firebase", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+                body: JSON.stringify({
+                    email: email,
+                    pass: password,
+                }),
+            });
             const user = await userCrediential.json();
             // Create MongoDB User
             try {
@@ -168,6 +168,9 @@ const Register = () => {
         setLanguages(data);
     };
 
+    const cancelRegistration = () => {
+        navigate("../");
+    };
     return (
         <div className="register-user-container">
             <h1>Register a new user</h1>
@@ -232,6 +235,9 @@ const Register = () => {
                     />
                 </div>
                 <button type="submit">Register</button>
+                <button type="submit" onClick={cancelRegistration}>
+                    Cancel
+                </button>
             </form>
         </div>
     );
