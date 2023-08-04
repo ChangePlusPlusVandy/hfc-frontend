@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
+import FilterField from "./FilterField";
 
 import "./Beneficiaries.css";
 
@@ -388,10 +389,44 @@ const Beneficiaries = () => {
         interestsFilter,
     ]);
 
+
+    const [reportIsOpen, setReportIsOpen] = useState(false)
+    const [filterVals, setFilterVals] = useState([["a", "a"]])
+    const [filters, setFilters] = useState([])
+
+    const toggleReportFiltering = () => {
+        setReportIsOpen((curr) => !curr)
+    }
+
+    const handleAddFilter = () => {
+        let currLength = filters.length
+        setFilterVals(curr => [...curr, ["a", "a"]])
+        let newFilter = <FilterField
+            id={currLength}
+            filters={filterVals}
+            setValue={setFilterVals}
+        />
+        setFilters(curr => [...curr, newFilter])
+
+        console.log(filters)
+    }
+
+    //{filterObj, filterval, filtertype}
+    //TODO: fix. dont delete filterVals by idx
+    const handleDeleteFilter = (e) => {
+        let filterId = e.props.id
+        // let filterIndex = filters.indexOf(e)
+        setFilters((curr) => curr.filter((elem) => elem != e))
+        setFilterVals(curr => curr.filter((_, i) => i != filterId))
+    }
+
     return (
         <div className="beneficiaries-page-container">
             <div className="program-list-view-container">
                 <h1>Beneficiary List</h1>
+                <div className="ksdsdf">
+
+                </div>
                 <div className="program-sort-options-container">
                     <div className="sort-options">
                         <div className="dropdown">
@@ -645,7 +680,10 @@ const Beneficiaries = () => {
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    {/* TMP FILTERBUTTON */}
+                    <button onClick={toggleReportFiltering}> Advanced Filters</button>
                     <div className="search-and-create">
                         <input
                             type="text"
@@ -660,6 +698,23 @@ const Beneficiaries = () => {
                         </NavLink>
                     </div>
                 </div>
+
+
+
+                <div className={`report-filtering-container ${reportIsOpen ? "active" : ""}`}>
+                    {
+                        filters.map((item, i) => (
+                            <div className="single-filter" key={i}>
+                                {item}
+                                <button onClick={() => handleDeleteFilter(item)}>Delete</button>
+                            </div>
+                        ))
+                    }
+                    <button onClick={handleAddFilter}>Add Filter</button>
+                </div>
+
+
+
 
                 <div className="beneficiaries-container">
                     <div className="beneficiaries-mapped-container">
