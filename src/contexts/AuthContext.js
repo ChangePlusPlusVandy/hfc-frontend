@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const getMongoUser = async () => {
-        const API_URL = process.env.API_URL
+        const API_URL = process.env.API_URL;
         // Get mongo user to set mongo user state
         try {
             const res = await fetch(
