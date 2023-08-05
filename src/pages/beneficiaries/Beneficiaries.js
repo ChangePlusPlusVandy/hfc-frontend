@@ -62,7 +62,6 @@ const Beneficiaries = () => {
     // TODO: make these an array of states check if the interests intersect with the desired interests
 
     const deleteBfc = (id) => {
-        console.log(id);
         fetch(`${API_URL}/beneficiaries?id=${id}`, {
             method: "DELETE",
             headers: {
@@ -74,9 +73,9 @@ const Beneficiaries = () => {
                 let data = await fetch(`${API_URL}/beneficiaries`);
                 data = await data.json();
                 setBeneficiaries(data);
-                console.log("beneficiaries: " + beneficiaries);
+
             } catch (error) {
-                console.error(error);
+
             }
         });
     };
@@ -167,9 +166,8 @@ const Beneficiaries = () => {
 
     const handleRemoveInterest = (selectedValues, selectedItem) => {
         setNumInterests((prev) => prev - 1);
-        console.log("numInterests in the handle: " + numInterests);
+
         if (numInterests === 0) {
-            console.log("this is working yay!");
             setInterestsFilter(false);
         }
         switch (selectedItem.id) {
@@ -342,7 +340,6 @@ const Beneficiaries = () => {
                 data = await data.json();
                 let dataCopy = [...data];
                 dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));
-                console.log("data copy:", dataCopy);
                 setBeneficiaries(dataCopy);
                 setDisplayedBeneficiaries(dataCopy);
             } catch (error) {
@@ -355,9 +352,6 @@ const Beneficiaries = () => {
 
     // TODO: change this with updated state
     useEffect(() => {
-        console.log("interest filter: " + interestsFilter);
-        console.log("numInterests" + numInterests);
-        console.log("computers: " + computers);
         if (numInterests === 0) {
             setInterestsFilter(false);
         }
@@ -380,7 +374,6 @@ const Beneficiaries = () => {
                     (math && beneficiary.interests.includes("Math")))
         );
         setDisplayedBeneficiaries(beneficiariesCopy);
-        console.log(beneficiariesCopy);
     }, [
         beneficiaries,
         activeFilter,
@@ -389,37 +382,62 @@ const Beneficiaries = () => {
         interestsFilter,
     ]);
 
-    const [reportIsOpen, setReportIsOpen] = useState(false);
-    const [filterVals, setFilterVals] = useState([["a", "a"]]);
+
+    const [reportIsOpen, setReportIsOpen] = useState(true);
     const [filters, setFilters] = useState([]);
+    const [filterCounter, setFilterCounter] = useState(0)
 
     const toggleReportFiltering = () => {
         setReportIsOpen((curr) => !curr);
     };
 
+    useEffect(() => {
+        // console.log(filters)
+    }, [filters])
+
+
+    const handleFilterChange = (props) => {
+        setFilters(prevFilters => {
+            let tmp = prevFilters.map(filter => ({ ...filter }));
+            for (let i = 0; i < tmp.length; ++i) {
+                if (tmp[i].id === props.id) {
+                    tmp[i].type = props.type;
+                    tmp[i].value = props.filter;
+                    tmp[i].bounds = props.value
+                    break;
+                }
+            }
+            return tmp;
+        });
+    }
+
     const handleAddFilter = () => {
-        let currLength = filters.length;
-        setFilterVals((curr) => [...curr, ["a", "a"]]);
         let newFilter = (
             <FilterField
-                id={currLength}
-                filters={filterVals}
-                setValue={setFilterVals}
+                id={filterCounter}
+                filters={filters}
+                setValue={handleFilterChange}
             />
         );
-        setFilters((curr) => [...curr, newFilter]);
-
-        console.log(filters);
+        let newFilterObject = {
+            filter: newFilter,
+            id: filterCounter,
+            type: "",
+            value: "",
+            bounds: "",
+        }
+        setFilterCounter((curr) => (curr + 1))
+        setFilters([...filters, newFilterObject]);
     };
 
-    //{filterObj, filterval, filtertype}
-    //TODO: fix. dont delete filterVals by idx
-    const handleDeleteFilter = (e) => {
-        let filterId = e.props.id;
-        // let filterIndex = filters.indexOf(e)
-        setFilters((curr) => curr.filter((elem) => elem != e));
-        setFilterVals((curr) => curr.filter((_, i) => i != filterId));
-    };
+    const handleDeleteFilter = e => {
+        console.log(e)
+
+        // setFilters(current => current.filter(item => item.id != e.id))
+    }
+
+
+
 
     return (
         <div className="beneficiaries-page-container">
@@ -699,22 +717,27 @@ const Beneficiaries = () => {
                         </NavLink>
                     </div>
                 </div>
-
                 <div
-                    className={`report-filtering-container ${
-                        reportIsOpen ? "active" : ""
-                    }`}
+                    className={`report-filtering-container ${reportIsOpen ? "active" : ""
+                        }`}
                 >
-                    {filters.map((item, i) => (
-                        <div className="single-filter" key={i}>
-                            {item}
-                            <button onClick={() => handleDeleteFilter(item)}>
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-                    <button onClick={handleAddFilter}>Add Filter</button>
+                    <div className="report-filter-inner">
+                        <h2>Search Filters</h2>
+                        {filters.map((item, i) => (
+                            <div className="single-filter" key={i}>
+                                {item.filter}
+                                <button onClick={() => handleDeleteFilter(item)}>
+                                    Delete
+                                </button>
+                            </div>
+                        ))}
+                        <button onClick={handleAddFilter}>Add Filter</button>
+                    </div>
                 </div>
+
+
+
+
 
                 <div className="beneficiaries-container">
                     <div className="beneficiaries-mapped-container">
