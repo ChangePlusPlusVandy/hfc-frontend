@@ -60,19 +60,19 @@ const InputScoreField = (props) => {
     return (
         <div className="input-score-field">
 
-            <input type="checkbox" id="one" value={one} onClick={() => setOne(curr => !curr)} />
+            <input type="checkbox" id="one" value={one} checked={one} onChange={() => setOne(curr => !curr)} />
             <label htmlFor="one">1</label>
 
-            <input type="checkbox" id="two" value={two} onChange={() => setTwo(curr => !curr)} />
+            <input type="checkbox" id="two" value={two} checked={two} onChange={() => setTwo(curr => !curr)} />
             <label htmlFor="two">2</label>
 
-            <input type="checkbox" id="three" value={three} onChange={() => setThree(curr => !curr)} />
+            <input type="checkbox" id="three" value={three} checked={three} onChange={() => setThree(curr => !curr)} />
             <label htmlFor="three">3</label>
 
-            <input type="checkbox" id="four" value={four} onChange={() => setFour(curr => !curr)} />
+            <input type="checkbox" id="four" value={four} checked={four} onChange={() => setFour(curr => !curr)} />
             <label htmlFor="four">4</label>
 
-            <input type="checkbox" id="five" value={five} onChange={() => setFive(curr => !curr)} />
+            <input type="checkbox" id="five" value={five} checked={five} onChange={() => setFive(curr => !curr)} />
             <label htmlFor="five">5</label>
         </div>
     )
@@ -122,17 +122,29 @@ const FilterField = (props) => {
     const [typeValue, setTypeValue] = useState("");
     const [filterValue, setFilterValue] = useState("");
     const [filterTime, setFilterTime] = useState("")
+    const [displayTime, setDisplayTime] = useState(false)
+    const [timeObject, setTimeObject] = useState()
 
     const [filterBoundsInput, setFilterBoundsInput] = useState()
     const [filterBoundsValue, setFilterBoundsValue] = useState("")
 
     useEffect(() => {
         let multipleTimes = ["bank_account", "english_lvl", "computer_skills", "emotional_wellness", "income", "savings"]
-        if (multipleTimes.includes(typeValue))
-            setFilterTime(filterFieldTimes[0].value)
+        if (multipleTimes.includes(typeValue)) {
+            setTimeObject(
+                <Select
+                    placeholder="Time"
+                    options={filterFieldTimes}
+                    className="react-select"
+                    onChange={handleTimeChange}
+                />
+            )
+            setDisplayTime(true)
+        }
         else
-            setFilterTime("")
+            setDisplayTime(false)
 
+        console.log("klnfkjs")
         let filterMinMax = ["age", "income", "savings"]
         let filterScore = ["english_lvl", "computer_skills", "emotional_wellness"]
         let filterDate = ["start_date", "grade_completed"]
@@ -146,11 +158,10 @@ const FilterField = (props) => {
                 />)
         } else if (filterScore.includes(typeValue)) {
             setFilterValue("score")
-            setFilterBoundsInput(
-                <InputScoreField
-                    val={filterBoundsValue}
-                    update={setFilterBoundsValue}
-                />)
+            setFilterBoundsInput(<InputScoreField
+                val={filterBoundsValue}
+                update={setFilterBoundsValue}
+            />)
         } else if (filterDate.includes(typeValue)) {
             setFilterValue("date")
             setFilterBoundsInput(
@@ -179,13 +190,17 @@ const FilterField = (props) => {
     }, [filterBoundsValue])
 
     const handleTypeChange = (e) => {
-        setFilterTime("");
+        setFilterTime("")
         setFilterBoundsValue("")
+        setFilterBoundsInput()
+        setTimeObject()
         setTypeValue(e.value);
-        props.setValue({ id: ID, filter: filterValue, type: e.value, value: filterBoundsValue })
+        props.setValue({ id: ID, filter: filterValue, type: e.value, value: "" })
     };
 
     const handleTimeChange = (e) => {
+        setFilterTime(e.value)
+        //TODO WHEN CHANGINT TIME OF HAS BANK ACCOUNT< RESET YES NO VALUE
         props.setValue({ id: ID, filter: filterValue, type: typeValue + "," + e.value, value: filterBoundsValue })
     };
 
@@ -204,17 +219,16 @@ const FilterField = (props) => {
                 className="react-select"
                 onChange={handleTypeChange}
             />
+            {displayTime &&
+                <div>
+                    {timeObject}
+                </div>
 
-            <Select
-                placeholder="Time"
-                options={filterFieldTimes}
-                className="react-select"
-                onChange={handleTimeChange}
-            />
+            }
 
 
             {filterBoundsInput}
-
+            {filterTime}
         </div>
     );
 };

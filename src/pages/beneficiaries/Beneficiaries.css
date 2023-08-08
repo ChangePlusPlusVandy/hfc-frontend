@@ -46,7 +46,8 @@
 }
 
 .report-filter-inner .single-filter {
-    display: flex
+    display: flex;
+    margin: 5px 0;
 }
 
 
