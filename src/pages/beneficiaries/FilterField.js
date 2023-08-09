@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Select from 'react-select';
+import Select from "react-select";
 import MultiSelect from "multiselect-react-dropdown";
 import "./SingleFilter.css";
 
@@ -18,128 +18,177 @@ const filterFieldOptions = [
 const filterFieldTimes = [
     { label: "Completion", value: "completion" },
     { label: "Intake", value: "intake" },
-]
-
+];
 
 const InputRangeField = (props) => {
-    const [min, setMin] = useState(0)
-    const [max, setMax] = useState(0)
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(0);
 
-    const handleMinChange = e => {
-        setMin(e.target.value)
-        props.update(e.target.value + "," + max)
-    }
-    const handleMaxChange = e => {
-        setMax(e.target.value)
-        props.update(min + "," + e.target.value)
-    }
+    const handleMinChange = (e) => {
+        setMin(e.target.value);
+        props.update(e.target.value + "," + max);
+    };
+    const handleMaxChange = (e) => {
+        setMax(e.target.value);
+        props.update(min + "," + e.target.value);
+    };
 
     return (
         <div className="input-range-field">
-            <input className="single-filter-container-input" type="search" value={min} placeholder="Minimum" onChange={handleMinChange} />
-            <input className="single-filter-container-input" type="search" value={max} placeholder="Maximum" onChange={handleMaxChange} />
+            <input
+                className="single-filter-container-input"
+                type="search"
+                value={min}
+                placeholder="Minimum"
+                onChange={handleMinChange}
+            />
+            <input
+                className="single-filter-container-input"
+                type="search"
+                value={max}
+                placeholder="Maximum"
+                onChange={handleMaxChange}
+            />
         </div>
-    )
-}
+    );
+};
 
 const InputScoreField = (props) => {
-    const [one, setOne] = useState(false)
-    const [two, setTwo] = useState(false)
-    const [three, setThree] = useState(false)
-    const [four, setFour] = useState(false)
-    const [five, setFive] = useState(false)
+    const [one, setOne] = useState(false);
+    const [two, setTwo] = useState(false);
+    const [three, setThree] = useState(false);
+    const [four, setFour] = useState(false);
+    const [five, setFive] = useState(false);
 
     useEffect(() => {
-        props.update(one + "," + two + "," + three + "," + four + "," + five)
-    }, [])
+        props.update(one + "," + two + "," + three + "," + four + "," + five);
+    }, []);
 
     useEffect(() => {
-        props.update(one + "," + two + "," + three + "," + four + "," + five)
-    }, [one, two, three, four, five])
+        props.update(one + "," + two + "," + three + "," + four + "," + five);
+    }, [one, two, three, four, five]);
 
     return (
         <div className="input-score-field">
-
             <div className="single-checkbox">
-                <input type="checkbox" id="one" value={one} checked={one} onChange={() => setOne(curr => !curr)} />
+                <input
+                    type="checkbox"
+                    id="one"
+                    value={one}
+                    checked={one}
+                    onChange={() => setOne((curr) => !curr)}
+                />
                 <label htmlFor="one">1</label>
             </div>
 
             <div className="single-checkbox">
-                <input type="checkbox" id="two" value={two} checked={two} onChange={() => setTwo(curr => !curr)} />
+                <input
+                    type="checkbox"
+                    id="two"
+                    value={two}
+                    checked={two}
+                    onChange={() => setTwo((curr) => !curr)}
+                />
                 <label htmlFor="two">2</label>
             </div>
 
             <div className="single-checkbox">
-                <input type="checkbox" id="three" value={three} checked={three} onChange={() => setThree(curr => !curr)} />
+                <input
+                    type="checkbox"
+                    id="three"
+                    value={three}
+                    checked={three}
+                    onChange={() => setThree((curr) => !curr)}
+                />
                 <label htmlFor="three">3</label>
             </div>
 
             <div className="single-checkbox">
-                <input type="checkbox" id="four" value={four} checked={four} onChange={() => setFour(curr => !curr)} />
+                <input
+                    type="checkbox"
+                    id="four"
+                    value={four}
+                    checked={four}
+                    onChange={() => setFour((curr) => !curr)}
+                />
                 <label htmlFor="four">4</label>
             </div>
 
             <div className="single-checkbox">
-                <input type="checkbox" id="five" value={five} checked={five} onChange={() => setFive(curr => !curr)} />
+                <input
+                    type="checkbox"
+                    id="five"
+                    value={five}
+                    checked={five}
+                    onChange={() => setFive((curr) => !curr)}
+                />
                 <label htmlFor="five">5</label>
             </div>
         </div>
-    )
-}
+    );
+};
 
 const InputDateField = (props) => {
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(0)
+    const [start, setStart] = useState(0);
+    const [end, setEnd] = useState(0);
 
     return (
         <div className="input-range-field">
             <input type="date" value={start} placeholder="Minimum" />
             <input type="date" value={end} placeholder="Maximum" />
         </div>
-    )
-}
+    );
+};
 
 const InputYesNoField = (props) => {
-    const [isYes, setIsYes] = useState()
+    const [isYes, setIsYes] = useState();
 
     useEffect(() => {
-        if (isYes)
-            props.update("yes")
-        else
-            props.update("no")
-
-    }, [isYes])
+        if (isYes) props.update("yes");
+        else props.update("no");
+    }, [isYes]);
 
     return (
-
         <div className="input-yes-no-field">
-
-            <input name="radio" type="radio" id="yes" onChange={() => setIsYes(true)} />
+            <input
+                name="radio"
+                type="radio"
+                id="yes"
+                onChange={() => setIsYes(true)}
+            />
             <label htmlFor="yes">yes</label>
 
-            <input name="radio" type="radio" id="no" onChange={() => setIsYes(false)} />
+            <input
+                name="radio"
+                type="radio"
+                id="no"
+                onChange={() => setIsYes(false)}
+            />
             <label htmlFor="no">No</label>
-
         </div>
-
-    )
-}
-
+    );
+};
 
 const FilterField = (props) => {
-    const ID = props.id
+    const ID = props.id;
     const [typeValue, setTypeValue] = useState("");
     const [filterValue, setFilterValue] = useState("");
-    const [filterTime, setFilterTime] = useState("")
-    const [displayTime, setDisplayTime] = useState(false)
-    const [timeObject, setTimeObject] = useState()
+    const [filterTime, setFilterTime] = useState("");
+    const [displayTime, setDisplayTime] = useState(false);
+    const [timeObject, setTimeObject] = useState();
 
-    const [filterBoundsInput, setFilterBoundsInput] = useState()
-    const [filterBoundsValue, setFilterBoundsValue] = useState("")
+    const [filterBoundsInput, setFilterBoundsInput] = useState();
+    const [filterBoundsValue, setFilterBoundsValue] = useState("");
 
     useEffect(() => {
-        let multipleTimes = ["bank_account", "english_lvl", "computer_skills", "emotional_wellness", "income", "savings"]
+        let multipleTimes = [
+            "bank_account",
+            "english_lvl",
+            "computer_skills",
+            "emotional_wellness",
+            "income",
+            "savings",
+        ];
         if (multipleTimes.includes(typeValue)) {
             setTimeObject(
                 <Select
@@ -148,78 +197,108 @@ const FilterField = (props) => {
                     className="react-select"
                     onChange={handleTimeChange}
                 />
-            )
-            setDisplayTime(true)
-        }
-        else
-            setDisplayTime(false)
+            );
+            setDisplayTime(true);
+        } else setDisplayTime(false);
 
-        console.log("klnfkjs")
-        let filterMinMax = ["age", "income", "savings"]
-        let filterScore = ["english_lvl", "computer_skills", "emotional_wellness"]
-        let filterDate = ["start_date", "grade_completed"]
-        let filterYesNo = ["bank_account", "found_work"]
+        console.log("klnfkjs");
+        let filterMinMax = ["age", "income", "savings"];
+        let filterScore = [
+            "english_lvl",
+            "computer_skills",
+            "emotional_wellness",
+        ];
+        let filterDate = ["start_date", "grade_completed"];
+        let filterYesNo = ["bank_account", "found_work"];
         if (filterMinMax.includes(typeValue)) {
-            setFilterValue("min_max")
+            setFilterValue("min_max");
             setFilterBoundsInput(
                 <InputRangeField
                     val={filterBoundsValue}
                     update={setFilterBoundsValue}
-                />)
+                />
+            );
         } else if (filterScore.includes(typeValue)) {
-            setFilterValue("score")
-            setFilterBoundsInput(<InputScoreField
-                val={filterBoundsValue}
-                update={setFilterBoundsValue}
-            />)
+            setFilterValue("score");
+            setFilterBoundsInput(
+                <InputScoreField
+                    val={filterBoundsValue}
+                    update={setFilterBoundsValue}
+                />
+            );
         } else if (filterDate.includes(typeValue)) {
-            setFilterValue("date")
+            setFilterValue("date");
             setFilterBoundsInput(
                 <InputDateField
                     val={filterBoundsValue}
                     update={setFilterBoundsValue}
-                />)
+                />
+            );
         } else if (filterYesNo.includes(typeValue)) {
-            setFilterValue("yes_no")
+            setFilterValue("yes_no");
             setFilterBoundsInput(
                 <InputYesNoField
                     val={filterBoundsValue}
                     update={setFilterBoundsValue}
-                />)
+                />
+            );
         }
-        setFilterBoundsValue("")
-    }, [typeValue])
+        setFilterBoundsValue("");
+    }, [typeValue]);
 
     useEffect(() => {
-        props.setValue({ id: ID, filter: filterValue, type: typeValue, value: filterBoundsValue })
-        setFilterBoundsValue("")
-    }, [typeValue, filterValue])
+        props.setValue({
+            id: ID,
+            filter: filterValue,
+            type: typeValue,
+            value: filterBoundsValue,
+        });
+        setFilterBoundsValue("");
+    }, [typeValue, filterValue]);
 
     useEffect(() => {
-        props.setValue({ id: ID, filter: filterValue, type: typeValue + "," + filterTime, value: filterBoundsValue })
-    }, [filterBoundsValue])
+        props.setValue({
+            id: ID,
+            filter: filterValue,
+            type: typeValue + "," + filterTime,
+            value: filterBoundsValue,
+        });
+    }, [filterBoundsValue]);
 
     const handleTypeChange = (e) => {
-        setFilterTime("")
-        setFilterBoundsValue("")
-        setFilterBoundsInput()
-        setTimeObject()
+        setFilterTime("");
+        setFilterBoundsValue("");
+        setFilterBoundsInput();
+        setTimeObject();
         setTypeValue(e.value);
-        props.setValue({ id: ID, filter: filterValue, type: e.value, value: "" })
+        props.setValue({
+            id: ID,
+            filter: filterValue,
+            type: e.value,
+            value: "",
+        });
     };
 
     const handleTimeChange = (e) => {
-        setFilterTime(e.value)
+        setFilterTime(e.value);
         //TODO WHEN CHANGINT TIME OF HAS BANK ACCOUNT< RESET YES NO VALUE
-        props.setValue({ id: ID, filter: filterValue, type: typeValue + "," + e.value, value: filterBoundsValue })
+        props.setValue({
+            id: ID,
+            filter: filterValue,
+            type: typeValue + "," + e.value,
+            value: filterBoundsValue,
+        });
     };
-
 
     const handleValueChange = (e) => {
         setFilterValue(e.target.value);
-        props.setValue({ id: ID, filter: e.target.value, type: typeValue, value: filterBoundsValue })
+        props.setValue({
+            id: ID,
+            filter: e.target.value,
+            type: typeValue,
+            value: filterBoundsValue,
+        });
     };
-
 
     return (
         <div className="single-filter-container">
@@ -229,13 +308,7 @@ const FilterField = (props) => {
                 className="react-select select-filter"
                 onChange={handleTypeChange}
             />
-            {displayTime &&
-                <div className="time-object">
-                    {timeObject}
-                </div>
-
-            }
-
+            {displayTime && <div className="time-object">{timeObject}</div>}
 
             {filterBoundsInput}
         </div>
@@ -244,47 +317,35 @@ const FilterField = (props) => {
 
 export default FilterField;
 
-
-
-
-
-
-
-
-
+// useEffect(() => {
+//     for (let i = 0; i < props.filters.length; ++i) {
+//         if (props.filters[i].id == ID) {
+//             setTypeValue(props.filters[i].type);
+//             setFilterValue(props.filters[i].value);
+//             break;
+//         }
+//     }
+// }, [])
 
 // useEffect(() => {
-    //     for (let i = 0; i < props.filters.length; ++i) {
-    //         if (props.filters[i].id == ID) {
-    //             setTypeValue(props.filters[i].type);
-    //             setFilterValue(props.filters[i].value);
-    //             break;
-    //         }
-    //     }
-    // }, [])
+//     // console.log("TYPE: " + typeValue)
+//     // console.log("Filter " + filterValue)
 
+//     // // let tmp = [...props.filters]
 
+//     // // for (let i = 0; i < tmp.length; ++i) {
+//     // //     if (tmp[i].id == ID) {
+//     // //         tmp[i].type = typeValue;
+//     // //         tmp[i].value = filterValue;
+//     // //         break;
+//     // //     }
+//     // // }
 
-    // useEffect(() => {
-    //     // console.log("TYPE: " + typeValue)
-    //     // console.log("Filter " + filterValue)
-
-    //     // // let tmp = [...props.filters]
-
-    //     // // for (let i = 0; i < tmp.length; ++i) {
-    //     // //     if (tmp[i].id == ID) {
-    //     // //         tmp[i].type = typeValue;
-    //     // //         tmp[i].value = filterValue;
-    //     // //         break;
-    //     // //     }
-    //     // // }
-
-    // }, [typeValue, filterValue])
+// }, [typeValue, filterValue])
 // const old = () => {
 //     // const [filter, setFilter] = useState([])
 //     // const [typeValue, setTypeValue] = useState("");
 //     // const [filterValue, setFilterValue] = useState("");
-
 
 //     // useEffect(() => {
 //     //     for (let i = 0; i < props.filters.length; ++i) {
@@ -308,7 +369,6 @@ export default FilterField;
 //     //     }
 //     //     props.setValue([...tmp])
 //     // }, [filter])
-
 
 //     // const handleTypeChange = (e) => {
 //     //     setTypeValue(e.target.value);

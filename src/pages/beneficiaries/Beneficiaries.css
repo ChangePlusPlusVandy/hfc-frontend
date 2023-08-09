@@ -13,7 +13,9 @@
 
 /* TODO: probably will change this image */
 .beneficiaries-page-container .search-bar {
-    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 95% center;
+    background: transparent
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+        no-repeat 95% center;
     background-color: rgb(243, 243, 243);
     border: none;
     min-width: 270px;
@@ -47,7 +49,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 50%;
-    margin: auto
+    margin: auto;
 }
 
 .add-filter-button {
@@ -80,14 +82,6 @@
     padding-bottom: 0.6em;
 }
 
-
-
-
-
-
-
-
-
 .report-filter-inner {
     display: flex;
     flex-direction: column;
@@ -115,13 +109,17 @@
     border-radius: 12px;
 }
 
+.blob-container {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    text-decoration: underline;
+}
 
-
-
-
-
-
-
+.blob-container:hover {
+    cursor: pointer;
+}
 
 .beneficiaries-page-container .sort-dropdown {
     background: transparent no-repeat 95% center;
@@ -134,7 +132,9 @@
 
 /*  TODO: also will probably change */
 .beneficiaries-page-container #register-btn {
-    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'%3E%3C/path%3E%3C/svg%3E") no-repeat 92% center;
+    background: transparent
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'%3E%3C/path%3E%3C/svg%3E")
+        no-repeat 92% center;
     background-color: rgb(243, 243, 243);
     min-width: 175px;
     border: 1px solid rgb(243, 243, 243);
@@ -236,6 +236,10 @@
     justify-content: center;
 }
 
-.beneficiaries-page-container .program-list-view-container #status-options-dropdown input:hover+label {
+.beneficiaries-page-container
+    .program-list-view-container
+    #status-options-dropdown
+    input:hover
+    + label {
     background-color: transparent !important;
 }
