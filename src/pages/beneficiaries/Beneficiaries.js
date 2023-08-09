@@ -348,41 +348,42 @@ const Beneficiaries = () => {
     };
     useEffect(() => {
         getBeneficiaries()
+
         // console.log("Beneficiaries: " + beneficiaries)
         // eventualy we should only call this if user has correct auth/permissions
     }, []);
 
     // TODO: change this with updated state
-    useEffect(() => {
-        if (numInterests === 0) {
-            setInterestsFilter(false);
-        }
-        let beneficiariesCopy = beneficiaries.filter(
-            (beneficiary) =>
-                (beneficiary.archived === archivedFilter ||
-                    beneficiary.archived !== activeFilter) &&
-                (!interestsFilter ||
-                    (computers &&
-                        beneficiary.interests.includes("Computers")) ||
-                    (spokenEnglish &&
-                        beneficiary.interests.includes("English")) ||
-                    (arts && beneficiary.interests.includes("Arts")) ||
-                    (literacy && beneficiary.interests.includes("Literacy")) ||
-                    (bengali && beneficiary.interests.includes("Bengali")) ||
-                    (bakery && beneficiary.interests.includes("Bakery")) ||
-                    (counseling &&
-                        beneficiary.interests.includes("Counseling")) ||
-                    (literacy && beneficiary.interests.includes("Literacy")) ||
-                    (math && beneficiary.interests.includes("Math")))
-        );
-        setDisplayedBeneficiaries(beneficiariesCopy);
-    }, [
-        beneficiaries,
-        activeFilter,
-        archivedFilter,
-        numInterests,
-        interestsFilter,
-    ]);
+    // useEffect(() => {
+    //     if (numInterests === 0) {
+    //         setInterestsFilter(false);
+    //     }
+    //     let beneficiariesCopy = beneficiaries.filter(
+    //         (beneficiary) =>
+    //             (beneficiary.archived === archivedFilter ||
+    //                 beneficiary.archived !== activeFilter) &&
+    //             (!interestsFilter ||
+    //                 (computers &&
+    //                     beneficiary.interests.includes("Computers")) ||
+    //                 (spokenEnglish &&
+    //                     beneficiary.interests.includes("English")) ||
+    //                 (arts && beneficiary.interests.includes("Arts")) ||
+    //                 (literacy && beneficiary.interests.includes("Literacy")) ||
+    //                 (bengali && beneficiary.interests.includes("Bengali")) ||
+    //                 (bakery && beneficiary.interests.includes("Bakery")) ||
+    //                 (counseling &&
+    //                     beneficiary.interests.includes("Counseling")) ||
+    //                 (literacy && beneficiary.interests.includes("Literacy")) ||
+    //                 (math && beneficiary.interests.includes("Math")))
+    //     );
+    //     setDisplayedBeneficiaries(beneficiariesCopy);
+    // }, [
+    //     beneficiaries,
+    //     activeFilter,
+    //     archivedFilter,
+    //     numInterests,
+    //     interestsFilter,
+    // ]);
 
 
     const [reportIsOpen, setReportIsOpen] = useState(true);
@@ -440,13 +441,13 @@ const Beneficiaries = () => {
         getBeneficiaries()
     }
 
-    // useEffect(() => {
-    //     console.log(displayedBeneficiaries)
-    // }, [displayedBeneficiaries])
-    // useEffect(() => {
-    //     console.log("filters: ")
-    //     console.log(filters)
-    // }, [filters])
+    useEffect(() => {
+        console.log(displayedBeneficiaries)
+    }, [displayedBeneficiaries])
+    useEffect(() => {
+        console.log("filters: ")
+        console.log(filters)
+    }, [filters])
 
     const printFilters = () => {
         let res = []
