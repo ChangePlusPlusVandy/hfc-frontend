@@ -16,8 +16,8 @@ const filterFieldOptions = [
     { label: "Has Found Work", value: "found_work" },
 ];
 const filterFieldTimes = [
-    { label: "At Completion", value: "completion" },
-    { label: "At Intake", value: "intake" },
+    { label: "Completion", value: "completion" },
+    { label: "Intake", value: "intake" },
 ]
 
 
@@ -36,8 +36,8 @@ const InputRangeField = (props) => {
 
     return (
         <div className="input-range-field">
-            <input type="search" value={min} placeholder="Minimum" onChange={handleMinChange} />
-            <input type="search" value={max} placeholder="Maximum" onChange={handleMaxChange} />
+            <input className="single-filter-container-input" type="search" value={min} placeholder="Minimum" onChange={handleMinChange} />
+            <input className="single-filter-container-input" type="search" value={max} placeholder="Maximum" onChange={handleMaxChange} />
         </div>
     )
 }
@@ -60,20 +60,30 @@ const InputScoreField = (props) => {
     return (
         <div className="input-score-field">
 
-            <input type="checkbox" id="one" value={one} checked={one} onChange={() => setOne(curr => !curr)} />
-            <label htmlFor="one">1</label>
+            <div className="single-checkbox">
+                <input type="checkbox" id="one" value={one} checked={one} onChange={() => setOne(curr => !curr)} />
+                <label htmlFor="one">1</label>
+            </div>
 
-            <input type="checkbox" id="two" value={two} checked={two} onChange={() => setTwo(curr => !curr)} />
-            <label htmlFor="two">2</label>
+            <div className="single-checkbox">
+                <input type="checkbox" id="two" value={two} checked={two} onChange={() => setTwo(curr => !curr)} />
+                <label htmlFor="two">2</label>
+            </div>
 
-            <input type="checkbox" id="three" value={three} checked={three} onChange={() => setThree(curr => !curr)} />
-            <label htmlFor="three">3</label>
+            <div className="single-checkbox">
+                <input type="checkbox" id="three" value={three} checked={three} onChange={() => setThree(curr => !curr)} />
+                <label htmlFor="three">3</label>
+            </div>
 
-            <input type="checkbox" id="four" value={four} checked={four} onChange={() => setFour(curr => !curr)} />
-            <label htmlFor="four">4</label>
+            <div className="single-checkbox">
+                <input type="checkbox" id="four" value={four} checked={four} onChange={() => setFour(curr => !curr)} />
+                <label htmlFor="four">4</label>
+            </div>
 
-            <input type="checkbox" id="five" value={five} checked={five} onChange={() => setFive(curr => !curr)} />
-            <label htmlFor="five">5</label>
+            <div className="single-checkbox">
+                <input type="checkbox" id="five" value={five} checked={five} onChange={() => setFive(curr => !curr)} />
+                <label htmlFor="five">5</label>
+            </div>
         </div>
     )
 }
@@ -216,11 +226,11 @@ const FilterField = (props) => {
             <Select
                 placeholder="Filter By"
                 options={filterFieldOptions}
-                className="react-select"
+                className="react-select select-filter"
                 onChange={handleTypeChange}
             />
             {displayTime &&
-                <div>
+                <div className="time-object">
                     {timeObject}
                 </div>
 
@@ -228,7 +238,6 @@ const FilterField = (props) => {
 
 
             {filterBoundsInput}
-            {filterTime}
         </div>
     );
 };

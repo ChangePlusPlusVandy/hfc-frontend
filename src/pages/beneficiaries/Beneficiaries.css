@@ -31,26 +31,89 @@
     background-color: rgb(243, 243, 243);
     margin-bottom: 1rem;
     border-radius: 12px;
+    border: 2px solid var(--even-midder);
 }
+
+.filter-button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.print-clear-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    margin: auto
+}
+
+.add-filter-button {
+    width: 50%;
+    margin: auto;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: var(--even-midder);
+    margin-bottom: 0.2em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
+
+.add-filter-button:hover,
+.print-clear:hover {
+    border: 2px solid #e4a68e;
+    cursor: pointer;
+    color: #e4a68e;
+    box-sizing: border-box;
+}
+
+.print-clear {
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: var(--even-midder);
+    width: 48%;
+    margin-bottom: 1em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
+
+
+
+
+
+
+
+
 
 .report-filter-inner {
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: 2rem auto;
+    margin: 1rem auto;
 }
 
 .report-filter-inner h2 {
-    margin: 0;
+    margin: 0 0 0.2em 0;
     padding: 0;
 }
 
 .report-filter-inner .single-filter {
     display: flex;
-    margin: 5px 0;
+    margin: 7px auto;
+    width: 100%;
+    max-width: 600px;
 }
 
-
+.delete-filter {
+    margin-left: 1em;
+    border: none;
+    background-color: var(--even-midder);
+    padding: 0 10px;
+    border-radius: 12px;
+}
 
 
 

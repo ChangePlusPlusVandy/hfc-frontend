@@ -440,13 +440,13 @@ const Beneficiaries = () => {
         getBeneficiaries()
     }
 
-    useEffect(() => {
-        console.log(displayedBeneficiaries)
-    }, [displayedBeneficiaries])
-    useEffect(() => {
-        console.log("filters: ")
-        console.log(filters)
-    }, [filters])
+    // useEffect(() => {
+    //     console.log(displayedBeneficiaries)
+    // }, [displayedBeneficiaries])
+    // useEffect(() => {
+    //     console.log("filters: ")
+    //     console.log(filters)
+    // }, [filters])
 
     const printFilters = () => {
         let res = []
@@ -521,6 +521,7 @@ const Beneficiaries = () => {
                     }
                 }
             }
+
             console.log("onefilt applied: ")
             console.log(beneficiariesCopy)
             res.push(filters[i].type + " " + filters[i].value + " " + filters[i].bounds)
@@ -813,18 +814,22 @@ const Beneficiaries = () => {
                         }`}
                 >
                     <div className="report-filter-inner">
-                        <h2>Search Filters</h2>
+                        {/* <h2>Search Filters</h2> */}
                         {filters.map((item, i) => (
                             <div className="single-filter" key={i}>
                                 {item.filter}
-                                <button onClick={() => handleDeleteFilter(item)}>
+                                <button className="delete-filter" onClick={() => handleDeleteFilter(item)}>
                                     Delete
                                 </button>
                             </div>
                         ))}
-                        <button onClick={handleAddFilter}>Add Filter</button>
-                        <button onClick={printFilters}>Enable Filters</button>
-                        <button onClick={handleClearFilters}>Clear Filters</button>
+                        <div className="filter-button-container">
+                            <button className="add-filter-button" onClick={handleAddFilter}>Add Filter</button>
+                            <div className="print-clear-buttons">
+                                <button className="print-clear" onClick={handleClearFilters}>Clear Filters</button>
+                                <button className="print-clear" onClick={printFilters}>Enable Filters</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
