@@ -14,6 +14,7 @@ const filterFieldOptions = [
     { label: "Has A Bank Account", value: "bank_account" },
     { label: "Savings", value: "savings" },
     { label: "Has Found Work", value: "found_work" },
+    { label: "Gender", value: "gender" },
 ];
 const filterFieldTimes = [
     { label: "Completion", value: "completion" },
@@ -129,18 +130,77 @@ const InputScoreField = (props) => {
 };
 
 const InputDateField = (props) => {
-    const [start, setStart] = useState(0);
-    const [end, setEnd] = useState(0);
+    let today = new Date();
+    let todayStr =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1).toString().padStart(2, "0") +
+        "-" +
+        today.getDate().toString().padStart(2, "0");
+    const [start, setStart] = useState(todayStr);
+    const [end, setEnd] = useState(todayStr);
+
+    const handleStartChange = (e) => {
+        setStart(e.target.value);
+        props.update(e.target.value + "," + end);
+    };
+    const handleEndChange = (e) => {
+        setEnd(e.target.value);
+        props.update(start + "," + e.target.value);
+    };
 
     return (
-        <div className="input-range-field">
-            <input type="date" value={start} placeholder="Minimum" />
-            <input type="date" value={end} placeholder="Maximum" />
+        <div className="input-date-field">
+            <input
+                className="input-date-filter"
+                type="date"
+                value={start}
+                onChange={handleStartChange}
+                placeholder="Minimum"
+            />
+            <input
+                className="input-date-filter"
+                type="date"
+                value={end}
+                onChange={handleEndChange}
+                placeholder="Maximum"
+            />
         </div>
     );
 };
 
 const InputYesNoField = (props) => {
+    const [isYes, setIsYes] = useState();
+
+    useEffect(() => {
+        if (isYes) props.update("yes");
+        else props.update("no");
+    }, [isYes]);
+
+    return (
+        <div className="input-yes-no-field">
+            <form>
+                <input
+                    name="radio"
+                    type="radio"
+                    id="yes"
+                    onChange={() => setIsYes(true)}
+                />
+                <label>yes</label>
+
+                <input
+                    name="radio"
+                    type="radio"
+                    id="no"
+                    onChange={() => setIsYes(false)}
+                />
+                <label>No</label>
+            </form>
+        </div>
+    );
+};
+
+const InputGenderField = (props) => {
     const [isYes, setIsYes] = useState();
 
     useEffect(() => {
@@ -156,7 +216,7 @@ const InputYesNoField = (props) => {
                 id="yes"
                 onChange={() => setIsYes(true)}
             />
-            <label htmlFor="yes">yes</label>
+            <label htmlFor="yes">Male</label>
 
             <input
                 name="radio"
@@ -164,7 +224,7 @@ const InputYesNoField = (props) => {
                 id="no"
                 onChange={() => setIsYes(false)}
             />
-            <label htmlFor="no">No</label>
+            <label htmlFor="no">Female</label>
         </div>
     );
 };
@@ -209,7 +269,7 @@ const FilterField = (props) => {
             "emotional_wellness",
         ];
         let filterDate = ["start_date", "grade_completed"];
-        let filterYesNo = ["bank_account", "found_work"];
+        let filterYesNo = ["bank_account", "found_work", "gender"];
         if (filterMinMax.includes(typeValue)) {
             setFilterValue("min_max");
             setFilterBoundsInput(
@@ -236,12 +296,21 @@ const FilterField = (props) => {
             );
         } else if (filterYesNo.includes(typeValue)) {
             setFilterValue("yes_no");
-            setFilterBoundsInput(
-                <InputYesNoField
-                    val={filterBoundsValue}
-                    update={setFilterBoundsValue}
-                />
-            );
+            if (typeValue == "gender") {
+                setFilterBoundsInput(
+                    <InputGenderField
+                        val={filterBoundsValue}
+                        update={setFilterBoundsValue}
+                    />
+                );
+            } else {
+                setFilterBoundsInput(
+                    <InputYesNoField
+                        val={filterBoundsValue}
+                        update={setFilterBoundsValue}
+                    />
+                );
+            }
         }
         setFilterBoundsValue("");
     }, [typeValue]);

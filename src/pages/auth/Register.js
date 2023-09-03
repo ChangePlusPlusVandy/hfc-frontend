@@ -20,14 +20,6 @@ const Register = () => {
             setError("Please enter a valid email");
             return false;
         }
-        if (password != passwordConfirm) {
-            setError("Passwords do not match.");
-            return false;
-        }
-        if (!isStrongPassword(password)) {
-            setError("Password must be at least 6 characters.");
-            return false;
-        }
         if (firstName.length == 0 || lastName.length == 0) {
             setError("Please enter valid name");
             return false;
@@ -73,7 +65,9 @@ const Register = () => {
     };
 
     const handleSubmit = async (e) => {
+        console.log(firstName.toLowerCase() + lastName.toLowerCase());
         e.preventDefault();
+
         // Validate Inputs
         if (!checkInputs()) {
             console.log("error");
@@ -91,7 +85,7 @@ const Register = () => {
                 },
                 body: JSON.stringify({
                     email: email,
-                    pass: password,
+                    pass: firstName.toLowerCase() + lastName.toLowerCase(),
                 }),
             });
             const user = await userCrediential.json();
@@ -145,22 +139,10 @@ const Register = () => {
         setError("");
     };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-        setError("");
-    };
-
-    const handlePasswordConfirmChange = (e) => {
-        setPasswordConfirm(e.target.value);
-        setError("");
-    };
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [level, setLevel] = useState(0);
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [error, setError] = useState("");
     const [languages, setLanguages] = useState([]);
 
@@ -221,18 +203,8 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <input
-                        onChange={handlePasswordChange}
-                        value={password}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    <input
-                        onChange={handlePasswordConfirmChange}
-                        value={passwordConfirm}
-                        type="password"
-                        placeholder="Confirm Password"
-                    />
+                    Temporary Password:{" "}
+                    {firstName.toLowerCase() + lastName.toLowerCase()}
                 </div>
                 <button type="submit">Register</button>
                 <button type="submit" onClick={cancelRegistration}>

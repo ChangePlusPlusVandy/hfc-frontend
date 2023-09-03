@@ -44,6 +44,19 @@
     margin-top: 1em;
 }
 
+.advanced-filter-button-extend {
+    border: none;
+    background-color: var(--button-color);
+    padding: 7px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.filter-download-filters-container {
+    margin-bottom: 30px;
+    background-color: #e4a68e;
+}
+
 .print-clear-buttons {
     display: flex;
     flex-direction: row;

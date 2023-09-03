@@ -19,10 +19,22 @@
     margin-right: 1em;
 }
 
+.input-date-filter {
+    max-width: 120px;
+    display: flex;
+}
+
 .input-range-field {
     width: 100%;
     display: flex;
+    overflow: hidden;
     justify-content: space-between;
+}
+
+.input-date-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .input-score-field {

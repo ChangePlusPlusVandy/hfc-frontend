@@ -69,21 +69,77 @@ const Beneficiaries = () => {
 
     const styles = StyleSheet.create({
         section: { margin: 40 },
+        filtersContainer: {
+            marginBottom: 30,
+            display: "flex",
+        },
+        singleFilter: {
+            marginBottom: 3,
+        },
     });
 
+    const formatFilter = (item) => {
+        if (item.type.split(",")[0] == "age") {
+            return `Age: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
+        }
+        if (
+            item.type.split(",")[0] == "income" ||
+            item.type.split(",")[0] == "savings"
+        ) {
+            return `${item.type.split(",")[0]} (${item.type.split(",")[1]}): ${
+                item.bounds.split(",")[0]
+            } to ${item.bounds.split(",")[1]}`;
+        }
+        if (
+            item.type.split(",")[0] == "emotional_wellness" ||
+            item.type.split(",")[0] == "computer_skills" ||
+            item.type.split(",")[0] == "english_lvl"
+        ) {
+            let finalStr = `${item.type.split(",")[0]} (${
+                item.type.split(",")[1]
+            }): `;
+            let splitScore = item.bounds.split(",");
+            for (let i = 0; i < splitScore.length; i++) {
+                if (splitScore[i] == "true") {
+                    finalStr += i + 1 + ", ";
+                }
+            }
+            return finalStr;
+        }
+        if (item.type.split(",")[0] == "gender") {
+            if (item.bounds == "yes") return `Gender: Male`;
+            return `Gender: Female`;
+        }
+        if (item.type.split(",")[0] == "start_date") {
+            return `Start Date: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
+        }
+        if (item.type.split(",")[0] == "bank_account") {
+            return `Has a Bank Account (${item.type.split(",")[1]}): ${
+                item.bounds
+            }`;
+        }
+        if (item.type.split(",")[0] == "found_work") {
+            return `Has Found Work: ${item.bounds}`;
+        }
+    };
     const BeneficiariesDocument = () => (
         <Document>
             <Page size="A4">
                 <View style={styles.section}>
-                    <Text style={{ marginBottom: 30 }}>
+                    <View style={styles.filtersContainer}>
                         <Text style={{ marginRight: 40 }}>Filters:</Text>
                         {filters.map((item, i) => (
-                            <Text key={i} style={{ marginLeft: 10 }}>
-                                {item.type.split(",")[0]}{" "}
-                                {item.type.split(",")[1]}: {item.bounds},
-                            </Text>
+                            <View key={i} style={styles.singleFilter}>
+                                <Text key={i} style={{ marginLeft: 10 }}>
+                                    {formatFilter(item)}
+                                </Text>
+                            </View>
                         ))}
-                    </Text>
+                    </View>
                     {displayedBeneficiaries.map((item, i) => (
                         <Text key={i}>
                             {i + 1}. {item.firstName} {item.lastName}
@@ -485,7 +541,6 @@ const Beneficiaries = () => {
     const printFilters = () => {
         let res = [];
         let beneficiariesCopy = beneficiaries.map((filter) => ({ ...filter }));
-        // console.log(beneficiariesCopy)
         for (let i = 0; i < filters.length; i++) {
             if (filters[i].value == "min_max") {
                 let time = filters[i].type.split(",")[1];
@@ -608,6 +663,31 @@ const Beneficiaries = () => {
                                 (item) => item.hasBankAccountCompletion == false
                             );
                         }
+                    }
+                } else if (filters[i].type.split(",")[0] == "gender") {
+                    if (filters[i].bounds == "yes") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.gender == "male"
+                        );
+                    } else {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.gender == "female"
+                        );
+                    }
+                }
+            } else if (filters[i].value == "date") {
+                if (filters[i].type.split(",")[0] == "start_date") {
+                    if (
+                        filters[i].bounds.split(",")[0].length > 0 &&
+                        filters[i].bounds.split(",")[1].length > 0
+                    ) {
+                        let lowerBound = filters[i].bounds.split(",")[0];
+                        let upperBound = filters[i].bounds.split(",")[1];
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.joinDate.split("T")[0] <= upperBound &&
+                                item.joinDate.split("T")[0] >= lowerBound
+                        );
                     }
                 }
             }
@@ -887,7 +967,10 @@ const Beneficiaries = () => {
                         </div>
                     </div>
                     {/* TMP FILTERBUTTON */}
-                    <button onClick={toggleReportFiltering}>
+                    <button
+                        onClick={toggleReportFiltering}
+                        className="advanced-filter-button-extend"
+                    >
                         {" "}
                         Advanced Filters
                     </button>
@@ -915,12 +998,12 @@ const Beneficiaries = () => {
                         {filters.map((item, i) => (
                             <div className="single-filter" key={i}>
                                 {item.filter}
-                                <button
+                                {/* <button
                                     className="delete-filter"
                                     onClick={() => handleDeleteFilter(item)}
                                 >
                                     Delete
-                                </button>
+                                </button> */}
                             </div>
                         ))}
                         <div className="filter-button-container">

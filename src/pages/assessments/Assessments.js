@@ -104,6 +104,41 @@ const Assessments = () => {
             text: "",
         },
     ]);
+    const [intakeQs, setIntakeQs] = useState([
+        {
+            question: "What's you're current income",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "Do you have a bank account?",
+            answer: null,
+            text: "",
+        },
+        {
+            question: "How much money do you have saved?",
+            answer: null,
+            text: "",
+        },
+    ]);
+    const [outtakeQs, setOuttakeQs] = useState([
+        {
+            question: "What's you're current income",
+            text: "",
+        },
+        {
+            question: "Do you have a bank account?",
+            text: "",
+        },
+        {
+            question: "How much money do you have saved?",
+            text: "",
+        },
+        {
+            question: "Do you have a job?",
+            text: "",
+        },
+    ]);
 
     const [socialSkillsQs, setSocialSkillsQs] = useState([
         {
@@ -125,8 +160,21 @@ const Assessments = () => {
     const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
     const [socialSkillsScore, setSocialSkillsScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
+    const [isIntake, setIsIntake] = useState(false);
+    const [isIntakeOuttake, setIsIntakeOuttake] = useState(false);
 
-    const PAGES = [
+    let PAGES = [
+        {
+            title: "Intake/Outtake",
+            shortName: "Intake/Outtake",
+            component: (
+                <Page
+                    questions={isIntakeOuttake ? intakeQs : outtakeQs}
+                    setQuestions={isIntakeOuttake ? setIntakeQs : setOuttakeQs}
+                    hasOnlyTextQs={true}
+                />
+            ),
+        },
         {
             title: "Education / Vocation",
             shortName: "Education & Vocation",
@@ -249,6 +297,13 @@ const Assessments = () => {
             console.error(err?.message ? err.message : err);
         }
     };
+    useEffect(() => {
+        if (!isIntakeOuttake && PAGES[0].title == "Intake/Outtake") {
+            PAGES.pop(0);
+        } else if (isIntakeOuttake && PAGES[0].title != "Intake/Outtake") {
+            //TODO
+        }
+    }, [isIntakeOuttake]);
 
     return (
         <div className="assessments-container">
@@ -257,6 +312,8 @@ const Assessments = () => {
                     <PopupBfc
                         setPopup={setPopup}
                         setBeneficiary={setBeneficiary}
+                        setIntakeOuttake={setIsIntakeOuttake}
+                        setIntake={setIsIntake}
                         navigate={navigate}
                     />
                 )}

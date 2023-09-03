@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Popup.css";
 
-const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
+const PopupBfc = ({ setPopup, setBeneficiary, navigate, setIntakeOuttake }) => {
     const API_URL = process.env.API_URL;
     const [idError, setIdError] = useState(false);
     const [showErrorText, setShowErrorText] = useState(false);
     const [allBfcIds, setAllBfcIds] = useState([]);
     const [userInput, setUserInput] = useState("");
+    const [toggleIntakeOuttake, setToggleIntakeOuttake] = useState(false);
 
     const handleBegin = () => {
         // whenever the user clicks on the button, reset the error
@@ -72,6 +73,11 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
         getAllBeneficiaries();
     }, []);
 
+    const handleToggleInOut = () => {
+        setIntakeOuttake(!toggleIntakeOuttake);
+        setToggleIntakeOuttake((curr) => !curr);
+    };
+
     return (
         <div className="popup-container">
             <div className="popup-content">
@@ -98,6 +104,25 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
                             </p>
                         )}
                     </div>
+                </div>
+                <div>
+                    <button onClick={handleToggleInOut}>
+                        {" "}
+                        Click this if this is a Intake or Outtake Assessment{" "}
+                    </button>
+                    <form
+                        style={{
+                            visibility: toggleIntakeOuttake
+                                ? "visible"
+                                : "hidden",
+                        }}
+                    >
+                        <input type="radio" name="radio" id="intake" />
+                        <label>Intake</label>
+
+                        <input type="radio" name="radio" id="outtake" />
+                        <label>Outtake</label>
+                    </form>
                 </div>
 
                 <button className="begin-btn" onClick={handleBegin}>
