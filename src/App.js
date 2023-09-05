@@ -53,12 +53,19 @@ const Root = () => {
         </>
     );
 };
+const Base = () => {
+    return (
+        <div className="he">
+            <p>Hello World</p>
+        </div>
+    );
+}
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Root />}>
             <Route index element={<Login />} />
-            <Route path="forgot-password" element={<PasswordReset />}></Route>
+            <Route path="forgot-password" element={<PasswordReset />} />
             <Route element={<PrivateRoute />}>
                 <Route path="dashboard" element={<DashboardLayout />}>
                     <Route
@@ -119,6 +126,7 @@ const router = createBrowserRouter(
                     </Route>
                 </Route>
             </Route>
+
         </Route>
     )
 );
@@ -132,3 +140,8 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
