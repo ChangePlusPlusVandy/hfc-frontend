@@ -10,6 +10,4 @@ import App from "./App";
 
 // Mount the App component to the DOM element with id "root"
 const root = createRoot(document.getElementById("root"));
-root.render(
-    <App />
-);
+root.render(<App />);

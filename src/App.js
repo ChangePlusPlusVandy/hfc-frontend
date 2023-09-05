@@ -59,7 +59,7 @@ const Base = () => {
             <p>Hello World</p>
         </div>
     );
-}
+};
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -126,7 +126,6 @@ const router = createBrowserRouter(
                     </Route>
                 </Route>
             </Route>
-
         </Route>
     )
 );
@@ -140,8 +139,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
