@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Popup.css";
 
-const PopupBfc = ({ setPopup, setBeneficiary, navigate, setIntakeOuttake, setIntake }) => {
+const PopupBfc = ({
+    setPopup,
+    setBeneficiary,
+    navigate,
+    setIntakeOuttake,
+    setIntake,
+}) => {
     const API_URL = process.env.API_URL;
     const [idError, setIdError] = useState(false);
     const [showErrorText, setShowErrorText] = useState(false);
@@ -79,13 +85,13 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate, setIntakeOuttake, setInt
     };
 
     const handleChangeInOutVal = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.value);
         if (e.target.value == "in") {
-            setIntake(true)
+            setIntake(true);
         } else if (e.target.value == "out") {
-            setIntake(false)
+            setIntake(false);
         }
-    }
+    };
     return (
         <div className="popup-container">
             <div className="popup-content">
@@ -102,8 +108,9 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate, setIntakeOuttake, setInt
                             onChange={handleChangeInput}
                             value={userInput}
                             placeholder="enter beneficiary ID"
-                            className={`beneficiary-id-input ${idError ? "error" : ""
-                                }`}
+                            className={`beneficiary-id-input ${
+                                idError ? "error" : ""
+                            }`}
                         />
                         {showErrorText && (
                             <p className="beneficiary-id-alert">
@@ -125,10 +132,20 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate, setIntakeOuttake, setInt
                         }}
                         onChange={handleChangeInOutVal}
                     >
-                        <input type="radio" name="radio" id="intake" value="in" />
+                        <input
+                            type="radio"
+                            name="radio"
+                            id="intake"
+                            value="in"
+                        />
                         <label>Intake</label>
 
-                        <input type="radio" name="radio" id="outtake" value="out" />
+                        <input
+                            type="radio"
+                            name="radio"
+                            id="outtake"
+                            value="out"
+                        />
                         <label>Outtake</label>
                     </form>
                 </div>

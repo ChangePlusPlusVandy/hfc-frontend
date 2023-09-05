@@ -80,23 +80,26 @@ const Beneficiaries = () => {
 
     const formatFilter = (item) => {
         if (item.type.split(",")[0] == "age") {
-            return `Age: ${item.bounds.split(",")[0]} to ${item.bounds.split(",")[1]
-                }`;
+            return `Age: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
         }
         if (
             item.type.split(",")[0] == "income" ||
             item.type.split(",")[0] == "savings"
         ) {
-            return `${item.type.split(",")[0]} (${item.type.split(",")[1]}): ${item.bounds.split(",")[0]
-                } to ${item.bounds.split(",")[1]}`;
+            return `${item.type.split(",")[0]} (${item.type.split(",")[1]}): ${
+                item.bounds.split(",")[0]
+            } to ${item.bounds.split(",")[1]}`;
         }
         if (
             item.type.split(",")[0] == "emotional_wellness" ||
             item.type.split(",")[0] == "computer_skills" ||
             item.type.split(",")[0] == "english_lvl"
         ) {
-            let finalStr = `${item.type.split(",")[0]} (${item.type.split(",")[1]
-                }): `;
+            let finalStr = `${item.type.split(",")[0]} (${
+                item.type.split(",")[1]
+            }): `;
             let splitScore = item.bounds.split(",");
             for (let i = 0; i < splitScore.length; i++) {
                 if (splitScore[i] == "true") {
@@ -110,12 +113,14 @@ const Beneficiaries = () => {
             return `Gender: Female`;
         }
         if (item.type.split(",")[0] == "start_date") {
-            return `Start Date: ${item.bounds.split(",")[0]} to ${item.bounds.split(",")[1]
-                }`;
+            return `Start Date: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
         }
         if (item.type.split(",")[0] == "bank_account") {
-            return `Has a Bank Account (${item.type.split(",")[1]}): ${item.bounds
-                }`;
+            return `Has a Bank Account (${item.type.split(",")[1]}): ${
+                item.bounds
+            }`;
         }
         if (item.type.split(",")[0] == "found_work") {
             return `Has Found Work: ${item.bounds}`;
@@ -162,7 +167,7 @@ const Beneficiaries = () => {
                 let data = await fetch(`${API_URL}/beneficiaries`);
                 data = await data.json();
                 setBeneficiaries(data);
-            } catch (error) { }
+            } catch (error) {}
         });
     };
 
@@ -604,7 +609,7 @@ const Beneficiaries = () => {
                         beneficiariesCopy = beneficiariesCopy.filter(
                             (item) =>
                                 validScores[
-                                item.computerSkillsCompletion - 1
+                                    item.computerSkillsCompletion - 1
                                 ] == true
                         );
                     }
@@ -621,7 +626,7 @@ const Beneficiaries = () => {
                         beneficiariesCopy = beneficiariesCopy.filter(
                             (item) =>
                                 validScores[
-                                item.emotionalWellnessCompletion - 1
+                                    item.emotionalWellnessCompletion - 1
                                 ] == true
                         );
                     }
@@ -691,10 +696,10 @@ const Beneficiaries = () => {
             console.log(beneficiariesCopy);
             res.push(
                 filters[i].type +
-                " " +
-                filters[i].value +
-                " " +
-                filters[i].bounds
+                    " " +
+                    filters[i].value +
+                    " " +
+                    filters[i].bounds
             );
         }
         setDisplayedBeneficiaries(beneficiariesCopy);
@@ -740,7 +745,7 @@ const Beneficiaries = () => {
                                                 <input
                                                     type="checkbox"
                                                     onChange={handleClickActive}
-                                                // defaultChecked
+                                                    // defaultChecked
                                                 />
                                                 <label> Active </label>
                                             </div>
@@ -984,8 +989,9 @@ const Beneficiaries = () => {
                     </div>
                 </div>
                 <div
-                    className={`report-filtering-container ${reportIsOpen ? "active" : ""
-                        }`}
+                    className={`report-filtering-container ${
+                        reportIsOpen ? "active" : ""
+                    }`}
                 >
                     <div className="report-filter-inner">
                         {/* <h2>Search Filters</h2> */}

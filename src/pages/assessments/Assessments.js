@@ -110,7 +110,7 @@ const Assessments = () => {
             text: "",
         },
         {
-            question: "Do you have a bank account? (\"yes\" or \"no\")",
+            question: 'Do you have a bank account? ("yes" or "no")',
             text: "",
         },
         {
@@ -124,7 +124,7 @@ const Assessments = () => {
             text: "",
         },
         {
-            question: "Do you have a bank account? (\"yes\" or \"no\")",
+            question: 'Do you have a bank account? ("yes" or "no")',
             text: "",
         },
         {
@@ -132,7 +132,7 @@ const Assessments = () => {
             text: "",
         },
         {
-            question: "Do you have a job? (\"yes\" or \"no\")",
+            question: 'Do you have a job? ("yes" or "no")',
             text: "",
         },
     ]);
@@ -284,12 +284,18 @@ const Assessments = () => {
                                 },
                                 body: JSON.stringify({
                                     assessments: updatedAssessments,
-                                    hasBankAccountIntake: intakeQs[1].text.toLowerCase() === "yes",
+                                    hasBankAccountIntake:
+                                        intakeQs[1].text.toLowerCase() ===
+                                        "yes",
                                     englishLvlIntake: eduVocQs[7].answer,
                                     computerSkillsIntake: eduVocQs[6].answer,
                                     emotionalWellnessIntake: mentalHealthScore,
-                                    savingsIntake: parseInt(intakeQs[2].text.replace(/,/g, '')),
-                                    incomeIntake: parseInt(intakeQs[0].text.replace(/,/g, '')),
+                                    savingsIntake: parseInt(
+                                        intakeQs[2].text.replace(/,/g, "")
+                                    ),
+                                    incomeIntake: parseInt(
+                                        intakeQs[0].text.replace(/,/g, "")
+                                    ),
                                 }),
                             }
                         );
@@ -311,13 +317,23 @@ const Assessments = () => {
                                 },
                                 body: JSON.stringify({
                                     assessments: updatedAssessments,
-                                    hasBankAccountCompletion: outtakeQs[1].text.toLowerCase() === "yes",
+                                    hasBankAccountCompletion:
+                                        outtakeQs[1].text.toLowerCase() ===
+                                        "yes",
                                     englishLvlCompletion: eduVocQs[7].answer,
-                                    computerSkillsCompletion: eduVocQs[6].answer,
-                                    emotionalWellnessCompletion: mentalHealthScore,
-                                    incomeCompletion: parseInt(outtakeQs[0].text.replace(/,/g, '')),
-                                    savingsCompletion: parseInt(outtakeQs[2].text.replace(/,/g, '')),
-                                    hasFoundWorkCompletion: outtakeQs[3].text.toLowerCase() === "yes"
+                                    computerSkillsCompletion:
+                                        eduVocQs[6].answer,
+                                    emotionalWellnessCompletion:
+                                        mentalHealthScore,
+                                    incomeCompletion: parseInt(
+                                        outtakeQs[0].text.replace(/,/g, "")
+                                    ),
+                                    savingsCompletion: parseInt(
+                                        outtakeQs[2].text.replace(/,/g, "")
+                                    ),
+                                    hasFoundWorkCompletion:
+                                        outtakeQs[3].text.toLowerCase() ===
+                                        "yes",
                                 }),
                             }
                         );
@@ -353,17 +369,16 @@ const Assessments = () => {
         }
     };
     useEffect(() => {
-        console.log(isIntakeOuttake)
+        console.log(isIntakeOuttake);
         if (!isIntakeOuttake && PAGES[0].title == "Intake/Outtake") {
             // PAGES.pop(0);
         } else if (isIntakeOuttake && PAGES[0].title != "Intake/Outtake") {
-
         }
     }, [isIntakeOuttake]);
 
     useEffect(() => {
-        console.log(intakeQs[1].text.toLowerCase() === "yes")
-    }, [intakeQs])
+        console.log(intakeQs[1].text.toLowerCase() === "yes");
+    }, [intakeQs]);
 
     return (
         <div className="assessments-container">
