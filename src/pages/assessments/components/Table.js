@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import "./Table.css";
 
 const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
-    const [showText, setShowText] = useState(false);
+    const [showText, setShowText] = useState(true);
     const [expandedItemIndex, setExpandedItemIndex] = useState(-1);
 
     const handleExpand = (index) => {
-        setShowText(!showText);
+        //setShowText(!showText);
+        if (index == expandedItemIndex && showText) setShowText(false);
+        else setShowText(true);
+
         setExpandedItemIndex(index);
     };
 
@@ -46,7 +49,9 @@ const Table = ({ dataName, dataArr, dataScore, hasOnlyTextQs = false }) => {
                                     <button
                                         className="expand-btn"
                                         onClick={() => handleExpand(i)}
-                                    ></button>
+                                    >
+                                        Expand
+                                    </button>
                                 </td>
                             </div>
                             {/* TODO: fix the error that div can't be a child of tr */}

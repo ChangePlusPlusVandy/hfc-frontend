@@ -6,6 +6,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import "./SingleWorkshop.css";
 import "./Workshops.css";
 export const WorkshopSingle = () => {
+    const API_URL = process.env.API_URL;
+
     const { workshopID } = useParams();
     const { isAdmin } = useAuth();
     const [workshop, setWorkshop] = useState({});
@@ -33,7 +35,7 @@ export const WorkshopSingle = () => {
                     workshopID,
                 }),
             };
-            fetch("http://localhost:3000/workshops", requestOptions);
+            fetch(`${API_URL}/workshops`, requestOptions);
             navigate("../");
         } catch (err) {
             console.log(err);
@@ -62,11 +64,9 @@ export const WorkshopSingle = () => {
             }),
         };
         console.log(requestOptions);
-        fetch("http://localhost:3000/workshops", requestOptions).then(
-            (response) => {
-                setEditMode(false);
-            }
-        );
+        fetch(`${API_URL}/workshops`, requestOptions).then((response) => {
+            setEditMode(false);
+        });
     };
 
     const enterUpdateMode = () => {
@@ -89,7 +89,7 @@ export const WorkshopSingle = () => {
         console.log("here");
         try {
             //TODO: better error handling
-            fetch("http://localhost:3000/workshops?_id=" + workshopID, {
+            fetch(`${API_URL}/workshops?_id=${workshopID}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(
@@ -102,7 +102,7 @@ export const WorkshopSingle = () => {
                     data = data[0];
                     setWorkshop(data);
                 });
-            fetch("http://localhost:3000/users/users", {
+            fetch(`${API_URL}/users/users`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(
@@ -325,22 +325,7 @@ export const WorkshopSingle = () => {
                                     <h7>{workshop.numAttendees}</h7>
                                 </div>
                                 <div className="workshop-info">
-                                    <h3>Registered Attendees</h3>
-                                    <h7>{workshop.attendees.length}</h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Unregistered Attendees</h3>
-                                    <h7>
-                                        {workshop.numAttendees -
-                                            workshop.attendees.length}
-                                    </h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Rating</h3>
-                                    <h7>{workshop.rating.toFixed(2)}</h7>
-                                </div>
-                                <div className="workshop-info">
-                                    <h3>Attendees: </h3>
+                                    <h3>Registered Attendees: </h3>
                                     <h7>
                                         {workshop.attendees.map((item) => (
                                             <Link
@@ -356,6 +341,17 @@ export const WorkshopSingle = () => {
                                             </Link>
                                         ))}
                                     </h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Unregistered Attendees</h3>
+                                    <h7>
+                                        {workshop.numAttendees -
+                                            workshop.attendees.length}
+                                    </h7>
+                                </div>
+                                <div className="workshop-info">
+                                    <h3>Rating</h3>
+                                    <h7>{workshop.rating.toFixed(2)}</h7>
                                 </div>
                             </>
                         ) : (

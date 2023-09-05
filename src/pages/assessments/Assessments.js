@@ -10,14 +10,12 @@ import FormNavBar from "../../components/FormNavBar";
 import PopupBfc from "./components/PopupBfc";
 
 const Assessments = () => {
+    const API_URL = process.env.API_URL;
+
     const [pageNum, setPageNum] = useState(0);
-
     const navigate = useNavigate();
-
     const [popup, setPopup] = useState(true);
-
     const [beneficiary, setBeneficiary] = useState();
-
     const [eduVocQs, setEduVocQs] = useState([
         {
             question:
@@ -106,6 +104,38 @@ const Assessments = () => {
             text: "",
         },
     ]);
+    const [intakeQs, setIntakeQs] = useState([
+        {
+            question: "What's you're current income",
+            text: "",
+        },
+        {
+            question: 'Do you have a bank account? ("yes" or "no")',
+            text: "",
+        },
+        {
+            question: "How much money do you have saved?",
+            text: "",
+        },
+    ]);
+    const [outtakeQs, setOuttakeQs] = useState([
+        {
+            question: "What's you're current income",
+            text: "",
+        },
+        {
+            question: 'Do you have a bank account? ("yes" or "no")',
+            text: "",
+        },
+        {
+            question: "How much money do you have saved?",
+            text: "",
+        },
+        {
+            question: 'Do you have a job? ("yes" or "no")',
+            text: "",
+        },
+    ]);
 
     const [socialSkillsQs, setSocialSkillsQs] = useState([
         {
@@ -127,8 +157,21 @@ const Assessments = () => {
     const [lifeSkillsScore, setLifeSkillsScore] = useState(0);
     const [socialSkillsScore, setSocialSkillsScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
+    const [isIntake, setIsIntake] = useState(false);
+    const [isIntakeOuttake, setIsIntakeOuttake] = useState(false);
 
-    const PAGES = [
+    let PAGES = [
+        {
+            title: "Intake/Outtake",
+            shortName: "Intake/Outtake",
+            component: (
+                <Page
+                    questions={isIntake ? intakeQs : outtakeQs}
+                    setQuestions={isIntake ? setIntakeQs : setOuttakeQs}
+                    hasOnlyTextQs={true}
+                />
+            ),
+        },
         {
             title: "Education / Vocation",
             shortName: "Education & Vocation",
@@ -197,7 +240,7 @@ const Assessments = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch("http://localhost:3000/assessments", {
+            const response = await fetch(`${API_URL}/assessments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -226,31 +269,116 @@ const Assessments = () => {
             ];
 
             // add this assessment to current beneficiary's assessments
-
-            try {
-                const bfcResponse = await fetch(
-                    `http://localhost:3000/beneficiaries/${beneficiary._id}/assessment`,
-                    {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${window.localStorage.getItem(
-                                "auth"
-                            )}`,
-                        },
-                        body: JSON.stringify({
-                            assessments: updatedAssessments,
-                        }),
+            if (isIntakeOuttake) {
+                if (isIntake) {
+                    try {
+                        const bfcResponse = await fetch(
+                            `${API_URL}/beneficiaries/${beneficiary._id}`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${window.localStorage.getItem(
+                                        "auth"
+                                    )}`,
+                                },
+                                body: JSON.stringify({
+                                    assessments: updatedAssessments,
+                                    hasBankAccountIntake:
+                                        intakeQs[1].text.toLowerCase() ===
+                                        "yes",
+                                    englishLvlIntake: eduVocQs[7].answer,
+                                    computerSkillsIntake: eduVocQs[6].answer,
+                                    emotionalWellnessIntake: mentalHealthScore,
+                                    savingsIntake: parseInt(
+                                        intakeQs[2].text.replace(/,/g, "")
+                                    ),
+                                    incomeIntake: parseInt(
+                                        intakeQs[0].text.replace(/,/g, "")
+                                    ),
+                                }),
+                            }
+                        );
+                        navigate(-1); // to the overview page
+                    } catch (err) {
+                        console.log(err);
                     }
-                );
-                navigate(-1); // to the overview page
-            } catch (err) {
-                console.log(err);
+                } else {
+                    try {
+                        const bfcResponse = await fetch(
+                            `${API_URL}/beneficiaries/${beneficiary._id}`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${window.localStorage.getItem(
+                                        "auth"
+                                    )}`,
+                                },
+                                body: JSON.stringify({
+                                    assessments: updatedAssessments,
+                                    hasBankAccountCompletion:
+                                        outtakeQs[1].text.toLowerCase() ===
+                                        "yes",
+                                    englishLvlCompletion: eduVocQs[7].answer,
+                                    computerSkillsCompletion:
+                                        eduVocQs[6].answer,
+                                    emotionalWellnessCompletion:
+                                        mentalHealthScore,
+                                    incomeCompletion: parseInt(
+                                        outtakeQs[0].text.replace(/,/g, "")
+                                    ),
+                                    savingsCompletion: parseInt(
+                                        outtakeQs[2].text.replace(/,/g, "")
+                                    ),
+                                    hasFoundWorkCompletion:
+                                        outtakeQs[3].text.toLowerCase() ===
+                                        "yes",
+                                }),
+                            }
+                        );
+                        navigate(-1); // to the overview page
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            } else {
+                try {
+                    const bfcResponse = await fetch(
+                        `${API_URL}/beneficiaries/${beneficiary._id}/assessment`,
+                        {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${window.localStorage.getItem(
+                                    "auth"
+                                )}`,
+                            },
+                            body: JSON.stringify({
+                                assessments: updatedAssessments,
+                            }),
+                        }
+                    );
+                    navigate(-1); // to the overview page
+                } catch (err) {
+                    console.log(err);
+                }
             }
         } catch (err) {
             console.error(err?.message ? err.message : err);
         }
     };
+    useEffect(() => {
+        console.log(isIntakeOuttake);
+        if (!isIntakeOuttake && PAGES[0].title == "Intake/Outtake") {
+            // PAGES.pop(0);
+        } else if (isIntakeOuttake && PAGES[0].title != "Intake/Outtake") {
+        }
+    }, [isIntakeOuttake]);
+
+    useEffect(() => {
+        console.log(intakeQs[1].text.toLowerCase() === "yes");
+    }, [intakeQs]);
 
     return (
         <div className="assessments-container">
@@ -259,6 +387,8 @@ const Assessments = () => {
                     <PopupBfc
                         setPopup={setPopup}
                         setBeneficiary={setBeneficiary}
+                        setIntakeOuttake={setIsIntakeOuttake}
+                        setIntake={setIsIntake}
                         navigate={navigate}
                     />
                 )}

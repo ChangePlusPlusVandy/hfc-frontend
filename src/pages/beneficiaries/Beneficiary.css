@@ -4,35 +4,63 @@
     --mid-color: #d0d0d1;
 }
 
+.back {
+    position: relative;
+    top: 15px;
+    left: 15px;
+}
+
 .beneficiary-page-container {
     display: flex;
+    height: 100%;
+    box-sizing: border-box;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
-    margin: 10px;
 }
 
 .beneficiary-page-container .page-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
-    margin: 50px;
-    margin-left: 100px;
-    gap: 100px;
+    margin: auto;
+    gap: 30px;
+    width: 80%;
+    max-width: 1100px;
+    max-height: 90%;
+    /* overflow: scroll; */
 }
 
 .beneficiary-identification-info,
 .beneficiary-registration-info {
-    display: flex;
     flex-direction: column;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.beneficiary-identification-info {
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+.beneficiary-registration-info::-webkit-scrollbar {
+    display: none;
 }
 
 .beneficiary-page-container .beneficiary-registration-info {
     margin: 20px;
+    width: 70%;
+}
+
+.beneficiary-registration-info {
+    height: 100%;
+    overflow: scroll;
 }
 
 .needs-interests-sponsor-buttons {
     display: flex;
+    justify-content: stretch;
 }
 
 .needs-interests-sponsor-container input {
@@ -56,7 +84,9 @@
     cursor: pointer;
     font-size: 12pt;
     margin: 2px;
-    width: 200px;
+    min-width: 100px;
+    max-width: 200px;
+    width: 33%;
     height: 30px;
 }
 
@@ -77,6 +107,11 @@
     background-color: var(--button-color);
     border-radius: 10px;
     border-color: #888b8f;
+}
+
+.programs-workshops {
+    max-height: 240px;
+    overflow: scroll;
 }
 
 .needs-list-container {
@@ -154,7 +189,7 @@
 
 .personal-line {
     display: flex;
-    margin: 10px;
+    margin: 10px 0px;
 }
 
 .assessment-mapped-id {
@@ -245,7 +280,6 @@
 
 .button-header {
     display: flex;
-    gap: 850px;
 }
 
 .beneficiary-page-container .edit-submit-buttons {
@@ -270,6 +304,7 @@
 
 #back-arrow {
     width: fit-content;
+    min-width: 200px;
     margin-bottom: 20px;
     font-size: 12pt;
     font-weight: 400;

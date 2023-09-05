@@ -4,6 +4,8 @@ import "./styles/MarkAttendance.css";
 
 // TODO:
 const MarkAttendance = (props) => {
+    const API_URL = process.env.API_URL;
+
     const { programID } = useParams();
     const [program, setProgram] = useState({});
     const [date, setDate] = useState("");
@@ -27,17 +29,14 @@ const MarkAttendance = (props) => {
 
     const getProgramFromID = async (e) => {
         try {
-            let data = await fetch(
-                `http://localhost:3000/programs?id=${programID}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                }
-            );
+            let data = await fetch(`${API_URL}/programs?id=${programID}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
             data = await data.json();
 
             setProgram(data[0]);
@@ -85,7 +84,7 @@ const MarkAttendance = (props) => {
             element.highlightGreen = false;
             element.highlightRed = false;
         });
-        await fetch("http://localhost:3000/programs", requestOptions);
+        await fetch(`${API_URL}/programs`, requestOptions);
         setArePresent([...arePresent]);
     };
 
@@ -119,29 +118,33 @@ const MarkAttendance = (props) => {
     const markPresent = (id, e) => {
         if (!arePresent.includes(id)) {
             setArePresent([...arePresent, id]);
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+            // beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
         }
-        if (beneficiaries.find((obj) => obj._id === id).present == false) {
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
-        }
-        if (beneficiaries.find((obj) => obj._id === id).highlightRed == true) {
-            beneficiaries.find((obj) => obj._id === id).highlightRed = false;
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
-        }
+        beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+        beneficiaries.find((obj) => obj._id === id).highlightRed = false;
+        // if (beneficiaries.find((obj) => obj._id === id).present == false) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = true;
+        // }
+        // if (beneficiaries.find((obj) => obj._id === id).highlightRed == true) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightRed = false;
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // }
     };
 
     const markAbsent = (id, e) => {
         let tmpPresent = arePresent.filter((element) => {
             return element !== id;
         });
-        if (beneficiaries.find((obj) => obj._id === id).present != false) {
-            beneficiaries.find((obj) => obj._id === id).highlightRed = true;
-        }
-        if (
-            beneficiaries.find((obj) => obj._id === id).highlightGreen == true
-        ) {
-            beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
-        }
+        beneficiaries.find((obj) => obj._id === id).highlightRed = true;
+        beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // if (beneficiaries.find((obj) => obj._id === id).present != false) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightRed = true;
+        // }
+        // if (
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen == true
+        // ) {
+        //     beneficiaries.find((obj) => obj._id === id).highlightGreen = false;
+        // }
         setArePresent(tmpPresent);
     };
 
@@ -191,11 +194,10 @@ const MarkAttendance = (props) => {
                         <div
                             key={i}
                             className={
-                                item.highlightRed
-                                    ? "ben-card is-absent"
-                                    : item.highlightGreen
+                                item.highlightGreen ||
+                                (item.present && !item.highlightRed)
                                     ? "ben-card is-present"
-                                    : "ben-card"
+                                    : "ben-card is-absent"
                             }
                         >
                             <div className="tmp-photo"></div>

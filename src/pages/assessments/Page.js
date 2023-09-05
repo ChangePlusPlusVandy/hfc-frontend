@@ -1,5 +1,5 @@
 import React from "react";
-import Question from "./components/question";
+import Question from "./components/Question";
 
 const Page = ({ questions, setQuestions, hasOnlyTextQs = false }) => {
     let numTextQs = 0;

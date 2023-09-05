@@ -5,6 +5,8 @@ import SetSchedule from "./SetSchedule";
 import "./styles/Modal.css";
 
 const CreateProgramPopup = (props) => {
+    const API_URL = process.env.API_URL;
+
     const [openModal, setOpenModal] = useState(false);
 
     const [users, setUsers] = useState([]);
@@ -135,7 +137,7 @@ const CreateProgramPopup = (props) => {
         };
         // TODO: Add error handling
         // TODO: Exit modal after successful submission
-        await fetch("http://localhost:3000/programs", requestOptions);
+        await fetch(`${API_URL}/programs`, requestOptions);
         props.reloadList();
     };
 
@@ -146,7 +148,7 @@ const CreateProgramPopup = (props) => {
 
     const getUsers = async () => {
         try {
-            let data = await fetch("http://localhost:3000/users/users", {
+            let data = await fetch(`${API_URL}/users/users`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(

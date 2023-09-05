@@ -12,6 +12,7 @@ import Page3 from "./Page3";
 import ReviewPage from "./ReviewPage";
 
 const BeneficiaryRegistration = () => {
+    const API_URL = process.env.API_URL;
     const navigate = useNavigate();
 
     const [pageNum, setPageNum] = useState(0);
@@ -169,7 +170,7 @@ const BeneficiaryRegistration = () => {
 
         console.log("Attempting to save a new beneficiary...");
         console.log("New beneficiary:", newBeneficiary);
-        fetch("http://localhost:3000/beneficiaries", {
+        fetch(`${API_URL}/beneficiaries`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

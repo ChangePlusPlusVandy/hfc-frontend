@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import {
+    Page,
+    Text,
+    View,
+    Document,
+    StyleSheet,
+    BlobProvider,
+} from "@react-pdf/renderer";
 import Multiselect from "multiselect-react-dropdown";
+import FilterField from "./FilterField";
 
 import "./Beneficiaries.css";
 
@@ -38,8 +47,9 @@ const Beneficiary = ({ firstName, lastName, onClick }) => {
         </button>
     );
 };
-
 const Beneficiaries = () => {
+    const API_URL = process.env.API_URL;
+
     const [beneficiaries, setBeneficiaries] = useState([]);
     const [displayedBeneficiaries, setDisplayedBeneficiaries] = useState([]);
     const [search, setSearch] = useState("");
@@ -56,11 +66,97 @@ const Beneficiaries = () => {
     const [counseling, setCounseling] = useState(false);
     const [numInterests, setNumInterests] = useState(0);
     const navigate = useNavigate();
+
+    const styles = StyleSheet.create({
+        section: { margin: 40 },
+        filtersContainer: {
+            marginBottom: 30,
+            display: "flex",
+        },
+        singleFilter: {
+            marginBottom: 3,
+        },
+    });
+
+    const formatFilter = (item) => {
+        if (item.type.split(",")[0] == "age") {
+            return `Age: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
+        }
+        if (
+            item.type.split(",")[0] == "income" ||
+            item.type.split(",")[0] == "savings"
+        ) {
+            return `${item.type.split(",")[0]} (${item.type.split(",")[1]}): ${
+                item.bounds.split(",")[0]
+            } to ${item.bounds.split(",")[1]}`;
+        }
+        if (
+            item.type.split(",")[0] == "emotional_wellness" ||
+            item.type.split(",")[0] == "computer_skills" ||
+            item.type.split(",")[0] == "english_lvl"
+        ) {
+            let finalStr = `${item.type.split(",")[0]} (${
+                item.type.split(",")[1]
+            }): `;
+            let splitScore = item.bounds.split(",");
+            for (let i = 0; i < splitScore.length; i++) {
+                if (splitScore[i] == "true") {
+                    finalStr += i + 1 + ", ";
+                }
+            }
+            return finalStr;
+        }
+        if (item.type.split(",")[0] == "gender") {
+            if (item.bounds == "yes") return `Gender: Male`;
+            return `Gender: Female`;
+        }
+        if (item.type.split(",")[0] == "start_date") {
+            return `Start Date: ${item.bounds.split(",")[0]} to ${
+                item.bounds.split(",")[1]
+            }`;
+        }
+        if (item.type.split(",")[0] == "bank_account") {
+            return `Has a Bank Account (${item.type.split(",")[1]}): ${
+                item.bounds
+            }`;
+        }
+        if (item.type.split(",")[0] == "found_work") {
+            return `Has Found Work: ${item.bounds}`;
+        }
+    };
+    const BeneficiariesDocument = () => (
+        <Document>
+            <Page size="A4">
+                <View style={styles.section}>
+                    <View style={styles.filtersContainer}>
+                        <Text style={{ marginRight: 40 }}>Filters:</Text>
+                        {filters.map((item, i) => (
+                            <View key={i} style={styles.singleFilter}>
+                                <Text key={i} style={{ marginLeft: 10 }}>
+                                    {formatFilter(item)}
+                                </Text>
+                            </View>
+                        ))}
+                    </View>
+                    {displayedBeneficiaries.map((item, i) => (
+                        <Text key={i}>
+                            {i + 1}. {item.firstName} {item.lastName}
+                        </Text>
+                    ))}
+                    <Text style={{ marginTop: 30 }}>
+                        Count: {displayedBeneficiaries.length}
+                    </Text>
+                </View>
+            </Page>
+        </Document>
+    );
+
     // TODO: make these an array of states check if the interests intersect with the desired interests
 
     const deleteBfc = (id) => {
-        console.log(id);
-        fetch(`http://localhost:3000/beneficiaries?id=${id}`, {
+        fetch(`${API_URL}/beneficiaries?id=${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -68,13 +164,10 @@ const Beneficiaries = () => {
             },
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries");
+                let data = await fetch(`${API_URL}/beneficiaries`);
                 data = await data.json();
                 setBeneficiaries(data);
-                console.log("beneficiaries: " + beneficiaries);
-            } catch (error) {
-                console.error(error);
-            }
+            } catch (error) {}
         });
     };
 
@@ -164,9 +257,8 @@ const Beneficiaries = () => {
 
     const handleRemoveInterest = (selectedValues, selectedItem) => {
         setNumInterests((prev) => prev - 1);
-        console.log("numInterests in the handle: " + numInterests);
+
         if (numInterests === 0) {
-            console.log("this is working yay!");
             setInterestsFilter(false);
         }
         switch (selectedItem.id) {
@@ -324,72 +416,302 @@ const Beneficiaries = () => {
             }
         }
     };
-
+    const getBeneficiaries = async () => {
+        try {
+            let data = await fetch(`${API_URL}/beneficiaries`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${window.localStorage.getItem(
+                        "auth"
+                    )}`,
+                },
+            });
+            data = await data.json();
+            let dataCopy = [...data];
+            dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));
+            setBeneficiaries(dataCopy);
+            setDisplayedBeneficiaries(dataCopy);
+            console.log("beneficiaries: " + dataCopy);
+            console.log("length: " + dataCopy.length);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
-        const getBeneficiaries = async () => {
-            try {
-                let data = await fetch("http://localhost:3000/beneficiaries", {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${window.localStorage.getItem(
-                            "auth"
-                        )}`,
-                    },
-                });
-                data = await data.json();
-                let dataCopy = [...data];
-                dataCopy.sort((a, b) => a.firstName.localeCompare(b.firstName));
-                console.log("data copy:", dataCopy);
-                setBeneficiaries(dataCopy);
-                setDisplayedBeneficiaries(dataCopy);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        // eventualy we should only call this if user has correct auth/permissions
         getBeneficiaries();
+
+        // console.log("Beneficiaries: " + beneficiaries)
+        // eventualy we should only call this if user has correct auth/permissions
     }, []);
 
     // TODO: change this with updated state
-    useEffect(() => {
-        console.log("interest filter: " + interestsFilter);
-        console.log("numInterests" + numInterests);
-        console.log("computers: " + computers);
-        if (numInterests === 0) {
-            setInterestsFilter(false);
-        }
-        let beneficiariesCopy = beneficiaries.filter(
-            (beneficiary) =>
-                (beneficiary.archived === archivedFilter ||
-                    beneficiary.archived !== activeFilter) &&
-                (!interestsFilter ||
-                    (computers &&
-                        beneficiary.interests.includes("Computers")) ||
-                    (spokenEnglish &&
-                        beneficiary.interests.includes("English")) ||
-                    (arts && beneficiary.interests.includes("Arts")) ||
-                    (literacy && beneficiary.interests.includes("Literacy")) ||
-                    (bengali && beneficiary.interests.includes("Bengali")) ||
-                    (bakery && beneficiary.interests.includes("Bakery")) ||
-                    (counseling &&
-                        beneficiary.interests.includes("Counseling")) ||
-                    (literacy && beneficiary.interests.includes("Literacy")) ||
-                    (math && beneficiary.interests.includes("Math")))
+    // useEffect(() => {
+    //     if (numInterests === 0) {
+    //         setInterestsFilter(false);
+    //     }
+    //     let beneficiariesCopy = beneficiaries.filter(
+    //         (beneficiary) =>
+    //             (beneficiary.archived === archivedFilter ||
+    //                 beneficiary.archived !== activeFilter) &&
+    //             (!interestsFilter ||
+    //                 (computers &&
+    //                     beneficiary.interests.includes("Computers")) ||
+    //                 (spokenEnglish &&
+    //                     beneficiary.interests.includes("English")) ||
+    //                 (arts && beneficiary.interests.includes("Arts")) ||
+    //                 (literacy && beneficiary.interests.includes("Literacy")) ||
+    //                 (bengali && beneficiary.interests.includes("Bengali")) ||
+    //                 (bakery && beneficiary.interests.includes("Bakery")) ||
+    //                 (counseling &&
+    //                     beneficiary.interests.includes("Counseling")) ||
+    //                 (literacy && beneficiary.interests.includes("Literacy")) ||
+    //                 (math && beneficiary.interests.includes("Math")))
+    //     );
+    //     setDisplayedBeneficiaries(beneficiariesCopy);
+    // }, [
+    //     beneficiaries,
+    //     activeFilter,
+    //     archivedFilter,
+    //     numInterests,
+    //     interestsFilter,
+    // ]);
+
+    const [reportIsOpen, setReportIsOpen] = useState(false);
+    const [filters, setFilters] = useState([]);
+    const [filterCounter, setFilterCounter] = useState(0);
+
+    const toggleReportFiltering = () => {
+        setReportIsOpen((curr) => !curr);
+    };
+
+    // useEffect(() => {
+    //     getBeneficiaries()
+    // }, [reportIsOpen])
+
+    const handleFilterChange = (props) => {
+        setFilters((prevFilters) => {
+            let tmp = prevFilters.map((filter) => ({ ...filter }));
+            for (let i = 0; i < tmp.length; ++i) {
+                if (tmp[i].id === props.id) {
+                    tmp[i].type = props.type;
+                    tmp[i].value = props.filter;
+                    tmp[i].bounds = props.value;
+                    break;
+                }
+            }
+            return tmp;
+        });
+    };
+
+    const handleAddFilter = () => {
+        let newFilter = (
+            <FilterField
+                id={filterCounter}
+                filters={filters}
+                setValue={handleFilterChange}
+            />
         );
+        let newFilterObject = {
+            filter: newFilter,
+            id: filterCounter,
+            type: "",
+            value: "",
+            bounds: "",
+        };
+        setFilterCounter((curr) => curr + 1);
+        setFilters([...filters, newFilterObject]);
+    };
+
+    const handleDeleteFilter = (e) => {
+        console.log(e);
+    };
+    const handleClearFilters = () => {
+        setFilters([]);
+        getBeneficiaries();
+    };
+
+    useEffect(() => {
+        console.log(displayedBeneficiaries);
+    }, [displayedBeneficiaries]);
+    useEffect(() => {
+        console.log("filters: ");
+        console.log(filters);
+    }, [filters]);
+
+    const printFilters = () => {
+        let res = [];
+        let beneficiariesCopy = beneficiaries.map((filter) => ({ ...filter }));
+        for (let i = 0; i < filters.length; i++) {
+            if (filters[i].value == "min_max") {
+                let time = filters[i].type.split(",")[1];
+                let min_val = Number(filters[i].bounds.split(",")[0]);
+                let max_val = Number(filters[i].bounds.split(",")[1]);
+                //console.log(min_val+ " "+max_val)
+                if (filters[i].type.split(",")[0] == "age") {
+                    beneficiariesCopy = beneficiariesCopy.filter(
+                        (item) => item.age >= min_val && item.age <= max_val
+                    );
+                } else if (filters[i].type.split(",")[0] == "income") {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.incomeIntake >= min_val &&
+                                item.incomeIntake <= max_val
+                        );
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.incomeCompletion >= min_val &&
+                                item.incomeCompletion <= max_val
+                        );
+                    }
+                } else if (filters[i].type.split(",")[0] == "savings") {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.savingsIntake >= min_val &&
+                                item.savingsIntake <= max_val
+                        );
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.savingsCompletion >= min_val &&
+                                item.savingsCompletion <= max_val
+                        );
+                    }
+                }
+            } else if (filters[i].value == "score") {
+                let validScores = filters[i].bounds.split(",").map((curr) => {
+                    if (curr == "false") return false;
+                    return true;
+                });
+                if (filters[i].type.split(",")[0] == "english_lvl") {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[item.englishLvlIntake - 1] == true
+                        );
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[item.englishLvlCompletion - 1] ==
+                                true
+                        );
+                    }
+                } else if (filters[i].type.split(",")[0] == "computer_skills") {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[item.computerSkillsIntake - 1] ==
+                                true
+                        );
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[
+                                    item.computerSkillsCompletion - 1
+                                ] == true
+                        );
+                    }
+                } else if (
+                    filters[i].type.split(",")[0] == "emotional_wellness"
+                ) {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[item.emotionalWellnessIntake - 1] ==
+                                true
+                        );
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                validScores[
+                                    item.emotionalWellnessCompletion - 1
+                                ] == true
+                        );
+                    }
+                }
+            } else if (filters[i].value == "yes_no") {
+                if (filters[i].type.split(",")[0] == "found_work") {
+                    if (filters[i].bounds == "yes") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.hasFoundWorkCompletion == true
+                        );
+                    } else {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.hasFoundWorkCompletion == false
+                        );
+                    }
+                } else if (filters[i].type.split(",")[0] == "bank_account") {
+                    if (filters[i].type.split(",")[1] == "intake") {
+                        if (filters[i].bounds == "yes") {
+                            beneficiariesCopy = beneficiariesCopy.filter(
+                                (item) => item.hasBankAccountIntake == true
+                            );
+                        } else {
+                            beneficiariesCopy = beneficiariesCopy.filter(
+                                (item) => item.hasBankAccountIntake == false
+                            );
+                        }
+                    } else if (filters[i].type.split(",")[1] == "completion") {
+                        if (filters[i].bounds == "yes") {
+                            beneficiariesCopy = beneficiariesCopy.filter(
+                                (item) => item.hasBankAccountCompletion == true
+                            );
+                        } else {
+                            beneficiariesCopy = beneficiariesCopy.filter(
+                                (item) => item.hasBankAccountCompletion == false
+                            );
+                        }
+                    }
+                } else if (filters[i].type.split(",")[0] == "gender") {
+                    if (filters[i].bounds == "yes") {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.gender == "male"
+                        );
+                    } else {
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) => item.gender == "female"
+                        );
+                    }
+                }
+            } else if (filters[i].value == "date") {
+                if (filters[i].type.split(",")[0] == "start_date") {
+                    if (
+                        filters[i].bounds.split(",")[0].length > 0 &&
+                        filters[i].bounds.split(",")[1].length > 0
+                    ) {
+                        let lowerBound = filters[i].bounds.split(",")[0];
+                        let upperBound = filters[i].bounds.split(",")[1];
+                        beneficiariesCopy = beneficiariesCopy.filter(
+                            (item) =>
+                                item.joinDate.split("T")[0] <= upperBound &&
+                                item.joinDate.split("T")[0] >= lowerBound
+                        );
+                    }
+                }
+            }
+
+            console.log("onefilt applied: ");
+            console.log(beneficiariesCopy);
+            res.push(
+                filters[i].type +
+                    " " +
+                    filters[i].value +
+                    " " +
+                    filters[i].bounds
+            );
+        }
         setDisplayedBeneficiaries(beneficiariesCopy);
-        console.log(beneficiariesCopy);
-    }, [
-        beneficiaries,
-        activeFilter,
-        archivedFilter,
-        numInterests,
-        interestsFilter,
-    ]);
+        // console.log(displayedBeneficiaries)
+        // console.log(res)
+    };
 
     return (
         <div className="beneficiaries-page-container">
             <div className="program-list-view-container">
                 <h1>Beneficiary List</h1>
+                <div className="ksdsdf"></div>
                 <div className="program-sort-options-container">
                     <div className="sort-options">
                         <div className="dropdown">
@@ -423,7 +745,7 @@ const Beneficiaries = () => {
                                                 <input
                                                     type="checkbox"
                                                     onChange={handleClickActive}
-                                                    defaultChecked
+                                                    // defaultChecked
                                                 />
                                                 <label> Active </label>
                                             </div>
@@ -644,6 +966,14 @@ const Beneficiaries = () => {
                             </div>
                         </div>
                     </div>
+                    {/* TMP FILTERBUTTON */}
+                    <button
+                        onClick={toggleReportFiltering}
+                        className="advanced-filter-button-extend"
+                    >
+                        {" "}
+                        Advanced Filters
+                    </button>
                     <div className="search-and-create">
                         <input
                             type="text"
@@ -656,6 +986,59 @@ const Beneficiaries = () => {
                                 Create Beneficiary
                             </button>
                         </NavLink>
+                    </div>
+                </div>
+                <div
+                    className={`report-filtering-container ${
+                        reportIsOpen ? "active" : ""
+                    }`}
+                >
+                    <div className="report-filter-inner">
+                        {/* <h2>Search Filters</h2> */}
+                        {filters.map((item, i) => (
+                            <div className="single-filter" key={i}>
+                                {item.filter}
+                                {/* <button
+                                    className="delete-filter"
+                                    onClick={() => handleDeleteFilter(item)}
+                                >
+                                    Delete
+                                </button> */}
+                            </div>
+                        ))}
+                        <div className="filter-button-container">
+                            <button
+                                className="add-filter-button"
+                                onClick={handleAddFilter}
+                            >
+                                Add Filter
+                            </button>
+                            <div className="print-clear-buttons">
+                                <button
+                                    className="print-clear"
+                                    onClick={handleClearFilters}
+                                >
+                                    Clear Filters
+                                </button>
+                                <button
+                                    className="print-clear"
+                                    onClick={printFilters}
+                                >
+                                    Enable Filters
+                                </button>
+                            </div>
+                        </div>
+                        <div className="blob-container">
+                            <BlobProvider document={<BeneficiariesDocument />}>
+                                {({ blob, url, loading, error }) => {
+                                    return (
+                                        <a href={url} target="_blank">
+                                            Download PDF
+                                        </a>
+                                    );
+                                }}
+                            </BlobProvider>
+                        </div>
                     </div>
                 </div>
 

@@ -3,6 +3,7 @@ import Popup from "./Popup";
 import { Link } from "react-router-dom";
 
 const SingleBfc = (item) => {
+    const API_URL = process.env.API_URL;
     const [beneficiary, setBeneficiary] = useState([]);
 
     const [firstName, setFirstName] = useState(item.firstName);
@@ -60,7 +61,7 @@ const SingleBfc = (item) => {
         const id = item.mongoKey.toString();
         console.log(`id: ${id}`);
         // update backend
-        fetch(`http://localhost:3000/beneficiaries`, {
+        fetch(`${API_URL}/beneficiaries`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const SingleBfc = (item) => {
             }),
         }).then(async () => {
             try {
-                let data = await fetch("http://localhost:3000/beneficiaries", {
+                let data = await fetch(`${API_URL}/beneficiaries`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${window.localStorage.getItem(

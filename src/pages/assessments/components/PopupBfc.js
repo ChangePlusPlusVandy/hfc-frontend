@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Popup.css";
 
-const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
+const PopupBfc = ({
+    setPopup,
+    setBeneficiary,
+    navigate,
+    setIntakeOuttake,
+    setIntake,
+}) => {
+    const API_URL = process.env.API_URL;
     const [idError, setIdError] = useState(false);
     const [showErrorText, setShowErrorText] = useState(false);
     const [allBfcIds, setAllBfcIds] = useState([]);
     const [userInput, setUserInput] = useState("");
+    const [toggleIntakeOuttake, setToggleIntakeOuttake] = useState(false);
 
     const handleBegin = () => {
         // whenever the user clicks on the button, reset the error
@@ -26,7 +34,7 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
     const getBeneficiary = async (inputId) => {
         try {
             let data = await fetch(
-                `http://localhost:3000/beneficiaries/?idNum=${inputId}`,
+                `${API_URL}/beneficiaries/?idNum=${inputId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -51,7 +59,7 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
 
     const getAllBeneficiaries = async () => {
         try {
-            let data = await fetch(`http://localhost:3000/beneficiaries`, {
+            let data = await fetch(`${API_URL}/beneficiaries`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${window.localStorage.getItem(
@@ -71,6 +79,19 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
         getAllBeneficiaries();
     }, []);
 
+    const handleToggleInOut = () => {
+        setIntakeOuttake(!toggleIntakeOuttake);
+        setToggleIntakeOuttake((curr) => !curr);
+    };
+
+    const handleChangeInOutVal = (e) => {
+        console.log(e.target.value);
+        if (e.target.value == "in") {
+            setIntake(true);
+        } else if (e.target.value == "out") {
+            setIntake(false);
+        }
+    };
     return (
         <div className="popup-container">
             <div className="popup-content">
@@ -97,6 +118,36 @@ const PopupBfc = ({ setPopup, setBeneficiary, navigate }) => {
                             </p>
                         )}
                     </div>
+                </div>
+                <div>
+                    <button onClick={handleToggleInOut}>
+                        {" "}
+                        Click this if this is a Intake or Outtake Assessment{" "}
+                    </button>
+                    <form
+                        style={{
+                            visibility: toggleIntakeOuttake
+                                ? "visible"
+                                : "hidden",
+                        }}
+                        onChange={handleChangeInOutVal}
+                    >
+                        <input
+                            type="radio"
+                            name="radio"
+                            id="intake"
+                            value="in"
+                        />
+                        <label>Intake</label>
+
+                        <input
+                            type="radio"
+                            name="radio"
+                            id="outtake"
+                            value="out"
+                        />
+                        <label>Outtake</label>
+                    </form>
                 </div>
 
                 <button className="begin-btn" onClick={handleBegin}>

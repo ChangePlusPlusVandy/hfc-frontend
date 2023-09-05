@@ -23,6 +23,117 @@
     border-radius: 12px;
 }
 
+.beneficiaries-page-container .report-filtering-container {
+    display: none;
+}
+
+.beneficiaries-page-container .report-filtering-container.active {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(243, 243, 243);
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--even-midder);
+}
+
+.filter-button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.advanced-filter-button-extend {
+    border: none;
+    background-color: var(--button-color);
+    padding: 7px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.filter-download-filters-container {
+    margin-bottom: 30px;
+    background-color: #e4a68e;
+}
+
+.print-clear-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    margin: auto;
+}
+
+.add-filter-button {
+    width: 50%;
+    margin: auto;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: var(--even-midder);
+    margin-bottom: 0.2em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
+
+.add-filter-button:hover,
+.print-clear:hover {
+    border: 2px solid #e4a68e;
+    cursor: pointer;
+    color: #e4a68e;
+    box-sizing: border-box;
+}
+
+.print-clear {
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: var(--even-midder);
+    width: 48%;
+    margin-bottom: 1em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
+}
+
+.report-filter-inner {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.report-filter-inner h2 {
+    margin: 0 0 0.2em 0;
+    padding: 0;
+}
+
+.report-filter-inner .single-filter {
+    display: flex;
+    margin: 7px auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.delete-filter {
+    margin-left: 1em;
+    border: none;
+    background-color: var(--even-midder);
+    padding: 0 10px;
+    border-radius: 12px;
+}
+
+.blob-container {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    text-decoration: underline;
+}
+
+.blob-container:hover {
+    cursor: pointer;
+}
+
 .beneficiaries-page-container .sort-dropdown {
     background: transparent no-repeat 95% center;
     background-color: rgb(243, 243, 243);

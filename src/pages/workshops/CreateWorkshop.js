@@ -5,6 +5,8 @@ import Select from "react-select";
 import "./Workshops.css";
 
 export const WorkshopCreateForm = (props) => {
+    const API_URL = process.env.API_URL;
+
     const [message, setMessage] = useState("");
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
@@ -16,7 +18,7 @@ export const WorkshopCreateForm = (props) => {
         props.onClose();
     };
     useEffect(() => {
-        fetch("http://localhost:3000/users/users", {
+        fetch(`${API_URL}/users/users`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${window.localStorage.getItem("auth")}`,
@@ -80,7 +82,7 @@ export const WorkshopCreateForm = (props) => {
                     body: JSON.stringify(newWorkshopData),
                 };
                 console.log(requestOptions);
-                fetch("http://localhost:3000/workshops", requestOptions)
+                fetch(`${API_URL}/workshops`, requestOptions)
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.title) {

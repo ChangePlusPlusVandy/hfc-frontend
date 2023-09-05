@@ -1,5 +1,7 @@
 .user-page-container {
     padding: 10px 50px 30px 50px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .query-container {
@@ -49,11 +51,11 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
+    align-content: start;
     flex-wrap: wrap;
-    height: 77vh;
+    height: 77%;
     border-radius: 12px;
-    padding: 0.25rem;
+    padding: 0.25em;
     overflow: auto;
 }
 
@@ -75,15 +77,15 @@
 .user-container {
     background-color: rgb(224, 224, 224);
     display: flex;
+    width: 22%;
+    max-width: 220px;
+    min-width: 180px;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 225px;
-    width: 200px;
     border-radius: 12px;
-    margin-top: 1rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin: 1rem 0.5rem 0rem 0.5rem;
     cursor: pointer;
 }
 
