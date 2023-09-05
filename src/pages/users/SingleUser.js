@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase";
 import { onAuthStateChanged, updatePassword } from "firebase/auth";
-import { IoIosArrowBack } from "react-icons/Io";
+import { IoIosArrowBack } from "react-icons/io";
 import DefaultUser from "../../../src/assets/images/default-user.png";
 import ChangePasswordModal from "./ChangePasswordModal";
 import "./SingleUser.css";
