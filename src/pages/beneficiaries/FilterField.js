@@ -392,7 +392,7 @@ export default FilterField;
 //             setTypeValue(props.filters[i].type);
 //             setFilterValue(props.filters[i].value);
 //             break;
-// 
+//
 //         }
 //     }
 // }, [])
